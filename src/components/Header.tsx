@@ -6,20 +6,6 @@ export default function Header() {
           <div className="flex-shrink-0">
             <span className="text-xl font-bold text-gray-900">Screen Pro</span>
           </div>
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-600 hover:text-gray-900 transition">
-              Features
-            </a>
-            <a href="#demo" className="text-gray-600 hover:text-gray-900 transition">
-              Demo
-            </a>
-            <a href="#how-it-works" className="text-gray-600 hover:text-gray-900 transition">
-              How It Works
-            </a>
-            <a href="#faq" className="text-gray-600 hover:text-gray-900 transition">
-              FAQ
-            </a>
-          </div>
           <div>
             <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 hover:scale-105 transition-all duration-200 shadow-lg shadow-blue-600/25">
               Download Free
