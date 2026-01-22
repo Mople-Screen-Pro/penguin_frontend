@@ -1,8 +1,10 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Features from './components/Features'
-import Demo from './components/Demo'
 import HowItWorks from './components/HowItWorks'
+import Demo from './components/Demo'
+import Testimonials from './components/Testimonials'
+import CTA from './components/CTA'
 import FAQ from './components/FAQ'
 import Footer from './components/Footer'
 
@@ -13,8 +15,10 @@ function App() {
       <main>
         <Hero />
         <Features />
-        <Demo />
         <HowItWorks />
+        <Demo />
+        <Testimonials />
+        <CTA />
         <FAQ />
       </main>
       <Footer />
