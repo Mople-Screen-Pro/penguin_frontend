@@ -2,18 +2,12 @@ const footerLinks = {
   product: [
     { name: 'Features', href: '#features' },
     { name: 'How It Works', href: '#how-it-works' },
-    { name: 'Download', href: '#download' },
+    { name: 'Demo', href: '#demo' },
     { name: 'FAQ', href: '#faq' },
   ],
-  company: [
-    { name: 'About', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'Careers', href: '#' },
-    { name: 'Contact', href: 'mailto:support@screenpro.app' },
-  ],
-  legal: [
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Terms of Service', href: '#' },
+  resources: [
+    { name: 'Download', href: '#download' },
+    { name: 'Contact', href: 'mailto:jwjygpt0507@gmail.com' },
   ],
 }
 
@@ -24,19 +18,22 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
-            <a href="#" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-500 flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-              </div>
+          <div className="col-span-2">
+            <a href="#" className="flex items-center gap-3 mb-4">
+              <img src="/logo.png" alt="Screen Pro" className="w-10 h-10 rounded-xl" />
               <span className="text-xl font-bold text-white">Screen Pro</span>
             </a>
-            <p className="text-sm leading-relaxed mb-6">
+            <p className="text-sm leading-relaxed mb-6 max-w-xs">
               Professional screen recording with automatic cursor zoom.
-              Simple and powerful.
+              Make tutorials that stand out.
             </p>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-green-400">Available Now</span>
+            </div>
           </div>
 
           {/* Product links */}
@@ -53,29 +50,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Company links */}
+          {/* Resources */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Company</h3>
+            <h3 className="text-white font-semibold mb-4">Resources</h3>
             <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
+              {footerLinks.resources.map((link) => (
                 <li key={link.name}>
-                  <span className="text-slate-600 cursor-not-allowed">
+                  <a href={link.href} className="hover:text-white transition-colors">
                     {link.name}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal links */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Legal</h3>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <span className="text-slate-600 cursor-not-allowed">
-                    {link.name}
-                  </span>
+                  </a>
                 </li>
               ))}
             </ul>

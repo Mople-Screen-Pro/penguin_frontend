@@ -23,9 +23,9 @@ const testimonials = [
 ]
 
 const colorVariants = {
-  sky: 'from-sky-400 to-sky-500',
-  indigo: 'from-indigo-400 to-indigo-500',
-  violet: 'from-violet-400 to-violet-500',
+  sky: 'from-violet-400 to-violet-500',
+  indigo: 'from-purple-400 to-purple-500',
+  violet: 'from-fuchsia-400 to-fuchsia-500',
 }
 
 export default function Testimonials() {

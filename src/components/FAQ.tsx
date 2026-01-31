@@ -3,20 +3,28 @@ import { analytics } from '../lib/analytics'
 
 const faqs = [
   {
-    question: 'Which operating systems are supported?',
-    answer: 'Screen Pro is currently available for macOS 15.0 (Sequoia) and later. We are actively working on a Windows version, which will be released in the near future.',
+    question: 'What makes Screen Pro different?',
+    answer: "Screen Pro's auto cursor zoom feature automatically follows your mouse and creates professional zoom effects in real-time. Unlike other screen recorders, you don't need to manually edit zoom points - it just works. This saves hours of post-production time.",
+  },
+  {
+    question: 'Do I need to create an account?',
+    answer: 'No account required! Simply download Screen Pro and start recording immediately. We believe in privacy-first software - no sign-ups, no data collection, just powerful screen recording.',
   },
   {
     question: 'How does the auto cursor zoom work?',
-    answer: "Screen Pro intelligently tracks your mouse cursor movements during recording. When your cursor moves to a new area, the app automatically creates a smooth zoom transition to that region, highlighting exactly what you're working on. This happens in real-time and requires no manual intervention.",
+    answer: "Screen Pro intelligently tracks your mouse cursor movements during recording. When your cursor moves to a new area, the app automatically creates a smooth zoom transition to that region, highlighting exactly what you're demonstrating. This happens in real-time and requires no manual intervention.",
+  },
+  {
+    question: 'Which operating systems are supported?',
+    answer: 'Screen Pro is currently available for macOS 15.0 (Sequoia) and later. We are actively working on a Windows version, which will be released in the near future.',
   },
   {
     question: 'Can I adjust zoom levels after recording?',
     answer: "Absolutely! Our zoom editing feature allows you to fine-tune every zoom point after recording. You can adjust the zoom intensity, change timing, add new zoom points, or remove unwanted ones. You have complete control over the final result.",
   },
   {
-    question: 'Do I need to create an account?',
-    answer: 'No account required! Simply download Screen Pro and start recording immediately. We respect your privacy and keep things simple.',
+    question: 'What video formats can I export to?',
+    answer: 'Screen Pro exports to MP4 format, which is universally compatible with all video platforms including YouTube, Vimeo, social media, and any video editing software. We chose MP4 for its excellent balance of quality and file size.',
   },
 ]
 
@@ -31,19 +39,22 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" className="section-padding bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-20 bg-slate-50 relative">
+      {/* Background */}
+      <div className="absolute inset-0 bg-dots opacity-30" />
+
+      <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-sm font-medium mb-4">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-slate-600 text-sm font-medium mb-4 shadow-sm">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             FAQ
           </div>
-          <h2 className="heading-lg font-bold text-slate-900 mb-4">
-            Frequently asked
-            <span className="gradient-text"> questions</span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+            Questions?
+            <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent"> We've got answers</span>
           </h2>
           <p className="text-lg text-slate-600">
             Everything you need to know about Screen Pro.
@@ -51,14 +62,14 @@ export default function FAQ() {
         </div>
 
         {/* FAQ items */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className={`rounded-2xl border transition-all duration-300 ${
+              className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                 openIndex === index
-                  ? 'border-sky-200 bg-sky-50/50 shadow-lg shadow-sky-100/50'
-                  : 'border-slate-200 bg-white hover:border-slate-300'
+                  ? 'border-violet-200 bg-white shadow-lg shadow-violet-100/50'
+                  : 'border-slate-200 bg-white/80 hover:bg-white hover:border-slate-300'
               }`}
             >
               <button
@@ -66,13 +77,13 @@ export default function FAQ() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center gap-4"
               >
                 <span className={`font-semibold transition-colors ${
-                  openIndex === index ? 'text-sky-900' : 'text-slate-900'
+                  openIndex === index ? 'text-violet-900' : 'text-slate-900'
                 }`}>
                   {faq.question}
                 </span>
                 <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                   openIndex === index
-                    ? 'bg-sky-500 text-white rotate-180'
+                    ? 'bg-violet-500 text-white rotate-180'
                     : 'bg-slate-100 text-slate-500'
                 }`}>
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -91,26 +102,6 @@ export default function FAQ() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Contact CTA */}
-        <div className="mt-12 text-center p-8 rounded-2xl bg-slate-50 border border-slate-100">
-          <h3 className="text-lg font-semibold text-slate-900 mb-2">
-            Still have questions?
-          </h3>
-          <p className="text-slate-600 mb-4">
-            Can't find the answer you're looking for? We're here to help.
-          </p>
-          <a
-            href="mailto:jwjygpt0507@gmail.com"
-            onClick={() => analytics.contactClick()}
-            className="inline-flex items-center gap-2 text-sky-600 font-medium hover:text-sky-700 transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            Contact Support
-          </a>
         </div>
       </div>
     </section>

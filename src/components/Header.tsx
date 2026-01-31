@@ -33,11 +33,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-sky-500/25 group-hover:shadow-sky-500/40 transition-shadow">
-              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-            </div>
+            <img src="/logo.png" alt="Screen Pro" className="w-9 h-9 rounded-xl shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition-shadow" />
             <span className="text-xl font-bold text-slate-900">Screen Pro</span>
           </a>
 
@@ -51,7 +47,7 @@ export default function Header() {
                 className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-500 group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-500 group-hover:w-full transition-all duration-300" />
               </a>
             ))}
           </div>
@@ -61,7 +57,7 @@ export default function Header() {
             <a
               href={DOWNLOAD_URL}
               onClick={() => analytics.downloadClick('header')}
-              className="hidden sm:inline-flex btn-primary text-sm"
+              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40"
             >
               Download
             </a>
@@ -108,7 +104,7 @@ export default function Header() {
                   setMobileMenuOpen(false)
                   analytics.downloadClick('mobile_menu')
                 }}
-                className="mx-4 mt-2 btn-primary text-center text-sm"
+                className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-white text-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-violet-500/25"
               >
                 Download
               </a>
