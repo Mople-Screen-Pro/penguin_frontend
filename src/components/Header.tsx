@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react'
 import { analytics } from '../lib/analytics'
 
+const DOWNLOAD_URL = 'https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download'
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [downloading, setDownloading] = useState(false)
-
-  const handleDownload = (location: 'header' | 'mobile_menu') => {
-    analytics.downloadClick(location)
-    setDownloading(true)
-    setTimeout(() => setDownloading(false), 2000)
-  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,12 +58,13 @@ export default function Header() {
 
           {/* CTA Button */}
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => handleDownload('header')}
+            <a
+              href={DOWNLOAD_URL}
+              onClick={() => analytics.downloadClick('header')}
               className="hidden sm:inline-flex btn-primary text-sm"
             >
-              {downloading ? 'Coming Soon!' : 'Download'}
-            </button>
+              Download
+            </a>
 
             {/* Mobile menu button */}
             <button
@@ -106,15 +102,16 @@ export default function Header() {
                   {link.name}
                 </a>
               ))}
-              <button
+              <a
+                href={DOWNLOAD_URL}
                 onClick={() => {
                   setMobileMenuOpen(false)
-                  handleDownload('mobile_menu')
+                  analytics.downloadClick('mobile_menu')
                 }}
                 className="mx-4 mt-2 btn-primary text-center text-sm"
               >
-                {downloading ? 'Coming Soon!' : 'Download'}
-              </button>
+                Download
+              </a>
             </div>
           </div>
         )}
