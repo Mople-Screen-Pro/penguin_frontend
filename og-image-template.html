@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1200px;
+      height: 630px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0ea5e9 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      padding: 60px;
+    }
+    .logo {
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 24px;
+      margin: 0 auto 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .logo img {
+      width: 80px;
+      height: 80px;
+    }
+    .logo-text {
+      font-size: 48px;
+      font-weight: 800;
+    }
+    h1 {
+      font-size: 72px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .tagline {
+      font-size: 32px;
+      font-weight: 500;
+      opacity: 0.95;
+      max-width: 800px;
+      line-height: 1.4;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 40px;
+      backdrop-filter: blur(10px);
+    }
+    .cursor-icon {
+      position: absolute;
+      bottom: 80px;
+      right: 120px;
+      font-size: 80px;
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <span class="logo-text">SP</span>
+    </div>
+    <h1>Screen Pro</h1>
+    <p class="tagline">Professional Screen Recording<br>with Auto Cursor Zoom</p>
+    <span class="badge">Free for macOS</span>
+  </div>
+  <div class="cursor-icon">🎯</div>
+</body>
+</html>

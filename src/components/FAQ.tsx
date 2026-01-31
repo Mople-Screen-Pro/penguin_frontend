@@ -15,10 +15,6 @@ const faqs = [
     answer: "Absolutely! Our zoom editing feature allows you to fine-tune every zoom point after recording. You can adjust the zoom intensity, change timing, add new zoom points, or remove unwanted ones. You have complete control over the final result.",
   },
   {
-    question: 'What video formats can I export to?',
-    answer: 'Screen Pro supports exporting to popular formats including MP4 (H.264), WebM, and MOV. You can choose the resolution and quality settings that best fit your needs, whether for web sharing, presentations, or high-quality archives.',
-  },
-  {
     question: 'Do I need to create an account?',
     answer: 'No account required! Simply download Screen Pro and start recording immediately. We respect your privacy and keep things simple.',
   },

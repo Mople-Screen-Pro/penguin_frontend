@@ -1,0 +1,6 @@
+# robots.txt for Screen Pro
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.sc-pro.net/sitemap.xml
