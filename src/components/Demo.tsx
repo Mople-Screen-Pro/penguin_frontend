@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { analytics } from '../lib/analytics'
 
 type AnimationPhase = 'move' | 'click' | 'zoom'
 
@@ -293,7 +294,10 @@ export default function Demo() {
                     <span>0:{String(Math.floor(progress / 100 * 18)).padStart(2, '0')} / 0:18</span>
                     <div className="flex items-center gap-4">
                       <button
-                        onClick={() => setIsPlaying(!isPlaying)}
+                        onClick={() => {
+                          analytics.demoInteract(isPlaying ? 'pause' : 'play')
+                          setIsPlaying(!isPlaying)
+                        }}
                         className="hover:text-white transition-colors"
                       >
                         {isPlaying ? (

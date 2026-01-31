@@ -109,6 +109,21 @@ body {
   }
 }
 
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s var(--ease-out-expo) forwards;
+}
+
 @keyframes cursor-zoom {
   0%, 100% {
     transform: scale(1);
@@ -235,31 +250,6 @@ body {
   overflow: hidden;
 }
 
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn-primary:hover::before {
-  opacity: 1;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.5);
-}
-
-.btn-primary span {
-  position: relative;
-  z-index: 1;
-}
 
 .btn-secondary {
   background: white;

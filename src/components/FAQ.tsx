@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { analytics } from '../lib/analytics'
 
 const faqs = [
   {
@@ -27,6 +28,9 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const toggleFAQ = (index: number) => {
+    if (openIndex !== index) {
+      analytics.faqOpen(faqs[index].question)
+    }
     setOpenIndex(openIndex === index ? null : index)
   }
 
@@ -103,6 +107,7 @@ export default function FAQ() {
           </p>
           <a
             href="mailto:jwjygpt0507@gmail.com"
+            onClick={() => analytics.contactClick()}
             className="inline-flex items-center gap-2 text-sky-600 font-medium hover:text-sky-700 transition-colors"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

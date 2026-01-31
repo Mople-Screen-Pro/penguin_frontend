@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react'
+import { analytics } from '../lib/analytics'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [downloading, setDownloading] = useState(false)
+
+  const handleDownload = (location: 'header' | 'mobile_menu') => {
+    analytics.downloadClick(location)
+    setDownloading(true)
+    setTimeout(() => setDownloading(false), 2000)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +52,7 @@ export default function Header() {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={() => analytics.navClick(link.name)}
                 className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
               >
                 {link.name}
@@ -54,12 +63,12 @@ export default function Header() {
 
           {/* CTA Button */}
           <div className="flex items-center gap-4">
-            <a
-              href="#download"
+            <button
+              onClick={() => handleDownload('header')}
               className="hidden sm:inline-flex btn-primary text-sm"
             >
-              Download
-            </a>
+              {downloading ? 'Coming Soon!' : 'Download'}
+            </button>
 
             {/* Mobile menu button */}
             <button
@@ -97,13 +106,15 @@ export default function Header() {
                   {link.name}
                 </a>
               ))}
-              <a
-                href="#download"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  handleDownload('mobile_menu')
+                }}
                 className="mx-4 mt-2 btn-primary text-center text-sm"
               >
-                Download
-              </a>
+                {downloading ? 'Coming Soon!' : 'Download'}
+              </button>
             </div>
           </div>
         )}
