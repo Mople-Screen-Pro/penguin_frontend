@@ -1,60 +1,77 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { analytics } from '../lib/analytics'
-import { useAuth } from '../contexts/AuthContext'
-import LoginModal from './LoginModal'
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { analytics } from "../lib/analytics";
+import { useAuth } from "../contexts/AuthContext";
+import LoginModal from "./LoginModal";
 
-const DOWNLOAD_URL = 'https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download'
+const DOWNLOAD_URL =
+  "https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download";
 
 export default function Header() {
-  const { user, loading } = useAuth()
-  const [scrolled, setScrolled] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [loginModalOpen, setLoginModalOpen] = useState(false)
+  const { user, loading } = useAuth();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
-    { name: 'Features', href: '#features' },
-    { name: 'How It Works', href: '#how-it-works' },
-    { name: 'FAQ', href: '#faq' },
-  ]
+    { name: "Features", href: "#features" },
+    { name: "How It Works", href: "#how-it-works" },
+    { name: "Pricing", href: "/pricing" },
+  ];
 
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'glass border-b border-slate-200/50 shadow-sm'
-          : 'bg-transparent'
+          ? "glass border-b border-slate-200/50 shadow-sm"
+          : "bg-transparent"
       }`}
     >
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <img src="/logo.png" alt="Screen Pro" className="w-9 h-9 rounded-xl shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition-shadow" />
+            <img
+              src="/logo.png"
+              alt="Screen Pro"
+              className="w-9 h-9 rounded-xl shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition-shadow"
+            />
             <span className="text-xl font-bold text-slate-900">Screen Pro</span>
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => analytics.navClick(link.name)}
-                className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-500 group-hover:w-full transition-all duration-300" />
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.href.startsWith("#") ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => analytics.navClick(link.name)}
+                  className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-500 group-hover:w-full transition-all duration-300" />
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  onClick={() => analytics.navClick(link.name)}
+                  className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-500 group-hover:w-full transition-all duration-300" />
+                </Link>
+              )
+            )}
           </div>
 
           {/* CTA Buttons */}
@@ -75,10 +92,12 @@ export default function Header() {
                       />
                     ) : (
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
-                        {(user.email?.charAt(0) || 'U').toUpperCase()}
+                        {(user.email?.charAt(0) || "U").toUpperCase()}
                       </div>
                     )}
-                    <span className="text-sm font-medium text-slate-700">My Account</span>
+                    <span className="text-sm font-medium text-slate-700">
+                      My Account
+                    </span>
                   </Link>
                 ) : (
                   // 로그인되지 않은 상태
@@ -93,7 +112,7 @@ export default function Header() {
             )}
             <a
               href={DOWNLOAD_URL}
-              onClick={() => analytics.downloadClick('header')}
+              onClick={() => analytics.downloadClick("header")}
               className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40"
             >
               Download
@@ -112,9 +131,19 @@ export default function Header() {
                 stroke="currentColor"
               >
                 {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 )}
               </svg>
             </button>
@@ -125,16 +154,27 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-slate-200/50 animate-fade-in">
             <div className="flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.href.startsWith("#") ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                )
+              )}
               {user ? (
                 <Link
                   to="/mypage"
@@ -146,8 +186,8 @@ export default function Header() {
               ) : (
                 <button
                   onClick={() => {
-                    setMobileMenuOpen(false)
-                    setLoginModalOpen(true)
+                    setMobileMenuOpen(false);
+                    setLoginModalOpen(true);
                   }}
                   className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-slate-700 text-center rounded-xl border-2 border-slate-200"
                 >
@@ -157,8 +197,8 @@ export default function Header() {
               <a
                 href={DOWNLOAD_URL}
                 onClick={() => {
-                  setMobileMenuOpen(false)
-                  analytics.downloadClick('mobile_menu')
+                  setMobileMenuOpen(false);
+                  analytics.downloadClick("mobile_menu");
                 }}
                 className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-white text-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-violet-500/25"
               >
@@ -170,7 +210,10 @@ export default function Header() {
       </nav>
 
       {/* Login Modal */}
-      <LoginModal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)} />
+      <LoginModal
+        isOpen={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+      />
     </header>
-  )
+  );
 }

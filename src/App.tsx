@@ -15,6 +15,8 @@ import TermsPage from './pages/TermsPage'
 import PrivacyPage from './pages/PrivacyPage'
 import RefundPage from './pages/RefundPage'
 import MyPage from './pages/MyPage'
+import AuthCallbackPage from './pages/AuthCallbackPage'
+import PricingPage from './pages/PricingPage'
 
 function HomePage() {
   return (
@@ -46,6 +48,8 @@ function App() {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/refund" element={<RefundPage />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/auth/callback" element={<AuthCallbackPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
