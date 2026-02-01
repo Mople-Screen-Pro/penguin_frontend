@@ -57,18 +57,12 @@ export default function Hero() {
 
             {/* Trust indicators */}
             <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-slate-100 animate-fade-in-up delay-400">
-              <div className="flex items-center justify-center lg:justify-start gap-3 sm:gap-5 text-[10px] sm:text-xs text-slate-500">
+              <div className="flex flex-nowrap items-center justify-center lg:justify-start gap-2 sm:gap-4 text-[9px] sm:text-xs text-slate-500">
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  No account required
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  No watermark
+                  Half the price, full power
                 </div>
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

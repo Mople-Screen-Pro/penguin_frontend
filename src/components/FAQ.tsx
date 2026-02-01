@@ -7,10 +7,6 @@ const faqs = [
     answer: "Screen Pro's auto cursor zoom feature automatically follows your mouse and creates professional zoom effects in real-time. Unlike other screen recorders, you don't need to manually edit zoom points - it just works. This saves hours of post-production time.",
   },
   {
-    question: 'Do I need to create an account?',
-    answer: 'No account required! Simply download Screen Pro and start recording immediately. We believe in privacy-first software - no sign-ups, no data collection, just powerful screen recording.',
-  },
-  {
     question: 'How does the auto cursor zoom work?',
     answer: "Screen Pro intelligently tracks your mouse cursor movements during recording. When your cursor moves to a new area, the app automatically creates a smooth zoom transition to that region, highlighting exactly what you're demonstrating. This happens in real-time and requires no manual intervention.",
   },
@@ -21,10 +17,6 @@ const faqs = [
   {
     question: 'Can I adjust zoom levels after recording?',
     answer: "Absolutely! Our zoom editing feature allows you to fine-tune every zoom point after recording. You can adjust the zoom intensity, change timing, add new zoom points, or remove unwanted ones. You have complete control over the final result.",
-  },
-  {
-    question: 'What video formats can I export to?',
-    answer: 'Screen Pro exports to MP4 format, which is universally compatible with all video platforms including YouTube, Vimeo, social media, and any video editing software. We chose MP4 for its excellent balance of quality and file size.',
   },
 ]
 
