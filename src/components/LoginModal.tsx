@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -8,6 +9,8 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
+  const { signInWithGoogle, signInWithApple, signInWithGithub } = useAuth()
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -21,9 +24,19 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   if (!isOpen) return null
 
-  const handleLogin = (provider: 'google' | 'apple' | 'github') => {
-    // TODO: OAuth 연동 구현
-    console.log(`Login with ${provider}`)
+  const handleGoogleLogin = async () => {
+    await signInWithGoogle()
+    onClose()
+  }
+
+  const handleAppleLogin = async () => {
+    await signInWithApple()
+    onClose()
+  }
+
+  const handleGithubLogin = async () => {
+    await signInWithGithub()
+    onClose()
   }
 
   return createPortal(
@@ -55,7 +68,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           <div className="space-y-3">
             {/* Google */}
             <button
-              onClick={() => handleLogin('google')}
+              onClick={handleGoogleLogin}
               className="w-full flex items-center justify-center gap-3 px-4 py-4 bg-white border border-slate-200 rounded-2xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all"
             >
               <svg className="w-6 h-6 shrink-0" viewBox="0 0 24 24">
@@ -69,7 +82,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
             {/* Apple */}
             <button
-              onClick={() => handleLogin('apple')}
+              onClick={handleAppleLogin}
               className="w-full flex items-center justify-center gap-3 px-4 py-4 bg-white border border-slate-200 rounded-2xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all"
             >
               <svg className="w-7 h-7 shrink-0" viewBox="0 0 24 24" fill="currentColor">
@@ -80,7 +93,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
             {/* GitHub */}
             <button
-              onClick={() => handleLogin('github')}
+              onClick={handleGithubLogin}
               className="w-full flex items-center justify-center gap-3 px-4 py-4 bg-white border border-slate-200 rounded-2xl text-base font-medium text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all"
             >
               <svg className="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="currentColor">

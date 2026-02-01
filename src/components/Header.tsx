@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { analytics } from '../lib/analytics'
+import { useAuth } from '../contexts/AuthContext'
 import LoginModal from './LoginModal'
 
 const DOWNLOAD_URL = 'https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download'
 
 export default function Header() {
+  const { user, loading } = useAuth()
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [loginModalOpen, setLoginModalOpen] = useState(false)
@@ -56,12 +59,38 @@ export default function Header() {
 
           {/* CTA Buttons */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => setLoginModalOpen(true)}
-              className="hidden sm:inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-300"
-            >
-              Sign in
-            </button>
+            {!loading && (
+              <>
+                {user ? (
+                  // 로그인된 상태
+                  <Link
+                    to="/mypage"
+                    className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all"
+                  >
+                    {user.user_metadata?.avatar_url ? (
+                      <img
+                        src={user.user_metadata.avatar_url}
+                        alt=""
+                        className="w-8 h-8 rounded-full"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
+                        {(user.email?.charAt(0) || 'U').toUpperCase()}
+                      </div>
+                    )}
+                    <span className="text-sm font-medium text-slate-700">My Account</span>
+                  </Link>
+                ) : (
+                  // 로그인되지 않은 상태
+                  <button
+                    onClick={() => setLoginModalOpen(true)}
+                    className="hidden sm:inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-300"
+                  >
+                    Sign in
+                  </button>
+                )}
+              </>
+            )}
             <a
               href={DOWNLOAD_URL}
               onClick={() => analytics.downloadClick('header')}
@@ -106,15 +135,25 @@ export default function Header() {
                   {link.name}
                 </a>
               ))}
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false)
-                  setLoginModalOpen(true)
-                }}
-                className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-slate-700 text-center rounded-xl border-2 border-slate-200"
-              >
-                Sign in
-              </button>
+              {user ? (
+                <Link
+                  to="/mypage"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-slate-700 text-center rounded-xl border-2 border-slate-200"
+                >
+                  My Account
+                </Link>
+              ) : (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    setLoginModalOpen(true)
+                  }}
+                  className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-slate-700 text-center rounded-xl border-2 border-slate-200"
+                >
+                  Sign in
+                </button>
+              )}
               <a
                 href={DOWNLOAD_URL}
                 onClick={() => {

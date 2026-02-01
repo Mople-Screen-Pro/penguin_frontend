@@ -80,4 +80,18 @@ export const analytics = {
   demoInteract: (action: "play" | "pause") => {
     trackEvent("demo_interact", "engagement", action);
   },
+
+  // 구독 취소 사유
+  subscriptionCancel: async (
+    email: string,
+    reason: string,
+    detail?: string
+  ) => {
+    trackEvent("subscription_cancel", "churn", reason);
+    await sendSlackNotification(
+      `<!channel>\n🚨 [Screen Pro] 구독 취소 요청 🚨\n\n 이메일: ${email}\n 취소 사유: ${reason}${
+        detail ? `\n 상세: ${detail}` : ""
+      }`
+    );
+  },
 };
