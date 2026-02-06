@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { getPaddle, openCheckout } from "../lib/paddle";
+import { getPaddle, openCheckout, setOnCheckoutComplete, PRICE_IDS } from "../lib/paddle";
+import { useSubscription } from "../hooks/useSubscription";
+import { isActive } from "../types/subscription";
+import { redirectToApp } from "../lib/deeplink";
+import { supabase } from "../lib/supabase";
+import { getSubscription } from "../lib/subscription";
+import LoginModal from "../components/LoginModal";
 
 const plans = [
   {
@@ -10,7 +16,7 @@ const plans = [
     price: 21,
     period: "/month",
     description: "Perfect for trying out Screen Pro",
-    priceId: "pri_monthly", // TODO: Replace with actual Paddle Price ID
+    priceId: PRICE_IDS.monthly,
     popular: true,
     features: [
       "Unlimited recordings",
@@ -26,7 +32,7 @@ const plans = [
     period: "/month",
     billedAs: "Billed $96/year",
     description: "Best value for regular users",
-    priceId: "pri_yearly", // TODO: Replace with actual Paddle Price ID
+    priceId: PRICE_IDS.yearly,
     savings: "Save 62%",
     features: [
       "Unlimited recordings",
@@ -42,7 +48,7 @@ const plans = [
     price: 240,
     period: "one-time",
     description: "Pay once, use forever",
-    priceId: "pri_lifetime", // TODO: Replace with actual Paddle Price ID
+    priceId: PRICE_IDS.lifetime,
     features: [
       "Unlimited recordings",
       "Auto cursor zoom",
@@ -56,17 +62,74 @@ const plans = [
 
 export default function PricingPage() {
   const { user } = useAuth();
+  const { subscription } = useSubscription();
   const [loading, setLoading] = useState<string | null>(null);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [pendingPriceId, setPendingPriceId] = useState<string | null>(null);
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const from = searchParams.get("from");
 
   useEffect(() => {
     getPaddle();
   }, []);
 
+  // 체크아웃 완료 콜백 등록
+  useEffect(() => {
+    setOnCheckoutComplete(async () => {
+      setShowCompleteModal(true);
+
+      await new Promise((r) => setTimeout(r, 3000));
+      setShowCompleteModal(false);
+
+      if (from === "app" && user) {
+        const { data } = await supabase.auth.getSession();
+        const sub = await getSubscription(user.id);
+        if (data.session) {
+          redirectToApp(data.session, sub);
+          return;
+        }
+      }
+      navigate("/mypage");
+    });
+  }, [from, navigate, user]);
+
+  // 로그인 후 pending checkout 자동 실행
+  useEffect(() => {
+    if (user && pendingPriceId) {
+      openCheckout({
+        priceId: pendingPriceId,
+        userEmail: user.email,
+        userId: user.id,
+      });
+      setPendingPriceId(null);
+      setLoading(null);
+    }
+  }, [user, pendingPriceId]);
+
   const handlePurchase = async (priceId: string, planId: string) => {
     setLoading(planId);
-    await openCheckout(priceId, user?.email);
+
+    if (!user) {
+      // 비로그인 → 로그인 모달 열기, 결제할 priceId 저장
+      setPendingPriceId(priceId);
+      setLoginModalOpen(true);
+      setLoading(null);
+      return;
+    }
+
+    await openCheckout({
+      priceId,
+      userEmail: user.email,
+      userId: user.id,
+    });
     setLoading(null);
   };
+
+  const alreadySubscribed = isActive(subscription);
+  const currentPriceId = alreadySubscribed ? subscription?.price_id : null;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -81,12 +144,6 @@ export default function PricingPage() {
             />
             <span className="text-xl font-bold text-slate-900">Screen Pro</span>
           </Link>
-          {/* <Link
-            to="/"
-            className="text-sm text-slate-600 hover:text-slate-900 transition-colors"
-          >
-            Back to Home
-          </Link> */}
         </div>
       </header>
 
@@ -171,22 +228,31 @@ export default function PricingPage() {
                 ))}
               </ul>
 
-              <button
-                onClick={() => handlePurchase(plan.priceId, plan.id)}
-                disabled={loading === plan.id}
-                className={`w-full py-3 px-4 rounded-xl font-medium transition-all disabled:opacity-50 ${
-                  plan.popular
-                    ? "bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700"
-                    : "bg-slate-900 text-white hover:bg-slate-800"
-                }`}
-              >
-                {loading === plan.id ? "Loading..." : "Get Started"}
-              </button>
+              {currentPriceId === plan.priceId ? (
+                <button
+                  disabled
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-500 cursor-not-allowed"
+                >
+                  Current Plan
+                </button>
+              ) : (
+                <button
+                  onClick={() => handlePurchase(plan.priceId, plan.id)}
+                  disabled={loading === plan.id}
+                  className={`w-full py-3 px-4 rounded-xl font-medium transition-all disabled:opacity-50 ${
+                    plan.popular
+                      ? "bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700"
+                      : "bg-slate-900 text-white hover:bg-slate-800"
+                  }`}
+                >
+                  {loading === plan.id ? "Loading..." : "Get Started"}
+                </button>
+              )}
             </div>
           ))}
         </div>
 
-        {/* FAQ or Trust badges */}
+        {/* Trust badges */}
         <div className="mt-16 text-center">
           <p className="text-slate-500 text-sm">
             Secure payment powered by Paddle.
@@ -208,25 +274,8 @@ export default function PricingPage() {
               </svg>
               Secure checkout
             </span>
-            {/* <span className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              7-day refund policy
-            </span> */}
           </div>
         </div>
-
       </main>
 
       {/* Footer */}
@@ -252,6 +301,30 @@ export default function PricingPage() {
           </a>
         </div>
       </footer>
+
+      {/* 결제 완료 모달 */}
+      {showCompleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center shadow-xl">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 mb-2">Payment Successful!</h3>
+            <p className="text-slate-600 text-sm">Thank you for subscribing to Screen Pro. Redirecting...</p>
+          </div>
+        </div>
+      )}
+
+      {/* Login Modal */}
+      <LoginModal
+        isOpen={loginModalOpen}
+        onClose={() => {
+          setLoginModalOpen(false);
+          setPendingPriceId(null);
+        }}
+      />
     </div>
   );
 }

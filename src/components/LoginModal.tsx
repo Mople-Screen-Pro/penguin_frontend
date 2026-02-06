@@ -6,9 +6,10 @@ import { useAuth } from '../contexts/AuthContext'
 interface LoginModalProps {
   isOpen: boolean
   onClose: () => void
+  from?: string
 }
 
-export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
+export default function LoginModal({ isOpen, onClose, from }: LoginModalProps) {
   const { signInWithGoogle, signInWithApple, signInWithGithub } = useAuth()
 
   useEffect(() => {
@@ -25,17 +26,17 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   if (!isOpen) return null
 
   const handleGoogleLogin = async () => {
-    await signInWithGoogle()
+    await signInWithGoogle(from)
     onClose()
   }
 
   const handleAppleLogin = async () => {
-    await signInWithApple()
+    await signInWithApple(from)
     onClose()
   }
 
   const handleGithubLogin = async () => {
-    await signInWithGithub()
+    await signInWithGithub(from)
     onClose()
   }
 

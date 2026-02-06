@@ -21,9 +21,16 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const navLinks = [
-    { name: "Features", href: "#features" },
-    { name: "How It Works", href: "#how-it-works" },
+    { name: "Features", sectionId: "features" },
+    { name: "How It Works", sectionId: "how-it-works" },
     { name: "Pricing", href: "/pricing" },
   ];
 
@@ -38,7 +45,14 @@ export default function Header() {
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex items-center gap-2 group"
+          >
             <img
               src="/logo.png"
               alt="Screen Pro"
@@ -50,20 +64,22 @@ export default function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) =>
-              link.href.startsWith("#") ? (
-                <a
+              link.sectionId ? (
+                <button
                   key={link.name}
-                  href={link.href}
-                  onClick={() => analytics.navClick(link.name)}
+                  onClick={() => {
+                    scrollTo(link.sectionId);
+                    analytics.navClick(link.name);
+                  }}
                   className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
                 >
                   {link.name}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-500 group-hover:w-full transition-all duration-300" />
-                </a>
+                </button>
               ) : (
                 <Link
                   key={link.name}
-                  to={link.href}
+                  to={link.href!}
                   onClick={() => analytics.navClick(link.name)}
                   className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
                 >
@@ -155,19 +171,21 @@ export default function Header() {
           <div className="md:hidden py-4 border-t border-slate-200/50 animate-fade-in">
             <div className="flex flex-col gap-2">
               {navLinks.map((link) =>
-                link.href.startsWith("#") ? (
-                  <a
+                link.sectionId ? (
+                  <button
                     key={link.name}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                    onClick={() => {
+                      scrollTo(link.sectionId);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="px-4 py-3 text-left text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
                   >
                     {link.name}
-                  </a>
+                  </button>
                 ) : (
                   <Link
                     key={link.name}
-                    to={link.href}
+                    to={link.href!}
                     onClick={() => setMobileMenuOpen(false)}
                     className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
                   >

@@ -21,10 +21,13 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16">
           {/* Brand */}
           <div className="col-span-2">
-            <a href="#" className="flex items-center gap-3 mb-4">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="flex items-center gap-3 mb-4"
+            >
               <img src="/logo.png" alt="Screen Pro" className="w-10 h-10 rounded-xl" />
               <span className="text-xl font-bold text-white">Screen Pro</span>
-            </a>
+            </button>
             <p className="text-sm leading-relaxed mb-6 max-w-xs">
               Professional screen recording with automatic cursor zoom.
               Make tutorials that stand out.

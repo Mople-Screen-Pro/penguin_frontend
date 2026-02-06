@@ -42,9 +42,11 @@ export default function Hero() {
                 </svg>
                 <span>Download for Mac</span>
               </a>
-              <a
-                href="#demo"
-                onClick={() => analytics.watchDemoClick()}
+              <button
+                onClick={() => {
+                  document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" });
+                  analytics.watchDemoClick();
+                }}
                 className="btn-secondary inline-flex items-center justify-center gap-2 text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4"
               >
                 <svg className="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,7 +54,7 @@ export default function Hero() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Watch Demo
-              </a>
+              </button>
             </div>
 
             {/* Trust indicators */}

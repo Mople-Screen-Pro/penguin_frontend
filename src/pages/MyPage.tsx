@@ -1,29 +1,66 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { getPaddle, openCheckout } from '../lib/paddle'
+import { getPaddle } from '../lib/paddle'
+import { useSubscription } from '../hooks/useSubscription'
+import { getPlanLabel, isActive, isPastDue, isCanceled, isLifetime, isExpired } from '../types/subscription'
 import { analytics } from '../lib/analytics'
 import CancelSubscriptionModal from '../components/CancelSubscriptionModal'
+import { useState } from 'react'
+
+async function fetchPortalUrls() {
+  const { data, error } = await (await import('../lib/supabase')).supabase.functions.invoke('subscription-portal')
+  if (error || !data) {
+    console.error('Failed to fetch portal:', error ?? data)
+    return null
+  }
+  return data as { cancel_url: string; update_payment_method_url: string }
+}
+
+function formatDate(isoString: string | null): string {
+  if (!isoString) return '-'
+  return new Intl.DateTimeFormat(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(isoString))
+}
 
 export default function MyPage() {
-  const { user, loading, signOut } = useAuth()
+  const { user, loading: authLoading, signOut } = useAuth()
+  const { subscription, loading: subLoading, refetch } = useSubscription()
   const navigate = useNavigate()
-  const [paddleLoading, setPaddleLoading] = useState(false)
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [portalLoading, setPortalLoading] = useState(false)
+
+  const openManageSubscription = async () => {
+    setPortalLoading(true)
+    try {
+      const data = await fetchPortalUrls()
+      if (!data?.cancel_url || !data?.subscription_id) return
+      const url = new URL(data.cancel_url)
+      const cplId = url.pathname.replace('/', '')
+      window.open(`${url.origin}/subscriptions/${data.subscription_id}/${cplId}?token=${url.searchParams.get('token')}`, '_blank')
+    } finally {
+      setPortalLoading(false)
+    }
+  }
 
   // Paddle 초기화
   useEffect(() => {
     getPaddle()
   }, [])
 
-  // TODO: 개발 완료 후 인증 체크 다시 활성화
-  // useEffect(() => {
-  //   if (!loading && !user) {
-  //     navigate('/')
-  //   }
-  // }, [user, loading, navigate])
+  // 비로그인 시 홈으로 리다이렉트
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/')
+    }
+  }, [user, authLoading, navigate])
 
-  if (loading) {
+
+  if (authLoading || subLoading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="animate-spin w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full" />
@@ -37,42 +74,36 @@ export default function MyPage() {
   }
 
   const handleCancelConfirm = async (reason: string, detail?: string) => {
-    // Slack으로 취소 사유 전송
     await analytics.subscriptionCancel(email, reason, detail)
-
-    // Paddle Customer Portal로 이동하여 실제 취소 진행
-    window.open('https://sandbox-customer-portal.paddle.com', '_blank')
+    await openManageSubscription()
     setCancelModalOpen(false)
   }
 
-  // 사용자 정보 추출 (로그인 안 된 경우 더미 데이터)
-  const email = user?.email || 'demo@example.com'
-  const name = user?.user_metadata?.full_name || user?.user_metadata?.name || 'Demo User'
+  // 사용자 정보
+  const email = user?.email || ''
+  const name = user?.user_metadata?.full_name || user?.user_metadata?.name || ''
   const avatar = user?.user_metadata?.avatar_url || null
-  const provider = user?.app_metadata?.provider || 'google'
+  const provider = user?.app_metadata?.provider || ''
 
-  // TODO: Paddle/Supabase에서 구독 정보 가져오기
-  const subscription = {
-    plan: 'yearly', // 'free' | 'monthly' | 'yearly' | 'lifetime' (테스트용으로 yearly 설정)
-    licenseKey: 'SP-XXXX-XXXX-XXXX',
-    purchaseDate: '2025-01-15',
-    expiresAt: '2026-01-15',
+  // 구독 상태 파생
+  const planLabel = getPlanLabel(subscription)
+  const active = isActive(subscription)
+  const pastDue = isPastDue(subscription)
+  const canceled = isCanceled(subscription)
+  const lifetime = isLifetime(subscription)
+  const expired = isExpired(subscription)
+
+  const getPlanBadge = () => {
+    if (!subscription) return { label: 'Free', color: 'bg-slate-100 text-slate-700' }
+    if (pastDue) return { label: `${planLabel} (Past Due)`, color: 'bg-amber-100 text-amber-700' }
+    if (canceled && !expired) return { label: `${planLabel} (Canceled)`, color: 'bg-red-100 text-red-700' }
+    if (canceled && expired) return { label: 'Expired', color: 'bg-slate-100 text-slate-700' }
+    if (lifetime) return { label: 'Lifetime', color: 'bg-violet-100 text-violet-700' }
+    if (planLabel === 'Yearly') return { label: 'Yearly', color: 'bg-blue-100 text-blue-700' }
+    return { label: 'Monthly', color: 'bg-green-100 text-green-700' }
   }
 
-  const getPlanBadge = (plan: string) => {
-    switch (plan) {
-      case 'lifetime':
-        return { label: 'Lifetime', color: 'bg-violet-100 text-violet-700' }
-      case 'yearly':
-        return { label: 'Yearly', color: 'bg-blue-100 text-blue-700' }
-      case 'monthly':
-        return { label: 'Monthly', color: 'bg-green-100 text-green-700' }
-      default:
-        return { label: 'Free', color: 'bg-slate-100 text-slate-700' }
-    }
-  }
-
-  const planBadge = getPlanBadge(subscription.plan)
+  const planBadge = getPlanBadge()
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -111,71 +142,142 @@ export default function MyPage() {
               <div>
                 <p className="font-medium text-slate-900">{name || 'User'}</p>
                 <p className="text-slate-600">{email}</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-xs text-slate-500 capitalize">
-                    Signed in with {provider}
-                  </span>
-                </div>
+                {provider && (
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-xs text-slate-500 capitalize">
+                      Signed in with {provider}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
           {/* Subscription Card */}
           <div className="bg-white rounded-2xl border border-slate-200 p-6">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-5">
               <h2 className="text-lg font-semibold text-slate-900">Subscription</h2>
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${planBadge.color}`}>
                 {planBadge.label}
               </span>
             </div>
 
-            {subscription.plan === 'free' ? (
-              <div>
-                <p className="text-slate-600 mb-4">
-                  You're currently on the free plan with limited features.
-                </p>
-                <button
-                  onClick={async () => {
-                    setPaddleLoading(true)
-                    // TODO: 실제 Paddle Price ID로 교체
-                    await openCheckout('pri_XXXXX', email)
-                    setPaddleLoading(false)
-                  }}
-                  disabled={paddleLoading}
-                  className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all disabled:opacity-50"
-                >
-                  {paddleLoading ? 'Loading...' : 'Upgrade to Pro'}
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {subscription.licenseKey && (
-                  <div className="flex justify-between py-2 border-b border-slate-100">
-                    <span className="text-slate-600">License Key</span>
-                    <span className="font-mono text-slate-900">{subscription.licenseKey}</span>
+            {/* 상태 배너 */}
+            {(() => {
+              if (!subscription || (canceled && expired)) {
+                return (
+                  <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
+                    <div className="flex-1">
+                      <p className="font-medium text-slate-900">{canceled && expired ? 'Subscription Expired' : 'Free Plan'}</p>
+                      <p className="text-sm text-slate-500">
+                        {canceled && expired ? 'Resubscribe to access Pro features.' : 'Upgrade to unlock all features.'}
+                      </p>
+                    </div>
+                    <Link
+                      to="/pricing"
+                      className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0"
+                    >
+                      {canceled && expired ? 'Resubscribe' : 'Upgrade'}
+                    </Link>
                   </div>
-                )}
-                {subscription.purchaseDate && (
-                  <div className="flex justify-between py-2 border-b border-slate-100">
-                    <span className="text-slate-600">Purchase Date</span>
-                    <span className="text-slate-900">{subscription.purchaseDate}</span>
+                )
+              }
+              if (lifetime) {
+                return (
+                  <div className="rounded-xl bg-gradient-to-r from-violet-50 to-purple-50 p-4">
+                    <p className="font-medium text-violet-900">Lifetime Access</p>
+                    <p className="text-sm text-violet-600">Active forever — no renewal needed</p>
                   </div>
-                )}
-                {subscription.expiresAt && (
-                  <div className="flex justify-between py-2 border-b border-slate-100">
-                    <span className="text-slate-600">Expires</span>
-                    <span className="text-slate-900">{subscription.expiresAt}</span>
+                )
+              }
+              if (canceled && !expired) {
+                return (
+                  <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
+                    <p className="font-medium text-amber-900">Canceled</p>
+                    <p className="text-sm text-amber-700">Pro features available until {formatDate(subscription.subscription_period_end)}</p>
                   </div>
-                )}
-                {subscription.plan === 'lifetime' ? (
-                  <div className="flex justify-between py-2">
-                    <span className="text-slate-600">Status</span>
-                    <span className="text-green-600 font-medium">Active Forever</span>
+                )
+              }
+              if (pastDue) {
+                return (
+                  <div className="rounded-xl bg-red-50 border border-red-200 p-4">
+                    <p className="font-medium text-red-900">Payment Failed</p>
+                    <p className="text-sm text-red-700">Please update your payment method to keep your subscription.</p>
                   </div>
-                ) : (
+                )
+              }
+              // active
+              return (
+                <div className="rounded-xl bg-green-50 border border-green-200 p-4">
+                  <p className="font-medium text-green-900">Active</p>
+                  <p className="text-sm text-green-700">Next billing on {formatDate(subscription.next_billed_at)}</p>
+                </div>
+              )
+            })()}
+
+            {/* 구독 상세 (구독이 있는 경우) */}
+            {subscription && !(canceled && expired) && (
+              <div className="mt-5 space-y-5">
+                {/* 기간 진행률 (정기 구독만) */}
+                {!lifetime && (() => {
+                  const start = new Date(subscription.subscription_period_start).getTime()
+                  const end = new Date(subscription.subscription_period_end).getTime()
+                  const now = Date.now()
+                  const total = end - start
+                  const elapsed = Math.min(now - start, total)
+                  const progress = Math.round((elapsed / total) * 100)
+                  const daysLeft = Math.max(0, Math.ceil((end - now) / (1000 * 60 * 60 * 24)))
+
+                  return (
+                    <div className="bg-slate-50 rounded-xl p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm text-slate-600">Current billing period</span>
+                        <span className="text-sm font-medium text-slate-900">
+                          {daysLeft > 0 ? `${daysLeft} days left` : 'Renewing soon'}
+                        </span>
+                      </div>
+                      <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-violet-500 to-purple-500 rounded-full transition-all"
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+                      <div className="flex justify-between mt-2 text-xs text-slate-400">
+                        <span>{formatDate(subscription.subscription_period_start)}</span>
+                        <span>{formatDate(subscription.subscription_period_end)}</span>
+                      </div>
+                    </div>
+                  )
+                })()}
+
+                {/* 구독 상세 정보 */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-slate-50 rounded-xl p-3">
+                    <p className="text-xs text-slate-500 mb-1">Plan</p>
+                    <p className="text-sm font-medium text-slate-900">{planLabel}</p>
+                  </div>
+                  {!lifetime && (
+                    <div className="bg-slate-50 rounded-xl p-3">
+                      <p className="text-xs text-slate-500 mb-1">Billing Cycle</p>
+                      <p className="text-sm font-medium text-slate-900 capitalize">{subscription.billing_cycle_interval}ly</p>
+                    </div>
+                  )}
+                  <div className="bg-slate-50 rounded-xl p-3">
+                    <p className="text-xs text-slate-500 mb-1">Subscribed Since</p>
+                    <p className="text-sm font-medium text-slate-900">{formatDate(subscription.subscription_created_at)}</p>
+                  </div>
+                  {canceled && subscription.canceled_at && (
+                    <div className="bg-slate-50 rounded-xl p-3">
+                      <p className="text-xs text-slate-500 mb-1">Canceled On</p>
+                      <p className="text-sm font-medium text-red-600">{formatDate(subscription.canceled_at)}</p>
+                    </div>
+                  )}
+                </div>
+
+                {(active || pastDue) && !lifetime && (
                   <button
                     onClick={() => setCancelModalOpen(true)}
-                    className="mt-4 text-sm text-slate-500 hover:text-red-600 transition-colors"
+                    className="text-sm text-slate-400 hover:text-red-500 transition-colors"
                   >
                     Cancel subscription
                   </button>
@@ -188,29 +290,23 @@ export default function MyPage() {
           <div className="bg-white rounded-2xl border border-slate-200 p-6">
             <h2 className="text-lg font-semibold text-slate-900 mb-4">Account</h2>
             <div className="space-y-3">
-              <a
-                href="https://sandbox-customer-portal.paddle.com"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openManageSubscription}
                 className="w-full text-left px-4 py-3 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors flex items-center justify-between"
               >
                 <span>Manage Subscription</span>
-                <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-              <a
-                href="https://sandbox-customer-portal.paddle.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full text-left px-4 py-3 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors flex items-center justify-between"
+                {portalLoading ? (
+                  <div className="w-5 h-5 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin" />
+                ) : (
+                  <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                )}
+              </button>
+              <button
+                onClick={() => setDeleteModalOpen(true)}
+                className="w-full text-left px-4 py-3 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 transition-colors flex items-center justify-between"
               >
-                <span>Billing History</span>
-                <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-              <button className="w-full text-left px-4 py-3 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 transition-colors flex items-center justify-between">
                 <span>Delete Account</span>
                 <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -238,6 +334,43 @@ export default function MyPage() {
         onClose={() => setCancelModalOpen(false)}
         onConfirm={handleCancelConfirm}
       />
+
+      {/* Delete Account Modal */}
+      {deleteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl p-6 max-w-md mx-4 w-full shadow-xl">
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-bold text-slate-900 text-center mb-2">Delete Account</h3>
+            <p className="text-sm text-slate-600 text-center mb-1">
+              This action is <span className="font-semibold text-red-600">permanent and irreversible</span>.
+            </p>
+            <p className="text-sm text-slate-600 text-center mb-5">
+              All your account data and subscription will be permanently deleted. Your local recordings will not be affected.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setDeleteModalOpen(false)}
+                className="flex-1 px-4 py-2.5 text-sm font-medium text-slate-700 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  // TODO: API 연결
+                  setDeleteModalOpen(false)
+                }}
+                className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-red-600 rounded-xl hover:bg-red-700 transition-colors"
+              >
+                Delete Account
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

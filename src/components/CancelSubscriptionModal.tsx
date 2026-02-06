@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom'
 interface CancelSubscriptionModalProps {
   isOpen: boolean
   onClose: () => void
-  onConfirm: (reason: string, detail?: string) => void
+  onConfirm: (reason: string, detail?: string) => Promise<void> | void
 }
 
 const CANCEL_REASONS = [
@@ -24,6 +24,7 @@ export default function CancelSubscriptionModal({
   const [selectedReason, setSelectedReason] = useState<string | null>(null)
   const [otherDetail, setOtherDetail] = useState('')
   const [step, setStep] = useState<'reason' | 'confirm'>('reason')
+  const [loading, setLoading] = useState(false)
 
   // 모달이 닫힐 때 상태 초기화
   useEffect(() => {
@@ -46,10 +47,14 @@ export default function CancelSubscriptionModal({
     }
   }
 
-  const handleConfirm = () => {
-    if (selectedReason) {
+  const handleConfirm = async () => {
+    if (!selectedReason) return
+    setLoading(true)
+    try {
       const reason = CANCEL_REASONS.find(r => r.id === selectedReason)?.label || selectedReason
-      onConfirm(reason, selectedReason === 'other' ? otherDetail : undefined)
+      await onConfirm(reason, selectedReason === 'other' ? otherDetail : undefined)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -178,9 +183,17 @@ export default function CancelSubscriptionModal({
                 </button>
                 <button
                   onClick={handleConfirm}
-                  className="flex-1 px-4 py-3 text-white font-medium rounded-xl bg-red-500 hover:bg-red-600 transition-colors"
+                  disabled={loading}
+                  className="flex-1 px-4 py-3 text-white font-medium rounded-xl bg-red-500 hover:bg-red-600 transition-colors disabled:opacity-50"
                 >
-                  Cancel subscription
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                      <span>Loading...</span>
+                    </div>
+                  ) : (
+                    'Cancel subscription'
+                  )}
                 </button>
               </div>
             </div>

@@ -7,9 +7,9 @@ interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
-  signInWithGoogle: () => Promise<void>
-  signInWithApple: () => Promise<void>
-  signInWithGithub: () => Promise<void>
+  signInWithGoogle: (from?: string) => Promise<void>
+  signInWithApple: (from?: string) => Promise<void>
+  signInWithGithub: (from?: string) => Promise<void>
   signOut: () => Promise<void>
 }
 
@@ -38,29 +38,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe()
   }, [])
 
-  const signInWithGoogle = async () => {
+  const buildRedirectUrl = (from?: string) => {
+    const base = `${window.location.origin}/auth/callback`
+    return from ? `${base}?from=${from}` : base
+  }
+
+  const signInWithGoogle = async (from?: string) => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`
+        redirectTo: buildRedirectUrl(from)
       }
     })
   }
 
-  const signInWithApple = async () => {
+  const signInWithApple = async (from?: string) => {
     await supabase.auth.signInWithOAuth({
       provider: 'apple',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`
+        redirectTo: buildRedirectUrl(from)
       }
     })
   }
 
-  const signInWithGithub = async () => {
+  const signInWithGithub = async (from?: string) => {
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`
+        redirectTo: buildRedirectUrl(from)
       }
     })
   }

@@ -126,12 +126,15 @@ export default function HowItWorks() {
         {/* Bottom CTA hint */}
         <div className="mt-16 text-center">
           <p className="text-slate-500 mb-4">Ready to get started?</p>
-          <a href="#download" className="inline-flex items-center gap-2 text-violet-600 font-semibold hover:text-violet-700 transition-colors">
+          <button
+            onClick={() => document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })}
+            className="inline-flex items-center gap-2 text-violet-600 font-semibold hover:text-violet-700 transition-colors"
+          >
             Download Screen Pro
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </section>
