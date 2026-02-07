@@ -8,6 +8,7 @@ import { redirectToApp } from "../lib/deeplink";
 import { supabase } from "../lib/supabase";
 import { getSubscription } from "../lib/subscription";
 import LoginModal from "../components/LoginModal";
+import UpgradeModal from "../components/UpgradeModal";
 
 const plans = [
   {
@@ -62,9 +63,10 @@ const plans = [
 
 export default function PricingPage() {
   const { user } = useAuth();
-  const { subscription } = useSubscription();
+  const { subscription, refetch } = useSubscription();
   const [loading, setLoading] = useState<string | null>(null);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
   const [pendingPriceId, setPendingPriceId] = useState<string | null>(null);
   const [showCompleteModal, setShowCompleteModal] = useState(false);
   const [searchParams] = useSearchParams();
@@ -131,6 +133,7 @@ export default function PricingPage() {
   const alreadySubscribed = isActive(subscription);
   const currentPriceId = alreadySubscribed ? subscription?.price_id : null;
   const isLifetime = currentPriceId === PRICE_IDS.lifetime;
+  const isMonthly = alreadySubscribed && subscription?.billing_cycle_interval === "month";
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -243,6 +246,13 @@ export default function PricingPage() {
                 >
                   Lifetime Active
                 </button>
+              ) : isMonthly && plan.id === "yearly" ? (
+                <button
+                  onClick={() => setUpgradeModalOpen(true)}
+                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700"
+                >
+                  Upgrade
+                </button>
               ) : (
                 <button
                   onClick={() => handlePurchase(plan.priceId, plan.id)}
@@ -253,7 +263,7 @@ export default function PricingPage() {
                       : "bg-slate-900 text-white hover:bg-slate-800"
                   }`}
                 >
-                  {loading === plan.id ? "Loading..." : "Get Started"}
+                  {loading === plan.id ? "Loading..." : isMonthly ? "Upgrade" : "Get Started"}
                 </button>
               )}
             </div>
@@ -324,6 +334,13 @@ export default function PricingPage() {
           </div>
         </div>
       )}
+
+      {/* Upgrade Modal */}
+      <UpgradeModal
+        isOpen={upgradeModalOpen}
+        onClose={() => setUpgradeModalOpen(false)}
+        onComplete={() => navigate("/mypage", { state: { fromCheckout: true } })}
+      />
 
       {/* Login Modal */}
       <LoginModal

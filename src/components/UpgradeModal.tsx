@@ -91,6 +91,8 @@ export default function UpgradeModal({
         setError(err.message || 'Upgrade failed. Please try again.')
         return
       }
+      // webhook이 DB를 갱신할 시간을 확보한 뒤 refetch
+      await new Promise((r) => setTimeout(r, 2000))
       onComplete()
       onClose()
     } catch {
