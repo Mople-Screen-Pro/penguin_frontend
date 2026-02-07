@@ -34,6 +34,7 @@ export default function MyPage() {
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [portalLoading, setPortalLoading] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   const openManageSubscription = async () => {
     setPortalLoading(true)
@@ -79,6 +80,27 @@ export default function MyPage() {
   const handleLogout = async () => {
     await signOut()
     navigate('/')
+  }
+
+  const handleDeleteAccount = async () => {
+    setDeleteLoading(true)
+    try {
+      const { supabase } = await import('../lib/supabase')
+      const { error } = await supabase.functions.invoke('delete-account', { method: 'POST' })
+      if (error) {
+        console.error('Failed to delete account:', error)
+        alert('Failed to delete account. Please try again.')
+        return
+      }
+      await signOut()
+      navigate('/')
+    } catch (err) {
+      console.error('Failed to delete account:', err)
+      alert('Failed to delete account. Please try again.')
+    } finally {
+      setDeleteLoading(false)
+      setDeleteModalOpen(false)
+    }
   }
 
   const handleCancelConfirm = async (reason: string, detail?: string) => {
@@ -372,13 +394,11 @@ export default function MyPage() {
                 Cancel
               </button>
               <button
-                onClick={() => {
-                  // TODO: API 연결
-                  setDeleteModalOpen(false)
-                }}
-                className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-red-600 rounded-xl hover:bg-red-700 transition-colors"
+                onClick={handleDeleteAccount}
+                disabled={deleteLoading}
+                className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-red-600 rounded-xl hover:bg-red-700 transition-colors disabled:opacity-50"
               >
-                Delete Account
+                {deleteLoading ? 'Deleting…' : 'Delete Account'}
               </button>
             </div>
           </div>
