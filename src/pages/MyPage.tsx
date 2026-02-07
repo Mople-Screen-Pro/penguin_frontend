@@ -283,16 +283,6 @@ export default function MyPage() {
                 {/* 구독 상세 정보 */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-slate-50 rounded-xl p-3">
-                    <p className="text-xs text-slate-500 mb-1">Plan</p>
-                    <p className="text-sm font-medium text-slate-900">{planLabel}</p>
-                  </div>
-                  {!lifetime && (
-                    <div className="bg-slate-50 rounded-xl p-3">
-                      <p className="text-xs text-slate-500 mb-1">Billing Cycle</p>
-                      <p className="text-sm font-medium text-slate-900 capitalize">{subscription.billing_cycle_interval}ly</p>
-                    </div>
-                  )}
-                  <div className="bg-slate-50 rounded-xl p-3">
                     <p className="text-xs text-slate-500 mb-1">Subscribed Since</p>
                     <p className="text-sm font-medium text-slate-900">{formatDate(subscription.subscription_created_at)}</p>
                   </div>
