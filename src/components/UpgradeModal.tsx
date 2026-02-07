@@ -10,13 +10,27 @@ interface UpgradeModalProps {
 }
 
 interface PreviewData {
-  credit: number
-  charge: number
-  result: number
+  credit: number  // absolute value in cents
+  charge: number  // in cents
+  result: number  // in cents
 }
 
 function formatCents(cents: number): string {
   return `$${(cents / 100).toFixed(2)}`
+}
+
+// API 응답에서 update_summary의 문자열 금액을 숫자로 파싱
+function parsePreview(data: Record<string, unknown>): PreviewData {
+  const summary = data.update_summary as {
+    credit: { amount: string }
+    charge: { amount: string }
+    result: { amount: string }
+  }
+  return {
+    credit: Math.abs(parseInt(summary.credit.amount, 10)),
+    charge: parseInt(summary.charge.amount, 10),
+    result: parseInt(summary.result.amount, 10),
+  }
 }
 
 export default function UpgradeModal({
@@ -50,7 +64,7 @@ export default function UpgradeModal({
         if (err || !data) {
           setError(err?.message || 'Failed to load upgrade details.')
         } else {
-          setPreview(data)
+          setPreview(parsePreview(data))
         }
       })
       .catch(() => {
