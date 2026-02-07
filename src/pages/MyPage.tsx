@@ -6,6 +6,7 @@ import { useSubscription } from '../hooks/useSubscription'
 import { getPlanLabel, isActive, isPastDue, isCanceled, isLifetime, isExpired } from '../types/subscription'
 import { analytics } from '../lib/analytics'
 import CancelSubscriptionModal from '../components/CancelSubscriptionModal'
+import UpgradeModal from '../components/UpgradeModal'
 import { useState } from 'react'
 
 async function fetchPortalUrl() {
@@ -32,6 +33,7 @@ export default function MyPage() {
   const navigate = useNavigate()
   const location = useLocation()
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [portalLoading, setPortalLoading] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
@@ -239,8 +241,20 @@ export default function MyPage() {
               // active
               return (
                 <div className="rounded-xl bg-green-50 border border-green-200 p-4">
-                  <p className="font-medium text-green-900">Active</p>
-                  <p className="text-sm text-green-700">Next billing on {formatDate(subscription.next_billed_at)}</p>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium text-green-900">Active</p>
+                      <p className="text-sm text-green-700">Next billing on {formatDate(subscription.next_billed_at)}</p>
+                    </div>
+                    {!lifetime && subscription.billing_cycle_interval === 'month' && (
+                      <button
+                        onClick={() => setUpgradeModalOpen(true)}
+                        className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0"
+                      >
+                        Upgrade to Yearly
+                      </button>
+                    )}
+                  </div>
                 </div>
               )
             })()}
@@ -358,6 +372,13 @@ export default function MyPage() {
         isOpen={cancelModalOpen}
         onClose={() => setCancelModalOpen(false)}
         onConfirm={handleCancelConfirm}
+      />
+
+      {/* Upgrade Subscription Modal */}
+      <UpgradeModal
+        isOpen={upgradeModalOpen}
+        onClose={() => setUpgradeModalOpen(false)}
+        onComplete={refetch}
       />
 
       {/* Delete Account Modal */}
