@@ -212,16 +212,6 @@ export default function Header() {
                   Sign in
                 </button>
               )}
-              <a
-                href={DOWNLOAD_URL}
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  analytics.downloadClick("mobile_menu");
-                }}
-                className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-white text-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-violet-500/25"
-              >
-                Download
-              </a>
             </div>
           </div>
         )}

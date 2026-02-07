@@ -92,7 +92,7 @@ export default function PricingPage() {
           return;
         }
       }
-      navigate("/mypage");
+      navigate("/mypage", { state: { fromCheckout: true } });
     });
   }, [from, navigate, user]);
 
@@ -130,6 +130,7 @@ export default function PricingPage() {
 
   const alreadySubscribed = isActive(subscription);
   const currentPriceId = alreadySubscribed ? subscription?.price_id : null;
+  const isLifetime = currentPriceId === PRICE_IDS.lifetime;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -148,22 +149,22 @@ export default function PricingPage() {
       </header>
 
       {/* Content */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 flex-grow">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             Simple, transparent pricing
           </h1>
-          <p className="text-base text-slate-600">
+          <p className="text-sm sm:text-base text-slate-600">
             Choose the plan that works best for you. All plans include full access to Screen Pro features.
           </p>
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-4 lg:gap-8 max-w-5xl mx-auto">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`relative bg-white rounded-2xl border p-8 flex flex-col ${
+              className={`relative bg-white rounded-2xl border p-5 sm:p-6 lg:p-8 flex flex-col ${
                 plan.popular
                   ? "border-violet-500 shadow-xl shadow-violet-500/10"
                   : "border-slate-200"
@@ -171,7 +172,7 @@ export default function PricingPage() {
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-medium px-4 py-1 rounded-full">
+                  <span className="bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-violet-500/25">
                     Most Popular
                   </span>
                 </div>
@@ -185,16 +186,16 @@ export default function PricingPage() {
                 </div>
               )}
 
-              <div className="mb-6">
-                <h2 className="text-xl font-bold text-slate-900 mb-2">
+              <div className="mb-4 lg:mb-6">
+                <h2 className="text-lg lg:text-xl font-bold text-slate-900 mb-1 lg:mb-2">
                   {plan.name}
                 </h2>
                 <p className="text-slate-600 text-sm">{plan.description}</p>
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 lg:mb-6">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-bold text-slate-900">
+                  <span className="text-3xl lg:text-4xl font-bold text-slate-900">
                     ${plan.price}
                   </span>
                   <span className="text-slate-500">{plan.period}</span>
@@ -204,11 +205,11 @@ export default function PricingPage() {
                 )}
               </div>
 
-              <ul className="space-y-3 mb-8 flex-grow">
+              <ul className="space-y-2 lg:space-y-3 mb-6 lg:mb-8 flex-grow">
                 {plan.features.map((feature, index) => (
                   <li
                     key={index}
-                    className="flex items-center gap-3 text-slate-600"
+                    className="flex items-center gap-2 lg:gap-3 text-sm lg:text-base text-slate-600"
                   >
                     <svg
                       className="w-5 h-5 text-violet-500 flex-shrink-0"
@@ -234,6 +235,13 @@ export default function PricingPage() {
                   className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-500 cursor-not-allowed"
                 >
                   Current Plan
+                </button>
+              ) : isLifetime && plan.id !== "lifetime" ? (
+                <button
+                  disabled
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-400 cursor-not-allowed"
+                >
+                  Lifetime Active
                 </button>
               ) : (
                 <button

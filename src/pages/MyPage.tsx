@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { getPaddle } from '../lib/paddle'
 import { useSubscription } from '../hooks/useSubscription'
@@ -8,18 +8,18 @@ import { analytics } from '../lib/analytics'
 import CancelSubscriptionModal from '../components/CancelSubscriptionModal'
 import { useState } from 'react'
 
-async function fetchPortalUrls() {
+async function fetchPortalUrl() {
   const { data, error } = await (await import('../lib/supabase')).supabase.functions.invoke('subscription-portal')
-  if (error || !data) {
+  if (error || !data?.portal_url) {
     console.error('Failed to fetch portal:', error ?? data)
     return null
   }
-  return data as { cancel_url: string; update_payment_method_url: string }
+  return data.portal_url as string
 }
 
 function formatDate(isoString: string | null): string {
   if (!isoString) return '-'
-  return new Intl.DateTimeFormat(undefined, {
+  return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -30,6 +30,7 @@ export default function MyPage() {
   const { user, loading: authLoading, signOut } = useAuth()
   const { subscription, loading: subLoading, refetch } = useSubscription()
   const navigate = useNavigate()
+  const location = useLocation()
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [portalLoading, setPortalLoading] = useState(false)
@@ -37,15 +38,22 @@ export default function MyPage() {
   const openManageSubscription = async () => {
     setPortalLoading(true)
     try {
-      const data = await fetchPortalUrls()
-      if (!data?.cancel_url || !data?.subscription_id) return
-      const url = new URL(data.cancel_url)
-      const cplId = url.pathname.replace('/', '')
-      window.open(`${url.origin}/subscriptions/${data.subscription_id}/${cplId}?token=${url.searchParams.get('token')}`, '_blank')
+      const portalUrl = await fetchPortalUrl()
+      if (!portalUrl) return
+      window.open(portalUrl, '_blank')
     } finally {
       setPortalLoading(false)
     }
   }
+
+  // 결제 완료 후 진입 시 구독 정보 갱신
+  useEffect(() => {
+    if ((location.state as { fromCheckout?: boolean })?.fromCheckout) {
+      refetch()
+      // state 제거하여 새로고침 시 재실행 방지
+      window.history.replaceState({}, '')
+    }
+  }, [location.state, refetch])
 
   // Paddle 초기화
   useEffect(() => {
@@ -94,7 +102,7 @@ export default function MyPage() {
   const expired = isExpired(subscription)
 
   const getPlanBadge = () => {
-    if (!subscription) return { label: 'Free', color: 'bg-slate-100 text-slate-700' }
+    if (!subscription) return { label: 'No Plan', color: 'bg-slate-100 text-slate-700' }
     if (pastDue) return { label: `${planLabel} (Past Due)`, color: 'bg-amber-100 text-amber-700' }
     if (canceled && !expired) return { label: `${planLabel} (Canceled)`, color: 'bg-red-100 text-red-700' }
     if (canceled && expired) return { label: 'Expired', color: 'bg-slate-100 text-slate-700' }
@@ -168,16 +176,16 @@ export default function MyPage() {
                 return (
                   <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
                     <div className="flex-1">
-                      <p className="font-medium text-slate-900">{canceled && expired ? 'Subscription Expired' : 'Free Plan'}</p>
+                      <p className="font-medium text-slate-900">{canceled && expired ? 'Subscription Expired' : 'No Active Subscription'}</p>
                       <p className="text-sm text-slate-500">
-                        {canceled && expired ? 'Resubscribe to access Pro features.' : 'Upgrade to unlock all features.'}
+                        {canceled && expired ? 'Resubscribe to access Pro features.' : 'Subscribe to unlock all features.'}
                       </p>
                     </div>
                     <Link
                       to="/pricing"
                       className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0"
                     >
-                      {canceled && expired ? 'Resubscribe' : 'Upgrade'}
+                      {canceled && expired ? 'Resubscribe' : 'Subscribe'}
                     </Link>
                   </div>
                 )
@@ -292,7 +300,12 @@ export default function MyPage() {
             <div className="space-y-3">
               <button
                 onClick={openManageSubscription}
-                className="w-full text-left px-4 py-3 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors flex items-center justify-between"
+                disabled={!subscription || (canceled && expired)}
+                className={`w-full text-left px-4 py-3 rounded-xl border flex items-center justify-between transition-colors ${
+                  !subscription || (canceled && expired)
+                    ? 'border-slate-100 text-slate-400 cursor-not-allowed bg-slate-50'
+                    : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                }`}
               >
                 <span>Manage Subscription</span>
                 {portalLoading ? (

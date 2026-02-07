@@ -57,7 +57,7 @@ const colorVariants = {
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-20 bg-white relative overflow-hidden">
+    <section id="how-it-works" className="py-12 sm:py-20 bg-white relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
@@ -71,7 +71,7 @@ export default function HowItWorks() {
             Professional recordings in
             <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent"> 3 simple steps</span>
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-base sm:text-lg text-slate-600">
             No learning curve. No complicated settings. Just effortless screen recording.
           </p>
         </div>
@@ -87,7 +87,7 @@ export default function HowItWorks() {
               return (
                 <div key={index} className="relative group">
                   {/* Card */}
-                  <div className="bg-white rounded-2xl p-8 border border-slate-200 hover:border-violet-200 hover:shadow-xl hover:shadow-violet-100/50 transition-all duration-300 text-center">
+                  <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 hover:border-violet-200 hover:shadow-xl hover:shadow-violet-100/50 transition-all duration-300 text-center">
                     {/* Step number */}
                     <div className={`w-16 h-16 rounded-2xl ${colors.bg} flex items-center justify-center text-white mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
                       {step.icon}
@@ -124,7 +124,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Bottom CTA hint */}
-        <div className="mt-16 text-center">
+        <div className="mt-16 text-center hidden md:block">
           <p className="text-slate-500 mb-4">Ready to get started?</p>
           <button
             onClick={() => document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })}

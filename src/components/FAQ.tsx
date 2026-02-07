@@ -31,7 +31,7 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" className="py-20 bg-slate-50 relative">
+    <section id="faq" className="py-12 sm:py-20 bg-slate-50 relative">
       {/* Background */}
       <div className="absolute inset-0 bg-dots opacity-30" />
 
@@ -48,7 +48,7 @@ export default function FAQ() {
             Questions?
             <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent"> We've got answers</span>
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-base sm:text-lg text-slate-600">
             Everything you need to know about Screen Pro.
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function FAQ() {
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-5 text-left flex justify-between items-center gap-4"
+                className="w-full px-4 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center gap-4"
               >
                 <span className={`font-semibold transition-colors ${
                   openIndex === index ? 'text-violet-900' : 'text-slate-900'
@@ -88,7 +88,7 @@ export default function FAQ() {
                   openIndex === index ? 'max-h-96' : 'max-h-0'
                 }`}
               >
-                <p className="px-6 pb-6 text-slate-600 leading-relaxed">
+                <p className="px-4 sm:px-6 pb-4 sm:pb-6 text-slate-600 leading-relaxed text-sm sm:text-base">
                   {faq.answer}
                 </p>
               </div>

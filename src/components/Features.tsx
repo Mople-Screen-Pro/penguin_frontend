@@ -71,14 +71,14 @@ export default function Features() {
             Everything you need for
             <span className="gradient-text"> professional recordings</span>
           </h2>
-          <p className="text-base lg:text-lg text-slate-600 whitespace-nowrap">
+          <p className="text-base lg:text-lg text-slate-600">
             Simple yet powerful tools to create stunning screen recordings without the learning curve.
           </p>
         </div>
 
         {/* Main feature - Auto Cursor Zoom */}
         <div className="mb-16">
-          <div className="relative rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 lg:p-12 overflow-hidden">
+          <div className="relative rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-5 sm:p-8 lg:p-12 overflow-hidden">
             {/* Background pattern */}
             <div className="absolute inset-0 bg-grid opacity-10" />
             <div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl" />
@@ -93,10 +93,10 @@ export default function Features() {
                   </svg>
                   Core Feature
                 </div>
-                <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
                   Auto Cursor Zoom
                 </h3>
-                <p className="text-lg text-slate-300 mb-8">
+                <p className="text-base sm:text-lg text-slate-300 mb-6 sm:mb-8">
                   The magic behind professional-looking tutorials. Screen Pro automatically follows your cursor and intelligently zooms in to highlight what matters most.
                 </p>
                 <ul className="space-y-4">
@@ -183,7 +183,7 @@ export default function Features() {
             return (
               <div
                 key={index}
-                className={`group card p-8 hover-lift ${colors.glow}`}
+                className={`group card p-6 sm:p-8 hover-lift ${colors.glow}`}
               >
                 <div className={`w-14 h-14 rounded-2xl ${colors.bg} ${colors.border} border flex items-center justify-center mb-6 transition-transform group-hover:scale-110`}>
                   <div className={colors.icon}>{feature.icon}</div>

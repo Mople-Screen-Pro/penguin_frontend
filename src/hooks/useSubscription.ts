@@ -43,5 +43,12 @@ export function useSubscription(): UseSubscriptionReturn {
     fetch()
   }, [fetch])
 
+  // 탭 복귀 시 구독 정보 갱신
+  useEffect(() => {
+    const onFocus = () => { fetch() }
+    window.addEventListener('focus', onFocus)
+    return () => window.removeEventListener('focus', onFocus)
+  }, [fetch])
+
   return { subscription, loading, error, refetch: fetch }
 }

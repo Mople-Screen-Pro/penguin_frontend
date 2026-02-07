@@ -8,7 +8,6 @@ const footerLinks = {
     { name: 'FAQ', href: '#faq' },
   ],
   resources: [
-    { name: 'Download', href: '#download' },
     { name: 'Contact', href: 'mailto:jwjygpt0507@gmail.com' },
   ],
 }
@@ -17,7 +16,7 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-400">
       {/* Main footer */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16">
           {/* Brand */}
           <div className="col-span-2">

@@ -72,7 +72,7 @@ export default function Demo() {
             Watch Screen Pro
             <span className="gradient-text"> in action</span>
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-base sm:text-lg text-slate-600">
             See how easy it is to create professional screen recordings with automatic cursor zoom.
           </p>
         </div>
@@ -89,7 +89,7 @@ export default function Demo() {
                 <div className="mac-window-dot mac-window-dot-red" />
                 <div className="mac-window-dot mac-window-dot-yellow" />
                 <div className="mac-window-dot mac-window-dot-green" />
-                <span className="ml-4 text-xs text-gray-400 font-medium">Screen Pro Demo</span>
+                <span className="ml-2 sm:ml-4 text-[10px] sm:text-xs text-gray-400 font-medium">Screen Pro Demo</span>
                 {/* Recording indicator */}
                 <div className="ml-auto flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -107,7 +107,7 @@ export default function Demo() {
 
                 {/* Demo content preview - Dashboard UI with zoom effect */}
                 <div
-                  className="absolute inset-6 rounded-xl border border-slate-700/50 overflow-hidden bg-slate-900/80 backdrop-blur origin-center"
+                  className="absolute inset-2 sm:inset-4 md:inset-6 rounded-xl border border-slate-700/50 overflow-hidden bg-slate-900/80 backdrop-blur origin-center"
                   style={{
                     transform: isZoomed
                       ? `scale(1.9) translate(${25 - currentAnim.x * 0.5}%, ${25 - currentAnim.y * 0.5}%)`
@@ -116,7 +116,7 @@ export default function Demo() {
                   }}
                 >
                   {/* Top navigation bar */}
-                  <div className="h-10 bg-slate-800/80 border-b border-slate-700/50 flex items-center px-4 gap-4">
+                  <div className="h-8 sm:h-10 bg-slate-800/80 border-b border-slate-700/50 flex items-center px-2 sm:px-4 gap-2 sm:gap-4">
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center">
                         <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -138,10 +138,10 @@ export default function Demo() {
                   </div>
 
                   {/* Dashboard content */}
-                  <div className="p-4 space-y-4">
+                  <div className="p-2 sm:p-4 space-y-2 sm:space-y-4">
                     {/* Stats row */}
-                    <div className="grid grid-cols-4 gap-3">
-                      <div className={`bg-slate-800/60 rounded-lg p-3 border transition-all duration-200 ${currentAnim.target === 'stats1' && isZoomed ? 'border-violet-400/50 ring-2 ring-violet-400/20' : 'border-slate-700/30'}`}>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-3">
+                      <div className={`bg-slate-800/60 rounded-lg p-2 sm:p-3 border transition-all duration-200 ${currentAnim.target === 'stats1' && isZoomed ? 'border-violet-400/50 ring-2 ring-violet-400/20' : 'border-slate-700/30'}`}>
                         <div className="text-[10px] text-slate-400 mb-1">Total Views</div>
                         <div className="text-lg font-bold text-white">24.5K</div>
                         <div className="text-[9px] text-emerald-400 flex items-center gap-1 mt-1">
@@ -151,7 +151,7 @@ export default function Demo() {
                           +12.5%
                         </div>
                       </div>
-                      <div className={`bg-slate-800/60 rounded-lg p-3 border transition-all duration-200 ${currentAnim.target === 'stats2' && isZoomed ? 'border-violet-400/50 ring-2 ring-violet-400/20' : 'border-slate-700/30'}`}>
+                      <div className={`bg-slate-800/60 rounded-lg p-2 sm:p-3 border transition-all duration-200 ${currentAnim.target === 'stats2' && isZoomed ? 'border-violet-400/50 ring-2 ring-violet-400/20' : 'border-slate-700/30'}`}>
                         <div className="text-[10px] text-slate-400 mb-1">Recordings</div>
                         <div className="text-lg font-bold text-white">1,847</div>
                         <div className="text-[9px] text-emerald-400 flex items-center gap-1 mt-1">
@@ -184,9 +184,9 @@ export default function Demo() {
                     </div>
 
                     {/* Chart and list row */}
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-3">
                       {/* Chart */}
-                      <div className={`col-span-2 bg-slate-800/60 rounded-lg p-3 border transition-all duration-200 ${currentAnim.target === 'chart' && isZoomed ? 'border-violet-400/50 ring-2 ring-violet-400/20' : 'border-slate-700/30'}`}>
+                      <div className={`col-span-2 bg-slate-800/60 rounded-lg p-2 sm:p-3 border transition-all duration-200 ${currentAnim.target === 'chart' && isZoomed ? 'border-violet-400/50 ring-2 ring-violet-400/20' : 'border-slate-700/30'}`}>
                         <div className="text-[10px] text-slate-400 mb-3">Weekly Performance</div>
                         <div className="flex items-end justify-between h-20 gap-2">
                           {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
@@ -207,7 +207,7 @@ export default function Demo() {
                       </div>
 
                       {/* Recent activity */}
-                      <div className={`bg-slate-800/60 rounded-lg p-3 border transition-all duration-200 ${currentAnim.target === 'recent' && isZoomed ? 'border-violet-400/50 ring-2 ring-violet-400/20' : 'border-slate-700/30'}`}>
+                      <div className={`bg-slate-800/60 rounded-lg p-2 sm:p-3 border transition-all duration-200 ${currentAnim.target === 'recent' && isZoomed ? 'border-violet-400/50 ring-2 ring-violet-400/20' : 'border-slate-700/30'}`}>
                         <div className="text-[10px] text-slate-400 mb-2">Recent</div>
                         <div className="space-y-2">
                           {[
@@ -279,7 +279,7 @@ export default function Demo() {
                 </div>
 
                 {/* Bottom controls */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-slate-900/80 to-transparent z-10">
+                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 bg-gradient-to-t from-slate-900/80 to-transparent z-10">
                   {/* Progress bar */}
                   <div className="w-full h-1 bg-slate-700 rounded-full mb-3 overflow-hidden">
                     <div
