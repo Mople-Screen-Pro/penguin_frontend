@@ -2,25 +2,48 @@ import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase'
 import { PRICE_IDS } from '../lib/paddle'
+import type { BillingCycleInterval } from '../types/subscription'
+
+type ChangeMode = 'upgrade' | 'downgrade'
 
 interface UpgradeModalProps {
   isOpen: boolean
   onClose: () => void
   onComplete: () => void
+  mode?: ChangeMode
+  targetPriceId?: string
+  targetInterval?: BillingCycleInterval
 }
 
 interface PreviewData {
-  credit: number  // absolute value in cents
-  charge: number  // in cents
-  result: number  // in cents
+  credit: number
+  charge: number
+  result: number
+}
+
+interface DowngradePreviewData {
+  currentPlan: string
+  targetPlan: string
+  scheduledChange: {
+    effectiveAt: string
+    newBillingCycleInterval: string
+  }
 }
 
 function formatCents(cents: number): string {
   return `$${(cents / 100).toFixed(2)}`
 }
 
+function formatDate(isoString: string): string {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(isoString))
+}
+
 // API 응답에서 update_summary의 문자열 금액을 숫자로 파싱
-function parsePreview(data: Record<string, unknown>): PreviewData {
+function parseUpgradePreview(data: Record<string, unknown>): PreviewData {
   const summary = data.update_summary as {
     credit: { amount: string }
     charge: { amount: string }
@@ -33,20 +56,44 @@ function parsePreview(data: Record<string, unknown>): PreviewData {
   }
 }
 
+function parseDowngradePreview(data: Record<string, unknown>): DowngradePreviewData {
+  const scheduledChange = data.scheduled_change as {
+    effective_at: string
+    new_billing_cycle_interval: string
+  }
+  return {
+    currentPlan: data.current_plan as string,
+    targetPlan: data.target_plan as string,
+    scheduledChange: {
+      effectiveAt: scheduledChange.effective_at,
+      newBillingCycleInterval: scheduledChange.new_billing_cycle_interval,
+    },
+  }
+}
+
 export default function UpgradeModal({
   isOpen,
   onClose,
   onComplete,
+  mode = 'upgrade',
+  targetPriceId,
+  targetInterval,
 }: UpgradeModalProps) {
-  const [preview, setPreview] = useState<PreviewData | null>(null)
+  const [upgradePreview, setUpgradePreview] = useState<PreviewData | null>(null)
+  const [downgradePreview, setDowngradePreview] = useState<DowngradePreviewData | null>(null)
   const [loading, setLoading] = useState(false)
   const [confirming, setConfirming] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const isDowngrade = mode === 'downgrade'
+  const priceId = targetPriceId ?? (isDowngrade ? PRICE_IDS.monthly : PRICE_IDS.yearly)
+  const interval = targetInterval ?? (isDowngrade ? 'month' : 'year')
+
   // Preview 호출 (모달 열릴 때)
   useEffect(() => {
     if (!isOpen) {
-      setPreview(null)
+      setUpgradePreview(null)
+      setDowngradePreview(null)
       setError(null)
       return
     }
@@ -57,18 +104,25 @@ export default function UpgradeModal({
 
     supabase.functions
       .invoke('upgrade-subscription', {
-        body: { action: 'preview', price_id: PRICE_IDS.yearly },
+        body: {
+          action: 'preview',
+          price_id: priceId,
+          target_interval: interval,
+        },
       })
       .then(({ data, error: err }) => {
         if (cancelled) return
+        console.log('[UpgradeModal] preview response:', { data, error: err })
         if (err || !data) {
-          setError(err?.message || 'Failed to load upgrade details.')
+          setError(err?.message || 'Failed to load details.')
+        } else if (isDowngrade) {
+          setDowngradePreview(parseDowngradePreview(data))
         } else {
-          setPreview(parsePreview(data))
+          setUpgradePreview(parseUpgradePreview(data))
         }
       })
       .catch(() => {
-        if (!cancelled) setError('Failed to load upgrade details.')
+        if (!cancelled) setError('Failed to load details.')
       })
       .finally(() => {
         if (!cancelled) setLoading(false)
@@ -77,7 +131,7 @@ export default function UpgradeModal({
     return () => {
       cancelled = true
     }
-  }, [isOpen])
+  }, [isOpen, priceId, interval, isDowngrade])
 
   const handleConfirm = async () => {
     setConfirming(true)
@@ -85,10 +139,16 @@ export default function UpgradeModal({
     try {
       const { error: err } = await supabase.functions.invoke(
         'upgrade-subscription',
-        { body: { action: 'confirm', price_id: PRICE_IDS.yearly } }
+        {
+          body: {
+            action: 'confirm',
+            price_id: priceId,
+            target_interval: interval,
+          },
+        }
       )
       if (err) {
-        setError(err.message || 'Upgrade failed. Please try again.')
+        setError(err.message || 'Failed. Please try again.')
         return
       }
       // webhook이 DB를 갱신할 시간을 확보한 뒤 refetch
@@ -96,13 +156,15 @@ export default function UpgradeModal({
       onComplete()
       onClose()
     } catch {
-      setError('Upgrade failed. Please try again.')
+      setError('Failed. Please try again.')
     } finally {
       setConfirming(false)
     }
   }
 
   if (!isOpen) return null
+
+  const hasPreview = isDowngrade ? !!downgradePreview : !!upgradePreview
 
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -117,10 +179,12 @@ export default function UpgradeModal({
         {/* Header */}
         <div className="px-6 py-5 border-b border-slate-100">
           <h2 className="text-xl font-bold text-slate-900">
-            Upgrade to Yearly
+            {isDowngrade ? 'Switch to Monthly' : 'Upgrade to Yearly'}
           </h2>
           <p className="text-slate-600 mt-1">
-            Save more with an annual subscription
+            {isDowngrade
+              ? 'Your plan will change after the current billing period'
+              : 'Save more with an annual subscription'}
           </p>
           <button
             onClick={onClose}
@@ -137,26 +201,73 @@ export default function UpgradeModal({
           {loading ? (
             <div className="flex flex-col items-center justify-center py-8">
               <div className="w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full animate-spin" />
-              <p className="text-sm text-slate-500 mt-3">Calculating your upgrade price...</p>
+              <p className="text-sm text-slate-500 mt-3">
+                {isDowngrade ? 'Loading plan details...' : 'Calculating your upgrade price...'}
+              </p>
             </div>
-          ) : error && !preview ? (
+          ) : error && !hasPreview ? (
             <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
               <p className="text-sm text-red-700">{error}</p>
             </div>
-          ) : preview ? (
+          ) : isDowngrade && downgradePreview ? (
+            <>
+              <div className="space-y-4 mb-6">
+                <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <svg className="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="font-medium text-amber-900">Scheduled Change</span>
+                  </div>
+                  <p className="text-sm text-amber-800">
+                    Your yearly subscription will remain active until{' '}
+                    <span className="font-semibold">
+                      {formatDate(downgradePreview.scheduledChange.effectiveAt)}
+                    </span>.
+                  </p>
+                  <p className="text-sm text-amber-800 mt-1">
+                    After that date, you'll be billed <span className="font-semibold">$21/month</span>.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between py-2 border-b border-slate-100">
+                    <span className="text-slate-600 text-sm">Current plan</span>
+                    <span className="font-medium text-slate-900">Yearly ($96/year)</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b border-slate-100">
+                    <span className="text-slate-600 text-sm">New plan</span>
+                    <span className="font-medium text-slate-900">Monthly ($21/month)</span>
+                  </div>
+                  <div className="flex items-center justify-between py-2">
+                    <span className="text-slate-600 text-sm">Effective date</span>
+                    <span className="font-medium text-slate-900">
+                      {formatDate(downgradePreview.scheduledChange.effectiveAt)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {error && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+                  <p className="text-sm text-red-700">{error}</p>
+                </div>
+              )}
+            </>
+          ) : upgradePreview ? (
             <>
               <div className="space-y-3 mb-6">
                 <div className="flex items-center justify-between py-3 border-b border-slate-100">
                   <span className="text-slate-600">Yearly plan</span>
-                  <span className="font-medium text-slate-900">{formatCents(preview.charge)}</span>
+                  <span className="font-medium text-slate-900">{formatCents(upgradePreview.charge)}</span>
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-slate-100">
                   <span className="text-slate-600">Remaining credit</span>
-                  <span className="font-medium text-green-600">-{formatCents(preview.credit)}</span>
+                  <span className="font-medium text-green-600">-{formatCents(upgradePreview.credit)}</span>
                 </div>
                 <div className="flex items-center justify-between py-3">
                   <span className="font-semibold text-slate-900">Amount due today</span>
-                  <span className="text-lg font-bold text-violet-600">{formatCents(preview.result)}</span>
+                  <span className="text-lg font-bold text-violet-600">{formatCents(upgradePreview.result)}</span>
                 </div>
               </div>
 
@@ -177,14 +288,20 @@ export default function UpgradeModal({
             </button>
             <button
               onClick={handleConfirm}
-              disabled={!preview || confirming}
-              className="flex-1 px-4 py-3 text-white font-medium rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={!hasPreview || confirming}
+              className={`flex-1 px-4 py-3 text-white font-medium rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
+                isDowngrade
+                  ? 'bg-gradient-to-br from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700'
+                  : 'bg-gradient-to-br from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700'
+              }`}
             >
               {confirming ? (
                 <div className="flex items-center justify-center gap-2">
                   <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                  <span>Upgrading...</span>
+                  <span>{isDowngrade ? 'Switching...' : 'Upgrading...'}</span>
                 </div>
+              ) : isDowngrade ? (
+                'Switch to Monthly'
               ) : (
                 'Upgrade'
               )}

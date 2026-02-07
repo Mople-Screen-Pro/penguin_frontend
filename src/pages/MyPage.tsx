@@ -7,6 +7,7 @@ import { getPlanLabel, isActive, isPastDue, isCanceled, isLifetime, isExpired } 
 import { analytics } from '../lib/analytics'
 import CancelSubscriptionModal from '../components/CancelSubscriptionModal'
 import UpgradeModal from '../components/UpgradeModal'
+import Header from '../components/Header'
 import { useState } from 'react'
 
 async function fetchPortalUrl() {
@@ -79,11 +80,6 @@ export default function MyPage() {
     )
   }
 
-  const handleLogout = async () => {
-    await signOut()
-    navigate('/')
-  }
-
   const handleDeleteAccount = async () => {
     setDeleteLoading(true)
     try {
@@ -124,6 +120,12 @@ export default function MyPage() {
   const canceled = isCanceled(subscription)
   const lifetime = isLifetime(subscription)
   const expired = isExpired(subscription)
+  // 예약된 변경 존재 여부 (다운그레이드 또는 취소 모두 포함)
+  const hasAnyScheduledChange = !!subscription?.scheduled_change_effective_at &&
+    new Date(subscription.scheduled_change_effective_at) > new Date()
+  // 다운그레이드 예약 (배너 표시용 — interval 정보 필요)
+  const hasScheduledChange = hasAnyScheduledChange &&
+    !!subscription?.scheduled_change_billing_cycle_interval
 
   const getPlanBadge = () => {
     if (!subscription) return { label: 'No Plan', color: 'bg-slate-100 text-slate-700' }
@@ -139,24 +141,10 @@ export default function MyPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group w-fit">
-            <img src="/logo.png" alt="Screen Pro" className="w-9 h-9 rounded-xl shadow-lg shadow-violet-500/25" />
-            <span className="text-xl font-bold text-slate-900">Screen Pro</span>
-          </Link>
-          <button
-            onClick={handleLogout}
-            className="text-sm text-slate-600 hover:text-slate-900 transition-colors"
-          >
-            Sign out
-          </button>
-        </div>
-      </header>
+      <Header />
 
       {/* Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 lg:pt-28 pb-12">
         <h1 className="text-2xl font-bold text-slate-900 mb-8">My Account</h1>
 
         <div className="space-y-6">
@@ -239,6 +227,23 @@ export default function MyPage() {
                 )
               }
               // active
+              if (hasScheduledChange) {
+                return (
+                  <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <svg className="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <p className="font-medium text-amber-900 text-sm">Scheduled Plan Change</p>
+                    </div>
+                    <p className="text-sm text-amber-700">
+                      Your {subscription.billing_cycle_interval === 'year' ? 'yearly' : 'monthly'} subscription will switch to{' '}
+                      {subscription.scheduled_change_billing_cycle_interval === 'month' ? 'monthly ($21/month)' : 'yearly ($96/year)'}{' '}
+                      on {formatDate(subscription.scheduled_change_effective_at)}.
+                    </p>
+                  </div>
+                )
+              }
               return (
                 <div className="rounded-xl bg-green-50 border border-green-200 p-4">
                   <div className="flex items-center justify-between">
@@ -308,7 +313,7 @@ export default function MyPage() {
                   )}
                 </div>
 
-                {(active || pastDue) && !lifetime && (
+                {(active || pastDue) && !lifetime && !hasAnyScheduledChange && (
                   <button
                     onClick={() => setCancelModalOpen(true)}
                     className="text-sm text-slate-400 hover:text-red-500 transition-colors"

@@ -19,6 +19,9 @@ export interface Subscription {
   next_billed_at: string | null;
   canceled_at: string | null;
   subscription_created_at: string;
+  scheduled_change_action: string | null;
+  scheduled_change_effective_at: string | null;
+  scheduled_change_billing_cycle_interval: BillingCycleInterval | null;
 }
 
 // 구독 상태 헬퍼 1

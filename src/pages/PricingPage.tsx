@@ -9,6 +9,7 @@ import { supabase } from "../lib/supabase";
 import { getSubscription } from "../lib/subscription";
 import LoginModal from "../components/LoginModal";
 import UpgradeModal from "../components/UpgradeModal";
+import Header from "../components/Header";
 
 const plans = [
   {
@@ -63,10 +64,11 @@ const plans = [
 
 export default function PricingPage() {
   const { user } = useAuth();
-  const { subscription, refetch } = useSubscription();
+  const { subscription, loading: subLoading, refetch } = useSubscription();
   const [loading, setLoading] = useState<string | null>(null);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  const [downgradeModalOpen, setDowngradeModalOpen] = useState(false);
   const [pendingPriceId, setPendingPriceId] = useState<string | null>(null);
   const [showCompleteModal, setShowCompleteModal] = useState(false);
   const [searchParams] = useSearchParams();
@@ -134,25 +136,17 @@ export default function PricingPage() {
   const currentPriceId = alreadySubscribed ? subscription?.price_id : null;
   const isLifetime = currentPriceId === PRICE_IDS.lifetime;
   const isMonthly = alreadySubscribed && subscription?.billing_cycle_interval === "month";
+  const isYearly = alreadySubscribed && subscription?.billing_cycle_interval === "year" && !isLifetime;
+  const hasScheduledDowngrade = !!(subscription?.scheduled_change_effective_at &&
+    new Date(subscription.scheduled_change_effective_at) > new Date() &&
+    subscription.scheduled_change_billing_cycle_interval === "month");
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group w-fit">
-            <img
-              src="/logo.png"
-              alt="Screen Pro"
-              className="w-9 h-9 rounded-xl shadow-lg shadow-violet-500/25"
-            />
-            <span className="text-xl font-bold text-slate-900">Screen Pro</span>
-          </Link>
-        </div>
-      </header>
+      <Header />
 
       {/* Content */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 flex-grow">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-10 sm:pb-16 flex-grow">
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             Simple, transparent pricing
@@ -232,10 +226,17 @@ export default function PricingPage() {
                 ))}
               </ul>
 
-              {currentPriceId === plan.priceId ? (
+              {user && subLoading ? (
                 <button
                   disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-500 cursor-not-allowed"
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-400 cursor-default"
+                >
+                  &nbsp;
+                </button>
+              ) : currentPriceId === plan.priceId ? (
+                <button
+                  disabled
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-500 cursor-default"
                 >
                   Current Plan
                 </button>
@@ -252,6 +253,20 @@ export default function PricingPage() {
                   className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700"
                 >
                   Upgrade
+                </button>
+              ) : isYearly && plan.id === "monthly" && hasScheduledDowngrade ? (
+                <button
+                  disabled
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-500 cursor-default"
+                >
+                  Switching Soon
+                </button>
+              ) : isYearly && plan.id === "monthly" ? (
+                <button
+                  onClick={() => setDowngradeModalOpen(true)}
+                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-slate-200 text-slate-700 hover:bg-slate-300"
+                >
+                  Switch to Monthly
                 </button>
               ) : (
                 <button
@@ -335,11 +350,24 @@ export default function PricingPage() {
         </div>
       )}
 
-      {/* Upgrade Modal */}
+      {/* Upgrade Modal (Monthly → Yearly) */}
       <UpgradeModal
         isOpen={upgradeModalOpen}
         onClose={() => setUpgradeModalOpen(false)}
         onComplete={() => navigate("/mypage", { state: { fromCheckout: true } })}
+        mode="upgrade"
+        targetPriceId={PRICE_IDS.yearly}
+        targetInterval="year"
+      />
+
+      {/* Downgrade Modal (Yearly → Monthly) */}
+      <UpgradeModal
+        isOpen={downgradeModalOpen}
+        onClose={() => setDowngradeModalOpen(false)}
+        onComplete={() => navigate("/mypage", { state: { fromCheckout: true } })}
+        mode="downgrade"
+        targetPriceId={PRICE_IDS.monthly}
+        targetInterval="month"
       />
 
       {/* Login Modal */}

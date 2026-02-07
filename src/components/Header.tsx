@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { analytics } from "../lib/analytics";
 import { useAuth } from "../contexts/AuthContext";
 import LoginModal from "./LoginModal";
@@ -8,10 +8,23 @@ const DOWNLOAD_URL =
   "https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download";
 
 export default function Header() {
-  const { user, loading } = useAuth();
+  const { user, loading, signOut } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHome = location.pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || '';
+  const avatar = user?.user_metadata?.avatar_url || null;
+
+  const handleLogout = async () => {
+    setDropdownOpen(false);
+    await signOut();
+    navigate('/');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +34,12 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+  const handleSectionClick = (sectionId: string) => {
+    if (isHome) {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/", { state: { scrollTo: sectionId } });
     }
   };
 
@@ -37,8 +52,8 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "glass border-b border-slate-200/50 shadow-sm"
+        !isHome || scrolled
+          ? "bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm"
           : "bg-transparent"
       }`}
     >
@@ -49,7 +64,11 @@ export default function Header() {
             href="/"
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              if (isHome) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              } else {
+                navigate("/");
+              }
             }}
             className="flex items-center gap-2 group"
           >
@@ -68,7 +87,7 @@ export default function Header() {
                 <button
                   key={link.name}
                   onClick={() => {
-                    scrollTo(link.sectionId);
+                    handleSectionClick(link.sectionId);
                     analytics.navClick(link.name);
                   }}
                   className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
@@ -96,25 +115,52 @@ export default function Header() {
               <>
                 {user ? (
                   // 로그인된 상태
-                  <Link
-                    to="/mypage"
-                    className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all"
-                  >
-                    {user.user_metadata?.avatar_url ? (
-                      <img
-                        src={user.user_metadata.avatar_url}
-                        alt=""
-                        className="w-8 h-8 rounded-full"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
-                        {(user.email?.charAt(0) || "U").toUpperCase()}
-                      </div>
+                  <div className="hidden sm:block relative">
+                    <button
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                      className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all"
+                    >
+                      {avatar ? (
+                        <img src={avatar} alt="" className="w-8 h-8 rounded-full" />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
+                          {(user.email?.charAt(0) || "U").toUpperCase()}
+                        </div>
+                      )}
+                      <span className="text-sm font-medium text-slate-700">
+                        {displayName}
+                      </span>
+                      <svg className={`w-4 h-4 text-slate-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {dropdownOpen && (
+                      <>
+                        <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
+                        <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl border border-slate-200 shadow-lg z-50 overflow-hidden">
+                          <Link
+                            to="/mypage"
+                            onClick={() => setDropdownOpen(false)}
+                            className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                          >
+                            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            My Page
+                          </Link>
+                          <button
+                            onClick={handleLogout}
+                            className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors w-full border-t border-slate-100"
+                          >
+                            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                            </svg>
+                            Sign Out
+                          </button>
+                        </div>
+                      </>
                     )}
-                    <span className="text-sm font-medium text-slate-700">
-                      My Account
-                    </span>
-                  </Link>
+                  </div>
                 ) : (
                   // 로그인되지 않은 상태
                   <button
@@ -175,7 +221,7 @@ export default function Header() {
                   <button
                     key={link.name}
                     onClick={() => {
-                      scrollTo(link.sectionId);
+                      handleSectionClick(link.sectionId);
                       setMobileMenuOpen(false);
                     }}
                     className="px-4 py-3 text-left text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
@@ -194,13 +240,21 @@ export default function Header() {
                 )
               )}
               {user ? (
-                <Link
-                  to="/mypage"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-slate-700 text-center rounded-xl border-2 border-slate-200"
-                >
-                  My Account
-                </Link>
+                <>
+                  <Link
+                    to="/mypage"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                  >
+                    My Page
+                  </Link>
+                  <button
+                    onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
+                    className="px-4 py-3 text-left text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </>
               ) : (
                 <button
                   onClick={() => {
