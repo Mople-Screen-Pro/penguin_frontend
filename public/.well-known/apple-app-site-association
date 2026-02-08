@@ -3,7 +3,10 @@
     "apps": [],
     "details": [
       {
-        "appIDs": ["TMAB4J25A8.com.jwjy.ScreenPro"],
+        "appIDs": [
+          "TMAB4J25A8.com.jwjy.ScreenPro",
+          "H7ZPSP5AJ6.com.jwjy.ScreenPro.dev"
+        ],
         "components": [
           {
             "/": "/app/auth-callback*"
