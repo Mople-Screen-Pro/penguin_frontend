@@ -17,6 +17,7 @@ import RefundPage from './pages/RefundPage'
 import MyPage from './pages/MyPage'
 import AuthCallbackPage from './pages/AuthCallbackPage'
 import PricingPage from './pages/PricingPage'
+import LoginPage from './pages/LoginPage'
 
 function HomePage() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/auth/callback" element={<AuthCallbackPage />} />
           <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

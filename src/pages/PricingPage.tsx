@@ -7,7 +7,6 @@ import { isActive, isPastDue } from "../types/subscription";
 import { redirectToApp } from "../lib/deeplink";
 import { supabase } from "../lib/supabase";
 import { getSubscription } from "../lib/subscription";
-import LoginModal from "../components/LoginModal";
 import UpgradeModal from "../components/UpgradeModal";
 import Header from "../components/Header";
 
@@ -66,7 +65,6 @@ export default function PricingPage() {
   const { user } = useAuth();
   const { subscription, loading: subLoading, refetch } = useSubscription();
   const [loading, setLoading] = useState<string | null>(null);
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
   const [downgradeModalOpen, setDowngradeModalOpen] = useState(false);
   const [lifetimeModalOpen, setLifetimeModalOpen] = useState(false);
@@ -120,9 +118,9 @@ export default function PricingPage() {
     setLoading(planId);
 
     if (!user) {
-      // 비로그인 → 로그인 모달 열기, 결제할 priceId 저장
+      // 비로그인 → 로그인 페이지로 이동, 결제할 priceId 저장
       setPendingPriceId(priceId);
-      setLoginModalOpen(true);
+      navigate('/login');
       setLoading(null);
       return;
     }
@@ -449,14 +447,6 @@ export default function PricingPage() {
         targetPriceId={PRICE_IDS.lifetime}
       />
 
-      {/* Login Modal */}
-      <LoginModal
-        isOpen={loginModalOpen}
-        onClose={() => {
-          setLoginModalOpen(false);
-          setPendingPriceId(null);
-        }}
-      />
     </div>
   );
 }

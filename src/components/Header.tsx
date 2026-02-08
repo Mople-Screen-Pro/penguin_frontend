@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { analytics } from "../lib/analytics";
 import { useAuth } from "../contexts/AuthContext";
-import LoginModal from "./LoginModal";
 
 const DOWNLOAD_URL =
   "https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download";
@@ -14,7 +13,6 @@ export default function Header() {
   const isHome = location.pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || '';
@@ -163,12 +161,12 @@ export default function Header() {
                   </div>
                 ) : (
                   // 로그인되지 않은 상태
-                  <button
-                    onClick={() => setLoginModalOpen(true)}
+                  <Link
+                    to="/login"
                     className="hidden sm:inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-300"
                   >
                     Sign in
-                  </button>
+                  </Link>
                 )}
               </>
             )}
@@ -256,26 +254,19 @@ export default function Header() {
                   </button>
                 </>
               ) : (
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setLoginModalOpen(true);
-                  }}
+                <Link
+                  to="/login"
+                  onClick={() => setMobileMenuOpen(false)}
                   className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-slate-700 text-center rounded-xl border-2 border-slate-200"
                 >
                   Sign in
-                </button>
+                </Link>
               )}
             </div>
           </div>
         )}
       </nav>
 
-      {/* Login Modal */}
-      <LoginModal
-        isOpen={loginModalOpen}
-        onClose={() => setLoginModalOpen(false)}
-      />
     </header>
   );
 }
