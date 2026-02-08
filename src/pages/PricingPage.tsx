@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { getPaddle, openCheckout, setOnCheckoutComplete, PRICE_IDS } from "../lib/paddle";
+import {
+  getPaddle,
+  openCheckout,
+  setOnCheckoutComplete,
+  PRICE_IDS,
+} from "../lib/paddle";
 import { useSubscription } from "../hooks/useSubscription";
 import { isActive, isPastDue } from "../types/subscription";
 import { redirectToApp } from "../lib/deeplink";
@@ -70,7 +75,8 @@ export default function PricingPage() {
   const [lifetimeModalOpen, setLifetimeModalOpen] = useState(false);
   const [pendingPriceId, setPendingPriceId] = useState<string | null>(null);
   const [showCompleteModal, setShowCompleteModal] = useState(false);
-  const [cancelDowngradeModalOpen, setCancelDowngradeModalOpen] = useState(false);
+  const [cancelDowngradeModalOpen, setCancelDowngradeModalOpen] =
+    useState(false);
   const [cancelingDowngrade, setCancelingDowngrade] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -120,7 +126,7 @@ export default function PricingPage() {
     if (!user) {
       // 비로그인 → 로그인 페이지로 이동, 결제할 priceId 저장
       setPendingPriceId(priceId);
-      navigate('/login');
+      navigate("/login");
       setLoading(null);
       return;
     }
@@ -136,18 +142,21 @@ export default function PricingPage() {
   const handleCancelDowngrade = async () => {
     setCancelingDowngrade(true);
     try {
-      const { error: err } = await supabase.functions.invoke('upgrade-subscription', {
-        body: { action: 'cancel_downgrade' },
-      });
+      const { error: err } = await supabase.functions.invoke(
+        "upgrade-subscription",
+        {
+          body: { action: "cancel_downgrade" },
+        }
+      );
       if (err) {
-        console.error('Failed to cancel downgrade:', err);
+        console.error("Failed to cancel downgrade:", err);
         return;
       }
       await new Promise((r) => setTimeout(r, 2000));
       refetch();
       setCancelDowngradeModalOpen(false);
     } catch (err) {
-      console.error('Failed to cancel downgrade:', err);
+      console.error("Failed to cancel downgrade:", err);
     } finally {
       setCancelingDowngrade(false);
     }
@@ -157,11 +166,17 @@ export default function PricingPage() {
   const pastDue = isPastDue(subscription);
   const currentPriceId = alreadySubscribed ? subscription?.price_id : null;
   const isLifetime = currentPriceId === PRICE_IDS.lifetime;
-  const isMonthly = alreadySubscribed && subscription?.billing_cycle_interval === "month";
-  const isYearly = alreadySubscribed && subscription?.billing_cycle_interval === "year" && !isLifetime;
-  const hasScheduledDowngrade = !!(subscription?.scheduled_change_effective_at &&
+  const isMonthly =
+    alreadySubscribed && subscription?.billing_cycle_interval === "month";
+  const isYearly =
+    alreadySubscribed &&
+    subscription?.billing_cycle_interval === "year" &&
+    !isLifetime;
+  const hasScheduledDowngrade = !!(
+    subscription?.scheduled_change_effective_at &&
     new Date(subscription.scheduled_change_effective_at) > new Date() &&
-    subscription.scheduled_change_billing_cycle_interval === "month");
+    subscription.scheduled_change_billing_cycle_interval === "month"
+  );
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -174,7 +189,8 @@ export default function PricingPage() {
             Simple, transparent pricing
           </h1>
           <p className="text-sm sm:text-base text-slate-600">
-            Choose the plan that works best for you. All plans include full access to Screen Pro features.
+            Choose the plan that works best for you. All plans include full
+            access to Screen Pro features.
           </p>
         </div>
 
@@ -314,7 +330,11 @@ export default function PricingPage() {
                       : "bg-slate-900 text-white hover:bg-slate-800"
                   }`}
                 >
-                  {loading === plan.id ? "Loading..." : alreadySubscribed ? "Upgrade" : "Get Started"}
+                  {loading === plan.id
+                    ? "Loading..."
+                    : alreadySubscribed
+                    ? "Upgrade"
+                    : "Get Started"}
                 </button>
               )}
             </div>
@@ -376,12 +396,26 @@ export default function PricingPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center shadow-xl">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <svg
+                className="w-8 h-8 text-green-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">Payment Successful!</h3>
-            <p className="text-slate-600 text-sm">Thank you for subscribing to Screen Pro. Redirecting...</p>
+            <h3 className="text-xl font-bold text-slate-900 mb-2">
+              Payment Successful!
+            </h3>
+            <p className="text-slate-600 text-sm">
+              Thank you for subscribing to Screen Pro. Redirecting...
+            </p>
           </div>
         </div>
       )}
@@ -391,13 +425,26 @@ export default function PricingPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white rounded-2xl p-6 max-w-md mx-4 w-full shadow-xl">
             <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="w-6 h-6 text-amber-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-slate-900 text-center mb-2">Cancel Scheduled Switch?</h3>
+            <h3 className="text-lg font-bold text-slate-900 text-center mb-2">
+              Cancel Scheduled Switch?
+            </h3>
             <p className="text-sm text-slate-600 text-center mb-5">
-              Your plan is scheduled to switch to monthly. Would you like to cancel this and keep your yearly subscription?
+              Your plan is scheduled to switch to monthly. Would you like to
+              cancel this and keep your yearly subscription?
             </p>
             <div className="flex gap-3">
               <button
@@ -411,7 +458,7 @@ export default function PricingPage() {
                 disabled={cancelingDowngrade}
                 className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all disabled:opacity-50"
               >
-                {cancelingDowngrade ? 'Canceling...' : 'Stay on Yearly'}
+                {cancelingDowngrade ? "Canceling..." : "Stay on Yearly"}
               </button>
             </div>
           </div>
@@ -422,7 +469,9 @@ export default function PricingPage() {
       <UpgradeModal
         isOpen={upgradeModalOpen}
         onClose={() => setUpgradeModalOpen(false)}
-        onComplete={() => navigate("/mypage", { state: { fromCheckout: true } })}
+        onComplete={() =>
+          navigate("/mypage", { state: { fromCheckout: true } })
+        }
         mode="upgrade"
         targetPriceId={PRICE_IDS.yearly}
         targetInterval="year"
@@ -432,7 +481,9 @@ export default function PricingPage() {
       <UpgradeModal
         isOpen={downgradeModalOpen}
         onClose={() => setDowngradeModalOpen(false)}
-        onComplete={() => navigate("/mypage", { state: { fromCheckout: true } })}
+        onComplete={() =>
+          navigate("/mypage", { state: { fromCheckout: true } })
+        }
         mode="downgrade"
         targetPriceId={PRICE_IDS.monthly}
         targetInterval="month"
@@ -442,11 +493,12 @@ export default function PricingPage() {
       <UpgradeModal
         isOpen={lifetimeModalOpen}
         onClose={() => setLifetimeModalOpen(false)}
-        onComplete={() => navigate("/mypage", { state: { fromCheckout: true } })}
+        onComplete={() =>
+          navigate("/mypage", { state: { fromCheckout: true } })
+        }
         mode="lifetime"
         targetPriceId={PRICE_IDS.lifetime}
       />
-
     </div>
   );
 }
