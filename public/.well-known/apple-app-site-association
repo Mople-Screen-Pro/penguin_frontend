@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["H7ZPSP5AJ6.com.jwjy.ScreenPro"],
+        "components": [
+          {
+            "/": "/app/auth-callback*"
+          }
+        ]
+      }
+    ]
+  }
+}

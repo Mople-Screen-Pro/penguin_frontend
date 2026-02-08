@@ -18,6 +18,7 @@ import MyPage from './pages/MyPage'
 import AuthCallbackPage from './pages/AuthCallbackPage'
 import PricingPage from './pages/PricingPage'
 import LoginPage from './pages/LoginPage'
+import AppRedirectPage from './pages/AppRedirectPage'
 
 function HomePage() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <Route path="/auth/callback" element={<AuthCallbackPage />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/app/auth-callback" element={<AppRedirectPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
