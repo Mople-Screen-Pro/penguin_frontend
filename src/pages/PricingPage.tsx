@@ -127,7 +127,7 @@ export default function PricingPage() {
     if (!user) {
       // 비로그인 → 로그인 페이지로 이동, 결제할 priceId 저장
       setPendingPriceId(priceId);
-      navigate("/login");
+      navigate("/login?from=pricing");
       setLoading(null);
       return;
     }
