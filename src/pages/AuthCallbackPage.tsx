@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { getSubscription } from '../lib/subscription'
-import { redirectToApp } from '../lib/deeplink'
+import { redirectToApp, notifyAppNoSubscription } from '../lib/deeplink'
 
 export default function AuthCallbackPage() {
   const navigate = useNavigate()
@@ -32,8 +32,9 @@ export default function AuthCallbackPage() {
           redirectToApp(data.session, subscription)
           return
         } else {
-          // 구독 없음 → pricing 페이지로
-          navigate('/pricing?from=app')
+          // 구독 없음 → 딥링크로 앱에 subscription_status=none 전달 + mypage로 이동
+          notifyAppNoSubscription(data.session)
+          setTimeout(() => navigate('/mypage?from=app', { replace: true }), 100)
         }
       } else {
         // 웹에서 진입한 경우

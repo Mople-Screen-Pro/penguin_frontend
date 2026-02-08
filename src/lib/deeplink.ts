@@ -18,7 +18,7 @@ export function buildAppDeepLink(session: Session, subscription: Subscription | 
   }
 
   const query = new URLSearchParams(params).toString()
-  return `${APP_SCHEME}://auth?${query}`
+  return `${APP_SCHEME}://auth-callback?${query}`
 }
 
 /**
@@ -27,4 +27,17 @@ export function buildAppDeepLink(session: Session, subscription: Subscription | 
 export function redirectToApp(session: Session, subscription: Subscription | null): void {
   const deepLink = buildAppDeepLink(session, subscription)
   window.location.href = deepLink
+}
+
+/**
+ * 구독 없는 유저에게 로그인 정보 + subscription_status=none 딥링크 전달
+ * - 앱에 로그인은 시켜주되 구독 없음을 알림
+ */
+export function notifyAppNoSubscription(session: Session): void {
+  const params = new URLSearchParams({
+    access_token: session.access_token,
+    refresh_token: session.refresh_token,
+    subscription_status: 'none',
+  })
+  window.location.href = `${APP_SCHEME}://auth-callback?${params.toString()}`
 }

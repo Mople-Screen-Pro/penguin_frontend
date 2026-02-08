@@ -1,13 +1,52 @@
-import { Link, useSearchParams, Navigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useSearchParams, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { getSubscription } from '../lib/subscription'
+import { redirectToApp, notifyAppNoSubscription } from '../lib/deeplink'
 
 export default function LoginPage() {
-  const { user, loading, signInWithGoogle, signInWithApple, signInWithGithub } = useAuth()
+  const { user, session, loading, signInWithGoogle, signInWithApple, signInWithGithub } = useAuth()
   const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
   const from = searchParams.get('from') || undefined
+  const [appRedirectHandled, setAppRedirectHandled] = useState(false)
 
-  if (!loading && user) {
+  // 이미 로그인된 유저가 from=app으로 접근한 경우 처리
+  useEffect(() => {
+    if (loading || !user || !session || from !== 'app' || appRedirectHandled) return
+
+    setAppRedirectHandled(true)
+
+    const handleAppRedirect = async () => {
+      const subscription = await getSubscription(user.id)
+      const hasActive = subscription?.status === 'active' || subscription?.status === 'past_due'
+
+      if (hasActive) {
+        redirectToApp(session, subscription)
+      } else {
+        notifyAppNoSubscription(session)
+        // 약간의 딜레이 후 mypage로 이동 (딥링크가 먼저 처리되도록)
+        setTimeout(() => navigate('/mypage', { replace: true }), 100)
+      }
+    }
+
+    handleAppRedirect()
+  }, [loading, user, session, from, appRedirectHandled, navigate])
+
+  if (!loading && user && from !== 'app') {
     return <Navigate to="/" replace />
+  }
+
+  // from=app이고 이미 로그인된 유저는 처리 중 로딩 표시
+  if (!loading && user && from === 'app') {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">Redirecting to app...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
