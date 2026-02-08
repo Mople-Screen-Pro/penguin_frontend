@@ -71,7 +71,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const signOut = async () => {
-    await supabase.auth.signOut()
+    try {
+      await supabase.auth.signOut()
+    } catch {
+      // 무시
+    } finally {
+      // SDK signOut이 실패해도 로컬 상태는 반드시 정리
+      const storageKey = `sb-${new URL(import.meta.env.VITE_SUPABASE_URL).hostname.split('.')[0]}-auth-token`
+      localStorage.removeItem(storageKey)
+      setUser(null)
+      setSession(null)
+    }
   }
 
   return (
