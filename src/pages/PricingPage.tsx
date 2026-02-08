@@ -316,7 +316,7 @@ export default function PricingPage() {
                   disabled={reactivateLoading}
                   className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700 disabled:opacity-50"
                 >
-                  {reactivateLoading ? "Reactivating..." : "Reactivate"}
+                  {reactivateLoading ? "Resubscribing..." : "Resubscribe"}
                 </button>
               ) : currentPriceId === plan.priceId ? (
                 <button

@@ -249,7 +249,7 @@ export default function MyPage() {
                         disabled={reactivateLoading}
                         className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0 disabled:opacity-50"
                       >
-                        {reactivateLoading ? 'Reactivating…' : 'Reactivate'}
+                        {reactivateLoading ? 'Resubscribing…' : 'Resubscribe'}
                       </button>
                     </div>
                   </div>
@@ -302,7 +302,7 @@ export default function MyPage() {
                         disabled={reactivateLoading}
                         className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0 disabled:opacity-50"
                       >
-                        {reactivateLoading ? 'Reactivating…' : 'Reactivate'}
+                        {reactivateLoading ? 'Resubscribing…' : 'Resubscribe'}
                       </button>
                     </div>
                   </div>
