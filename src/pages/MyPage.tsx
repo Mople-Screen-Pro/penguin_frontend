@@ -323,7 +323,7 @@ export default function MyPage() {
                 {/* 결제 수단 정보 */}
                 {subscription.payment_method && (
                   <div className="bg-slate-50 rounded-xl p-4">
-                    <p className="text-xs text-slate-500 mb-3">Payment Method</p>
+                    <p className="text-sm text-slate-600 mb-3">Payment Method</p>
                     {subscription.payment_method === 'card' && subscription.card_last4 ? (
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-8 bg-white rounded-md border border-slate-200 flex items-center justify-center shrink-0">
