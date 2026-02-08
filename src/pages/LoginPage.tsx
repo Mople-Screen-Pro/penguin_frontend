@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { supabase } from '../lib/supabase'
 import { getSubscription } from '../lib/subscription'
 import { redirectToApp, notifyAppNoSubscription } from '../lib/deeplink'
 
@@ -20,13 +21,24 @@ export default function LoginPage() {
     setAppRedirectHandled(true)
 
     const handleAppRedirect = async () => {
+      // 앱에서 signOut 후 재로그인 시 토큰이 무효화될 수 있으므로 세션 갱신
+      const { data: refreshed, error: refreshError } = await supabase.auth.refreshSession()
+
+      if (refreshError || !refreshed.session) {
+        // 세션이 무효화됨 (앱에서 signOut으로 인해) → 웹도 로그아웃 후 재로그인 유도
+        await supabase.auth.signOut()
+        setAppRedirectHandled(false)
+        return
+      }
+
+      const freshSession = refreshed.session
       const subscription = await getSubscription(user.id)
       const hasActive = subscription?.status === 'active' || subscription?.status === 'past_due'
 
       if (hasActive) {
-        redirectToApp(session, subscription, from)
+        redirectToApp(freshSession, subscription, from)
       } else {
-        notifyAppNoSubscription(session, from)
+        notifyAppNoSubscription(freshSession, from)
         // 약간의 딜레이 후 mypage로 이동 (딥링크가 먼저 처리되도록)
         setTimeout(() => navigate('/mypage', { replace: true }), 100)
       }
