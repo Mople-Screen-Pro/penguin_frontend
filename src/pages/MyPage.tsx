@@ -111,7 +111,7 @@ export default function MyPage() {
   const email = user?.email || ''
   const name = user?.user_metadata?.full_name || user?.user_metadata?.name || ''
   const avatar = user?.user_metadata?.avatar_url || null
-  const provider = user?.app_metadata?.provider || ''
+
 
   // 구독 상태 파생
   const planLabel = getPlanLabel(subscription)
@@ -126,6 +126,8 @@ export default function MyPage() {
   // 다운그레이드 예약 (배너 표시용 — interval 정보 필요)
   const hasScheduledChange = hasAnyScheduledChange &&
     !!subscription?.scheduled_change_billing_cycle_interval
+  // 취소 예약 (active이지만 다음 결제 없이 종료 예정)
+  const hasScheduledCancel = hasAnyScheduledChange && !hasScheduledChange
 
   const getPlanBadge = () => {
     if (!subscription) return { label: 'No Plan', color: 'bg-slate-100 text-slate-700' }
@@ -162,12 +164,10 @@ export default function MyPage() {
               <div>
                 <p className="font-medium text-slate-900">{name || 'User'}</p>
                 <p className="text-slate-600">{email}</p>
-                {provider && (
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs text-slate-500 capitalize">
-                      Signed in with {provider}
-                    </span>
-                  </div>
+                {user?.created_at && (
+                  <p className="text-xs text-slate-400 mt-1">
+                    Joined {formatDate(user.created_at)}
+                  </p>
                 )}
               </div>
             </div>
@@ -176,7 +176,12 @@ export default function MyPage() {
           {/* Subscription Card */}
           <div className="bg-white rounded-2xl border border-slate-200 p-6">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-lg font-semibold text-slate-900">Subscription</h2>
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900">Subscription</h2>
+                {subscription && !(canceled && expired) && (
+                  <p className="text-xs text-slate-400 mt-0.5">Since {formatDate(subscription.subscription_created_at)}</p>
+                )}
+              </div>
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${planBadge.color}`}>
                 {planBadge.label}
               </span>
@@ -244,6 +249,22 @@ export default function MyPage() {
                   </div>
                 )
               }
+              if (hasScheduledCancel) {
+                return (
+                  <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <svg className="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <p className="font-medium text-amber-900 text-sm">Cancellation Scheduled</p>
+                    </div>
+                    <p className="text-sm text-amber-700">
+                      Your subscription is active until {formatDate(subscription.scheduled_change_effective_at)}.
+                      After this date, your plan will be canceled and Pro features will no longer be available.
+                    </p>
+                  </div>
+                )
+              }
               return (
                 <div className="rounded-xl bg-green-50 border border-green-200 p-4">
                   <div className="flex items-center justify-between">
@@ -300,18 +321,12 @@ export default function MyPage() {
                 })()}
 
                 {/* 구독 상세 정보 */}
-                <div className="grid grid-cols-2 gap-4">
+                {canceled && subscription.canceled_at && (
                   <div className="bg-slate-50 rounded-xl p-3">
-                    <p className="text-xs text-slate-500 mb-1">Subscribed Since</p>
-                    <p className="text-sm font-medium text-slate-900">{formatDate(subscription.subscription_created_at)}</p>
+                    <p className="text-xs text-slate-500 mb-1">Canceled On</p>
+                    <p className="text-sm font-medium text-red-600">{formatDate(subscription.canceled_at)}</p>
                   </div>
-                  {canceled && subscription.canceled_at && (
-                    <div className="bg-slate-50 rounded-xl p-3">
-                      <p className="text-xs text-slate-500 mb-1">Canceled On</p>
-                      <p className="text-sm font-medium text-red-600">{formatDate(subscription.canceled_at)}</p>
-                    </div>
-                  )}
-                </div>
+                )}
 
                 {(active || pastDue) && !lifetime && !hasAnyScheduledChange && (
                   <button
