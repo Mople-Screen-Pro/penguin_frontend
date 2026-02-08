@@ -36,6 +36,8 @@ export default function AuthCallbackPage() {
           notifyAppNoSubscription(data.session)
           setTimeout(() => navigate('/mypage?from=app', { replace: true }), 100)
         }
+      } else if (from === 'pricing') {
+        navigate('/pricing', { replace: true })
       } else {
         // 웹에서 진입한 경우
         navigate('/')
