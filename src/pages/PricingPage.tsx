@@ -8,7 +8,7 @@ import {
   PRICE_IDS,
 } from "../lib/paddle";
 import { useSubscription } from "../hooks/useSubscription";
-import { isActive, isPastDue } from "../types/subscription";
+import { isActive, isPastDue, isCanceled, isExpired } from "../types/subscription";
 import { redirectToApp } from "../lib/deeplink";
 import { supabase } from "../lib/supabase";
 import { getSubscription } from "../lib/subscription";
@@ -78,6 +78,7 @@ export default function PricingPage() {
   const [cancelDowngradeModalOpen, setCancelDowngradeModalOpen] =
     useState(false);
   const [cancelingDowngrade, setCancelingDowngrade] = useState(false);
+  const [reactivateLoading, setReactivateLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -162,6 +163,28 @@ export default function PricingPage() {
     }
   };
 
+  const handleReactivate = async () => {
+    setReactivateLoading(true);
+    try {
+      const { error } = await supabase.functions.invoke(
+        "reactivate-subscription",
+        { body: {} }
+      );
+      if (error) {
+        console.error("Failed to reactivate subscription:", error);
+        alert("Failed to reactivate subscription. Please try again.");
+        return;
+      }
+      await new Promise((r) => setTimeout(r, 2000));
+      refetch();
+    } catch (err) {
+      console.error("Failed to reactivate subscription:", err);
+      alert("Failed to reactivate subscription. Please try again.");
+    } finally {
+      setReactivateLoading(false);
+    }
+  };
+
   const alreadySubscribed = isActive(subscription);
   const pastDue = isPastDue(subscription);
   const currentPriceId = alreadySubscribed ? subscription?.price_id : null;
@@ -176,6 +199,14 @@ export default function PricingPage() {
     subscription?.scheduled_change_effective_at &&
     new Date(subscription.scheduled_change_effective_at) > new Date() &&
     subscription.scheduled_change_billing_cycle_interval === "month"
+  );
+  const canceled = isCanceled(subscription);
+  const expired = isExpired(subscription);
+  const canceledNotExpired = canceled && !expired;
+  const hasScheduledCancel = !!(
+    subscription?.scheduled_change_effective_at &&
+    new Date(subscription.scheduled_change_effective_at) > new Date() &&
+    !subscription.scheduled_change_billing_cycle_interval
   );
 
   return (
@@ -277,6 +308,15 @@ export default function PricingPage() {
                   className="w-full py-3 px-4 rounded-xl font-medium bg-amber-50 text-amber-600 border border-amber-200 cursor-not-allowed"
                 >
                   Update Payment Method
+                </button>
+              ) : (canceledNotExpired || hasScheduledCancel) &&
+                subscription?.price_id === plan.priceId ? (
+                <button
+                  onClick={handleReactivate}
+                  disabled={reactivateLoading}
+                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700 disabled:opacity-50"
+                >
+                  {reactivateLoading ? "Reactivating..." : "Reactivate"}
                 </button>
               ) : currentPriceId === plan.priceId ? (
                 <button

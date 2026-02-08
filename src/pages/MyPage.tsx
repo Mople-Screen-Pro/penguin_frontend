@@ -38,6 +38,7 @@ export default function MyPage() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [portalLoading, setPortalLoading] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
+  const [reactivateLoading, setReactivateLoading] = useState(false)
 
   const openManageSubscription = async () => {
     setPortalLoading(true)
@@ -105,6 +106,26 @@ export default function MyPage() {
     await analytics.subscriptionCancel(email, reason, detail)
     await openManageSubscription()
     setCancelModalOpen(false)
+  }
+
+  const handleReactivate = async () => {
+    setReactivateLoading(true)
+    try {
+      const { supabase } = await import('../lib/supabase')
+      const { error } = await supabase.functions.invoke('reactivate-subscription', { body: {} })
+      if (error) {
+        console.error('Failed to reactivate subscription:', error)
+        alert('Failed to reactivate subscription. Please try again.')
+        return
+      }
+      await new Promise(r => setTimeout(r, 2000))
+      refetch()
+    } catch (err) {
+      console.error('Failed to reactivate subscription:', err)
+      alert('Failed to reactivate subscription. Please try again.')
+    } finally {
+      setReactivateLoading(false)
+    }
   }
 
   // 사용자 정보
@@ -218,8 +239,19 @@ export default function MyPage() {
               if (canceled && !expired) {
                 return (
                   <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
-                    <p className="font-medium text-amber-900">Canceled</p>
-                    <p className="text-sm text-amber-700">Pro features available until {formatDate(subscription.subscription_period_end)}</p>
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <p className="font-medium text-amber-900">Canceled</p>
+                        <p className="text-sm text-amber-700">Pro features available until {formatDate(subscription.subscription_period_end)}</p>
+                      </div>
+                      <button
+                        onClick={handleReactivate}
+                        disabled={reactivateLoading}
+                        className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0 disabled:opacity-50"
+                      >
+                        {reactivateLoading ? 'Reactivating…' : 'Reactivate'}
+                      </button>
+                    </div>
                   </div>
                 )
               }
@@ -252,16 +284,27 @@ export default function MyPage() {
               if (hasScheduledCancel) {
                 return (
                   <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
-                    <div className="flex items-center gap-2 mb-1">
-                      <svg className="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <p className="font-medium text-amber-900 text-sm">Cancellation Scheduled</p>
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <svg className="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <p className="font-medium text-amber-900 text-sm">Cancellation Scheduled</p>
+                        </div>
+                        <p className="text-sm text-amber-700">
+                          Your subscription is active until {formatDate(subscription.scheduled_change_effective_at)}.
+                          After this date, your plan will be canceled and Pro features will no longer be available.
+                        </p>
+                      </div>
+                      <button
+                        onClick={handleReactivate}
+                        disabled={reactivateLoading}
+                        className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0 disabled:opacity-50"
+                      >
+                        {reactivateLoading ? 'Reactivating…' : 'Reactivate'}
+                      </button>
                     </div>
-                    <p className="text-sm text-amber-700">
-                      Your subscription is active until {formatDate(subscription.scheduled_change_effective_at)}.
-                      After this date, your plan will be canceled and Pro features will no longer be available.
-                    </p>
                   </div>
                 )
               }
