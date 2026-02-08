@@ -3,7 +3,7 @@ import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { getPaddle, openCheckout, setOnCheckoutComplete, PRICE_IDS } from "../lib/paddle";
 import { useSubscription } from "../hooks/useSubscription";
-import { isActive } from "../types/subscription";
+import { isActive, isPastDue } from "../types/subscription";
 import { redirectToApp } from "../lib/deeplink";
 import { supabase } from "../lib/supabase";
 import { getSubscription } from "../lib/subscription";
@@ -156,6 +156,7 @@ export default function PricingPage() {
   };
 
   const alreadySubscribed = isActive(subscription);
+  const pastDue = isPastDue(subscription);
   const currentPriceId = alreadySubscribed ? subscription?.price_id : null;
   const isLifetime = currentPriceId === PRICE_IDS.lifetime;
   const isMonthly = alreadySubscribed && subscription?.billing_cycle_interval === "month";
@@ -255,6 +256,13 @@ export default function PricingPage() {
                   className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-400 cursor-default"
                 >
                   &nbsp;
+                </button>
+              ) : pastDue ? (
+                <button
+                  disabled
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-amber-50 text-amber-600 border border-amber-200 cursor-not-allowed"
+                >
+                  Update Payment Method
                 </button>
               ) : currentPriceId === plan.priceId ? (
                 <button
