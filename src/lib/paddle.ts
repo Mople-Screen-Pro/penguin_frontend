@@ -54,12 +54,14 @@ interface CheckoutOptions {
   priceId: string;
   userEmail?: string;
   userId?: string;
+  discountId?: string;
 }
 
 export async function openCheckout({
   priceId,
   userEmail,
   userId,
+  discountId,
 }: CheckoutOptions) {
   const paddle = await getPaddle();
   if (!paddle) return;
@@ -68,5 +70,6 @@ export async function openCheckout({
     items: [{ priceId, quantity: 1 }],
     customer: userEmail ? { email: userEmail } : undefined,
     customData: userId ? { user_id: userId } : undefined,
+    ...(discountId ? { discountId } : {}),
   });
 }

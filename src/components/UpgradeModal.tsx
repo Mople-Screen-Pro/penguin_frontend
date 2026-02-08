@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase'
-import { PRICE_IDS } from '../lib/paddle'
+import { PRICE_IDS, openCheckout } from '../lib/paddle'
+import { useAuth } from '../contexts/AuthContext'
 import type { BillingCycleInterval } from '../types/subscription'
 
-type ChangeMode = 'upgrade' | 'downgrade'
+type ChangeMode = 'upgrade' | 'downgrade' | 'lifetime'
 
 interface UpgradeModalProps {
   isOpen: boolean
@@ -28,6 +29,14 @@ interface DowngradePreviewData {
     effectiveAt: string
     newBillingCycleInterval: string
   }
+}
+
+interface LifetimePreviewData {
+  creditAmount: number
+  lifetimePrice: number
+  netAmount: number
+  discountId: string | null
+  currentPlan: string
 }
 
 function formatCents(cents: number): string {
@@ -79,14 +88,17 @@ export default function UpgradeModal({
   targetPriceId,
   targetInterval,
 }: UpgradeModalProps) {
+  const { user } = useAuth()
   const [upgradePreview, setUpgradePreview] = useState<PreviewData | null>(null)
   const [downgradePreview, setDowngradePreview] = useState<DowngradePreviewData | null>(null)
+  const [lifetimePreview, setLifetimePreview] = useState<LifetimePreviewData | null>(null)
   const [loading, setLoading] = useState(false)
   const [confirming, setConfirming] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const isDowngrade = mode === 'downgrade'
-  const priceId = targetPriceId ?? (isDowngrade ? PRICE_IDS.monthly : PRICE_IDS.yearly)
+  const isLifetime = mode === 'lifetime'
+  const priceId = targetPriceId ?? (isLifetime ? PRICE_IDS.lifetime : isDowngrade ? PRICE_IDS.monthly : PRICE_IDS.yearly)
   const interval = targetInterval ?? (isDowngrade ? 'month' : 'year')
 
   // Preview 호출 (모달 열릴 때)
@@ -94,6 +106,7 @@ export default function UpgradeModal({
     if (!isOpen) {
       setUpgradePreview(null)
       setDowngradePreview(null)
+      setLifetimePreview(null)
       setError(null)
       return
     }
@@ -102,19 +115,25 @@ export default function UpgradeModal({
     setLoading(true)
     setError(null)
 
+    const body = isLifetime
+      ? { action: 'preview_lifetime', price_id: PRICE_IDS.lifetime }
+      : { action: 'preview', price_id: priceId, target_interval: interval }
+
     supabase.functions
-      .invoke('upgrade-subscription', {
-        body: {
-          action: 'preview',
-          price_id: priceId,
-          target_interval: interval,
-        },
-      })
+      .invoke('upgrade-subscription', { body })
       .then(({ data, error: err }) => {
         if (cancelled) return
         console.log('[UpgradeModal] preview response:', { data, error: err })
         if (err || !data) {
           setError(err?.message || 'Failed to load details.')
+        } else if (isLifetime) {
+          setLifetimePreview({
+            creditAmount: data.credit_amount,
+            lifetimePrice: data.lifetime_price,
+            netAmount: data.net_amount,
+            discountId: data.discount_id ?? null,
+            currentPlan: data.current_plan,
+          })
         } else if (isDowngrade) {
           setDowngradePreview(parseDowngradePreview(data))
         } else {
@@ -131,12 +150,24 @@ export default function UpgradeModal({
     return () => {
       cancelled = true
     }
-  }, [isOpen, priceId, interval, isDowngrade])
+  }, [isOpen, priceId, interval, isDowngrade, isLifetime])
 
   const handleConfirm = async () => {
     setConfirming(true)
     setError(null)
     try {
+      if (isLifetime && lifetimePreview) {
+        // Lifetime: Paddle checkout 열기 (discount 적용)
+        await openCheckout({
+          priceId: PRICE_IDS.lifetime,
+          userEmail: user?.email,
+          userId: user?.id,
+          discountId: lifetimePreview.discountId ?? undefined,
+        })
+        onClose()
+        return
+      }
+
       const { error: err } = await supabase.functions.invoke(
         'upgrade-subscription',
         {
@@ -164,7 +195,7 @@ export default function UpgradeModal({
 
   if (!isOpen) return null
 
-  const hasPreview = isDowngrade ? !!downgradePreview : !!upgradePreview
+  const hasPreview = isLifetime ? !!lifetimePreview : isDowngrade ? !!downgradePreview : !!upgradePreview
 
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -179,10 +210,12 @@ export default function UpgradeModal({
         {/* Header */}
         <div className="px-6 py-5 border-b border-slate-100">
           <h2 className="text-xl font-bold text-slate-900">
-            {isDowngrade ? 'Switch to Monthly' : 'Upgrade to Yearly'}
+            {isLifetime ? 'Upgrade to Lifetime' : isDowngrade ? 'Switch to Monthly' : 'Upgrade to Yearly'}
           </h2>
           <p className="text-slate-600 mt-1">
-            {isDowngrade
+            {isLifetime
+              ? 'Pay once, use forever'
+              : isDowngrade
               ? 'Your plan will change after the current billing period'
               : 'Save more with an annual subscription'}
           </p>
@@ -202,7 +235,7 @@ export default function UpgradeModal({
             <div className="flex flex-col items-center justify-center py-8">
               <div className="w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full animate-spin" />
               <p className="text-sm text-slate-500 mt-3">
-                {isDowngrade ? 'Loading plan details...' : 'Calculating your upgrade price...'}
+                {isDowngrade ? 'Loading plan details...' : 'Calculating your upgrade price\u2026'}
               </p>
             </div>
           ) : error && !hasPreview ? (
@@ -245,6 +278,31 @@ export default function UpgradeModal({
                       {formatDate(downgradePreview.scheduledChange.effectiveAt)}
                     </span>
                   </div>
+                </div>
+              </div>
+
+              {error && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+                  <p className="text-sm text-red-700">{error}</p>
+                </div>
+              )}
+            </>
+          ) : isLifetime && lifetimePreview ? (
+            <>
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center justify-between py-3 border-b border-slate-100">
+                  <span className="text-slate-600">Lifetime plan</span>
+                  <span className="font-medium text-slate-900">{formatCents(lifetimePreview.lifetimePrice)}</span>
+                </div>
+                {lifetimePreview.creditAmount > 0 && (
+                  <div className="flex items-center justify-between py-3 border-b border-slate-100">
+                    <span className="text-slate-600">Remaining credit ({lifetimePreview.currentPlan === 'year' ? 'yearly' : 'monthly'})</span>
+                    <span className="font-medium text-green-600">-{formatCents(lifetimePreview.creditAmount)}</span>
+                  </div>
+                )}
+                <div className="flex items-center justify-between py-3">
+                  <span className="font-semibold text-slate-900">Amount due today</span>
+                  <span className="text-lg font-bold text-violet-600">{formatCents(lifetimePreview.netAmount)}</span>
                 </div>
               </div>
 
@@ -300,6 +358,8 @@ export default function UpgradeModal({
                   <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
                   <span>{isDowngrade ? 'Switching...' : 'Upgrading...'}</span>
                 </div>
+              ) : isLifetime ? (
+                'Upgrade to Lifetime'
               ) : isDowngrade ? (
                 'Switch to Monthly'
               ) : (
