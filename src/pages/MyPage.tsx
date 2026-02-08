@@ -320,6 +320,79 @@ export default function MyPage() {
                   )
                 })()}
 
+                {/* 결제 수단 정보 */}
+                {subscription.payment_method && (
+                  <div className="bg-slate-50 rounded-xl p-4">
+                    <p className="text-xs text-slate-500 mb-3">Payment Method</p>
+                    {subscription.payment_method === 'card' && subscription.card_last4 ? (
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-8 bg-white rounded-md border border-slate-200 flex items-center justify-center shrink-0">
+                          {(() => {
+                            const t = subscription.card_type?.toLowerCase() || ''
+                            if (t === 'visa') return (
+                              <span className="text-[11px] font-bold tracking-tight text-blue-600 italic">VISA</span>
+                            )
+                            if (t === 'mastercard') return (
+                              <div className="flex items-center -space-x-1">
+                                <div className="w-3.5 h-3.5 rounded-full bg-red-500 opacity-80" />
+                                <div className="w-3.5 h-3.5 rounded-full bg-amber-400 opacity-80" />
+                              </div>
+                            )
+                            if (t === 'american_express' || t === 'amex') return (
+                              <span className="text-[8px] font-bold text-blue-700 leading-none text-center">AMEX</span>
+                            )
+                            if (t === 'discover') return (
+                              <span className="text-[8px] font-bold text-orange-500">DISC</span>
+                            )
+                            if (t === 'jcb') return (
+                              <span className="text-[9px] font-bold text-green-700">JCB</span>
+                            )
+                            return (
+                              <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                              </svg>
+                            )
+                          })()}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-slate-900 tracking-wide">
+                            <span className="text-slate-400">••••</span>
+                            <span className="text-slate-400 ml-1.5">••••</span>
+                            <span className="text-slate-400 ml-1.5">••••</span>
+                            <span className="ml-1.5">{subscription.card_last4}</span>
+                          </p>
+                          <p className="text-xs text-slate-500 mt-0.5">
+                            {subscription.card_type
+                              ? subscription.card_type.charAt(0).toUpperCase() + subscription.card_type.slice(1).replace('_', ' ')
+                              : 'Card'
+                            }
+                            {subscription.card_expiry_month && subscription.card_expiry_year && (
+                              <span className="ml-2">
+                                Expires {String(subscription.card_expiry_month).padStart(2, '0')}/{subscription.card_expiry_year}
+                              </span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-8 bg-white rounded-md border border-slate-200 flex items-center justify-center shrink-0">
+                          {subscription.payment_method === 'paypal' ? (
+                            <span className="text-[9px] font-bold text-blue-700 italic">PayPal</span>
+                          ) : (
+                            <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                            </svg>
+                          )}
+                        </div>
+                        <p className="text-sm font-medium text-slate-900 capitalize">
+                          {subscription.payment_method}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* 구독 상세 정보 */}
                 {canceled && subscription.canceled_at && (
                   <div className="bg-slate-50 rounded-xl p-3">

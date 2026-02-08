@@ -22,6 +22,11 @@ export interface Subscription {
   scheduled_change_action: string | null;
   scheduled_change_effective_at: string | null;
   scheduled_change_billing_cycle_interval: BillingCycleInterval | null;
+  payment_method: string | null;
+  card_type: string | null;
+  card_last4: string | null;
+  card_expiry_month: number | null;
+  card_expiry_year: number | null;
 }
 
 // 구독 상태 헬퍼 1
