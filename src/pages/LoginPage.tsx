@@ -11,9 +11,11 @@ export default function LoginPage() {
   const from = searchParams.get('from') || undefined
   const [appRedirectHandled, setAppRedirectHandled] = useState(false)
 
+  const isFromApp = from === 'app' || from === 'app-dev'
+
   // 이미 로그인된 유저가 from=app으로 접근한 경우 처리
   useEffect(() => {
-    if (loading || !user || !session || from !== 'app' || appRedirectHandled) return
+    if (loading || !user || !session || !isFromApp || appRedirectHandled) return
 
     setAppRedirectHandled(true)
 
@@ -22,23 +24,23 @@ export default function LoginPage() {
       const hasActive = subscription?.status === 'active' || subscription?.status === 'past_due'
 
       if (hasActive) {
-        redirectToApp(session, subscription)
+        redirectToApp(session, subscription, from)
       } else {
-        notifyAppNoSubscription(session)
+        notifyAppNoSubscription(session, from)
         // 약간의 딜레이 후 mypage로 이동 (딥링크가 먼저 처리되도록)
         setTimeout(() => navigate('/mypage', { replace: true }), 100)
       }
     }
 
     handleAppRedirect()
-  }, [loading, user, session, from, appRedirectHandled, navigate])
+  }, [loading, user, session, from, isFromApp, appRedirectHandled, navigate])
 
-  if (!loading && user && from !== 'app') {
+  if (!loading && user && !isFromApp) {
     return <Navigate to="/" replace />
   }
 
   // from=app이고 이미 로그인된 유저는 처리 중 로딩 표시
-  if (!loading && user && from === 'app') {
+  if (!loading && user && isFromApp) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

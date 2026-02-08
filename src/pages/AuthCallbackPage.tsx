@@ -25,15 +25,15 @@ export default function AuthCallbackPage() {
       const subscription = await getSubscription(user.id)
       const hasActive = subscription?.status === 'active' || subscription?.status === 'past_due'
 
-      if (from === 'app') {
+      if (from === 'app' || from === 'app-dev') {
         // 앱에서 진입한 경우
         if (hasActive) {
           // 구독 활성 → 딥링크로 앱에 토큰 + 만료시간 전달
-          redirectToApp(data.session, subscription)
+          redirectToApp(data.session, subscription, from)
           return
         } else {
           // 구독 없음 → 딥링크로 앱에 subscription_status=none 전달 + mypage로 이동
-          notifyAppNoSubscription(data.session)
+          notifyAppNoSubscription(data.session, from)
           setTimeout(() => navigate('/mypage?from=app', { replace: true }), 100)
         }
       } else {
