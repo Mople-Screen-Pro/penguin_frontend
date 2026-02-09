@@ -36,9 +36,9 @@ export default function LoginPage() {
       const hasActive = subscription?.status === 'active' || subscription?.status === 'past_due'
 
       if (hasActive) {
-        redirectToApp(freshSession, subscription, from)
+        redirectToApp(freshSession, subscription)
       } else {
-        notifyAppNoSubscription(freshSession, from)
+        notifyAppNoSubscription(freshSession)
         // 약간의 딜레이 후 mypage로 이동 (딥링크가 먼저 처리되도록)
         setTimeout(() => navigate('/mypage', { replace: true }), 100)
       }
