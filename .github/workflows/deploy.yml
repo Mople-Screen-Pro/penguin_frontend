@@ -17,6 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Override git author
+        run: |
+          git config user.email "${{ secrets.VERCEL_DEPLOY_EMAIL }}"
+          git config user.name "deploy-bot"
+          git commit --amend --reset-author --no-edit
+
       - name: Install Vercel CLI
         run: npm install -g vercel
 
@@ -34,6 +40,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Override git author
+        run: |
+          git config user.email "${{ secrets.VERCEL_DEPLOY_EMAIL }}"
+          git config user.name "deploy-bot"
+          git commit --amend --reset-author --no-edit
 
       - name: Install Vercel CLI
         run: npm install -g vercel
