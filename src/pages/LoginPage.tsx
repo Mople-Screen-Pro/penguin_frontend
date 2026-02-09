@@ -44,17 +44,29 @@ export default function LoginPage() {
     handleAppRedirect()
   }, [loading, user, session, from, state, isFromApp, appRedirectHandled, navigate])
 
-  if (!loading && user && !isFromApp) {
-    return <Navigate to="/" replace />
-  }
-
-  // from=app이고 이미 로그인된 유저는 처리 중 로딩 표시
-  if (!loading && user && isFromApp) {
+  // 세션 확인 중 로딩 표시
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
-          <p className="text-gray-600">Redirecting to app...</p>
+          <p className="text-gray-600">로그인 확인 중...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (user && !isFromApp) {
+    return <Navigate to="/" replace />
+  }
+
+  // from=app이고 이미 로그인된 유저는 앱으로 리다이렉트
+  if (user && isFromApp) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">이미 로그인되어 있습니다. 앱으로 돌아가는 중...</p>
         </div>
       </div>
     )
