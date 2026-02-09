@@ -11,7 +11,6 @@ import { useSubscription } from "../hooks/useSubscription";
 import { isActive, isPastDue, isCanceled, isExpired } from "../types/subscription";
 import { redirectToApp } from "../lib/deeplink";
 import { supabase } from "../lib/supabase";
-import { getSubscription } from "../lib/subscription";
 import UpgradeModal from "../components/UpgradeModal";
 import Header from "../components/Header";
 
@@ -83,6 +82,7 @@ export default function PricingPage() {
   const navigate = useNavigate();
 
   const from = searchParams.get("from");
+  const state = searchParams.get("state") || "";
 
   useEffect(() => {
     getPaddle();
@@ -98,15 +98,18 @@ export default function PricingPage() {
 
       if (from === "app" && user) {
         const { data } = await supabase.auth.getSession();
-        const sub = await getSubscription(user.id);
         if (data.session) {
-          redirectToApp(data.session, sub);
-          return;
+          try {
+            await redirectToApp(data.session, state);
+            return;
+          } catch (e) {
+            console.error("Failed to redirect to app:", e);
+          }
         }
       }
       navigate("/mypage", { state: { fromCheckout: true } });
     });
-  }, [from, navigate, user]);
+  }, [from, state, navigate, user]);
 
   // 로그인 후 pending checkout 자동 실행
   useEffect(() => {

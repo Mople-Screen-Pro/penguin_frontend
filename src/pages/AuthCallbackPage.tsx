@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { getSubscription } from '../lib/subscription'
-import { redirectToApp, notifyAppNoSubscription } from '../lib/deeplink'
+import { redirectToApp } from '../lib/deeplink'
 
 export default function AuthCallbackPage() {
   const navigate = useNavigate()
@@ -19,6 +19,7 @@ export default function AuthCallbackPage() {
       }
 
       const from = searchParams.get('from')
+      const state = searchParams.get('state') || ''
       const user = data.session.user
 
       // 구독 상태 조회
@@ -26,14 +27,17 @@ export default function AuthCallbackPage() {
       const hasActive = subscription?.status === 'active' || subscription?.status === 'past_due'
 
       if (from === 'app' || from === 'app-dev') {
-        // 앱에서 진입한 경우
-        if (hasActive) {
-          // 구독 활성 → 딥링크로 앱에 토큰 + 만료시간 전달
-          redirectToApp(data.session, subscription)
+        // 앱에서 진입한 경우 → 딥링크로 임시 코드 전달 (구독 유무 무관)
+        try {
+          await redirectToApp(data.session, state)
+        } catch (e) {
+          console.error('Failed to redirect to app:', e)
+          navigate('/')
           return
-        } else {
-          // 구독 없음 → 딥링크로 앱에 subscription_status=none 전달 + mypage로 이동
-          notifyAppNoSubscription(data.session)
+        }
+
+        if (!hasActive) {
+          // 구독 없음 → mypage로 이동 (딥링크가 먼저 처리되도록 딜레이)
           setTimeout(() => navigate('/mypage?from=app', { replace: true }), 100)
         }
       } else if (from === 'pricing') {

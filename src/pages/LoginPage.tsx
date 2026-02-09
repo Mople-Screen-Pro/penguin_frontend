@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import { Link, useSearchParams, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabase'
-import { getSubscription } from '../lib/subscription'
-import { redirectToApp, notifyAppNoSubscription } from '../lib/deeplink'
+import { redirectToApp } from '../lib/deeplink'
 
 export default function LoginPage() {
   const { user, session, loading, signInWithGoogle, signInWithApple, signInWithGithub } = useAuth()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const from = searchParams.get('from') || undefined
+  const state = searchParams.get('state') || undefined
   const [appRedirectHandled, setAppRedirectHandled] = useState(false)
 
   const isFromApp = from === 'app' || from === 'app-dev'
@@ -32,20 +32,17 @@ export default function LoginPage() {
       }
 
       const freshSession = refreshed.session
-      const subscription = await getSubscription(user.id)
-      const hasActive = subscription?.status === 'active' || subscription?.status === 'past_due'
 
-      if (hasActive) {
-        redirectToApp(freshSession, subscription)
-      } else {
-        notifyAppNoSubscription(freshSession)
-        // 약간의 딜레이 후 mypage로 이동 (딥링크가 먼저 처리되도록)
-        setTimeout(() => navigate('/mypage', { replace: true }), 100)
+      try {
+        await redirectToApp(freshSession, state || '')
+      } catch (e) {
+        console.error('Failed to redirect to app:', e)
+        navigate('/', { replace: true })
       }
     }
 
     handleAppRedirect()
-  }, [loading, user, session, from, isFromApp, appRedirectHandled, navigate])
+  }, [loading, user, session, from, state, isFromApp, appRedirectHandled, navigate])
 
   if (!loading && user && !isFromApp) {
     return <Navigate to="/" replace />
@@ -217,7 +214,7 @@ export default function LoginPage() {
             <div className="space-y-3">
               {/* Google */}
               <button
-                onClick={() => signInWithGoogle(from)}
+                onClick={() => signInWithGoogle(from, state)}
                 className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white border-2 border-slate-200 rounded-xl text-base font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm transition-all duration-200"
               >
                 <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
@@ -231,7 +228,7 @@ export default function LoginPage() {
 
               {/* Apple */}
               <button
-                onClick={() => signInWithApple(from)}
+                onClick={() => signInWithApple(from, state)}
                 className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-slate-900 rounded-xl text-base font-medium text-white hover:bg-slate-800 transition-all duration-200"
               >
                 <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
@@ -242,7 +239,7 @@ export default function LoginPage() {
 
               {/* GitHub */}
               <button
-                onClick={() => signInWithGithub(from)}
+                onClick={() => signInWithGithub(from, state)}
                 className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white border-2 border-slate-200 rounded-xl text-base font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm transition-all duration-200"
               >
                 <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">

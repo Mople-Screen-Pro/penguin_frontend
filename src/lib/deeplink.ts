@@ -1,50 +1,36 @@
 import type { Session } from '@supabase/supabase-js'
-import type { Subscription } from '../types/subscription'
 
 const APP_SCHEME_BASE = 'screenpro://auth-callback'
+const SUPABASE_FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`
 
 /**
- * 앱으로 리다이렉트할 base URL 반환
- * - Custom URL Scheme 사용 (Universal Link는 JS 리다이렉트에서 트리거되지 않음)
+ * 서버에 임시 코드를 생성하고, 딥링크로 앱에 전달
+ * - 토큰은 서버에 임시 저장 (60초 TTL, 1회용)
+ * - 앱은 코드를 POST exchange-code Edge Function으로 교환
  */
-function getBaseUrl(): string {
-  return APP_SCHEME_BASE
-}
-
-/**
- * 앱으로 돌아가는 딥링크 URL 생성
- */
-export function buildAppDeepLink(session: Session, subscription: Subscription | null): string {
-  const params: Record<string, string> = {
-    access_token: session.access_token,
-    refresh_token: session.refresh_token,
-  }
-
-  if (subscription?.subscription_period_end) {
-    params.subscription_period_end = subscription.subscription_period_end
-  }
-
-  const query = new URLSearchParams(params).toString()
-  return `${getBaseUrl()}?${query}`
-}
-
-/**
- * 딥링크를 실행하여 앱으로 이동
- */
-export function redirectToApp(session: Session, subscription: Subscription | null): void {
-  const deepLink = buildAppDeepLink(session, subscription)
-  window.location.href = deepLink
-}
-
-/**
- * 구독 없는 유저에게 로그인 정보 + subscription_status=none 전달
- * - 앱에 로그인은 시켜주되 구독 없음을 알림
- */
-export function notifyAppNoSubscription(session: Session): void {
-  const params = new URLSearchParams({
-    access_token: session.access_token,
-    refresh_token: session.refresh_token,
-    subscription_status: 'none',
+export async function redirectToApp(session: Session, state: string): Promise<void> {
+  const response = await fetch(`${SUPABASE_FUNCTIONS_URL}/generate-code`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${session.access_token}`,
+    },
+    body: JSON.stringify({
+      refresh_token: session.refresh_token,
+    }),
   })
-  window.location.href = `${getBaseUrl()}?${params.toString()}`
+
+  if (!response.ok) {
+    console.error('Failed to generate auth code:', response.status)
+    throw new Error('Failed to generate auth code')
+  }
+
+  const { code } = await response.json()
+
+  const params = new URLSearchParams({ code })
+  if (state) {
+    params.set('state', state)
+  }
+
+  window.location.href = `${APP_SCHEME_BASE}?${params.toString()}`
 }

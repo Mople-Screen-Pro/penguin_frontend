@@ -7,9 +7,9 @@ interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
-  signInWithGoogle: (from?: string) => Promise<void>
-  signInWithApple: (from?: string) => Promise<void>
-  signInWithGithub: (from?: string) => Promise<void>
+  signInWithGoogle: (from?: string, state?: string) => Promise<void>
+  signInWithApple: (from?: string, state?: string) => Promise<void>
+  signInWithGithub: (from?: string, state?: string) => Promise<void>
   signOut: () => Promise<void>
 }
 
@@ -38,34 +38,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe()
   }, [])
 
-  const buildRedirectUrl = (from?: string) => {
+  const buildRedirectUrl = (from?: string, state?: string) => {
     const base = `${window.location.origin}/auth/callback`
-    return from ? `${base}?from=${from}` : base
+    const params = new URLSearchParams()
+    if (from) params.set('from', from)
+    if (state) params.set('state', state)
+    const qs = params.toString()
+    return qs ? `${base}?${qs}` : base
   }
 
-  const signInWithGoogle = async (from?: string) => {
+  const signInWithGoogle = async (from?: string, state?: string) => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: buildRedirectUrl(from)
+        redirectTo: buildRedirectUrl(from, state)
       }
     })
   }
 
-  const signInWithApple = async (from?: string) => {
+  const signInWithApple = async (from?: string, state?: string) => {
     await supabase.auth.signInWithOAuth({
       provider: 'apple',
       options: {
-        redirectTo: buildRedirectUrl(from)
+        redirectTo: buildRedirectUrl(from, state)
       }
     })
   }
 
-  const signInWithGithub = async (from?: string) => {
+  const signInWithGithub = async (from?: string, state?: string) => {
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: buildRedirectUrl(from)
+        redirectTo: buildRedirectUrl(from, state)
       }
     })
   }
