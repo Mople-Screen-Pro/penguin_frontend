@@ -1,7 +1,7 @@
 import type { Session } from '@supabase/supabase-js'
 import type { Subscription } from '../types/subscription'
 
-const APP_UNIVERSAL_LINK_BASE = 'https://sc-pro.net/app/auth-callback'
+const APP_UNIVERSAL_LINK_BASE = 'https://auth.sc-pro.net/app/auth-callback'
 const APP_DEV_SCHEME_BASE = 'screenpro://auth-callback'
 
 /**
