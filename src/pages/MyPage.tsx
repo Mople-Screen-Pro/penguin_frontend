@@ -7,6 +7,7 @@ import { getPlanLabel, isActive, isPastDue, isCanceled, isLifetime, isExpired } 
 import { analytics } from '../lib/analytics'
 import CancelSubscriptionModal from '../components/CancelSubscriptionModal'
 import UpgradeModal from '../components/UpgradeModal'
+import ActiveDeviceSection from '../components/my/ActiveDeviceSection'
 import Header from '../components/Header'
 import { useState } from 'react'
 
@@ -455,6 +456,9 @@ export default function MyPage() {
               </div>
             )}
           </div>
+
+          {/* Active Device (구독 활성 상태일 때만 표시) */}
+          {(active || pastDue || lifetime) && <ActiveDeviceSection />}
 
           {/* Account Actions */}
           <div className="bg-white rounded-2xl border border-slate-200 p-6">

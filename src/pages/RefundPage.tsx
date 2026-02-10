@@ -60,37 +60,27 @@ export default function RefundPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">3. Refund Eligibility and Timeframes</h2>
 
-            <h3 className="text-lg font-medium text-slate-800 mb-3">3.1 30-Day Money-Back Guarantee</h3>
-            <p className="text-slate-600 mb-4">
-              We offer a 30-day money-back guarantee for all purchases of Screen Pro.
-            </p>
-            <p className="text-slate-600 mb-2">Eligibility Requirements:</p>
+            <h3 className="text-lg font-medium text-slate-800 mb-3">3.1 Monthly Subscription</h3>
+            <p className="text-slate-600 mb-2">For monthly subscription plans:</p>
             <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
-              <li>Refund requests must be submitted within 30 days of the original purchase date</li>
+              <li>Refund requests must be submitted within 14 days of the transaction date</li>
               <li>The request must be made through Paddle's refund process</li>
-              <li>Refunds are granted at Paddle's discretion based on the circumstances</li>
-            </ul>
-
-            <h3 className="text-lg font-medium text-slate-800 mb-3">3.2 Lifetime License</h3>
-            <p className="text-slate-600 mb-2">For one-time purchases (Lifetime License):</p>
-            <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
-              <li>Refund requests must be submitted within 30 days of purchase</li>
-              <li>Eligibility is determined by Paddle based on usage patterns and compliance with Terms of Service</li>
-              <li>Refunds may be denied if the Service has been extensively used or if Terms of Service have been violated</li>
-            </ul>
-
-            <h3 className="text-lg font-medium text-slate-800 mb-3">3.3 Subscription Plans</h3>
-            <p className="text-slate-600 mb-2">For monthly or annual subscription plans:</p>
-            <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
               <li>You may cancel your subscription at any time</li>
               <li>Cancellation stops future billing and takes effect at the next payment date</li>
-              <li>Refund requests must be submitted within 30 days of the transaction date</li>
               <li>Access to the Service continues until the end of the current billing period</li>
             </ul>
 
-            <h3 className="text-lg font-medium text-slate-800 mb-3">3.4 Refund Request Deadline</h3>
+            <h3 className="text-lg font-medium text-slate-800 mb-3">3.2 Annual Subscription and Lifetime License</h3>
+            <p className="text-slate-600 mb-2">For annual subscription plans and one-time purchases (Lifetime License):</p>
+            <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
+              <li>Refund requests must be submitted within 30 days of the transaction date</li>
+              <li>The request must be made through Paddle's refund process</li>
+              <li>For annual subscriptions, you may cancel at any time; cancellation stops future billing and takes effect at the next payment date</li>
+              <li>For Lifetime Licenses, eligibility is determined by Paddle based on usage patterns and compliance with Terms of Service</li>
+            </ul>
+
             <p className="text-slate-600">
-              All refund requests must be submitted within 60 days of the transaction date. Requests received after this period will not be processed, except where required by applicable consumer protection laws.
+              All refund requests are processed by Paddle at their discretion, in accordance with applicable consumer protection laws. Requests received after the applicable deadline will not be processed, except where required by law.
             </p>
           </section>
 
@@ -155,7 +145,7 @@ export default function RefundPage() {
               <li><strong>Chargeback Abuse:</strong> Initiating chargebacks or payment disputes without first contacting Paddle</li>
               <li><strong>Fraudulent Activity:</strong> Suspected fraud, use of stolen payment methods, or license key sharing/resale</li>
               <li><strong>Excessive Usage:</strong> For Lifetime Licenses, if the Service has been used extensively beyond evaluation purposes</li>
-              <li><strong>Requests Outside Time Limits:</strong> Refund requests submitted after the applicable deadline</li>
+              <li><strong>Requests Outside Time Limits:</strong> Refund requests submitted after 14 days (monthly subscriptions) or 30 days (annual subscriptions and Lifetime Licenses)</li>
             </ul>
             <p className="text-slate-600">
               Users who initiate fraudulent chargebacks may have their access to the Service terminated immediately.
