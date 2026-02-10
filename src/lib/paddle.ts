@@ -8,9 +8,9 @@ import type { Paddle, CheckoutEventsData } from "@paddle/paddle-js";
 // } as const;
 
 export const PRICE_IDS = {
-  monthly: "pri_01kgrh3gmmcxaqpks14m6bwrxf",
-  yearly: "pri_01kgrh2bdcds3bmzqpg61r4ayw",
-  lifetime: "pri_01kgrh0j359zbkfcwpmeggpkc2",
+  monthly: "pri_01kgctdnhd9qgyyfke7amyev8c",
+  yearly: "pri_01kgctf2scgqk3757t27w3jyej",
+  lifetime: "pri_01kgctg9pvbed7xhqy4vhhjk7w",
 } as const;
 
 let paddleInstance: Paddle | null = null;
