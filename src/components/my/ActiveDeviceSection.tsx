@@ -2,14 +2,17 @@ import { useState } from 'react'
 import { useDevice } from '../../hooks/useDevice'
 import DeactivateDeviceModal from './DeactivateDeviceModal'
 
-function formatDate(isoString: string): string {
+function formatDate(isoString: string | null | undefined): string {
+  if (!isoString) return ''
+  const date = new Date(isoString)
+  if (isNaN(date.getTime())) return ''
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: 'numeric',
     minute: '2-digit',
-  }).format(new Date(isoString))
+  }).format(date)
 }
 
 export default function ActiveDeviceSection() {
