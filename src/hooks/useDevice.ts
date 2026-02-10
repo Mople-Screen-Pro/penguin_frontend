@@ -3,7 +3,6 @@ import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabase'
 
 export interface DeviceInfo {
-  hardware_uuid: string
   device_name: string
   activated_at: string
 }
@@ -46,7 +45,12 @@ export function useDevice(): UseDeviceReturn {
         return
       }
 
-      setDevice(data as DeviceInfo | null)
+      if (Array.isArray(data) && data.length > 0) {
+        const d = data[0]
+        setDevice({ device_name: d.device_name, activated_at: d.activated_at })
+      } else {
+        setDevice(null)
+      }
     } catch (err) {
       console.error('Failed to fetch device:', err)
       setError('Failed to load device info')
