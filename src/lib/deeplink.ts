@@ -1,6 +1,6 @@
 import type { Session } from '@supabase/supabase-js'
 
-const APP_SCHEME_BASE = 'screenpro://auth-callback'
+const APP_SCHEME_BASE = 'penguin://auth-callback'
 const SUPABASE_FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`
 
 /**

@@ -60,7 +60,7 @@ export default function ActiveDeviceSection() {
         ) : (
           <div className="rounded-xl bg-slate-50 p-4">
             <p className="text-sm text-slate-500">
-              No active device. Export from the ScreenPro Mac app to activate a device.
+              No active device. Export from the Penguin Mac app to activate a device.
             </p>
           </div>
         )}
