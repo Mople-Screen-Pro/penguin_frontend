@@ -77,9 +77,9 @@ export default function LoginPage() {
       {/* Left: Branding & Visual */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
         {/* Gradient orbs */}
-        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-violet-500/25 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-purple-500/25 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-fuchsia-500/15 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-sky-500/25 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-blue-500/25 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-cyan-500/15 rounded-full blur-3xl" />
 
         {/* Grid background */}
         <div className="absolute inset-0 bg-grid opacity-10" />
@@ -91,10 +91,10 @@ export default function LoginPage() {
             <div className="flex items-center justify-center gap-3 mb-6">
               <img
                 src="/logo.png"
-                alt="Screen Pro"
-                className="w-14 h-14 rounded-2xl shadow-lg shadow-violet-500/30"
+                alt="Penguin"
+                className="w-14 h-14 rounded-2xl shadow-lg shadow-sky-500/30"
               />
-              <span className="text-3xl font-bold text-white">Screen Pro</span>
+              <span className="text-3xl font-bold text-white">Penguin</span>
             </div>
             <p className="text-lg text-slate-300 max-w-sm">
               Create professional tutorials and demos with automatic cursor zoom
@@ -109,7 +109,7 @@ export default function LoginPage() {
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                <span className="ml-3 text-xs text-slate-400 font-medium">Screen Pro — Recording</span>
+                <span className="ml-3 text-xs text-slate-400 font-medium">Penguin — Recording</span>
               </div>
 
               {/* Window content */}
@@ -118,14 +118,14 @@ export default function LoginPage() {
                 <div className="absolute inset-3 rounded-lg bg-slate-800/60 border border-slate-700/40">
                   <div className="p-4 font-mono text-xs">
                     <div className="flex items-center gap-2 text-slate-500 mb-3">
-                      <span className="w-2.5 h-2.5 rounded-full bg-violet-500/40" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-sky-500/40" />
                       <span>presentation.tsx</span>
                     </div>
                     <div className="space-y-1.5 text-slate-400">
-                      <p><span className="text-purple-400">import</span> <span className="text-violet-300">{'{ motion }'}</span> <span className="text-purple-400">from</span> <span className="text-emerald-400">"framer-motion"</span></p>
+                      <p><span className="text-blue-400">import</span> <span className="text-sky-300">{'{ motion }'}</span> <span className="text-blue-400">from</span> <span className="text-emerald-400">"framer-motion"</span></p>
                       <p />
-                      <p><span className="text-purple-400">export const</span> <span className="text-blue-300">Slide</span> = () =&gt; {'{'}</p>
-                      <p className="pl-4"><span className="text-purple-400">return</span> (</p>
+                      <p><span className="text-blue-400">export const</span> <span className="text-blue-300">Slide</span> = () =&gt; {'{'}</p>
+                      <p className="pl-4"><span className="text-blue-400">return</span> (</p>
                       <p className="pl-8 text-orange-300">&lt;motion.div&gt;</p>
                       <p className="pl-12 text-slate-500">{'// Your content here'}</p>
                       <p className="pl-8 text-orange-300">&lt;/motion.div&gt;</p>
@@ -137,8 +137,8 @@ export default function LoginPage() {
 
                 {/* Cursor with zoom ring */}
                 <div className="absolute top-[45%] left-[55%] animate-cursor-move">
-                  <div className="absolute -inset-6 border-2 border-violet-400/30 rounded-full animate-cursor-zoom" />
-                  <div className="absolute -inset-10 border border-violet-400/15 rounded-full animate-cursor-zoom" style={{ animationDelay: '0.2s' }} />
+                  <div className="absolute -inset-6 border-2 border-sky-400/30 rounded-full animate-cursor-zoom" />
+                  <div className="absolute -inset-10 border border-sky-400/15 rounded-full animate-cursor-zoom" style={{ animationDelay: '0.2s' }} />
                   <svg className="w-5 h-5 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M4 4l16 8-7 2-2 7z" />
                   </svg>
@@ -152,7 +152,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Auto zoom badge */}
-                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-violet-500/20 backdrop-blur border border-violet-400/30 text-violet-300 text-xs font-medium">
+                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-sky-500/20 backdrop-blur border border-sky-400/30 text-sky-300 text-xs font-medium">
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                   </svg>
@@ -165,19 +165,19 @@ export default function LoginPage() {
           {/* Feature highlights */}
           <div className="flex items-center gap-6 mt-10 text-sm text-slate-400">
             <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               Auto Focus
             </div>
             <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               Easy Edit
             </div>
             <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               Quick Export
@@ -193,10 +193,10 @@ export default function LoginPage() {
           <Link to="/" className="flex items-center gap-2 group">
             <img
               src="/logo.png"
-              alt="Screen Pro"
-              className="w-8 h-8 rounded-xl shadow-md shadow-violet-500/20 group-hover:shadow-violet-500/30 transition-shadow"
+              alt="Penguin"
+              className="w-8 h-8 rounded-xl shadow-md shadow-sky-500/20 group-hover:shadow-sky-500/30 transition-shadow"
             />
-            <span className="text-lg font-bold text-slate-900 lg:hidden">Screen Pro</span>
+            <span className="text-lg font-bold text-slate-900 lg:hidden">Penguin</span>
           </Link>
           <Link
             to="/"
@@ -218,7 +218,7 @@ export default function LoginPage() {
                 Welcome back
               </h1>
               <p className="text-slate-500">
-                Sign in to access your Screen Pro account
+                Sign in to access your Penguin account
               </p>
             </div>
 
@@ -274,7 +274,7 @@ export default function LoginPage() {
             {/* Download CTA */}
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
-              className="w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white font-semibold hover:from-sky-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
@@ -285,9 +285,9 @@ export default function LoginPage() {
             {/* Terms */}
             <p className="text-center text-xs text-slate-400 mt-8 leading-relaxed">
               By continuing, you agree to our{' '}
-              <Link to="/terms" className="text-violet-600 hover:underline">Terms of Service</Link>
+              <Link to="/terms" className="text-sky-600 hover:underline">Terms of Service</Link>
               {' '}and{' '}
-              <Link to="/privacy" className="text-violet-600 hover:underline">Privacy Policy</Link>
+              <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>
             </p>
           </div>
         </div>

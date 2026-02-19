@@ -24,12 +24,12 @@ export default function Footer() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="flex items-center gap-3 mb-4"
             >
-              <img src="/logo.png" alt="Screen Pro" className="w-10 h-10 rounded-xl" />
-              <span className="text-xl font-bold text-white">Screen Pro</span>
+              <img src="/logo.png" alt="Penguin" className="w-10 h-10 rounded-xl" />
+              <span className="text-xl font-bold text-white">Penguin</span>
             </button>
             <p className="text-sm leading-relaxed mb-6 max-w-xs">
-              Professional screen recording with automatic cursor zoom.
-              Make tutorials that stand out.
+              Screen recording with auto cursor zoom.
+              Your tutorials, but professional.
             </p>
             <div className="flex items-center gap-2 text-sm">
               <span className="flex h-2 w-2 relative">
@@ -75,7 +75,7 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm">
-              &copy; {new Date().getFullYear()} Screen Pro. All rights reserved.
+              &copy; {new Date().getFullYear()} Penguin. All rights reserved.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm">
               <Link to="/terms" className="hover:text-white transition-colors">

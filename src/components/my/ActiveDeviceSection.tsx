@@ -24,7 +24,7 @@ export default function ActiveDeviceSection() {
       <div className="bg-white rounded-2xl border border-slate-200 p-6">
         <h2 className="text-lg font-semibold text-slate-900 mb-4">Active Device</h2>
         <div className="flex items-center justify-center py-4">
-          <div className="w-5 h-5 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-5 h-5 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
         </div>
       </div>
     )

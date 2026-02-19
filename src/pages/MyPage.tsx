@@ -77,7 +77,7 @@ export default function MyPage() {
   if (authLoading || subLoading) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full" />
+        <div className="animate-spin w-8 h-8 border-4 border-sky-500 border-t-transparent rounded-full" />
       </div>
     )
   }
@@ -156,7 +156,7 @@ export default function MyPage() {
     if (pastDue) return { label: `${planLabel} (Past Due)`, color: 'bg-amber-100 text-amber-700' }
     if (canceled && !expired) return { label: `${planLabel} (Canceled)`, color: 'bg-red-100 text-red-700' }
     if (canceled && expired) return { label: 'Expired', color: 'bg-slate-100 text-slate-700' }
-    if (lifetime) return { label: 'Lifetime', color: 'bg-violet-100 text-violet-700' }
+    if (lifetime) return { label: 'Lifetime', color: 'bg-sky-100 text-sky-700' }
     if (planLabel === 'Yearly') return { label: 'Yearly', color: 'bg-blue-100 text-blue-700' }
     return { label: 'Monthly', color: 'bg-green-100 text-green-700' }
   }
@@ -179,7 +179,7 @@ export default function MyPage() {
               {avatar ? (
                 <img src={avatar} alt="" className="w-16 h-16 rounded-full" />
               ) : (
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center text-white text-2xl font-bold">
                   {email.charAt(0).toUpperCase()}
                 </div>
               )}
@@ -222,7 +222,7 @@ export default function MyPage() {
                     </div>
                     <Link
                       to="/pricing"
-                      className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0"
+                      className="px-4 py-2 bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all shrink-0"
                     >
                       {canceled && expired ? 'Resubscribe' : 'Subscribe'}
                     </Link>
@@ -231,9 +231,9 @@ export default function MyPage() {
               }
               if (lifetime) {
                 return (
-                  <div className="rounded-xl bg-gradient-to-r from-violet-50 to-purple-50 p-4">
-                    <p className="font-medium text-violet-900">Lifetime Access</p>
-                    <p className="text-sm text-violet-600">Active forever — no renewal needed</p>
+                  <div className="rounded-xl bg-gradient-to-r from-sky-50 to-blue-50 p-4">
+                    <p className="font-medium text-sky-900">Lifetime Access</p>
+                    <p className="text-sm text-sky-600">Active forever — no renewal needed</p>
                   </div>
                 )
               }
@@ -248,7 +248,7 @@ export default function MyPage() {
                       <button
                         onClick={handleReactivate}
                         disabled={reactivateLoading}
-                        className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0 disabled:opacity-50"
+                        className="px-4 py-2 bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all shrink-0 disabled:opacity-50"
                       >
                         {reactivateLoading ? 'Resubscribing…' : 'Resubscribe'}
                       </button>
@@ -301,7 +301,7 @@ export default function MyPage() {
                       <button
                         onClick={handleReactivate}
                         disabled={reactivateLoading}
-                        className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0 disabled:opacity-50"
+                        className="px-4 py-2 bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all shrink-0 disabled:opacity-50"
                       >
                         {reactivateLoading ? 'Resubscribing…' : 'Resubscribe'}
                       </button>
@@ -319,7 +319,7 @@ export default function MyPage() {
                     {!lifetime && subscription.billing_cycle_interval === 'month' && (
                       <button
                         onClick={() => setUpgradeModalOpen(true)}
-                        className="px-4 py-2 bg-gradient-to-br from-violet-500 to-purple-600 text-white text-sm font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all shrink-0"
+                        className="px-4 py-2 bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all shrink-0"
                       >
                         Upgrade to Yearly
                       </button>
@@ -352,7 +352,7 @@ export default function MyPage() {
                       </div>
                       <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-violet-500 to-purple-500 rounded-full transition-all"
+                          className="h-full bg-gradient-to-r from-sky-500 to-blue-500 rounded-full transition-all"
                           style={{ width: `${progress}%` }}
                         />
                       </div>

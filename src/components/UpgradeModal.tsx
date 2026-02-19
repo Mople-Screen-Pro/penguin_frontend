@@ -233,7 +233,7 @@ export default function UpgradeModal({
         <div className="p-6">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-8">
-              <div className="w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-4 border-sky-500 border-t-transparent rounded-full animate-spin" />
               <p className="text-sm text-slate-500 mt-3">
                 {isDowngrade ? 'Loading plan details...' : 'Calculating your upgrade price\u2026'}
               </p>
@@ -302,7 +302,7 @@ export default function UpgradeModal({
                 )}
                 <div className="flex items-center justify-between py-3">
                   <span className="font-semibold text-slate-900">Amount due today</span>
-                  <span className="text-lg font-bold text-violet-600">{formatCents(lifetimePreview.netAmount)}</span>
+                  <span className="text-lg font-bold text-sky-600">{formatCents(lifetimePreview.netAmount)}</span>
                 </div>
               </div>
 
@@ -325,7 +325,7 @@ export default function UpgradeModal({
                 </div>
                 <div className="flex items-center justify-between py-3">
                   <span className="font-semibold text-slate-900">Amount due today</span>
-                  <span className="text-lg font-bold text-violet-600">{formatCents(upgradePreview.result)}</span>
+                  <span className="text-lg font-bold text-sky-600">{formatCents(upgradePreview.result)}</span>
                 </div>
               </div>
 
@@ -350,7 +350,7 @@ export default function UpgradeModal({
               className={`flex-1 px-4 py-3 text-white font-medium rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                 isDowngrade
                   ? 'bg-gradient-to-br from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700'
-                  : 'bg-gradient-to-br from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700'
+                  : 'bg-gradient-to-br from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700'
               }`}
             >
               {confirming ? (

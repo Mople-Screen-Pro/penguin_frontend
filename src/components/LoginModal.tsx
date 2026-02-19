@@ -51,8 +51,8 @@ export default function LoginModal({ isOpen, onClose, from }: LoginModalProps) {
       {/* Modal */}
       <div className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
         {/* Header with gradient */}
-        <div className="relative px-6 py-5 bg-gradient-to-r from-indigo-500 to-purple-500">
-          <h2 className="text-xl font-bold text-white">Sign in to Screen Pro</h2>
+        <div className="relative px-6 py-5 bg-gradient-to-r from-sky-500 to-blue-500">
+          <h2 className="text-xl font-bold text-white">Sign in to Penguin</h2>
           <button
             onClick={onClose}
             className="absolute top-4 right-4 p-1 text-white/80 hover:text-white transition-colors"

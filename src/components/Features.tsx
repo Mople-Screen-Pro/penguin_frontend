@@ -1,27 +1,27 @@
 const features = [
   {
     title: 'One-Click Recording',
-    description: 'Start recording your entire screen or select a specific area instantly. No complex setup required.',
+    description: 'Hit record and go. Full screen or custom area — Penguin captures everything with zero setup time.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
       </svg>
     ),
-    color: 'violet',
+    color: 'sky',
   },
   {
     title: 'Smart Zoom Editing',
-    description: 'Fine-tune zoom levels after recording. Adjust, remove, or add zoom points exactly where you need them.',
+    description: 'Want more control? Fine-tune every zoom point after recording. Adjust timing, intensity, or add new ones with ease.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
       </svg>
     ),
-    color: 'purple',
+    color: 'blue',
   },
   {
     title: 'Export Anywhere',
-    description: 'Export in MP4 and more. Share directly or upload to any platform.',
+    description: 'Export as MP4 and share instantly. YouTube, Notion, Slack — your video works everywhere.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -32,17 +32,17 @@ const features = [
 ]
 
 const colorVariants = {
-  violet: {
-    bg: 'bg-violet-50',
-    border: 'border-violet-100',
-    icon: 'text-violet-600',
-    glow: 'group-hover:shadow-violet-200/50',
+  sky: {
+    bg: 'bg-sky-50',
+    border: 'border-sky-100',
+    icon: 'text-sky-600',
+    glow: 'group-hover:shadow-sky-200/50',
   },
-  purple: {
-    bg: 'bg-purple-50',
-    border: 'border-purple-100',
-    icon: 'text-purple-600',
-    glow: 'group-hover:shadow-purple-200/50',
+  blue: {
+    bg: 'bg-blue-50',
+    border: 'border-blue-100',
+    icon: 'text-blue-600',
+    glow: 'group-hover:shadow-blue-200/50',
   },
   emerald: {
     bg: 'bg-emerald-50',
@@ -65,14 +65,14 @@ export default function Features() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            Powerful Features
+            Why Creators Choose Penguin
           </div>
           <h2 className="heading-lg font-bold text-slate-900 mb-4 tracking-wide leading-relaxed">
-            Everything you need for
-            <span className="gradient-text"> professional recordings</span>
+            Everything you need,
+            <span className="gradient-text"> nothing you don't</span>
           </h2>
           <p className="text-base lg:text-lg text-slate-600">
-            Simple yet powerful tools to create stunning screen recordings without the learning curve.
+            No bloated features. No steep learning curve. Just the tools that actually make your recordings look professional.
           </p>
         </div>
 
@@ -81,13 +81,13 @@ export default function Features() {
           <div className="relative rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-5 sm:p-8 lg:p-12 overflow-hidden">
             {/* Background pattern */}
             <div className="absolute inset-0 bg-grid opacity-10" />
-            <div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl" />
 
             <div className="relative grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Content */}
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-sm font-medium mb-6">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                   </svg>
@@ -97,18 +97,18 @@ export default function Features() {
                   Auto Cursor Zoom
                 </h3>
                 <p className="text-base sm:text-lg text-slate-300 mb-6 sm:mb-8">
-                  The magic behind professional-looking tutorials. Screen Pro automatically follows your cursor and intelligently zooms in to highlight what matters most.
+                  The secret weapon of top creators. Penguin follows your cursor and zooms in at exactly the right moment — so viewers never miss what matters.
                 </p>
                 <ul className="space-y-4">
                   {[
                     'Real-time cursor tracking',
-                    'Smooth, natural zoom transitions',
-                    'Customizable zoom intensity',
-                    'Works with any application',
+                    'Buttery smooth zoom transitions',
+                    'Fully customizable zoom levels',
+                    'Works with every app on your Mac',
                   ].map((item, index) => (
                     <li key={index} className="flex items-center gap-3 text-slate-300">
-                      <div className="w-5 h-5 rounded-full bg-violet-500/20 flex items-center justify-center flex-shrink-0">
-                        <svg className="w-3 h-3 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div className="w-5 h-5 rounded-full bg-sky-500/20 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
@@ -146,11 +146,11 @@ export default function Features() {
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="relative">
                         {/* Zoom rings */}
-                        <div className="absolute -inset-6 border-2 border-violet-400/40 rounded-full animate-cursor-zoom" />
-                        <div className="absolute -inset-10 border border-violet-400/20 rounded-full animate-cursor-zoom" style={{ animationDelay: '0.3s' }} />
+                        <div className="absolute -inset-6 border-2 border-sky-400/40 rounded-full animate-cursor-zoom" />
+                        <div className="absolute -inset-10 border border-sky-400/20 rounded-full animate-cursor-zoom" style={{ animationDelay: '0.3s' }} />
 
                         {/* Magnified area */}
-                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-violet-500/20 to-purple-500/20 backdrop-blur-sm border border-violet-400/30 flex items-center justify-center">
+                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-sky-500/20 to-blue-500/20 backdrop-blur-sm border border-sky-400/30 flex items-center justify-center">
                           <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M4 4l16 8-7 2-2 7z" />
                           </svg>
@@ -164,9 +164,9 @@ export default function Features() {
                     <span className="text-slate-400">Zoom Level</span>
                     <div className="flex items-center gap-3">
                       <div className="w-32 h-2 bg-slate-700 rounded-full overflow-hidden">
-                        <div className="w-2/3 h-full bg-gradient-to-r from-violet-500 to-purple-500 rounded-full" />
+                        <div className="w-2/3 h-full bg-gradient-to-r from-sky-500 to-blue-500 rounded-full" />
                       </div>
-                      <span className="text-violet-400 font-medium">2.0x</span>
+                      <span className="text-sky-400 font-medium">2.0x</span>
                     </div>
                   </div>
                 </div>

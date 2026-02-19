@@ -7,8 +7,8 @@ export default function PrivacyPage() {
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link to="/" className="flex items-center gap-2 group w-fit">
-            <img src="/logo.png" alt="Screen Pro" className="w-9 h-9 rounded-xl shadow-lg shadow-violet-500/25" />
-            <span className="text-xl font-bold text-slate-900">Screen Pro</span>
+            <img src="/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
+            <span className="text-xl font-bold text-slate-900">Penguin</span>
           </Link>
         </div>
       </header>
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
 
         <div className="prose prose-slate max-w-none">
           <p className="text-slate-600 mb-6">
-            This Privacy Policy explains how Mople, a sole proprietorship ("Company", "we", "us", or "our"), collects, uses, stores, and protects personal information when you use Screen Pro, a macOS-only desktop application (the "Service").
+            This Privacy Policy explains how Mople, a sole proprietorship ("Company", "we", "us", or "our"), collects, uses, stores, and protects personal information when you use Penguin, a macOS-only desktop application (the "Service").
           </p>
           <p className="text-slate-600 mb-8">
             By using the Service, you agree to the collection and use of information in accordance with this Privacy Policy.
@@ -182,7 +182,7 @@ export default function PrivacyPage() {
               For questions or concerns regarding data protection, you may contact our Data Protection Officer at:
             </p>
             <p className="text-slate-600">
-              <strong>Email:</strong> <a href="mailto:whwo9745@gmail.com" className="text-violet-600 hover:underline">whwo9745@gmail.com</a>
+              <strong>Email:</strong> <a href="mailto:whwo9745@gmail.com" className="text-sky-600 hover:underline">whwo9745@gmail.com</a>
             </p>
           </section>
 
@@ -204,7 +204,7 @@ export default function PrivacyPage() {
                   <tr>
                     <td className="px-4 py-3 bg-slate-50 font-medium text-slate-700">Email</td>
                     <td className="px-4 py-3 text-slate-600">
-                      <a href="mailto:jwjygpt0507@gmail.com" className="text-violet-600 hover:underline">jwjygpt0507@gmail.com</a>
+                      <a href="mailto:jwjygpt0507@gmail.com" className="text-sky-600 hover:underline">jwjygpt0507@gmail.com</a>
                     </td>
                   </tr>
                   <tr>
@@ -214,7 +214,7 @@ export default function PrivacyPage() {
                   <tr>
                     <td className="px-4 py-3 bg-slate-50 font-medium text-slate-700">Data Protection Officer</td>
                     <td className="px-4 py-3 text-slate-600">
-                      <a href="mailto:whwo9745@gmail.com" className="text-violet-600 hover:underline">whwo9745@gmail.com</a>
+                      <a href="mailto:whwo9745@gmail.com" className="text-sky-600 hover:underline">whwo9745@gmail.com</a>
                     </td>
                   </tr>
                 </tbody>
@@ -224,7 +224,7 @@ export default function PrivacyPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-200">
-          <Link to="/" className="text-violet-600 hover:underline">&larr; Back to Home</Link>
+          <Link to="/" className="text-sky-600 hover:underline">&larr; Back to Home</Link>
         </div>
       </main>
     </div>

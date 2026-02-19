@@ -3,20 +3,20 @@ import { analytics } from '../lib/analytics'
 
 const faqs = [
   {
-    question: 'What makes Screen Pro different?',
-    answer: "Screen Pro's auto cursor zoom feature automatically follows your mouse and creates professional zoom effects in real-time. Unlike other screen recorders, you don't need to manually edit zoom points - it just works. This saves hours of post-production time.",
+    question: 'What makes Penguin different from other screen recorders?',
+    answer: "Most screen recorders just capture your screen. Penguin goes further — it automatically follows your cursor and creates smooth, professional zoom effects in real time. No post-editing required. What used to take hours of manual work now happens instantly while you record.",
   },
   {
-    question: 'How does the auto cursor zoom work?',
-    answer: "Screen Pro intelligently tracks your mouse cursor movements during recording. When your cursor moves to a new area, the app automatically creates a smooth zoom transition to that region, highlighting exactly what you're demonstrating. This happens in real-time and requires no manual intervention.",
+    question: 'How does the auto cursor zoom actually work?',
+    answer: "Penguin tracks your mouse cursor during recording and intelligently creates smooth zoom transitions whenever your cursor moves to a new area. It highlights exactly what you're demonstrating — in real time, with zero manual intervention. You just record naturally, and Penguin handles the rest.",
   },
   {
     question: 'Which operating systems are supported?',
-    answer: 'Screen Pro is currently available for macOS 15.0 (Sequoia) and later. We are actively working on a Windows version, which will be released in the near future.',
+    answer: 'Penguin is currently available for macOS 15.0 (Sequoia) and later. A Windows version is actively in development and coming soon.',
   },
   {
     question: 'Can I adjust zoom levels after recording?',
-    answer: "Absolutely! Our zoom editing feature allows you to fine-tune every zoom point after recording. You can adjust the zoom intensity, change timing, add new zoom points, or remove unwanted ones. You have complete control over the final result.",
+    answer: "Absolutely. Penguin gives you full control in post-production too. Fine-tune zoom intensity, adjust timing, add new zoom points, or remove ones you don't need. The auto-zoom gets you 90% there — the editor lets you perfect the last 10%.",
   },
 ]
 
@@ -45,11 +45,11 @@ export default function FAQ() {
             FAQ
           </div>
           <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
-            Questions?
-            <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent"> We've got answers</span>
+            Got questions?
+            <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent"> We've got answers</span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600">
-            Everything you need to know about Screen Pro.
+            Everything you need to know before getting started with Penguin.
           </p>
         </div>
 
@@ -60,7 +60,7 @@ export default function FAQ() {
               key={index}
               className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                 openIndex === index
-                  ? 'border-violet-200 bg-white shadow-lg shadow-violet-100/50'
+                  ? 'border-sky-200 bg-white shadow-lg shadow-sky-100/50'
                   : 'border-slate-200 bg-white/80 hover:bg-white hover:border-slate-300'
               }`}
             >
@@ -69,13 +69,13 @@ export default function FAQ() {
                 className="w-full px-4 sm:px-6 py-4 sm:py-5 text-left flex justify-between items-center gap-4"
               >
                 <span className={`font-semibold transition-colors ${
-                  openIndex === index ? 'text-violet-900' : 'text-slate-900'
+                  openIndex === index ? 'text-sky-900' : 'text-slate-900'
                 }`}>
                   {faq.question}
                 </span>
                 <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                   openIndex === index
-                    ? 'bg-violet-500 text-white rotate-180'
+                    ? 'bg-sky-500 text-white rotate-180'
                     : 'bg-slate-100 text-slate-500'
                 }`}>
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

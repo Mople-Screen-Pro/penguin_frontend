@@ -2,29 +2,29 @@ const steps = [
   {
     number: '01',
     title: 'Record',
-    description: 'Click record and capture your screen. Full screen or custom area.',
+    description: 'One click to start. Capture your full screen or pick a custom area.',
     icon: (
       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
       </svg>
     ),
-    color: 'violet',
+    color: 'sky',
   },
   {
     number: '02',
     title: 'Auto Zoom',
-    description: 'Screen Pro automatically zooms to follow your cursor movements.',
+    description: 'Penguin follows your cursor and zooms in automatically. Like magic.',
     icon: (
       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
       </svg>
     ),
-    color: 'purple',
+    color: 'blue',
   },
   {
     number: '03',
     title: 'Export',
-    description: 'Download your professional video in MP4 format instantly.',
+    description: 'Export as MP4 in seconds. Ready to share anywhere, instantly.',
     icon: (
       <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -35,17 +35,17 @@ const steps = [
 ]
 
 const colorVariants = {
-  violet: {
-    bg: 'bg-violet-500',
-    light: 'bg-violet-100',
-    text: 'text-violet-600',
-    border: 'border-violet-200',
+  sky: {
+    bg: 'bg-sky-500',
+    light: 'bg-sky-100',
+    text: 'text-sky-600',
+    border: 'border-sky-200',
   },
-  purple: {
-    bg: 'bg-purple-500',
-    light: 'bg-purple-100',
-    text: 'text-purple-600',
-    border: 'border-purple-200',
+  blue: {
+    bg: 'bg-blue-500',
+    light: 'bg-blue-100',
+    text: 'text-blue-600',
+    border: 'border-blue-200',
   },
   emerald: {
     bg: 'bg-emerald-500',
@@ -68,18 +68,18 @@ export default function HowItWorks() {
             Quick & Easy
           </div>
           <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
-            Professional recordings in
-            <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent"> 3 simple steps</span>
+            From recording to pro video in
+            <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent"> 3 simple steps</span>
           </h2>
           <p className="text-base sm:text-lg text-slate-600">
-            No learning curve. No complicated settings. Just effortless screen recording.
+            No tutorials needed. No complicated settings. Just hit record and let Penguin handle the rest.
           </p>
         </div>
 
         {/* Steps */}
         <div className="relative">
           {/* Connection line */}
-          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-violet-200 via-purple-200 to-emerald-200 -translate-y-1/2 z-0" />
+          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-sky-200 via-blue-200 to-emerald-200 -translate-y-1/2 z-0" />
 
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12 relative z-10">
             {steps.map((step, index) => {
@@ -87,7 +87,7 @@ export default function HowItWorks() {
               return (
                 <div key={index} className="relative group">
                   {/* Card */}
-                  <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 hover:border-violet-200 hover:shadow-xl hover:shadow-violet-100/50 transition-all duration-300 text-center">
+                  <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 hover:border-sky-200 hover:shadow-xl hover:shadow-sky-100/50 transition-all duration-300 text-center">
                     {/* Step number */}
                     <div className={`w-16 h-16 rounded-2xl ${colors.bg} flex items-center justify-center text-white mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
                       {step.icon}
@@ -125,12 +125,12 @@ export default function HowItWorks() {
 
         {/* Bottom CTA hint */}
         <div className="mt-16 text-center hidden md:block">
-          <p className="text-slate-500 mb-4">Ready to get started?</p>
+          <p className="text-slate-500 mb-4">That's it. Seriously.</p>
           <button
             onClick={() => document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 text-violet-600 font-semibold hover:text-violet-700 transition-colors"
+            className="inline-flex items-center gap-2 text-sky-600 font-semibold hover:text-sky-700 transition-colors"
           >
-            Download Screen Pro
+            Download Penguin
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>

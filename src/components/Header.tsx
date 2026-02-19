@@ -72,10 +72,10 @@ export default function Header() {
           >
             <img
               src="/logo.png"
-              alt="Screen Pro"
-              className="w-9 h-9 rounded-xl shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition-shadow"
+              alt="Penguin"
+              className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25 group-hover:shadow-sky-500/40 transition-shadow"
             />
-            <span className="text-xl font-bold text-slate-900">Screen Pro</span>
+            <span className="text-xl font-bold text-slate-900">Penguin</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -91,7 +91,7 @@ export default function Header() {
                   className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
                 >
                   {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-500 group-hover:w-full transition-all duration-300" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-500 group-hover:w-full transition-all duration-300" />
                 </button>
               ) : (
                 <Link
@@ -101,7 +101,7 @@ export default function Header() {
                   className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
                 >
                   {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-500 group-hover:w-full transition-all duration-300" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-500 group-hover:w-full transition-all duration-300" />
                 </Link>
               )
             )}
@@ -121,7 +121,7 @@ export default function Header() {
                       {avatar ? (
                         <img src={avatar} alt="" className="w-8 h-8 rounded-full" />
                       ) : (
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center text-white text-sm font-bold">
                           {(user.email?.charAt(0) || "U").toUpperCase()}
                         </div>
                       )}
@@ -173,7 +173,7 @@ export default function Header() {
             <a
               href={DOWNLOAD_URL}
               onClick={() => analytics.downloadClick("header")}
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40"
+              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40"
             >
               Download
             </a>

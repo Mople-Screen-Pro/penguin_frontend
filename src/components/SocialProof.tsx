@@ -41,7 +41,7 @@ export default function SocialProof() {
   return (
     <section className="py-12 bg-white relative overflow-hidden">
       {/* Subtle gradient line at top */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-200 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sky-200 to-transparent" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Stats */}
@@ -51,8 +51,8 @@ export default function SocialProof() {
               key={index}
               className="relative group"
             >
-              <div className="text-center p-4 sm:p-6 rounded-2xl bg-gradient-to-b from-slate-50 to-white border border-slate-100 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-100/50 transition-all duration-300">
-                <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-violet-100 to-purple-100 text-violet-600 mb-3 group-hover:scale-110 transition-transform">
+              <div className="text-center p-4 sm:p-6 rounded-2xl bg-gradient-to-b from-slate-50 to-white border border-slate-100 hover:border-sky-200 hover:shadow-lg hover:shadow-sky-100/50 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 text-sky-600 mb-3 group-hover:scale-110 transition-transform">
                   {stat.icon}
                 </div>
                 <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-1">

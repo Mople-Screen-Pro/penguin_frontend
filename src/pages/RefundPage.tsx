@@ -7,8 +7,8 @@ export default function RefundPage() {
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link to="/" className="flex items-center gap-2 group w-fit">
-            <img src="/logo.png" alt="Screen Pro" className="w-9 h-9 rounded-xl shadow-lg shadow-violet-500/25" />
-            <span className="text-xl font-bold text-slate-900">Screen Pro</span>
+            <img src="/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
+            <span className="text-xl font-bold text-slate-900">Penguin</span>
           </Link>
         </div>
       </header>
@@ -20,7 +20,7 @@ export default function RefundPage() {
 
         <div className="prose prose-slate max-w-none">
           <p className="text-slate-600 mb-6">
-            This Refund Policy applies to purchases and subscriptions of Screen Pro, a macOS-only desktop application, provided by Mople ("Company", "we", "us", or "our").
+            This Refund Policy applies to purchases and subscriptions of Penguin, a macOS-only desktop application, provided by Mople ("Company", "we", "us", or "our").
           </p>
           <p className="text-slate-600 mb-8">
             By purchasing or subscribing to the Service, you agree to this Refund Policy.
@@ -46,7 +46,7 @@ export default function RefundPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">2. Digital Product and Right of Withdrawal</h2>
             <p className="text-slate-600 mb-4">
-              Screen Pro is a digital software product delivered immediately upon purchase.
+              Penguin is a digital software product delivered immediately upon purchase.
             </p>
             <p className="text-slate-600 font-medium mb-2">Important Notice for EU/UK Consumers:</p>
             <p className="text-slate-600 mb-4">
@@ -87,7 +87,7 @@ export default function RefundPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">4. Data Storage Notice</h2>
             <p className="text-slate-600 mb-4">
-              Screen Pro stores user account data on Supabase servers to provide service functionality. By using the Service, you acknowledge that certain data is transmitted to and stored on third-party servers as described in our <Link to="/privacy" className="text-violet-600 hover:underline">Privacy Policy</Link>.
+              Penguin stores user account data on Supabase servers to provide service functionality. By using the Service, you acknowledge that certain data is transmitted to and stored on third-party servers as described in our <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>.
             </p>
             <p className="text-slate-600 mb-4">
               All recordings and camera footage created using the Service are stored locally on your device only and are not transmitted to our servers.
@@ -101,7 +101,7 @@ export default function RefundPage() {
             <h2 className="text-xl font-semibold text-slate-900 mb-4">5. How to Request a Refund</h2>
             <p className="text-slate-600 mb-2">To request a refund:</p>
             <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
-              <li>Contact us at <a href="mailto:jwjygpt0507@gmail.com" className="text-violet-600 hover:underline">jwjygpt0507@gmail.com</a> with your order number and the email address used for purchase, or</li>
+              <li>Contact us at <a href="mailto:jwjygpt0507@gmail.com" className="text-sky-600 hover:underline">jwjygpt0507@gmail.com</a> with your order number and the email address used for purchase, or</li>
               <li>Visit paddle.net and submit a refund request directly, or</li>
               <li>Use the refund link in your purchase receipt email from Paddle</li>
             </ul>
@@ -156,7 +156,7 @@ export default function RefundPage() {
             <h2 className="text-xl font-semibold text-slate-900 mb-4">9. Lifetime License - Version Updates</h2>
             <p className="text-slate-600 mb-2">Lifetime License grants you access to:</p>
             <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
-              <li>The current major version of Screen Pro (e.g., version 1.x)</li>
+              <li>The current major version of Penguin (e.g., version 1.x)</li>
               <li>All minor updates and bug fixes within that major version</li>
             </ul>
             <p className="text-slate-600 mb-4">
@@ -199,7 +199,7 @@ export default function RefundPage() {
             </p>
             <p className="text-slate-600 mb-2">Updated versions will be posted:</p>
             <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
-              <li>Within the Screen Pro application</li>
+              <li>Within the Penguin application</li>
               <li>On our official website</li>
             </ul>
             <p className="text-slate-600">
@@ -228,7 +228,7 @@ export default function RefundPage() {
                   <tr>
                     <td className="px-4 py-3 text-slate-600">Email</td>
                     <td className="px-4 py-3 text-slate-600">
-                      <a href="mailto:jwjygpt0507@gmail.com" className="text-violet-600 hover:underline">jwjygpt0507@gmail.com</a>
+                      <a href="mailto:jwjygpt0507@gmail.com" className="text-sky-600 hover:underline">jwjygpt0507@gmail.com</a>
                     </td>
                   </tr>
                   <tr>
@@ -252,16 +252,16 @@ export default function RefundPage() {
               <li>Applicable consumer protection laws in relevant jurisdictions</li>
             </ul>
             <p className="text-slate-600 mb-4">
-              This policy works in conjunction with our <Link to="/terms" className="text-violet-600 hover:underline">Terms of Service</Link> and <Link to="/privacy" className="text-violet-600 hover:underline">Privacy Policy</Link>, which should be read together as a complete agreement.
+              This policy works in conjunction with our <Link to="/terms" className="text-sky-600 hover:underline">Terms of Service</Link> and <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>, which should be read together as a complete agreement.
             </p>
             <p className="text-slate-600 font-medium">
-              By purchasing Screen Pro, you acknowledge that you have read, understood, and agreed to this Refund Policy.
+              By purchasing Penguin, you acknowledge that you have read, understood, and agreed to this Refund Policy.
             </p>
           </section>
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-200">
-          <Link to="/" className="text-violet-600 hover:underline">&larr; Back to Home</Link>
+          <Link to="/" className="text-sky-600 hover:underline">&larr; Back to Home</Link>
         </div>
       </main>
     </div>

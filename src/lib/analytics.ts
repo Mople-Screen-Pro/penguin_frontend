@@ -1,7 +1,6 @@
 // GA4 이벤트 추적 헬퍼
 
-const SLACK_WEBHOOK_URL =
-  "https://hooks.slack.com/services/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";
+const SLACK_WEBHOOK_URL = import.meta.env.VITE_SLACK_WEBHOOK_URL || "";
 
 // 슬랙 알림 전송
 const sendSlackNotification = async (message: string) => {
@@ -89,7 +88,7 @@ export const analytics = {
   ) => {
     trackEvent("subscription_cancel", "churn", reason);
     await sendSlackNotification(
-      `<!channel>\n🚨 [Screen Pro] 구독 취소 요청 🚨\n\n 이메일: ${email}\n 취소 사유: ${reason}${
+      `<!channel>\n🚨 [Penguin] 구독 취소 요청 🚨\n\n 이메일: ${email}\n 취소 사유: ${reason}${
         detail ? `\n 상세: ${detail}` : ""
       }`
     );

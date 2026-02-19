@@ -20,7 +20,7 @@ const plans = [
     name: "Monthly",
     price: 21,
     period: "/month",
-    description: "Perfect for trying out Screen Pro",
+    description: "Perfect for trying out Penguin",
     priceId: PRICE_IDS.monthly,
     popular: true,
     features: [
@@ -224,7 +224,7 @@ export default function PricingPage() {
           </h1>
           <p className="text-sm sm:text-base text-slate-600">
             Choose the plan that works best for you. All plans include full
-            access to Screen Pro features.
+            access to Penguin features.
           </p>
         </div>
 
@@ -235,13 +235,13 @@ export default function PricingPage() {
               key={plan.id}
               className={`relative bg-white rounded-2xl border p-5 sm:p-6 lg:p-8 flex flex-col ${
                 plan.popular
-                  ? "border-violet-500 shadow-xl shadow-violet-500/10"
+                  ? "border-sky-500 shadow-xl shadow-sky-500/10"
                   : "border-slate-200"
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-violet-500 to-purple-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-violet-500/25">
+                  <span className="bg-gradient-to-r from-sky-500 to-blue-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-sky-500/25">
                     Most Popular
                   </span>
                 </div>
@@ -281,7 +281,7 @@ export default function PricingPage() {
                     className="flex items-center gap-2 lg:gap-3 text-sm lg:text-base text-slate-600"
                   >
                     <svg
-                      className="w-5 h-5 text-violet-500 flex-shrink-0"
+                      className="w-5 h-5 text-sky-500 flex-shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -317,7 +317,7 @@ export default function PricingPage() {
                 <button
                   onClick={handleReactivate}
                   disabled={reactivateLoading}
-                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700 disabled:opacity-50"
+                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:from-sky-600 hover:to-blue-700 disabled:opacity-50"
                 >
                   {reactivateLoading ? "Resubscribing..." : "Resubscribe"}
                 </button>
@@ -338,14 +338,14 @@ export default function PricingPage() {
               ) : (isMonthly || isYearly) && plan.id === "lifetime" ? (
                 <button
                   onClick={() => setLifetimeModalOpen(true)}
-                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700"
+                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:from-sky-600 hover:to-blue-700"
                 >
                   Upgrade
                 </button>
               ) : isMonthly && plan.id === "yearly" ? (
                 <button
                   onClick={() => setUpgradeModalOpen(true)}
-                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700"
+                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:from-sky-600 hover:to-blue-700"
                 >
                   Upgrade
                 </button>
@@ -369,7 +369,7 @@ export default function PricingPage() {
                   disabled={loading === plan.id}
                   className={`w-full py-3 px-4 rounded-xl font-medium transition-all disabled:opacity-50 ${
                     plan.popular
-                      ? "bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700"
+                      ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:from-sky-600 hover:to-blue-700"
                       : "bg-slate-900 text-white hover:bg-slate-800"
                   }`}
                 >
@@ -457,7 +457,7 @@ export default function PricingPage() {
               Payment Successful!
             </h3>
             <p className="text-slate-600 text-sm">
-              Thank you for subscribing to Screen Pro. Redirecting...
+              Thank you for subscribing to Penguin. Redirecting...
             </p>
           </div>
         </div>
@@ -499,7 +499,7 @@ export default function PricingPage() {
               <button
                 onClick={handleCancelDowngrade}
                 disabled={cancelingDowngrade}
-                className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all disabled:opacity-50"
+                className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all disabled:opacity-50"
               >
                 {cancelingDowngrade ? "Canceling..." : "Stay on Yearly"}
               </button>

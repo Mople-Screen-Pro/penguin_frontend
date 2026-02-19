@@ -10,8 +10,8 @@ export default function Hero() {
       <div className="absolute inset-0 bg-grid opacity-50" />
 
       {/* Floating gradient orbs */}
-      <div className="absolute top-1/4 -left-32 w-64 md:w-96 h-64 md:h-96 bg-violet-200 rounded-full blur-3xl opacity-30 animate-float" />
-      <div className="absolute bottom-1/4 -right-32 w-64 md:w-96 h-64 md:h-96 bg-purple-200 rounded-full blur-3xl opacity-30 animate-float" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-1/4 -left-32 w-64 md:w-96 h-64 md:h-96 bg-sky-200 rounded-full blur-3xl opacity-30 animate-float" />
+      <div className="absolute bottom-1/4 -right-32 w-64 md:w-96 h-64 md:h-96 bg-blue-200 rounded-full blur-3xl opacity-30 animate-float" style={{ animationDelay: '2s' }} />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-10 items-center">
@@ -19,15 +19,13 @@ export default function Hero() {
           <div className="text-center lg:text-left">
             {/* Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-4 sm:mb-6 animate-fade-in-up delay-100 leading-tight">
-              What
-              <span className="block">Pro Creators</span>
-              <span className="gradient-text block mt-1 sm:mt-2">Don't Tell You</span>
+              Screen Recording,
+              <span className="gradient-text block mt-1 sm:mt-2">Reimagined.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 mb-8 sm:mb-10 animate-fade-in-up delay-200 tracking-wide">
-              Create professional tutorials and demos effortlessly.
-              Screen Pro automatically zooms and highlights where your cursor goes.
+              Penguin auto-zooms to your cursor in real time — making every tutorial, demo, and walkthrough look professionally edited. Zero effort required.
             </p>
 
             {/* CTA Buttons */}
@@ -35,7 +33,7 @@ export default function Hero() {
               <a
                 href={DOWNLOAD_URL}
                 onClick={() => analytics.downloadClick('hero')}
-                className="hidden md:inline-flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 font-semibold text-white rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-violet-500/25"
+                className="hidden md:inline-flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 font-semibold text-white rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-sky-500/25"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
@@ -64,13 +62,13 @@ export default function Hero() {
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Half the price, full power
+                  Half the price of competitors
                 </div>
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Unlimited recordings
+                  No watermarks
                 </div>
               </div>
             </div>
@@ -84,7 +82,7 @@ export default function Hero() {
                 <div className="mac-window-dot mac-window-dot-red" />
                 <div className="mac-window-dot mac-window-dot-yellow" />
                 <div className="mac-window-dot mac-window-dot-green" />
-                <span className="ml-3 sm:ml-4 text-[10px] sm:text-xs text-gray-400 font-medium">Screen Pro</span>
+                <span className="ml-3 sm:ml-4 text-[10px] sm:text-xs text-gray-400 font-medium">Penguin</span>
               </div>
               <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 aspect-video">
                 {/* Screen content mockup */}
@@ -92,12 +90,12 @@ export default function Hero() {
                   {/* Simulated code editor */}
                   <div className="p-2 sm:p-4 font-mono text-[8px] sm:text-xs">
                     <div className="flex items-center gap-1.5 sm:gap-2 text-slate-500 mb-2 sm:mb-3">
-                      <span className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-violet-500/30" />
+                      <span className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-sky-500/30" />
                       <span>app.tsx</span>
                     </div>
                     <div className="space-y-1 sm:space-y-1.5 text-slate-400">
-                      <p><span className="text-purple-400">const</span> <span className="text-violet-400">app</span> = () =&gt; {'{'}</p>
-                      <p className="pl-2 sm:pl-4"><span className="text-purple-400">return</span> (</p>
+                      <p><span className="text-blue-400">const</span> <span className="text-sky-400">app</span> = () =&gt; {'{'}</p>
+                      <p className="pl-2 sm:pl-4"><span className="text-blue-400">return</span> (</p>
                       <p className="pl-4 sm:pl-8 text-orange-300">&lt;div&gt;Hello&lt;/div&gt;</p>
                       <p className="pl-2 sm:pl-4">)</p>
                       <p>{'}'}</p>
@@ -108,8 +106,8 @@ export default function Hero() {
                 {/* Cursor with zoom effect */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-cursor-move">
                   {/* Zoom ring */}
-                  <div className="absolute -inset-4 sm:-inset-8 border-2 border-violet-400/30 rounded-full animate-cursor-zoom" />
-                  <div className="absolute -inset-6 sm:-inset-12 border border-violet-400/20 rounded-full animate-cursor-zoom" style={{ animationDelay: '0.2s' }} />
+                  <div className="absolute -inset-4 sm:-inset-8 border-2 border-sky-400/30 rounded-full animate-cursor-zoom" />
+                  <div className="absolute -inset-6 sm:-inset-12 border border-sky-400/20 rounded-full animate-cursor-zoom" style={{ animationDelay: '0.2s' }} />
 
                   {/* Cursor */}
                   <svg className="w-4 h-4 sm:w-6 sm:h-6 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
@@ -118,7 +116,7 @@ export default function Hero() {
                 </div>
 
                 {/* Zoom indicator - hidden on mobile */}
-                <div className="hidden sm:flex absolute bottom-2 sm:bottom-4 right-2 sm:right-4 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-violet-500/20 backdrop-blur border border-violet-400/30 text-violet-300 text-[10px] sm:text-xs font-medium items-center gap-1.5 sm:gap-2">
+                <div className="hidden sm:flex absolute bottom-2 sm:bottom-4 right-2 sm:right-4 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-sky-500/20 backdrop-blur border border-sky-400/30 text-sky-300 text-[10px] sm:text-xs font-medium items-center gap-1.5 sm:gap-2">
                   <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                   </svg>
@@ -201,8 +199,8 @@ export default function Hero() {
             {/* Feature badges - below mockup */}
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-6">
               <div className="px-4 py-2.5 rounded-xl bg-white shadow-md shadow-slate-200/50 border border-slate-100 flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-100 to-violet-50 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-100 to-sky-50 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
                   </svg>
                 </div>
@@ -210,8 +208,8 @@ export default function Hero() {
               </div>
 
               <div className="px-4 py-2.5 rounded-xl bg-white shadow-md shadow-slate-200/50 border border-slate-100 flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
                 </div>

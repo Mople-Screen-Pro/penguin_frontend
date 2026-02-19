@@ -1,31 +1,31 @@
 const testimonials = [
   {
-    quote: "Screen Pro's auto-zoom feature has completely transformed how I create tutorials. My viewers love the professional look without me having to do manual editing.",
+    quote: "I used to spend 2 hours editing zoom effects into a 10-minute tutorial. With Penguin, it's done before I even stop recording. My subscribers noticed the quality jump immediately.",
     author: "Sarah Chen",
-    role: "Content Creator",
+    role: "YouTube Creator, 120K subs",
     avatar: "SC",
     color: "sky",
   },
   {
-    quote: "As a developer creating documentation videos, the cursor-tracking zoom is a game-changer. It automatically highlights exactly what I'm working on.",
+    quote: "As a developer, I need my documentation videos to be clear and focused. Penguin's cursor zoom automatically highlights the exact code I'm working on. It just gets it.",
     author: "Michael Roberts",
-    role: "Software Engineer",
+    role: "Senior Software Engineer",
     avatar: "MR",
-    color: "indigo",
+    color: "blue",
   },
   {
-    quote: "Simple, intuitive, and powerful. I switched from other alternatives and haven't looked back. The auto-zoom feature alone makes it worth it.",
+    quote: "I've tried Screen Studio, Loom, and OBS. Penguin gives me the same pro-quality output at half the price — and the auto-zoom is genuinely better.",
     author: "Emily Park",
-    role: "UX Designer",
+    role: "UX Designer & Educator",
     avatar: "EP",
-    color: "violet",
+    color: "cyan",
   },
 ]
 
 const colorVariants = {
-  sky: 'from-violet-400 to-violet-500',
-  indigo: 'from-purple-400 to-purple-500',
-  violet: 'from-fuchsia-400 to-fuchsia-500',
+  sky: 'from-sky-400 to-sky-500',
+  blue: 'from-blue-400 to-blue-500',
+  cyan: 'from-cyan-400 to-cyan-500',
 }
 
 export default function Testimonials() {
@@ -44,11 +44,11 @@ export default function Testimonials() {
             Loved by Creators
           </div>
           <h2 className="heading-lg font-bold text-slate-900 mb-4">
-            What our users
-            <span className="gradient-text"> are saying</span>
+            Creators who switched
+            <span className="gradient-text"> never went back</span>
           </h2>
           <p className="text-lg text-slate-600">
-            Join thousands of content creators who trust Screen Pro for their recordings.
+            Join thousands of creators, developers, and educators who make better content with Penguin.
           </p>
         </div>
 

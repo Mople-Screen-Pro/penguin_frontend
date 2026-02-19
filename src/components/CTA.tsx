@@ -10,30 +10,30 @@ export default function CTA() {
       <div className="absolute inset-0 bg-grid opacity-10" />
 
       {/* Gradient orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-500/30 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-500/30 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl" />
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-violet-300 text-sm font-medium mb-8 backdrop-blur-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sky-300 text-sm font-medium mb-8 backdrop-blur-sm">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          Start recording in seconds
+          Ready in under 1 minute
         </div>
 
         {/* Headline */}
         <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-          Ready to create
-          <span className="block mt-2 bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
-            professional recordings?
+          Stop editing zoom effects.
+          <span className="block mt-2 bg-gradient-to-r from-sky-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            Start creating content.
           </span>
         </h2>
 
         {/* Subheadline */}
         <p className="text-lg lg:text-xl text-slate-300 max-w-2xl mx-auto mb-10">
-          Download Screen Pro and experience the magic of automatic cursor zoom.
-          No account required, no watermarks, just powerful recording.
+          Download Penguin and see the difference in your very first recording.
+          No account needed. No watermarks. Just professional results, instantly.
         </p>
 
         {/* CTA Button */}

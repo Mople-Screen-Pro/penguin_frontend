@@ -1,4 +1,4 @@
-# robots.txt for Screen Pro
+# robots.txt for Penguin
 User-agent: *
 Allow: /
 

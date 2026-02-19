@@ -104,11 +104,11 @@ export default function CancelSubscriptionModal({
                     onClick={() => handleReasonSelect(reason.id)}
                     className={`w-full text-left px-4 py-3 rounded-xl border-2 transition-all ${
                       selectedReason === reason.id
-                        ? 'border-violet-500 bg-violet-50'
+                        ? 'border-sky-500 bg-sky-50'
                         : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
                     }`}
                   >
-                    <span className={selectedReason === reason.id ? 'text-violet-700' : 'text-slate-700'}>
+                    <span className={selectedReason === reason.id ? 'text-sky-700' : 'text-slate-700'}>
                       {reason.label}
                     </span>
                   </button>
@@ -120,7 +120,7 @@ export default function CancelSubscriptionModal({
                   value={otherDetail}
                   onChange={(e) => setOtherDetail(e.target.value)}
                   placeholder="Please tell us more..."
-                  className="w-full mt-3 px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-violet-500 focus:outline-none resize-none"
+                  className="w-full mt-3 px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:outline-none resize-none"
                   rows={3}
                 />
               )}

@@ -7,8 +7,8 @@ export default function TermsPage() {
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link to="/" className="flex items-center gap-2 group w-fit">
-            <img src="/logo.png" alt="Screen Pro" className="w-9 h-9 rounded-xl shadow-lg shadow-violet-500/25" />
-            <span className="text-xl font-bold text-slate-900">Screen Pro</span>
+            <img src="/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
+            <span className="text-xl font-bold text-slate-900">Penguin</span>
           </Link>
         </div>
       </header>
@@ -20,7 +20,7 @@ export default function TermsPage() {
 
         <div className="prose prose-slate max-w-none">
           <p className="text-slate-600 mb-6">
-            These Terms of Service ("Terms") govern your access to and use of Screen Pro, a macOS-only desktop application, and any related services (collectively, the "Service") provided by Mople ("Company", "we", "us", or "our").
+            These Terms of Service ("Terms") govern your access to and use of Penguin, a macOS-only desktop application, and any related services (collectively, the "Service") provided by Mople ("Company", "we", "us", or "our").
           </p>
           <p className="text-slate-600 mb-8">
             By downloading, installing, or using the Service, you agree to be bound by these Terms. If you do not agree to these Terms, you must not use the Service.
@@ -36,7 +36,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">2. Definitions</h2>
             <ul className="list-disc list-inside text-slate-600 space-y-2">
-              <li>"Service" means the macOS-only desktop application Screen Pro and all related features provided by the Company.</li>
+              <li>"Service" means the macOS-only desktop application Penguin and all related features provided by the Company.</li>
               <li>"User" means an individual who agrees to these Terms and uses the Service.</li>
               <li>"Subscription" means a recurring paid plan that provides access to the Service.</li>
               <li>"Lifetime License" means a one-time purchase that grants access to the Service as defined herein.</li>
@@ -199,7 +199,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">16. Privacy Policy</h2>
             <p className="text-slate-600">
-              The collection and use of personal data are governed by the Company's <Link to="/privacy" className="text-violet-600 hover:underline">Privacy Policy</Link>, which is provided as a separate document and forms an integral part of these Terms.
+              The collection and use of personal data are governed by the Company's <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>, which is provided as a separate document and forms an integral part of these Terms.
             </p>
           </section>
 
@@ -237,14 +237,14 @@ export default function TermsPage() {
               If you have any questions regarding these Terms or the Service, please contact us at:
             </p>
             <div className="text-slate-600 space-y-1 mt-2">
-              <p><strong>Email:</strong> <a href="mailto:jwjygpt0507@gmail.com" className="text-violet-600 hover:underline">jwjygpt0507@gmail.com</a></p>
+              <p><strong>Email:</strong> <a href="mailto:jwjygpt0507@gmail.com" className="text-sky-600 hover:underline">jwjygpt0507@gmail.com</a></p>
               <p><strong>Phone:</strong> +82-10-2847-9981</p>
             </div>
           </section>
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-200">
-          <Link to="/" className="text-violet-600 hover:underline">&larr; Back to Home</Link>
+          <Link to="/" className="text-sky-600 hover:underline">&larr; Back to Home</Link>
         </div>
       </main>
     </div>
