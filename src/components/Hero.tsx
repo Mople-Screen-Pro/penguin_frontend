@@ -19,13 +19,13 @@ export default function Hero() {
           <div className="text-center lg:text-left">
             {/* Headline */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-4 sm:mb-6 animate-fade-in-up delay-100 leading-tight">
-              Screen Recording,
-              <span className="gradient-text block mt-1 sm:mt-2">Reimagined.</span>
+              Record Smarter,
+              <span className="gradient-text block mt-1 sm:mt-2">Not Harder.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 mb-8 sm:mb-10 animate-fade-in-up delay-200 tracking-wide">
-              Penguin auto-zooms to your cursor in real time — making every tutorial, demo, and walkthrough look professionally edited. Zero effort required.
+              Penguin auto-zooms, tracks your cursor, and polishes your recordings — all while you record. Just hit export, and you're done.
             </p>
 
             {/* CTA Buttons */}
@@ -68,7 +68,13 @@ export default function Hero() {
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  No watermarks
+                  Export in seconds
+                </div>
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Free to start
                 </div>
               </div>
             </div>
