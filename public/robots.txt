@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://www.sc-pro.net/sitemap.xml
+Sitemap: https://www.penguin-editor.com/sitemap.xml
