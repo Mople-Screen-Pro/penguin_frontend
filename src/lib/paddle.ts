@@ -1,23 +1,17 @@
 import { initializePaddle } from "@paddle/paddle-js";
 import type { Paddle, CheckoutEventsData } from "@paddle/paddle-js";
 
-// export const PRICE_IDS = {
-//   monthly: "pri_01kgctdnhd9qgyyfke7amyev8c",
-//   yearly: "pri_01kgctf2scgqk3757t27w3jyej",
-//   lifetime: "pri_01kgctg9pvbed7xhqy4vhhjk7w",
-// } as const;
-
 export const PRICE_IDS = {
-  monthly: "pri_01kgctdnhd9qgyyfke7amyev8c",
-  yearly: "pri_01kgctf2scgqk3757t27w3jyej",
-  lifetime: "pri_01kgctg9pvbed7xhqy4vhhjk7w",
+  monthly: "pri_01kjhjc26eb9xm8rzkg6gq7t9j",
+  yearly: "pri_01kjhjayspsa36mvpcrcemdn1r",
+  lifetime: "pri_01kjhj96b14r7yrfmebf10eamd",
 } as const;
 
 let paddleInstance: Paddle | null = null;
 let onCheckoutComplete: ((data: CheckoutEventsData) => void) | null = null;
 
 export function setOnCheckoutComplete(
-  callback: (data: CheckoutEventsData) => void
+  callback: (data: CheckoutEventsData) => void,
 ) {
   onCheckoutComplete = callback;
 }
