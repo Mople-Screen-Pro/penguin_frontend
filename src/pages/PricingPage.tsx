@@ -97,7 +97,7 @@ export default function PricingPage() {
       setShowCompleteModal(false);
 
       if (from === "app" && user) {
-        const { data } = await supabase.auth.getSession();
+        const { data } = await supabase.auth.refreshSession();
         if (data.session) {
           try {
             await redirectToApp(data.session, state);
