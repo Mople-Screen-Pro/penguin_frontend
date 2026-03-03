@@ -1,6 +1,10 @@
 # robots.txt for Penguin
 User-agent: *
 Allow: /
+Disallow: /auth/callback
+Disallow: /app/auth-callback
+Disallow: /mypage
+Disallow: /login
 
 # Sitemap
 Sitemap: https://www.penguin-editor.com/sitemap.xml

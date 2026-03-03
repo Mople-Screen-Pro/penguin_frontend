@@ -1,8 +1,22 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function RefundPage() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="Refund Policy"
+        description="Penguin refund policy. Monthly subscriptions: 14-day refund window. Annual and lifetime plans: 30-day refund window. All refunds processed through Paddle."
+        path="/refund"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.penguin-editor.com" },
+            { "@type": "ListItem", "position": 2, "name": "Refund Policy", "item": "https://www.penguin-editor.com/refund" }
+          ]
+        }}
+      />
       {/* Header */}
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

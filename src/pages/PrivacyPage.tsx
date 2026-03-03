@@ -1,8 +1,22 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="Privacy Policy"
+        description="Learn how Penguin handles your data. All recordings stay on your device. We only collect minimal data needed for authentication and service operation."
+        path="/privacy"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.penguin-editor.com" },
+            { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://www.penguin-editor.com/privacy" }
+          ]
+        }}
+      />
       {/* Header */}
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

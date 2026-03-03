@@ -1,8 +1,22 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="Terms of Service"
+        description="Read the Terms of Service for Penguin, the macOS screen recording app with auto cursor zoom. Learn about usage rights, subscriptions, and policies."
+        path="/terms"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.penguin-editor.com" },
+            { "@type": "ListItem", "position": 2, "name": "Terms of Service", "item": "https://www.penguin-editor.com/terms" }
+          ]
+        }}
+      />
       {/* Header */}
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

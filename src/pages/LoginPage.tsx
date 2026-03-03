@@ -3,6 +3,7 @@ import { Link, useSearchParams, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabase'
 import { redirectToApp } from '../lib/deeplink'
+import SEO from '../components/SEO'
 
 export default function LoginPage() {
   const { user, session, loading, signInWithGoogle, signInWithApple, signInWithGithub } = useAuth()
@@ -74,6 +75,12 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex">
+      <SEO
+        title="Sign In"
+        description="Sign in to your Penguin account. Access your screen recording settings, manage your subscription, and more."
+        path="/login"
+        noindex
+      />
       {/* Left: Branding & Visual */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
         {/* Gradient orbs */}
@@ -274,6 +281,7 @@ export default function LoginPage() {
             {/* Download CTA */}
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
+              rel="noopener"
               className="w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white font-semibold hover:from-sky-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

@@ -55,7 +55,7 @@ export default function Header() {
           : "bg-transparent"
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Main navigation" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <a
@@ -173,6 +173,7 @@ export default function Header() {
             <a
               href={DOWNLOAD_URL}
               onClick={() => analytics.downloadClick("header")}
+              rel="noopener"
               className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40"
             >
               Download

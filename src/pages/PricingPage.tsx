@@ -13,6 +13,7 @@ import { redirectToApp } from "../lib/deeplink";
 import { supabase } from "../lib/supabase";
 import UpgradeModal from "../components/UpgradeModal";
 import Header from "../components/Header";
+import SEO from "../components/SEO";
 
 const plans = [
   {
@@ -214,6 +215,47 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
+      <SEO
+        title="Pricing"
+        description="Choose the perfect Penguin plan. Monthly, yearly, or lifetime — all plans include unlimited recordings, auto cursor zoom, and MP4 export. Starting from $8/month."
+        path="/pricing"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": "Penguin Screen Recorder",
+          "description": "Professional screen recording with auto cursor zoom for macOS",
+          "brand": { "@type": "Brand", "name": "Penguin" },
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Monthly",
+              "price": "21",
+              "priceCurrency": "USD",
+              "priceValidUntil": "2027-12-31",
+              "availability": "https://schema.org/InStock",
+              "url": "https://www.penguin-editor.com/pricing"
+            },
+            {
+              "@type": "Offer",
+              "name": "Yearly",
+              "price": "96",
+              "priceCurrency": "USD",
+              "priceValidUntil": "2027-12-31",
+              "availability": "https://schema.org/InStock",
+              "url": "https://www.penguin-editor.com/pricing"
+            },
+            {
+              "@type": "Offer",
+              "name": "Lifetime",
+              "price": "240",
+              "priceCurrency": "USD",
+              "priceValidUntil": "2027-12-31",
+              "availability": "https://schema.org/InStock",
+              "url": "https://www.penguin-editor.com/pricing"
+            }
+          ]
+        }}
+      />
       <Header />
 
       {/* Content */}

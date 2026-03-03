@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { analytics } from '../lib/analytics'
 
 const faqs = [
@@ -20,6 +21,19 @@ const faqs = [
   },
 ]
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((faq) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer,
+    },
+  })),
+}
+
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
@@ -32,6 +46,11 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="py-12 sm:py-20 bg-slate-50 relative">
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(faqJsonLd)}
+        </script>
+      </Helmet>
       {/* Background */}
       <div className="absolute inset-0 bg-dots opacity-30" />
 
