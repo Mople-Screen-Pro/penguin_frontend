@@ -1,7 +1,7 @@
 import type { Session } from '@supabase/supabase-js'
 
 const APP_SCHEME_BASE = 'penguin://auth-callback'
-const SUPABASE_FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`
+const SUPABASE_FUNCTIONS_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1`
 
 /**
  * 서버에 임시 코드를 생성하고, 딥링크로 앱에 전달

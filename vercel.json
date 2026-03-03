@@ -25,7 +25,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/.well-known/:path*", "destination": "/.well-known/:path*" },
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/.well-known/:path*", "destination": "/.well-known/:path*" }
   ]
 }

@@ -1,18 +1,20 @@
-import { useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import { getPaddle } from '../lib/paddle'
-import { useSubscription } from '../hooks/useSubscription'
-import { getPlanLabel, isActive, isPastDue, isCanceled, isLifetime, isExpired } from '../types/subscription'
-import { analytics } from '../lib/analytics'
-import CancelSubscriptionModal from '../components/CancelSubscriptionModal'
-import UpgradeModal from '../components/UpgradeModal'
-import ActiveDeviceSection from '../components/my/ActiveDeviceSection'
-import Header from '../components/Header'
-import { useState } from 'react'
+'use client'
+
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useAuth } from '../../contexts/AuthContext'
+import { getPaddle } from '../../lib/paddle'
+import { useSubscription } from '../../hooks/useSubscription'
+import { getPlanLabel, isActive, isPastDue, isCanceled, isLifetime, isExpired } from '../../types/subscription'
+import { analytics } from '../../lib/analytics'
+import CancelSubscriptionModal from '../../components/CancelSubscriptionModal'
+import UpgradeModal from '../../components/UpgradeModal'
+import ActiveDeviceSection from '../../components/my/ActiveDeviceSection'
+import Header from '../../components/Header'
 
 async function fetchPortalUrl() {
-  const { data, error } = await (await import('../lib/supabase')).supabase.functions.invoke('subscription-portal')
+  const { data, error } = await (await import('../../lib/supabase')).supabase.functions.invoke('subscription-portal')
   if (error || !data?.portal_url) {
     console.error('Failed to fetch portal:', error ?? data)
     return null
@@ -29,11 +31,11 @@ function formatDate(isoString: string | null): string {
   }).format(new Date(isoString))
 }
 
-export default function MyPage() {
+export default function MyPageClient() {
   const { user, loading: authLoading, signOut } = useAuth()
   const { subscription, loading: subLoading, refetch } = useSubscription()
-  const navigate = useNavigate()
-  const location = useLocation()
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [cancelModalOpen, setCancelModalOpen] = useState(false)
   const [upgradeModalOpen, setUpgradeModalOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
@@ -54,12 +56,12 @@ export default function MyPage() {
 
   // 결제 완료 후 진입 시 구독 정보 갱신
   useEffect(() => {
-    if ((location.state as { fromCheckout?: boolean })?.fromCheckout) {
+    if (searchParams.get('fromCheckout') === 'true') {
       refetch()
-      // state 제거하여 새로고침 시 재실행 방지
-      window.history.replaceState({}, '')
+      // query param 제거하여 새로고침 시 재실행 방지
+      window.history.replaceState({}, '', '/mypage')
     }
-  }, [location.state, refetch])
+  }, [searchParams, refetch])
 
   // Paddle 초기화
   useEffect(() => {
@@ -69,9 +71,9 @@ export default function MyPage() {
   // 비로그인 시 홈으로 리다이렉트
   useEffect(() => {
     if (!authLoading && !user) {
-      navigate('/')
+      router.replace('/')
     }
-  }, [user, authLoading, navigate])
+  }, [user, authLoading, router])
 
 
   if (authLoading || subLoading) {
@@ -85,7 +87,7 @@ export default function MyPage() {
   const handleDeleteAccount = async () => {
     setDeleteLoading(true)
     try {
-      const { supabase } = await import('../lib/supabase')
+      const { supabase } = await import('../../lib/supabase')
       const { error } = await supabase.functions.invoke('delete-account', { method: 'POST' })
       if (error) {
         console.error('Failed to delete account:', error)
@@ -93,7 +95,7 @@ export default function MyPage() {
         return
       }
       await signOut()
-      navigate('/')
+      router.push('/')
     } catch (err) {
       console.error('Failed to delete account:', err)
       alert('Failed to delete account. Please try again.')
@@ -112,7 +114,7 @@ export default function MyPage() {
   const handleReactivate = async () => {
     setReactivateLoading(true)
     try {
-      const { supabase } = await import('../lib/supabase')
+      const { supabase } = await import('../../lib/supabase')
       const { error } = await supabase.functions.invoke('reactivate-subscription', { body: {} })
       if (error) {
         console.error('Failed to reactivate subscription:', error)
@@ -221,7 +223,7 @@ export default function MyPage() {
                       </p>
                     </div>
                     <Link
-                      to="/pricing"
+                      href="/pricing"
                       className="px-4 py-2 bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all shrink-0"
                     >
                       {canceled && expired ? 'Resubscribe' : 'Subscribe'}
@@ -497,11 +499,11 @@ export default function MyPage() {
 
         {/* Footer Links */}
         <div className="mt-8 pt-8 border-t border-slate-200 flex flex-wrap gap-4 text-sm text-slate-500">
-          <Link to="/terms" className="hover:text-slate-700">Terms of Service</Link>
+          <Link href="/terms" className="hover:text-slate-700">Terms of Service</Link>
           <span>·</span>
-          <Link to="/privacy" className="hover:text-slate-700">Privacy Policy</Link>
+          <Link href="/privacy" className="hover:text-slate-700">Privacy Policy</Link>
           <span>·</span>
-          <Link to="/refund" className="hover:text-slate-700">Refund Policy</Link>
+          <Link href="/refund" className="hover:text-slate-700">Refund Policy</Link>
           <span>·</span>
           <a href="mailto:jwjygpt0507@gmail.com" className="hover:text-slate-700">Contact Support</a>
         </div>

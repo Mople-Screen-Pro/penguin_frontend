@@ -1,5 +1,8 @@
+'use client'
+
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { analytics } from "../lib/analytics";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -8,9 +11,9 @@ const DOWNLOAD_URL =
 
 export default function Header() {
   const { user, loading, signOut } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const isHome = location.pathname === "/";
+  const router = useRouter();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -21,7 +24,7 @@ export default function Header() {
   const handleLogout = async () => {
     setDropdownOpen(false);
     await signOut();
-    navigate('/');
+    router.push('/');
   };
 
   useEffect(() => {
@@ -37,7 +40,7 @@ export default function Header() {
       const el = document.getElementById(sectionId);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     } else {
-      navigate("/", { state: { scrollTo: sectionId } });
+      router.push(`/#${sectionId}`);
     }
   };
 
@@ -65,7 +68,7 @@ export default function Header() {
               if (isHome) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               } else {
-                navigate("/");
+                router.push("/");
               }
             }}
             className="flex items-center gap-2 group"
@@ -96,7 +99,7 @@ export default function Header() {
               ) : (
                 <Link
                   key={link.name}
-                  to={link.href!}
+                  href={link.href!}
                   onClick={() => analytics.navClick(link.name)}
                   className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
                 >
@@ -137,7 +140,7 @@ export default function Header() {
                         <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
                         <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl border border-slate-200 shadow-lg z-50 overflow-hidden">
                           <Link
-                            to="/mypage"
+                            href="/mypage"
                             onClick={() => setDropdownOpen(false)}
                             className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
                           >
@@ -162,7 +165,7 @@ export default function Header() {
                 ) : (
                   // 로그인되지 않은 상태
                   <Link
-                    to="/login"
+                    href="/login"
                     className="hidden sm:inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-300"
                   >
                     Sign in
@@ -230,7 +233,7 @@ export default function Header() {
                 ) : (
                   <Link
                     key={link.name}
-                    to={link.href!}
+                    href={link.href!}
                     onClick={() => setMobileMenuOpen(false)}
                     className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
                   >
@@ -241,7 +244,7 @@ export default function Header() {
               {user ? (
                 <>
                   <Link
-                    to="/mypage"
+                    href="/mypage"
                     onClick={() => setMobileMenuOpen(false)}
                     className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
                   >
@@ -256,7 +259,7 @@ export default function Header() {
                 </>
               ) : (
                 <Link
-                  to="/login"
+                  href="/login"
                   onClick={() => setMobileMenuOpen(false)}
                   className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-slate-700 text-center rounded-xl border-2 border-slate-200"
                 >

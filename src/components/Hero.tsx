@@ -1,3 +1,5 @@
+'use client'
+
 import { analytics } from '../lib/analytics'
 
 const DOWNLOAD_URL = 'https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download'

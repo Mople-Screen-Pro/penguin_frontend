@@ -1,19 +1,21 @@
-import { useEffect, useState } from "react";
-import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+'use client'
+
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { useSearchParams, useRouter } from "next/navigation"
+import { useAuth } from "../../contexts/AuthContext"
 import {
   getPaddle,
   openCheckout,
   setOnCheckoutComplete,
   PRICE_IDS,
-} from "../lib/paddle";
-import { useSubscription } from "../hooks/useSubscription";
-import { isActive, isPastDue, isCanceled, isExpired } from "../types/subscription";
-import { redirectToApp } from "../lib/deeplink";
-import { supabase } from "../lib/supabase";
-import UpgradeModal from "../components/UpgradeModal";
-import Header from "../components/Header";
-import SEO from "../components/SEO";
+} from "../../lib/paddle"
+import { useSubscription } from "../../hooks/useSubscription"
+import { isActive, isPastDue, isCanceled, isExpired } from "../../types/subscription"
+import { redirectToApp } from "../../lib/deeplink"
+import { supabase } from "../../lib/supabase"
+import UpgradeModal from "../../components/UpgradeModal"
+import Header from "../../components/Header"
 
 const plans = [
   {
@@ -64,53 +66,53 @@ const plans = [
       "No recurring fees",
     ],
   },
-];
+]
 
-export default function PricingPage() {
-  const { user } = useAuth();
-  const { subscription, loading: subLoading, refetch } = useSubscription();
-  const [loading, setLoading] = useState<string | null>(null);
-  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false);
-  const [downgradeModalOpen, setDowngradeModalOpen] = useState(false);
-  const [lifetimeModalOpen, setLifetimeModalOpen] = useState(false);
-  const [pendingPriceId, setPendingPriceId] = useState<string | null>(null);
-  const [showCompleteModal, setShowCompleteModal] = useState(false);
+export default function PricingClient() {
+  const { user } = useAuth()
+  const { subscription, loading: subLoading, refetch } = useSubscription()
+  const [loading, setLoading] = useState<string | null>(null)
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false)
+  const [downgradeModalOpen, setDowngradeModalOpen] = useState(false)
+  const [lifetimeModalOpen, setLifetimeModalOpen] = useState(false)
+  const [pendingPriceId, setPendingPriceId] = useState<string | null>(null)
+  const [showCompleteModal, setShowCompleteModal] = useState(false)
   const [cancelDowngradeModalOpen, setCancelDowngradeModalOpen] =
-    useState(false);
-  const [cancelingDowngrade, setCancelingDowngrade] = useState(false);
-  const [reactivateLoading, setReactivateLoading] = useState(false);
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+    useState(false)
+  const [cancelingDowngrade, setCancelingDowngrade] = useState(false)
+  const [reactivateLoading, setReactivateLoading] = useState(false)
+  const searchParams = useSearchParams()
+  const router = useRouter()
 
-  const from = searchParams.get("from");
-  const state = searchParams.get("state") || "";
+  const from = searchParams.get("from")
+  const state = searchParams.get("state") || ""
 
   useEffect(() => {
-    getPaddle();
-  }, []);
+    getPaddle()
+  }, [])
 
   // 체크아웃 완료 콜백 등록
   useEffect(() => {
     setOnCheckoutComplete(async () => {
-      setShowCompleteModal(true);
+      setShowCompleteModal(true)
 
-      await new Promise((r) => setTimeout(r, 3000));
-      setShowCompleteModal(false);
+      await new Promise((r) => setTimeout(r, 3000))
+      setShowCompleteModal(false)
 
       if (from === "app" && user) {
-        const { data } = await supabase.auth.refreshSession();
+        const { data } = await supabase.auth.refreshSession()
         if (data.session) {
           try {
-            await redirectToApp(data.session, state);
-            return;
+            await redirectToApp(data.session, state)
+            return
           } catch (e) {
-            console.error("Failed to redirect to app:", e);
+            console.error("Failed to redirect to app:", e)
           }
         }
       }
-      navigate("/mypage", { state: { fromCheckout: true } });
-    });
-  }, [from, state, navigate, user]);
+      router.push("/mypage?fromCheckout=true")
+    })
+  }, [from, state, router, user])
 
   // 로그인 후 pending checkout 자동 실행
   useEffect(() => {
@@ -119,143 +121,102 @@ export default function PricingPage() {
         priceId: pendingPriceId,
         userEmail: user.email,
         userId: user.id,
-      });
-      setPendingPriceId(null);
-      setLoading(null);
+      })
+      setPendingPriceId(null)
+      setLoading(null)
     }
-  }, [user, pendingPriceId]);
+  }, [user, pendingPriceId])
 
   const handlePurchase = async (priceId: string, planId: string) => {
-    setLoading(planId);
+    setLoading(planId)
 
     if (!user) {
       // 비로그인 → 로그인 페이지로 이동, 결제할 priceId 저장
-      setPendingPriceId(priceId);
-      navigate("/login?from=pricing");
-      setLoading(null);
-      return;
+      setPendingPriceId(priceId)
+      router.push("/login?from=pricing")
+      setLoading(null)
+      return
     }
 
     await openCheckout({
       priceId,
       userEmail: user.email,
       userId: user.id,
-    });
-    setLoading(null);
-  };
+    })
+    setLoading(null)
+  }
 
   const handleCancelDowngrade = async () => {
-    setCancelingDowngrade(true);
+    setCancelingDowngrade(true)
     try {
       const { error: err } = await supabase.functions.invoke(
         "upgrade-subscription",
         {
           body: { action: "cancel_downgrade" },
         }
-      );
+      )
       if (err) {
-        console.error("Failed to cancel downgrade:", err);
-        return;
+        console.error("Failed to cancel downgrade:", err)
+        return
       }
-      await new Promise((r) => setTimeout(r, 2000));
-      refetch();
-      setCancelDowngradeModalOpen(false);
+      await new Promise((r) => setTimeout(r, 2000))
+      refetch()
+      setCancelDowngradeModalOpen(false)
     } catch (err) {
-      console.error("Failed to cancel downgrade:", err);
+      console.error("Failed to cancel downgrade:", err)
     } finally {
-      setCancelingDowngrade(false);
+      setCancelingDowngrade(false)
     }
-  };
+  }
 
   const handleReactivate = async () => {
-    setReactivateLoading(true);
+    setReactivateLoading(true)
     try {
       const { error } = await supabase.functions.invoke(
         "reactivate-subscription",
         { body: {} }
-      );
+      )
       if (error) {
-        console.error("Failed to reactivate subscription:", error);
-        alert("Failed to reactivate subscription. Please try again.");
-        return;
+        console.error("Failed to reactivate subscription:", error)
+        alert("Failed to reactivate subscription. Please try again.")
+        return
       }
-      await new Promise((r) => setTimeout(r, 2000));
-      refetch();
+      await new Promise((r) => setTimeout(r, 2000))
+      refetch()
     } catch (err) {
-      console.error("Failed to reactivate subscription:", err);
-      alert("Failed to reactivate subscription. Please try again.");
+      console.error("Failed to reactivate subscription:", err)
+      alert("Failed to reactivate subscription. Please try again.")
     } finally {
-      setReactivateLoading(false);
+      setReactivateLoading(false)
     }
-  };
+  }
 
-  const alreadySubscribed = isActive(subscription);
-  const pastDue = isPastDue(subscription);
-  const currentPriceId = alreadySubscribed ? subscription?.price_id : null;
-  const isLifetime = currentPriceId === PRICE_IDS.lifetime;
+  const alreadySubscribed = isActive(subscription)
+  const pastDue = isPastDue(subscription)
+  const currentPriceId = alreadySubscribed ? subscription?.price_id : null
+  const isLifetimePlan = currentPriceId === PRICE_IDS.lifetime
   const isMonthly =
-    alreadySubscribed && subscription?.billing_cycle_interval === "month";
+    alreadySubscribed && subscription?.billing_cycle_interval === "month"
   const isYearly =
     alreadySubscribed &&
     subscription?.billing_cycle_interval === "year" &&
-    !isLifetime;
+    !isLifetimePlan
   const hasScheduledDowngrade = !!(
     subscription?.scheduled_change_effective_at &&
     new Date(subscription.scheduled_change_effective_at) > new Date() &&
     subscription.scheduled_change_billing_cycle_interval === "month"
-  );
-  const canceled = isCanceled(subscription);
-  const expired = isExpired(subscription);
-  const canceledNotExpired = canceled && !expired;
+  )
+  const canceled = isCanceled(subscription)
+  const expired = isExpired(subscription)
+  const canceledNotExpired = canceled && !expired
   const hasScheduledCancel = !!(
     subscription?.scheduled_change_effective_at &&
     new Date(subscription.scheduled_change_effective_at) > new Date() &&
     !subscription.scheduled_change_billing_cycle_interval
-  );
+  )
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      <SEO
-        title="Pricing"
-        description="Choose the perfect Penguin plan. Monthly, yearly, or lifetime — all plans include unlimited recordings, auto cursor zoom, and MP4 export. Starting from $8/month."
-        path="/pricing"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Product",
-          "name": "Penguin Screen Recorder",
-          "description": "Professional screen recording with auto cursor zoom for macOS",
-          "brand": { "@type": "Brand", "name": "Penguin" },
-          "offers": [
-            {
-              "@type": "Offer",
-              "name": "Monthly",
-              "price": "21",
-              "priceCurrency": "USD",
-              "priceValidUntil": "2027-12-31",
-              "availability": "https://schema.org/InStock",
-              "url": "https://www.penguin-editor.com/pricing"
-            },
-            {
-              "@type": "Offer",
-              "name": "Yearly",
-              "price": "96",
-              "priceCurrency": "USD",
-              "priceValidUntil": "2027-12-31",
-              "availability": "https://schema.org/InStock",
-              "url": "https://www.penguin-editor.com/pricing"
-            },
-            {
-              "@type": "Offer",
-              "name": "Lifetime",
-              "price": "240",
-              "priceCurrency": "USD",
-              "priceValidUntil": "2027-12-31",
-              "availability": "https://schema.org/InStock",
-              "url": "https://www.penguin-editor.com/pricing"
-            }
-          ]
-        }}
-      />
       <Header />
 
       {/* Content */}
@@ -370,7 +331,7 @@ export default function PricingPage() {
                 >
                   Current Plan
                 </button>
-              ) : isLifetime && plan.id !== "lifetime" ? (
+              ) : isLifetimePlan && plan.id !== "lifetime" ? (
                 <button
                   disabled
                   className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-400 cursor-not-allowed"
@@ -455,15 +416,15 @@ export default function PricingPage() {
       {/* Footer */}
       <footer className="bg-slate-50 border-t border-slate-200 py-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center gap-4 text-sm text-slate-500">
-          <Link to="/terms" className="hover:text-slate-700">
+          <Link href="/terms" className="hover:text-slate-700">
             Terms of Service
           </Link>
           <span>·</span>
-          <Link to="/privacy" className="hover:text-slate-700">
+          <Link href="/privacy" className="hover:text-slate-700">
             Privacy Policy
           </Link>
           <span>·</span>
-          <Link to="/refund" className="hover:text-slate-700">
+          <Link href="/refund" className="hover:text-slate-700">
             Refund Policy
           </Link>
           <span>·</span>
@@ -554,9 +515,7 @@ export default function PricingPage() {
       <UpgradeModal
         isOpen={upgradeModalOpen}
         onClose={() => setUpgradeModalOpen(false)}
-        onComplete={() =>
-          navigate("/mypage", { state: { fromCheckout: true } })
-        }
+        onComplete={() => router.push("/mypage?fromCheckout=true")}
         mode="upgrade"
         targetPriceId={PRICE_IDS.yearly}
         targetInterval="year"
@@ -566,9 +525,7 @@ export default function PricingPage() {
       <UpgradeModal
         isOpen={downgradeModalOpen}
         onClose={() => setDowngradeModalOpen(false)}
-        onComplete={() =>
-          navigate("/mypage", { state: { fromCheckout: true } })
-        }
+        onComplete={() => router.push("/mypage?fromCheckout=true")}
         mode="downgrade"
         targetPriceId={PRICE_IDS.monthly}
         targetInterval="month"
@@ -578,12 +535,10 @@ export default function PricingPage() {
       <UpgradeModal
         isOpen={lifetimeModalOpen}
         onClose={() => setLifetimeModalOpen(false)}
-        onComplete={() =>
-          navigate("/mypage", { state: { fromCheckout: true } })
-        }
+        onComplete={() => router.push("/mypage?fromCheckout=true")}
         mode="lifetime"
         targetPriceId={PRICE_IDS.lifetime}
       />
     </div>
-  );
+  )
 }

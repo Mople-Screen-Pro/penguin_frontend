@@ -1,12 +1,14 @@
-import { useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
-import { getSubscription } from '../lib/subscription'
-import { redirectToApp } from '../lib/deeplink'
+'use client'
 
-export default function AuthCallbackPage() {
-  const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
+import { useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { supabase } from '../../../lib/supabase'
+import { getSubscription } from '../../../lib/subscription'
+import { redirectToApp } from '../../../lib/deeplink'
+
+export default function AuthCallbackClient() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     const handleCallback = async () => {
@@ -14,7 +16,7 @@ export default function AuthCallbackPage() {
 
       if (error || !data.session) {
         console.error('Auth callback error:', error)
-        navigate('/')
+        router.push('/')
         return
       }
 
@@ -32,24 +34,24 @@ export default function AuthCallbackPage() {
           await redirectToApp(data.session, state)
         } catch (e) {
           console.error('Failed to redirect to app:', e)
-          navigate('/')
+          router.push('/')
           return
         }
 
         if (!hasActive) {
           // 구독 없음 → mypage로 이동 (딥링크가 먼저 처리되도록 딜레이)
-          setTimeout(() => navigate('/mypage?from=app', { replace: true }), 100)
+          setTimeout(() => router.replace('/mypage?from=app'), 100)
         }
       } else if (from === 'pricing') {
-        navigate('/pricing', { replace: true })
+        router.replace('/pricing')
       } else {
         // 웹에서 진입한 경우
-        navigate('/')
+        router.push('/')
       }
     }
 
     handleCallback()
-  }, [navigate, searchParams])
+  }, [router, searchParams])
 
   return (
     <div className="min-h-screen flex items-center justify-center">

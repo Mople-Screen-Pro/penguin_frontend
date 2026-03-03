@@ -19,7 +19,7 @@ export function setOnCheckoutComplete(
 export async function getPaddle(): Promise<Paddle | null> {
   if (paddleInstance) return paddleInstance;
 
-  const clientToken = import.meta.env.VITE_PADDLE_CLIENT_TOKEN;
+  const clientToken = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN;
   if (!clientToken) {
     console.error("Paddle client token not found");
     return null;

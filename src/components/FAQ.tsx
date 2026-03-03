@@ -1,5 +1,6 @@
+'use client'
+
 import { useState } from 'react'
-import { Helmet } from 'react-helmet-async'
 import { analytics } from '../lib/analytics'
 
 const faqs = [
@@ -46,11 +47,10 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="py-12 sm:py-20 bg-slate-50 relative">
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify(faqJsonLd)}
-        </script>
-      </Helmet>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       {/* Background */}
       <div className="absolute inset-0 bg-dots opacity-30" />
 

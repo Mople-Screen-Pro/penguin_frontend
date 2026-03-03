@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+'use client'
+
+import Link from 'next/link'
 
 const footerLinks = {
   product: [
@@ -78,15 +80,15 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} Penguin. All rights reserved.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm">
-              <Link to="/terms" className="hover:text-white transition-colors">
+              <Link href="/terms" className="hover:text-white transition-colors">
                 Terms of Service
               </Link>
               <span className="text-slate-600">·</span>
-              <Link to="/privacy" className="hover:text-white transition-colors">
+              <Link href="/privacy" className="hover:text-white transition-colors">
                 Privacy Policy
               </Link>
               <span className="text-slate-600">·</span>
-              <Link to="/refund" className="hover:text-white transition-colors">
+              <Link href="/refund" className="hover:text-white transition-colors">
                 Refund Policy
               </Link>
             </div>

@@ -1,6 +1,6 @@
 // GA4 이벤트 추적 헬퍼
 
-const SLACK_WEBHOOK_URL = import.meta.env.VITE_SLACK_WEBHOOK_URL || "";
+const SLACK_WEBHOOK_URL = process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL || "";
 
 // 슬랙 알림 전송
 const sendSlackNotification = async (message: string) => {

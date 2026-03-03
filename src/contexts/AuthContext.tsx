@@ -1,3 +1,5 @@
+'use client'
+
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { User, Session } from '@supabase/supabase-js'
@@ -81,7 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // 무시
     } finally {
       // SDK signOut이 실패해도 로컬 상태는 반드시 정리
-      const storageKey = `sb-${new URL(import.meta.env.VITE_SUPABASE_URL).hostname.split('.')[0]}-auth-token`
+      const storageKey = `sb-${new URL(process.env.NEXT_PUBLIC_SUPABASE_URL!).hostname.split('.')[0]}-auth-token`
       localStorage.removeItem(storageKey)
       setUser(null)
       setSession(null)
