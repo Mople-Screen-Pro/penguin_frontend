@@ -1,12 +1,33 @@
-import { Link } from 'react-router-dom'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Terms of Service',
+  description:
+    'Read the Terms of Service for Penguin, the macOS screen recording app with auto cursor zoom. Learn about usage rights, subscriptions, and policies.',
+  alternates: { canonical: '/terms' },
+}
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.penguin-editor.com" },
+              { "@type": "ListItem", position: 2, name: "Terms of Service", item: "https://www.penguin-editor.com/terms" },
+            ],
+          }),
+        }}
+      />
       {/* Header */}
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link to="/" className="flex items-center gap-2 group w-fit">
+          <Link href="/" className="flex items-center gap-2 group w-fit">
             <img src="/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
             <span className="text-xl font-bold text-slate-900">Penguin</span>
           </Link>
@@ -20,7 +41,7 @@ export default function TermsPage() {
 
         <div className="prose prose-slate max-w-none">
           <p className="text-slate-600 mb-6">
-            These Terms of Service ("Terms") govern your access to and use of Penguin, a macOS-only desktop application, and any related services (collectively, the "Service") provided by Mople ("Company", "we", "us", or "our").
+            These Terms of Service (&quot;Terms&quot;) govern your access to and use of Penguin, a macOS-only desktop application, and any related services (collectively, the &quot;Service&quot;) provided by Mople (&quot;Company&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;).
           </p>
           <p className="text-slate-600 mb-8">
             By downloading, installing, or using the Service, you agree to be bound by these Terms. If you do not agree to these Terms, you must not use the Service.
@@ -36,11 +57,11 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">2. Definitions</h2>
             <ul className="list-disc list-inside text-slate-600 space-y-2">
-              <li>"Service" means the macOS-only desktop application Penguin and all related features provided by the Company.</li>
-              <li>"User" means an individual who agrees to these Terms and uses the Service.</li>
-              <li>"Subscription" means a recurring paid plan that provides access to the Service.</li>
-              <li>"Lifetime License" means a one-time purchase that grants access to the Service as defined herein.</li>
-              <li>"Content" means any recordings, screenshots, or other media created by the User using the Service.</li>
+              <li>&quot;Service&quot; means the macOS-only desktop application Penguin and all related features provided by the Company.</li>
+              <li>&quot;User&quot; means an individual who agrees to these Terms and uses the Service.</li>
+              <li>&quot;Subscription&quot; means a recurring paid plan that provides access to the Service.</li>
+              <li>&quot;Lifetime License&quot; means a one-time purchase that grants access to the Service as defined herein.</li>
+              <li>&quot;Content&quot; means any recordings, screenshots, or other media created by the User using the Service.</li>
             </ul>
           </section>
 
@@ -73,7 +94,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">5. Data Storage and Privacy</h2>
             <p className="text-slate-600 mb-4">
-              All Content created using the Service is stored locally on the User's device. The Service does not upload, transmit, or store any recordings or personal data on external servers or cloud services.
+              All Content created using the Service is stored locally on the User&apos;s device. The Service does not upload, transmit, or store any recordings or personal data on external servers or cloud services.
             </p>
             <p className="text-slate-600">
               Users are solely responsible for the management, backup, and security of their Content stored on their devices.
@@ -91,7 +112,7 @@ export default function TermsPage() {
               <li>Consent requirements for recording others</li>
             </ul>
             <p className="text-slate-600">
-              The Company is not liable for any legal issues arising from the User's recording activities or the content they create.
+              The Company is not liable for any legal issues arising from the User&apos;s recording activities or the content they create.
             </p>
           </section>
 
@@ -128,7 +149,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">10. Refund Policy</h2>
             <p className="text-slate-600">
-              Refunds are subject to the Company's Refund Policy, which is provided as a separate document. All payments and refunds are processed through Paddle.
+              Refunds are subject to the Company&apos;s Refund Policy, which is provided as a separate document. All payments and refunds are processed through Paddle.
             </p>
           </section>
 
@@ -138,13 +159,13 @@ export default function TermsPage() {
               A Lifetime License grants the User access to the current major version of the Service (e.g., version 1.x), including all minor updates and bug fixes within that major version, for an unlimited period.
             </p>
             <p className="text-slate-600 mb-4">
-              Major version upgrades (e.g., 2.0, 3.0) may be offered as separate purchases. Lifetime License holders may be eligible for discounted upgrade pricing at the Company's discretion.
+              Major version upgrades (e.g., 2.0, 3.0) may be offered as separate purchases. Lifetime License holders may be eligible for discounted upgrade pricing at the Company&apos;s discretion.
             </p>
             <p className="text-slate-600 mb-4">
               The Lifetime License does not guarantee continued availability of the Service in the event of service termination, major platform changes, or macOS compatibility issues.
             </p>
             <p className="text-slate-600">
-              No additional guarantees or compensation are provided if the Service becomes unavailable due to circumstances beyond the Company's control.
+              No additional guarantees or compensation are provided if the Service becomes unavailable due to circumstances beyond the Company&apos;s control.
             </p>
           </section>
 
@@ -178,7 +199,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">14. Disclaimer of Warranties</h2>
             <p className="text-slate-600">
-              The Service is provided on an "as is" and "as available" basis. The Company makes no warranties, express or implied, including but not limited to warranties of fitness for a particular purpose, accuracy, or uninterrupted availability.
+              The Service is provided on an &quot;as is&quot; and &quot;as available&quot; basis. The Company makes no warranties, express or implied, including but not limited to warranties of fitness for a particular purpose, accuracy, or uninterrupted availability.
             </p>
           </section>
 
@@ -189,7 +210,7 @@ export default function TermsPage() {
             </p>
             <p className="text-slate-600 mb-2">The Company is not responsible for issues caused by:</p>
             <ul className="list-disc list-inside text-slate-600 space-y-1">
-              <li>The User's device environment</li>
+              <li>The User&apos;s device environment</li>
               <li>Operating system updates</li>
               <li>Third-party software or services</li>
               <li>Loss of recorded Content due to device failure or user error</li>
@@ -199,7 +220,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">16. Privacy Policy</h2>
             <p className="text-slate-600">
-              The collection and use of personal data are governed by the Company's <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>, which is provided as a separate document and forms an integral part of these Terms.
+              The collection and use of personal data are governed by the Company&apos;s <Link href="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>, which is provided as a separate document and forms an integral part of these Terms.
             </p>
           </section>
 
@@ -244,7 +265,7 @@ export default function TermsPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-200">
-          <Link to="/" className="text-sky-600 hover:underline">&larr; Back to Home</Link>
+          <Link href="/" className="text-sky-600 hover:underline">&larr; Back to Home</Link>
         </div>
       </main>
     </div>

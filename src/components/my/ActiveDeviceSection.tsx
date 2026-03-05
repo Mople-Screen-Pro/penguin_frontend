@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { useDevice } from '../../hooks/useDevice'
 import DeactivateDeviceModal from './DeactivateDeviceModal'

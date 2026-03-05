@@ -1,12 +1,14 @@
-import { useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
-import { getSubscription } from '../lib/subscription'
-import { redirectToApp } from '../lib/deeplink'
+'use client'
 
-export default function AuthCallbackPage() {
-  const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
+import { useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { supabase } from '../../../lib/supabase'
+import { getSubscription } from '../../../lib/subscription'
+import { redirectToApp } from '../../../lib/deeplink'
+
+export default function AuthCallbackClient() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     const handleCallback = async () => {
@@ -14,7 +16,7 @@ export default function AuthCallbackPage() {
 
       if (error || !data.session) {
         console.error('Auth callback error:', error)
-        navigate('/')
+        router.push('/')
         return
       }
 
@@ -27,28 +29,29 @@ export default function AuthCallbackPage() {
       const hasActive = subscription?.status === 'active' || subscription?.status === 'past_due'
 
       if (from === 'app' || from === 'app-dev') {
-        if (hasActive) {
-          // 구독 있음 → 바로 앱으로 딥링크 콜백
-          try {
-            await redirectToApp(data.session, state)
-          } catch (e) {
-            console.error('Failed to redirect to app:', e)
-            navigate('/')
-          }
-        } else {
-          // 구독 없음 → pricing 페이지에 머무름 (결제 완료 후 앱으로 콜백)
-          navigate(`/pricing?from=${from}&state=${encodeURIComponent(state)}`, { replace: true })
+        // 앱에서 진입한 경우 → 딥링크로 임시 코드 전달 (구독 유무 무관)
+        try {
+          await redirectToApp(data.session, state)
+        } catch (e) {
+          console.error('Failed to redirect to app:', e)
+          router.push('/')
+          return
+        }
+
+        if (!hasActive) {
+          // 구독 없음 → mypage로 이동 (딥링크가 먼저 처리되도록 딜레이)
+          setTimeout(() => router.replace('/mypage?from=app'), 100)
         }
       } else if (from === 'pricing') {
-        navigate('/pricing', { replace: true })
+        router.replace('/pricing')
       } else {
         // 웹에서 진입한 경우
-        navigate('/')
+        router.push('/')
       }
     }
 
     handleCallback()
-  }, [navigate, searchParams])
+  }, [router, searchParams])
 
   return (
     <div className="min-h-screen flex items-center justify-center">

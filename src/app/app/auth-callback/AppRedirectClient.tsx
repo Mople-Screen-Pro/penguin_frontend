@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
+'use client'
 
-export default function AppRedirectPage() {
+import Link from 'next/link'
+
+export default function AppRedirectClient() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
       <div className="w-full max-w-md mx-auto px-6">
@@ -36,7 +38,7 @@ export default function AppRedirectPage() {
 
           {/* Back to home */}
           <Link
-            to="/"
+            href="/"
             className="inline-flex items-center gap-1 mt-6 text-sm text-slate-500 hover:text-slate-700 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

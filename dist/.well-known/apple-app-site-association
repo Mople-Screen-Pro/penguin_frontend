@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "TMAB4J25A8.com.jwjy.Penguin",
+          "H7ZPSP5AJ6.com.jwjy.Penguin.dev"
+        ],
+        "components": [
+          {
+            "/": "/app/auth-callback*"
+          }
+        ]
+      }
+    ]
+  }
+}

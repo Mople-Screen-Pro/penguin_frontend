@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { analytics } from '../lib/analytics'
 
@@ -20,6 +22,19 @@ const faqs = [
   },
 ]
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((faq) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer,
+    },
+  })),
+}
+
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
@@ -32,6 +47,10 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="py-12 sm:py-20 bg-slate-50 relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       {/* Background */}
       <div className="absolute inset-0 bg-dots opacity-30" />
 

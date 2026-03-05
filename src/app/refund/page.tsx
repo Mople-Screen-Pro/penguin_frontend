@@ -1,12 +1,32 @@
-import { Link } from 'react-router-dom'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Refund Policy',
+  description: 'Penguin refund policy. Monthly subscriptions: 14-day refund window. Annual and lifetime plans: 30-day refund window. All refunds processed through Paddle.',
+  alternates: { canonical: '/refund' },
+}
 
 export default function RefundPage() {
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.penguin-editor.com" },
+              { "@type": "ListItem", "position": 2, "name": "Refund Policy", "item": "https://www.penguin-editor.com/refund" }
+            ]
+          })
+        }}
+      />
       {/* Header */}
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link to="/" className="flex items-center gap-2 group w-fit">
+          <Link href="/" className="flex items-center gap-2 group w-fit">
             <img src="/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
             <span className="text-xl font-bold text-slate-900">Penguin</span>
           </Link>
@@ -87,7 +107,7 @@ export default function RefundPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">4. Data Storage Notice</h2>
             <p className="text-slate-600 mb-4">
-              Penguin stores user account data on Supabase servers to provide service functionality. By using the Service, you acknowledge that certain data is transmitted to and stored on third-party servers as described in our <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>.
+              Penguin stores user account data on Supabase servers to provide service functionality. By using the Service, you acknowledge that certain data is transmitted to and stored on third-party servers as described in our <Link href="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>.
             </p>
             <p className="text-slate-600 mb-4">
               All recordings and camera footage created using the Service are stored locally on your device only and are not transmitted to our servers.
@@ -252,7 +272,7 @@ export default function RefundPage() {
               <li>Applicable consumer protection laws in relevant jurisdictions</li>
             </ul>
             <p className="text-slate-600 mb-4">
-              This policy works in conjunction with our <Link to="/terms" className="text-sky-600 hover:underline">Terms of Service</Link> and <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>, which should be read together as a complete agreement.
+              This policy works in conjunction with our <Link href="/terms" className="text-sky-600 hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>, which should be read together as a complete agreement.
             </p>
             <p className="text-slate-600 font-medium">
               By purchasing Penguin, you acknowledge that you have read, understood, and agreed to this Refund Policy.
@@ -261,7 +281,7 @@ export default function RefundPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-200">
-          <Link to="/" className="text-sky-600 hover:underline">&larr; Back to Home</Link>
+          <Link href="/" className="text-sky-600 hover:underline">&larr; Back to Home</Link>
         </div>
       </main>
     </div>

@@ -1,6 +1,8 @@
+'use client'
+
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { useAuth } from '../contexts/AuthContext'
 
 interface LoginModalProps {
@@ -107,9 +109,9 @@ export default function LoginModal({ isOpen, onClose, from }: LoginModalProps) {
           {/* Terms */}
           <p className="text-center text-sm text-slate-500 mt-6">
             By continuing, you agree to our{' '}
-            <Link to="/terms" className="text-blue-600 hover:underline">Terms of Service</Link>
+            <Link href="/terms" className="text-blue-600 hover:underline">Terms of Service</Link>
             {' '}and{' '}
-            <Link to="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>
+            <Link href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</Link>
           </p>
         </div>
       </div>

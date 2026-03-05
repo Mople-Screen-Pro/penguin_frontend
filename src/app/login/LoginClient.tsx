@@ -1,24 +1,27 @@
-import { useEffect, useState } from 'react'
-import { Link, useSearchParams, Navigate, useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import { supabase } from '../lib/supabase'
-import { redirectToApp } from '../lib/deeplink'
+'use client'
 
-export default function LoginPage() {
+import { useEffect, useRef } from 'react'
+import Link from 'next/link'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { useAuth } from '../../contexts/AuthContext'
+import { supabase } from '../../lib/supabase'
+import { redirectToApp } from '../../lib/deeplink'
+
+export default function LoginClient() {
   const { user, session, loading, signInWithGoogle, signInWithApple, signInWithGithub } = useAuth()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
+  const searchParams = useSearchParams()
+  const router = useRouter()
   const from = searchParams.get('from') || undefined
   const state = searchParams.get('state') || undefined
-  const [appRedirectHandled, setAppRedirectHandled] = useState(false)
+  const appRedirectHandledRef = useRef(false)
 
   const isFromApp = from === 'app' || from === 'app-dev'
 
   // 이미 로그인된 유저가 from=app으로 접근한 경우 처리
   useEffect(() => {
-    if (loading || !user || !session || !isFromApp || appRedirectHandled) return
+    if (loading || !user || !session || !isFromApp || appRedirectHandledRef.current) return
 
-    setAppRedirectHandled(true)
+    appRedirectHandledRef.current = true
 
     const handleAppRedirect = async () => {
       // 앱에서 signOut 후 재로그인 시 토큰이 무효화될 수 있으므로 세션 갱신
@@ -27,7 +30,7 @@ export default function LoginPage() {
       if (refreshError || !refreshed.session) {
         // 세션이 무효화됨 (앱에서 signOut으로 인해) → 웹도 로그아웃 후 재로그인 유도
         await supabase.auth.signOut()
-        setAppRedirectHandled(false)
+        appRedirectHandledRef.current = false
         return
       }
 
@@ -37,12 +40,12 @@ export default function LoginPage() {
         await redirectToApp(freshSession, state || '')
       } catch (e) {
         console.error('Failed to redirect to app:', e)
-        navigate('/', { replace: true })
+        router.replace('/')
       }
     }
 
     handleAppRedirect()
-  }, [loading, user, session, from, state, isFromApp, appRedirectHandled, navigate])
+  }, [loading, user, session, from, state, isFromApp, router])
 
   // 세션 확인 중 로딩 표시
   if (loading) {
@@ -57,7 +60,8 @@ export default function LoginPage() {
   }
 
   if (user && !isFromApp) {
-    return <Navigate to="/" replace />
+    router.replace('/')
+    return null
   }
 
   // from=app이고 이미 로그인된 유저는 앱으로 리다이렉트
@@ -122,7 +126,7 @@ export default function LoginPage() {
                       <span>presentation.tsx</span>
                     </div>
                     <div className="space-y-1.5 text-slate-400">
-                      <p><span className="text-blue-400">import</span> <span className="text-sky-300">{'{ motion }'}</span> <span className="text-blue-400">from</span> <span className="text-emerald-400">"framer-motion"</span></p>
+                      <p><span className="text-blue-400">import</span> <span className="text-sky-300">{'{ motion }'}</span> <span className="text-blue-400">from</span> <span className="text-emerald-400">&quot;framer-motion&quot;</span></p>
                       <p />
                       <p><span className="text-blue-400">export const</span> <span className="text-blue-300">Slide</span> = () =&gt; {'{'}</p>
                       <p className="pl-4"><span className="text-blue-400">return</span> (</p>
@@ -190,7 +194,7 @@ export default function LoginPage() {
       <div className="flex-1 flex flex-col">
         {/* Top bar */}
         <div className="flex items-center justify-between px-6 py-4">
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2 group">
             <img
               src="/logo.png"
               alt="Penguin"
@@ -199,7 +203,7 @@ export default function LoginPage() {
             <span className="text-lg font-bold text-slate-900 lg:hidden">Penguin</span>
           </Link>
           <Link
-            to="/"
+            href="/"
             className="text-sm text-slate-500 hover:text-slate-700 transition-colors flex items-center gap-1"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -274,6 +278,7 @@ export default function LoginPage() {
             {/* Download CTA */}
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
+              rel="noopener"
               className="w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white font-semibold hover:from-sky-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -285,9 +290,9 @@ export default function LoginPage() {
             {/* Terms */}
             <p className="text-center text-xs text-slate-400 mt-8 leading-relaxed">
               By continuing, you agree to our{' '}
-              <Link to="/terms" className="text-sky-600 hover:underline">Terms of Service</Link>
+              <Link href="/terms" className="text-sky-600 hover:underline">Terms of Service</Link>
               {' '}and{' '}
-              <Link to="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>
+              <Link href="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>
             </p>
           </div>
         </div>

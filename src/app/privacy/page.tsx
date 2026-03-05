@@ -1,12 +1,32 @@
-import { Link } from 'react-router-dom'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'Learn how Penguin handles your data. All recordings stay on your device. We only collect minimal data needed for authentication and service operation.',
+  alternates: { canonical: '/privacy' },
+}
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.penguin-editor.com" },
+              { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://www.penguin-editor.com/privacy" }
+            ]
+          })
+        }}
+      />
       {/* Header */}
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link to="/" className="flex items-center gap-2 group w-fit">
+          <Link href="/" className="flex items-center gap-2 group w-fit">
             <img src="/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
             <span className="text-xl font-bold text-slate-900">Penguin</span>
           </Link>
@@ -224,7 +244,7 @@ export default function PrivacyPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-200">
-          <Link to="/" className="text-sky-600 hover:underline">&larr; Back to Home</Link>
+          <Link href="/" className="text-sky-600 hover:underline">&larr; Back to Home</Link>
         </div>
       </main>
     </div>

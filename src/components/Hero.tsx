@@ -1,3 +1,5 @@
+'use client'
+
 import { analytics } from '../lib/analytics'
 
 const DOWNLOAD_URL = 'https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download'
@@ -33,6 +35,7 @@ export default function Hero() {
               <a
                 href={DOWNLOAD_URL}
                 onClick={() => analytics.downloadClick('hero')}
+                rel="noopener"
                 className="hidden md:inline-flex items-center justify-center gap-2 sm:gap-3 text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 font-semibold text-white rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-sky-500/25"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
