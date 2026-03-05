@@ -41,11 +41,11 @@ export default function BlogListClient() {
       <Header />
       <main className="max-w-4xl mx-auto pt-28 pb-16 px-4">
         <div className="flex items-center justify-between mb-10">
-          <h1 className="heading-lg">Blog</h1>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Blog</h1>
           {isAdmin && (
             <Link
               href="/blog/new"
-              className="bg-gradient-to-br from-sky-500 to-blue-600 text-white rounded-xl px-5 py-2.5 font-semibold hover:opacity-90 transition-opacity"
+              className="bg-gradient-to-br from-sky-500 to-blue-600 text-white rounded-lg px-3.5 py-1.5 text-sm font-medium hover:opacity-90 transition-opacity"
             >
               New Post
             </Link>

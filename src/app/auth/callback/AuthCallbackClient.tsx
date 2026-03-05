@@ -29,18 +29,17 @@ export default function AuthCallbackClient() {
       const hasActive = subscription?.status === 'active' || subscription?.status === 'past_due'
 
       if (from === 'app' || from === 'app-dev') {
-        // 앱에서 진입한 경우 → 딥링크로 임시 코드 전달 (구독 유무 무관)
-        try {
-          await redirectToApp(data.session, state)
-        } catch (e) {
-          console.error('Failed to redirect to app:', e)
-          router.push('/')
-          return
-        }
-
-        if (!hasActive) {
-          // 구독 없음 → mypage로 이동 (딥링크가 먼저 처리되도록 딜레이)
-          setTimeout(() => router.replace('/mypage?from=app'), 100)
+        if (hasActive) {
+          // 구독 있음 → 바로 앱으로 딥링크 콜백
+          try {
+            await redirectToApp(data.session, state)
+          } catch (e) {
+            console.error('Failed to redirect to app:', e)
+            router.push('/')
+          }
+        } else {
+          // 구독 없음 → pricing 페이지로 이동 (결제 완료 후 앱으로 콜백)
+          router.replace(`/pricing?from=${from}&state=${encodeURIComponent(state)}`)
         }
       } else if (from === 'pricing') {
         router.replace('/pricing')

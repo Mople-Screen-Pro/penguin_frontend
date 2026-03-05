@@ -99,7 +99,7 @@ export default function PricingClient() {
       await new Promise((r) => setTimeout(r, 3000))
       setShowCompleteModal(false)
 
-      if (from === "app" && user) {
+      if ((from === "app" || from === "app-dev") && user) {
         const { data } = await supabase.auth.refreshSession()
         if (data.session) {
           try {
