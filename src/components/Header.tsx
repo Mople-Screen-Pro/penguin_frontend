@@ -48,6 +48,7 @@ export default function Header() {
     { name: "Features", sectionId: "features" },
     { name: "How It Works", sectionId: "how-it-works" },
     { name: "Pricing", href: "/pricing" },
+    { name: "Blog", href: "/blog" },
   ];
 
   return (
