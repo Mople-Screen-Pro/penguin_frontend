@@ -39,7 +39,7 @@ export default function ReleaseListClient() {
   return (
     <>
       <Header />
-      <main className="max-w-4xl mx-auto pt-28 pb-16 px-4">
+      <main className="max-w-3xl mx-auto pt-28 pb-16 px-4">
         <div className="flex items-center justify-between mb-10">
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Releases</h1>
           {isAdmin && (
@@ -57,32 +57,41 @@ export default function ReleaseListClient() {
         ) : releases.length === 0 ? (
           <p className="text-slate-400 text-center py-12">No releases yet.</p>
         ) : (
-          <div className="divide-y divide-slate-200 dark:divide-slate-700">
+          <div className="space-y-3">
             {releases.map((release) => (
-              <Link
+              <div
                 key={release.id}
-                href={`/releases/${release.slug}`}
-                className="block py-4"
+                className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5"
               >
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="text-base font-semibold text-slate-900 dark:text-white">
-                    v{release.version}
-                  </span>
-                  <span className="text-sm text-slate-500 dark:text-slate-400">
-                    {release.title}
-                  </span>
-                  {!release.published && (
-                    <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-0.5 text-xs font-medium text-yellow-700 ring-1 ring-inset ring-yellow-600/20">
-                      Draft
-                    </span>
+                <div className="flex items-baseline justify-between gap-4">
+                  <div className="flex items-baseline gap-3">
+                    <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+                      v{release.version}
+                    </h2>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                      {release.title}
+                    </p>
+                    {!release.published && (
+                      <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-0.5 text-xs font-medium text-yellow-700 ring-1 ring-inset ring-yellow-600/20">
+                        Draft
+                      </span>
+                    )}
+                  </div>
+                  {release.published_at && (
+                    <time className="text-xs text-slate-400 dark:text-slate-500 shrink-0">
+                      {formatDate(release.published_at)}
+                    </time>
                   )}
                 </div>
-                {release.published_at && (
-                  <time className="text-xs text-slate-400 dark:text-slate-500">
-                    {formatDate(release.published_at)}
-                  </time>
-                )}
-              </Link>
+                <div className="mt-3">
+                  <Link
+                    href={`/releases/${release.slug}`}
+                    className="text-sm font-medium text-sky-500 hover:text-sky-600 transition-colors"
+                  >
+                    View details &rarr;
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
         )}
