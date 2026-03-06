@@ -8,6 +8,7 @@ import Header from '../../../components/Header'
 import { useAuth } from '../../../contexts/AuthContext'
 import { useAdmin } from '../../../hooks/useAdmin'
 import { createPost, generateSlug } from '../../../lib/blog'
+import { uploadBlogImage } from '../../../lib/storage'
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false })
 
@@ -21,8 +22,25 @@ export default function BlogEditorClient() {
   const [content, setContent] = useState('')
   const [coverImageUrl, setCoverImageUrl] = useState('')
   const [published, setPublished] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setError(null)
+    try {
+      const url = await uploadBlogImage(file)
+      setCoverImageUrl(url)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to upload image')
+    } finally {
+      setUploading(false)
+    }
+  }
 
   if (adminLoading) {
     return (
@@ -135,17 +153,39 @@ export default function BlogEditorClient() {
           </div>
 
           <div>
-            <label htmlFor="cover_image_url" className="block text-sm font-medium text-slate-700 mb-1">
-              Cover Image URL
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Cover Image
             </label>
-            <input
-              id="cover_image_url"
-              type="text"
-              value={coverImageUrl}
-              onChange={(e) => setCoverImageUrl(e.target.value)}
-              className={inputClass}
-              placeholder="https://example.com/image.jpg"
-            />
+            {coverImageUrl && (
+              <div className="mb-3 relative">
+                <img
+                  src={coverImageUrl}
+                  alt="Cover preview"
+                  className="w-full max-h-48 object-cover rounded-xl border border-slate-200"
+                />
+                <button
+                  type="button"
+                  onClick={() => setCoverImageUrl('')}
+                  className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-black/70 transition-colors text-sm"
+                >
+                  &times;
+                </button>
+              </div>
+            )}
+            <label
+              className={`flex items-center justify-center gap-2 w-full rounded-xl border-2 border-dashed border-slate-300 px-4 py-6 text-slate-500 hover:border-sky-400 hover:text-sky-600 transition-colors cursor-pointer ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {uploading ? 'Uploading...' : 'Click to upload cover image'}
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/gif,image/webp"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+            </label>
           </div>
 
           <div className="flex items-center gap-2">
