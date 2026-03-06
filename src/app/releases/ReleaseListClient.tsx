@@ -62,7 +62,7 @@ export default function ReleaseListClient() {
               <Link
                 key={release.id}
                 href={`/releases/${release.slug}`}
-                className="flex items-center justify-between py-4"
+                className="flex items-center justify-between py-4 no-underline text-inherit"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-base font-semibold text-slate-900 dark:text-white">
