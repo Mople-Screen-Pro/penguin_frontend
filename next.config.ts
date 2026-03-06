@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  // Keep src/ directory structure
+  trailingSlash: false,
 }
 
 export default nextConfig

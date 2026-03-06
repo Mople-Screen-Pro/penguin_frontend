@@ -38,11 +38,6 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.penguin-editor.com'),
   alternates: {
     canonical: '/',
-    languages: {
-      en: '/',
-      ko: '/',
-      'x-default': '/',
-    },
   },
   openGraph: {
     type: 'website',
