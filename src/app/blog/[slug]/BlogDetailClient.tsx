@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
+import ReactMarkdown from 'react-markdown'
 import Header from '../../../components/Header'
 import { useAdmin } from '../../../hooks/useAdmin'
 import { getPostBySlug, deletePost } from '../../../lib/blog'
@@ -118,10 +119,9 @@ export default function BlogDetailClient() {
           )}
         </div>
 
-        <article
-          className="prose prose-slate max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        <article className="prose prose-slate max-w-none">
+          <ReactMarkdown>{post.content}</ReactMarkdown>
+        </article>
 
         {isAdmin && (
           <div className="flex items-center gap-4 mt-12 pt-8 border-t border-slate-200">

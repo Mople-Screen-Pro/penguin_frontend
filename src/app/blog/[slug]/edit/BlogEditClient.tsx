@@ -3,11 +3,14 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter, useParams } from 'next/navigation'
+import dynamic from 'next/dynamic'
 import Header from '../../../../components/Header'
 import { useAuth } from '../../../../contexts/AuthContext'
 import { useAdmin } from '../../../../hooks/useAdmin'
 import { updatePost, getPostBySlug } from '../../../../lib/blog'
 import type { BlogPost } from '../../../../lib/blog'
+
+const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false })
 
 export default function BlogEditClient() {
   const router = useRouter()
@@ -170,18 +173,15 @@ export default function BlogEditClient() {
             />
           </div>
 
-          <div>
+          <div data-color-mode="light">
             <label htmlFor="content" className="block text-sm font-medium text-slate-700 mb-1">
               Content
             </label>
-            <textarea
-              id="content"
-              rows={16}
-              required
+            <MDEditor
               value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className={inputClass}
-              placeholder="Write your post content here..."
+              onChange={(val) => setContent(val || '')}
+              height={400}
+              preview="live"
             />
           </div>
 
