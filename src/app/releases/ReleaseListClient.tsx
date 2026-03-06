@@ -62,10 +62,10 @@ export default function ReleaseListClient() {
               <Link
                 key={release.id}
                 href={`/releases/${release.slug}`}
-                className="group flex items-center justify-between py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 -mx-3 px-3 rounded-lg transition-colors"
+                className="flex items-center justify-between py-4"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-base font-semibold text-slate-900 dark:text-white group-hover:text-sky-500 transition-colors">
+                  <span className="text-base font-semibold text-slate-900 dark:text-white">
                     v{release.version}
                   </span>
                   <span className="text-sm text-slate-500 dark:text-slate-400">
