@@ -19,7 +19,6 @@ export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || '';
-  const avatar = user?.user_metadata?.avatar_url || null;
 
   const handleLogout = async () => {
     setDropdownOpen(false);
@@ -122,14 +121,7 @@ export default function Header() {
                       onClick={() => setDropdownOpen(!dropdownOpen)}
                       className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all"
                     >
-                      {avatar ? (
-                        <img src={avatar} alt="" className="w-8 h-8 rounded-full" />
-                      ) : (
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center text-white text-sm font-bold">
-                          {(user.email?.charAt(0) || "U").toUpperCase()}
-                        </div>
-                      )}
-                      <span className="text-sm font-medium text-slate-700">
+                      <span className="text-sm font-bold text-sky-600">
                         {displayName}
                       </span>
                       <svg className={`w-4 h-4 text-slate-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
