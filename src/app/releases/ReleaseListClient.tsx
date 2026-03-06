@@ -62,9 +62,9 @@ export default function ReleaseListClient() {
               <Link
                 key={release.id}
                 href={`/releases/${release.slug}`}
-                className="flex items-center justify-between py-4 no-underline text-inherit"
+                className="block py-4"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 mb-1">
                   <span className="text-base font-semibold text-slate-900 dark:text-white">
                     v{release.version}
                   </span>
@@ -78,7 +78,7 @@ export default function ReleaseListClient() {
                   )}
                 </div>
                 {release.published_at && (
-                  <time className="text-sm text-slate-400 dark:text-slate-500 shrink-0 ml-4">
+                  <time className="text-xs text-slate-400 dark:text-slate-500">
                     {formatDate(release.published_at)}
                   </time>
                 )}
