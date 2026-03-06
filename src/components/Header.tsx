@@ -121,7 +121,7 @@ export default function Header() {
                       onClick={() => setDropdownOpen(!dropdownOpen)}
                       className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all"
                     >
-                      <span className="text-sm font-bold text-sky-600">
+                      <span className="text-sm font-medium text-slate-700">
                         {displayName}
                       </span>
                       <svg className={`w-4 h-4 text-slate-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
