@@ -82,7 +82,7 @@ export default function Header() {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-12">
             {navLinks.map((link) =>
               link.sectionId ? (
                 <button
