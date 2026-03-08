@@ -1,0 +1,72 @@
+import type { MetadataRoute } from 'next'
+import { supabase } from '../lib/supabase'
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const staticPages: MetadataRoute.Sitemap = [
+    {
+      url: 'https://www.penguin-editor.com',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 1.0,
+    },
+    {
+      url: 'https://www.penguin-editor.com/pricing',
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://www.penguin-editor.com/blog',
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: 'https://www.penguin-editor.com/releases',
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    },
+    {
+      url: 'https://www.penguin-editor.com/terms',
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: 'https://www.penguin-editor.com/privacy',
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: 'https://www.penguin-editor.com/refund',
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+  ]
+
+  const [{ data: posts }, { data: releases }] = await Promise.all([
+    supabase
+      .from('blog_posts')
+      .select('slug, updated_at')
+      .eq('published', true)
+      .order('published_at', { ascending: false }),
+    supabase
+      .from('releases')
+      .select('slug, updated_at')
+      .eq('published', true)
+      .order('published_at', { ascending: false }),
+  ])
+
+  const blogPages: MetadataRoute.Sitemap = (posts ?? []).map((post) => ({
+    url: `https://www.penguin-editor.com/blog/${post.slug}`,
+    lastModified: new Date(post.updated_at),
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }))
+
+  const releasePages: MetadataRoute.Sitemap = (releases ?? []).map((release) => ({
+    url: `https://www.penguin-editor.com/releases/${release.slug}`,
+    lastModified: new Date(release.updated_at),
+    changeFrequency: 'yearly',
+    priority: 0.5,
+  }))
+
+  return [...staticPages, ...blogPages, ...releasePages]
+}
