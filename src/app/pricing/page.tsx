@@ -20,6 +20,7 @@ export default function PricingPage() {
             "@type": "Product",
             name: "Penguin Screen Recorder",
             description: "Professional screen recording with auto cursor zoom for macOS",
+            image: "https://www.penguin-editor.com/og-image.png",
             brand: { "@type": "Brand", name: "Penguin" },
             offers: [
               {
@@ -30,6 +31,25 @@ export default function PricingPage() {
                 priceValidUntil: "2027-12-31",
                 availability: "https://schema.org/InStock",
                 url: "https://www.penguin-editor.com/pricing",
+                hasMerchantReturnPolicy: {
+                  "@type": "MerchantReturnPolicy",
+                  applicableCountry: "US",
+                  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+                  merchantReturnDays: 14,
+                  returnMethod: "https://schema.org/ReturnByMail",
+                  returnFees: "https://schema.org/FreeReturn",
+                  returnPolicySeasonalOverride: [],
+                },
+                shippingDetails: {
+                  "@type": "OfferShippingDetails",
+                  shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
+                  shippingDestination: { "@type": "DefinedRegion", addressCountry: "US" },
+                  deliveryTime: {
+                    "@type": "ShippingDeliveryTime",
+                    handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+                    transitTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+                  },
+                },
               },
               {
                 "@type": "Offer",
@@ -39,6 +59,25 @@ export default function PricingPage() {
                 priceValidUntil: "2027-12-31",
                 availability: "https://schema.org/InStock",
                 url: "https://www.penguin-editor.com/pricing",
+                hasMerchantReturnPolicy: {
+                  "@type": "MerchantReturnPolicy",
+                  applicableCountry: "US",
+                  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+                  merchantReturnDays: 30,
+                  returnMethod: "https://schema.org/ReturnByMail",
+                  returnFees: "https://schema.org/FreeReturn",
+                  returnPolicySeasonalOverride: [],
+                },
+                shippingDetails: {
+                  "@type": "OfferShippingDetails",
+                  shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
+                  shippingDestination: { "@type": "DefinedRegion", addressCountry: "US" },
+                  deliveryTime: {
+                    "@type": "ShippingDeliveryTime",
+                    handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+                    transitTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+                  },
+                },
               },
               {
                 "@type": "Offer",
@@ -48,6 +87,25 @@ export default function PricingPage() {
                 priceValidUntil: "2027-12-31",
                 availability: "https://schema.org/InStock",
                 url: "https://www.penguin-editor.com/pricing",
+                hasMerchantReturnPolicy: {
+                  "@type": "MerchantReturnPolicy",
+                  applicableCountry: "US",
+                  returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+                  merchantReturnDays: 30,
+                  returnMethod: "https://schema.org/ReturnByMail",
+                  returnFees: "https://schema.org/FreeReturn",
+                  returnPolicySeasonalOverride: [],
+                },
+                shippingDetails: {
+                  "@type": "OfferShippingDetails",
+                  shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "USD" },
+                  shippingDestination: { "@type": "DefinedRegion", addressCountry: "US" },
+                  deliveryTime: {
+                    "@type": "ShippingDeliveryTime",
+                    handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+                    transitTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 0, unitCode: "DAY" },
+                  },
+                },
               },
             ],
           }),
