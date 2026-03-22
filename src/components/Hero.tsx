@@ -6,6 +6,60 @@ import { analytics } from "../lib/analytics";
 const DOWNLOAD_URL =
   "https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download";
 
+const keywords = [
+  "Tutorials",
+  "SaaS Demos",
+  "Product Updates",
+  "Design Reviews",
+  "Code Walkthroughs",
+  "Startup Pitches",
+  "Team Updates",
+  "Social Content",
+  "Bug Reports",
+  "Onboarding",
+  "Release Notes",
+  "App Previews",
+  "YouTube",
+  "Prototypes",
+];
+
+function MarqueeBand({
+  speed,
+  reverse,
+  opacity,
+  top,
+}: {
+  speed: number;
+  reverse?: boolean;
+  opacity: number;
+  top: string;
+}) {
+  const repeated = [...keywords, ...keywords, ...keywords, ...keywords];
+  return (
+    <div
+      className="absolute left-[-10%] w-[120%] overflow-hidden whitespace-nowrap pointer-events-none select-none"
+      style={{ top, opacity, transform: "rotate(-12deg)" }}
+      aria-hidden="true"
+    >
+      <div
+        className="inline-flex gap-8"
+        style={{
+          animation: `hero-marquee ${speed}s linear infinite${reverse ? " reverse" : ""}`,
+        }}
+      >
+        {repeated.map((word, i) => (
+          <span
+            key={`${word}-${i}`}
+            className="text-[3.5rem] md:text-[5rem] font-bold text-gray-900/[0.028] tracking-tight shrink-0"
+          >
+            {word}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -38,71 +92,74 @@ export default function Hero() {
       ref={sectionRef}
       className="pt-24 pb-16 px-6 bg-[#f5f7ff] relative overflow-hidden"
     >
+      {/* 3D Marquee bands */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true"
+        style={{ perspective: "1200px" }}
+      >
+        <div style={{ transformStyle: "preserve-3d", transform: "rotateX(8deg)" }} className="absolute inset-0">
+          <MarqueeBand speed={525} opacity={0.9} top="8%" />
+          <MarqueeBand speed={455} reverse opacity={0.7} top="30%" />
+          <MarqueeBand speed={595} opacity={0.5} top="52%" />
+          <MarqueeBand speed={490} reverse opacity={0.6} top="74%" />
+          <MarqueeBand speed={560} opacity={0.4} top="92%" />
+        </div>
+      </div>
+
+      {/* Gradient orbs */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute w-[600px] h-[600px] rounded-full opacity-[0.15]"
+          style={{
+            background: "radial-gradient(circle, #b9ddff 0%, transparent 70%)",
+            top: "-10%",
+            right: "-5%",
+            animation: "hero-orb 20s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute w-[500px] h-[500px] rounded-full opacity-[0.12]"
+          style={{
+            background: "radial-gradient(circle, #a3bffa 0%, transparent 70%)",
+            bottom: "5%",
+            left: "-8%",
+            animation: "hero-orb 25s ease-in-out 3s infinite reverse",
+          }}
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto text-center relative z-10">
         {/* Main Headline */}
-        <h1 className="animate-on-load text-5xl md:text-7xl lg:text-[84px] font-bold tracking-tight text-gray-900 leading-[1.05] mb-6 max-w-5xl mx-auto">
+        <h1 className="animate-on-load text-5xl md:text-7xl lg:text-[84px] font-bold tracking-tight text-gray-900 leading-[1.05] mb-10 max-w-5xl mx-auto">
           Expert Edits.
           <br className="hidden md:block" />
           <span className="gradient-text">In Record Time.</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="animate-on-load delay-2 text-xl md:text-[22px] text-gray-600 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
-          Penguin makes screen recording effortless. Record your screen, polish
-          it with built-in editing tools, and export a pro-quality video — all
-          in minutes.
+        <p className="animate-on-load delay-2 text-xl md:text-[22px] text-gray-600 mb-16 max-w-3xl mx-auto font-light leading-relaxed">
+          Penguin makes screen recording effortless.
+          <br />
+          Record your screen, polish it with built-in editing tools,
+          <br />
+          and export a pro-quality video — all in minutes.
         </p>
 
-        {/* Feature Cards */}
-        <div className="animate-on-load delay-3 grid grid-cols-1 md:grid-cols-3 gap-3 max-w-5xl mx-auto mb-28" id="download">
-            {/* Record */}
-            <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer group flex flex-col justify-between h-[150px]">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Quick Recording</h3>
-                <p className="text-sm text-gray-500">One click to start. Full screen or custom area — no setup needed.</p>
-              </div>
-              <div className="flex items-center gap-2 mt-auto pt-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                <div className="flex-1 h-[3px] bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full w-2/3 bg-gray-300 rounded-full" />
-                </div>
-              </div>
-            </div>
-
-            {/* Edit */}
-            <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer group flex flex-col justify-between h-[150px]">
-              <div>
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <h3 className="font-semibold text-gray-900">Built-in Editing</h3>
-                  <span className="text-[10px] font-bold uppercase tracking-wider bg-primary-100 text-primary-700 px-2 py-0.5 rounded-full">New</span>
-                </div>
-                <p className="text-sm text-gray-500">Trim, adjust, and fine-tune your recordings right inside Penguin.</p>
-              </div>
-              <div className="flex items-center gap-0.5 mt-auto pt-3">
-                <div className="h-5 flex-[2] bg-primary-100 rounded-l" />
-                <div className="h-5 w-px bg-primary-300" />
-                <div className="h-5 flex-[3] bg-primary-50" />
-                <div className="h-5 w-px bg-primary-300" />
-                <div className="h-5 flex-[2] bg-primary-100 rounded-r" />
-              </div>
-            </div>
-
-            {/* Export */}
-            <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow cursor-pointer group flex flex-col justify-between h-[150px]">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Instant Export</h3>
-                <p className="text-sm text-gray-500">Export as MP4 and share instantly. Works everywhere.</p>
-              </div>
-              <div className="flex items-center gap-2 mt-auto pt-3">
-                <div className="h-4 w-4 rounded bg-gray-200 flex items-center justify-center">
-                  <svg className="w-2.5 h-2.5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="h-[3px] flex-1 bg-gray-100 rounded-full" />
-                <span className="text-[11px] text-gray-300 font-mono">.mp4</span>
-              </div>
-            </div>
+        {/* Features */}
+        <div className="animate-on-load delay-3 flex items-center justify-center gap-12 md:gap-16 max-w-3xl mx-auto mb-28 text-left" id="download">
+          <div className="flex-1">
+            <h3 className="text-xl font-semibold text-gray-900">Record</h3>
+            <p className="text-base text-gray-400 mt-1.5 leading-snug">Screen, mic, and camera — captured in one click.</p>
+          </div>
+          <div className="w-px h-16 bg-gray-200" />
+          <div className="flex-1">
+            <h3 className="text-xl font-semibold text-gray-900">Edit</h3>
+            <p className="text-base text-gray-400 mt-1.5 leading-snug">Auto-zoom, cursor effects, subtitles, and pro backgrounds.</p>
+          </div>
+          <div className="w-px h-16 bg-gray-200" />
+          <div className="flex-1">
+            <h3 className="text-xl font-semibold text-gray-900">Export</h3>
+            <p className="text-base text-gray-400 mt-1.5 leading-snug">AI-upscaled 4K. YouTube, Instagram, TikTok-ready.</p>
+          </div>
         </div>
 
         {/* Main Dashboard Mockup with Video */}

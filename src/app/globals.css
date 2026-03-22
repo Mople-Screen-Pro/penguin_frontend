@@ -119,6 +119,19 @@ select,
   }
 }
 
+/* Hero gradient orbs */
+@keyframes hero-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+
+/* Hero marquee bands */
+@keyframes hero-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 /* Legacy animations - keep for compatibility */
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(40px); }
