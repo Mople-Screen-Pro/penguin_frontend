@@ -1,6 +1,9 @@
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Features from '../components/Features'
+import Recording from '../components/Recording'
+import Editor from '../components/Editor'
+import Export from '../components/Export'
 import HowItWorks from '../components/HowItWorks'
 import Demo from '../components/Demo'
 import Testimonials from '../components/Testimonials'
@@ -16,6 +19,9 @@ export default function HomePage() {
       <main>
         <Hero />
         <Features />
+        <Recording />
+        <Editor />
+        <Export />
         <HowItWorks />
         <Demo />
         <Testimonials />

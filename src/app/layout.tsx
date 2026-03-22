@@ -1,14 +1,7 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import Providers from '../components/Providers'
 import GoogleAnalytics from '../components/GoogleAnalytics'
 import './globals.css'
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '600', '700', '800'],
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: {
@@ -77,7 +70,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   other: {
     'apple-mobile-web-app-title': 'Penguin',
-    'theme-color': '#0ea5e9',
+    'theme-color': '#0c8ce9',
   },
 }
 
@@ -87,8 +80,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en">
       <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+        />
         <link rel="preconnect" href="https://grkyrqhgfgthpghircbu.supabase.co" />
         <link rel="dns-prefetch" href="https://cdn.paddle.com" />
       </head>

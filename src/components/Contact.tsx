@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { FormEvent } from 'react'
 import { analytics } from '../lib/analytics'
 
@@ -8,6 +8,26 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const delay = (entry.target as HTMLElement).dataset.delay || '0'
+            setTimeout(() => entry.target.classList.add('visible'), parseFloat(delay) * 1000)
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    )
+    if (sectionRef.current) {
+      sectionRef.current.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el))
+    }
+    return () => observer.disconnect()
+  }, [])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -23,36 +43,29 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 bg-white relative">
-      <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" ref={sectionRef} className="py-24 px-6 bg-[#fcfcfc] border-t border-gray-100">
+      <div className="max-w-xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-50 text-sky-600 text-sm font-medium mb-4">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            Contact
-          </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
-            Get in
-            <span className="bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent"> Touch</span>
+        <div className="text-center mb-12">
+          <h2 className="animate-on-scroll text-4xl md:text-5xl font-bold text-gray-900 mb-5 tracking-tight leading-snug">
+            Get in <span className="gradient-text">Touch</span>
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="animate-on-scroll text-lg text-gray-500 leading-relaxed" data-delay="0.1">
             Questions, feedback, or feature requests? We'd love to hear from you.
           </p>
         </div>
 
         {/* Contact Form */}
-        <div className="p-8 rounded-2xl bg-white border-2 border-sky-200 shadow-lg">
+        <div className="animate-on-scroll bg-white rounded-2xl border border-gray-100 shadow-sm p-8" data-delay="0.2">
           {isSubmitted ? (
             <div className="text-center py-8">
-              <div className="w-16 h-16 bg-sky-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-14 h-14 bg-primary-50 border border-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg className="w-7 h-7 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <p className="text-lg font-medium text-slate-900">Message sent!</p>
-              <p className="text-slate-600 mt-1">We'll get back to you soon</p>
+              <p className="text-lg font-medium text-gray-900">Message sent!</p>
+              <p className="text-gray-500 mt-1 text-sm">We'll get back to you soon</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -64,7 +77,7 @@ export default function Contact() {
                   title="Please enter your name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 outline-none transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-white focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none text-sm transition-all"
                 />
                 <input
                   type="email"
@@ -73,7 +86,7 @@ export default function Contact() {
                   title="Please enter your email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 outline-none transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-white focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none text-sm transition-all"
                 />
               </div>
               <textarea
@@ -83,16 +96,16 @@ export default function Contact() {
                 rows={4}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-sky-400 focus:ring-2 focus:ring-sky-100 outline-none transition-all resize-none"
+                className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-white focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none resize-none text-sm transition-all"
               />
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-sky-500 text-white font-medium hover:bg-sky-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
@@ -100,7 +113,7 @@ export default function Contact() {
                   </>
                 ) : (
                   <>
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>
                     Send

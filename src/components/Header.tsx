@@ -51,102 +51,114 @@ export default function Header() {
   ];
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        !isHome || scrolled
-          ? "bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm"
-          : "bg-transparent"
-      }`}
-    >
-      <nav aria-label="Main navigation" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 lg:h-20">
-          {/* Logo */}
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              if (isHome) {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              } else {
-                router.push("/");
-              }
-            }}
-            className="flex items-center gap-2 group"
-          >
-            <img
-              src="/logo.png"
-              alt="Penguin"
-              className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25 group-hover:shadow-sky-500/40 transition-shadow"
-            />
-            <span className="text-xl font-bold text-slate-900">Penguin</span>
-          </a>
+    <>
+      {/* Top Banner */}
+      <a
+        href={DOWNLOAD_URL}
+        onClick={() => analytics.downloadClick("header")}
+        rel="noopener"
+        className="block bg-primary-600 text-white text-sm py-2.5 px-4 text-center hover:bg-primary-700 transition-colors cursor-pointer"
+      >
+        <span className="flex items-center justify-center gap-2 font-medium">
+          <span>Record, edit, and export pro-quality videos in minutes</span>
+          <span className="opacity-80">— Try it free</span>
+          <svg className="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </span>
+      </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
-            {navLinks.map((link) =>
-              link.sectionId ? (
-                <button
-                  key={link.name}
-                  onClick={() => {
-                    handleSectionClick(link.sectionId);
-                    analytics.navClick(link.name);
-                  }}
-                  className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
-                >
-                  {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-500 group-hover:w-full transition-all duration-300" />
-                </button>
-              ) : (
-                <Link
-                  key={link.name}
-                  href={link.href!}
-                  onClick={() => analytics.navClick(link.name)}
-                  className="text-slate-600 hover:text-slate-900 font-medium transition-colors relative group"
-                >
-                  {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-500 group-hover:w-full transition-all duration-300" />
-                </Link>
-              )
-            )}
+      {/* Navbar */}
+      <header
+        className={`sticky top-0 z-50 w-full bg-white transition-all duration-300 ${
+          scrolled ? "border-b border-gray-200 shadow-sm" : "border-b border-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-12">
+            {/* Logo */}
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                if (isHome) {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  router.push("/");
+                }
+              }}
+              className="flex items-center gap-2.5 text-2xl font-bold tracking-tighter text-primary-600"
+            >
+              <img
+                src="/logo.png"
+                alt="Penguin"
+                className="w-8 h-8 rounded-xl"
+              />
+              Penguin
+            </a>
+
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-8 text-[15px] font-medium text-gray-700">
+              {navLinks.map((link) =>
+                link.sectionId ? (
+                  <button
+                    key={link.name}
+                    onClick={() => {
+                      handleSectionClick(link.sectionId);
+                      analytics.navClick(link.name);
+                    }}
+                    className="hover:text-gray-900 transition-colors"
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <Link
+                    key={link.name}
+                    href={link.href!}
+                    onClick={() => analytics.navClick(link.name)}
+                    className="hover:text-gray-900 transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                )
+              )}
+            </nav>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex items-center gap-3">
+          {/* Desktop Actions */}
+          <div className="hidden lg:flex items-center gap-6">
             {!loading && (
               <>
                 {user ? (
-                  // 로그인된 상태
-                  <div className="hidden sm:block relative">
+                  <div className="relative">
                     <button
                       onClick={() => setDropdownOpen(!dropdownOpen)}
-                      className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all"
+                      className="flex items-center gap-2 text-[15px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
                     >
-                      <span className="text-sm font-medium text-slate-700">
-                        {displayName}
-                      </span>
-                      <svg className={`w-4 h-4 text-slate-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      {displayName}
+                      <svg className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
                     {dropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
-                        <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl border border-slate-200 shadow-lg z-50 overflow-hidden">
+                        <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl border border-gray-100 shadow-xl z-50 overflow-hidden p-1">
                           <Link
                             href="/mypage"
                             onClick={() => setDropdownOpen(false)}
-                            className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
                           >
-                            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                             My Page
                           </Link>
                           <button
                             onClick={handleLogout}
-                            className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition-colors w-full border-t border-slate-100"
+                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors w-full"
                           >
-                            <svg className="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                             </svg>
                             Sign Out
@@ -156,10 +168,9 @@ export default function Header() {
                     )}
                   </div>
                 ) : (
-                  // 로그인되지 않은 상태
                   <Link
                     href="/login"
-                    className="hidden sm:inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-300"
+                    className="text-[15px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
                   >
                     Sign in
                   </Link>
@@ -170,47 +181,32 @@ export default function Header() {
               href={DOWNLOAD_URL}
               onClick={() => analytics.downloadClick("header")}
               rel="noopener"
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 transition-all duration-300 hover:scale-105 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40"
+              className="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors text-[15px]"
             >
-              Download
+              Download for Mac
             </a>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
-              aria-label="Toggle menu"
-            >
-              <svg
-                className="w-6 h-6 text-slate-700"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {mobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
           </div>
+
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-gray-600"
+            aria-label="Toggle menu"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-slate-200/50 animate-fade-in">
-            <div className="flex flex-col gap-2">
+          <div className="lg:hidden bg-white border-b border-gray-100 overflow-hidden">
+            <div className="px-6 py-4 flex flex-col gap-4">
               {navLinks.map((link) =>
                 link.sectionId ? (
                   <button
@@ -219,7 +215,7 @@ export default function Header() {
                       handleSectionClick(link.sectionId);
                       setMobileMenuOpen(false);
                     }}
-                    className="px-4 py-3 text-left text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                    className="text-lg font-medium text-gray-800 py-2 border-b border-gray-50 text-left"
                   >
                     {link.name}
                   </button>
@@ -228,7 +224,7 @@ export default function Header() {
                     key={link.name}
                     href={link.href!}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                    className="text-lg font-medium text-gray-800 py-2 border-b border-gray-50"
                   >
                     {link.name}
                   </Link>
@@ -239,31 +235,38 @@ export default function Header() {
                   <Link
                     href="/mypage"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-4 py-3 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                    className="text-lg font-medium text-gray-800 py-2 border-b border-gray-50"
                   >
                     My Page
                   </Link>
                   <button
                     onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
-                    className="px-4 py-3 text-left text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg font-medium transition-colors"
+                    className="text-lg font-medium text-gray-800 py-2 border-b border-gray-50 text-left"
                   >
                     Sign Out
                   </button>
                 </>
               ) : (
-                <Link
-                  href="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="mx-4 mt-2 px-5 py-3 text-sm font-semibold text-slate-700 text-center rounded-xl border-2 border-slate-200"
-                >
-                  Sign in
-                </Link>
+                <div className="flex flex-col gap-3 mt-4">
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full py-3 text-center font-medium text-gray-800 border border-gray-200 rounded-lg"
+                  >
+                    Sign in
+                  </Link>
+                  <a
+                    href={DOWNLOAD_URL}
+                    className="w-full py-3 text-center font-medium text-white bg-primary-600 rounded-lg"
+                  >
+                    Download for Mac
+                  </a>
+                </div>
               )}
             </div>
           </div>
         )}
-      </nav>
-
-    </header>
+      </header>
+    </>
   );
 }

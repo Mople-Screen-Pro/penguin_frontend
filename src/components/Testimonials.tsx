@@ -1,103 +1,136 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+
 const testimonials = [
   {
-    quote: "I used to spend 2 hours editing zoom effects into a 10-minute tutorial. With Penguin, it's done before I even stop recording. My subscribers noticed the quality jump immediately.",
+    quote: "I used to juggle three different tools to make a tutorial — one to record, one to edit, one to export. With Penguin, I do it all in one place. My workflow is twice as fast now.",
     author: "Sarah Chen",
     role: "YouTube Creator, 120K subs",
-    avatar: "SC",
-    color: "sky",
+    stat: "2x",
+    statLabel: "faster video production",
+    gradient: "from-primary-600 to-primary-800",
   },
   {
-    quote: "As a developer, I need my documentation videos to be clear and focused. Penguin's cursor zoom automatically highlights the exact code I'm working on. It just gets it.",
+    quote: "As a developer, I need to ship documentation videos fast. Penguin lets me record, trim, and export in minutes — not hours. It's the simplest screen recorder I've ever used.",
     author: "Michael Roberts",
     role: "Senior Software Engineer",
-    avatar: "MR",
-    color: "blue",
+    stat: "90%",
+    statLabel: "less time on video workflows",
+    gradient: "from-blue-600 to-indigo-800",
   },
   {
-    quote: "I've tried Screen Studio, Loom, and OBS. Penguin gives me the same pro-quality output at half the price — and the auto-zoom is genuinely better.",
+    quote: "I've tried Screen Studio, Loom, and OBS. Penguin gives me the same pro-quality output at half the price — and the record-to-export workflow is genuinely faster.",
     author: "Emily Park",
     role: "UX Designer & Educator",
-    avatar: "EP",
-    color: "cyan",
+    stat: "50%",
+    statLabel: "cost savings vs competitors",
+    gradient: "from-cyan-600 to-teal-800",
   },
 ]
 
-const colorVariants = {
-  sky: 'from-sky-400 to-sky-500',
-  blue: 'from-blue-400 to-blue-500',
-  cyan: 'from-cyan-400 to-cyan-500',
-}
-
 export default function Testimonials() {
-  return (
-    <section className="section-padding bg-slate-50 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-dots" />
+  const sectionRef = useRef<HTMLDivElement>(null)
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-slate-600 text-sm font-medium mb-4 shadow-sm">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-            Loved by Creators
-          </div>
-          <h2 className="heading-lg font-bold text-slate-900 mb-4">
-            Creators who switched
-            <span className="gradient-text"> never went back</span>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const delay = (entry.target as HTMLElement).dataset.delay || '0'
+            setTimeout(() => entry.target.classList.add('visible'), parseFloat(delay) * 1000)
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    )
+    if (sectionRef.current) {
+      sectionRef.current.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el))
+    }
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <section ref={sectionRef} className="py-24 px-6 bg-white overflow-hidden">
+      <div className="max-w-[1400px] mx-auto">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 px-4 lg:px-8">
+          <h2 className="animate-on-scroll text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight max-w-2xl leading-tight">
+            Creators who switched never went back
           </h2>
-          <p className="text-lg text-slate-600">
-            Join thousands of creators, developers, and educators who make better content with Penguin.
-          </p>
+          <div className="animate-on-scroll inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-white shadow-md border border-gray-100">
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              ))}
+            </div>
+            <span className="text-gray-700 font-medium text-sm">4.9 out of 5</span>
+            <span className="text-gray-400 text-sm">from 500+ reviews</span>
+          </div>
         </div>
 
-        {/* Testimonials grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Testimonial Cards - Horizontal Scroll */}
+        <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar px-4 lg:px-8">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="card p-8 hover-lift bg-white"
+              className="animate-on-scroll min-w-[85vw] md:min-w-[400px] lg:min-w-[450px] aspect-[3/4] rounded-2xl relative overflow-hidden snap-center group cursor-pointer flex-shrink-0"
+              data-delay={String(index * 0.15)}
             >
-              {/* Quote icon */}
-              <div className="mb-6">
-                <svg className="w-10 h-10 text-slate-200" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
+              {/* Gradient Background */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${testimonial.gradient}`} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
+
+              {/* Decorative Pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-8 right-8 w-32 h-32 border border-white/30 rounded-full" />
+                <div className="absolute top-16 right-16 w-48 h-48 border border-white/20 rounded-full" />
               </div>
 
-              {/* Quote */}
-              <p className="text-slate-600 leading-relaxed mb-8">
-                "{testimonial.quote}"
-              </p>
-
-              {/* Author */}
-              <div className="flex items-center gap-4">
-                <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${colorVariants[testimonial.color as keyof typeof colorVariants]} flex items-center justify-center text-white font-semibold text-sm`}>
-                  {testimonial.avatar}
+              {/* Logo Badge */}
+              <div className="absolute top-6 left-6 text-white/80 font-bold tracking-widest uppercase text-sm flex items-center gap-2">
+                <div className="w-6 h-6 rounded bg-white/20 flex items-center justify-center">
+                  <img src="/logo.png" alt="Penguin" className="w-4 h-4 rounded" />
                 </div>
-                <div>
-                  <p className="font-semibold text-slate-900">{testimonial.author}</p>
-                  <p className="text-sm text-slate-500">{testimonial.role}</p>
+                Penguin
+              </div>
+
+              {/* Content */}
+              <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full">
+                <h3 className="text-5xl md:text-6xl font-bold text-white mb-2">{testimonial.stat}</h3>
+                <p className="text-lg text-white/90 font-medium mb-6">{testimonial.statLabel}</p>
+                <p className="text-white/80 text-sm leading-relaxed mb-8 line-clamp-4">
+                  "{testimonial.quote}"
+                </p>
+                <div className="flex items-end justify-between mt-auto">
+                  <div>
+                    <p className="text-white font-semibold">{testimonial.author}</p>
+                    <p className="text-white/60 text-sm">{testimonial.role}</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-colors">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Rating summary */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white shadow-lg border border-slate-100">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-              ))}
-            </div>
-            <span className="text-slate-600 font-medium">4.9 out of 5</span>
-            <span className="text-slate-400">from 500+ reviews</span>
-          </div>
+        <div className="text-center mt-8">
+          <button
+            onClick={() => {
+              const el = document.getElementById('contact')
+              if (el) el.scrollIntoView({ behavior: 'smooth' })
+            }}
+            className="text-gray-600 hover:text-gray-900 border-b border-gray-600 hover:border-gray-900 pb-0.5 transition-colors"
+          >
+            Have questions? Get in touch &rarr;
+          </button>
         </div>
       </div>
     </section>
