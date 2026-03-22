@@ -132,6 +132,35 @@ select,
   to { transform: translateX(-50%); }
 }
 
+
+/* Hero video scroll-driven reveal */
+.hero-video-container {
+  --scroll-progress: 0;
+  transform-origin: top center;
+  opacity: calc(0.6 + var(--scroll-progress) * 0.4);
+  transform:
+    perspective(1200px)
+    rotateX(calc(4deg * (1 - var(--scroll-progress))))
+    scale(calc(0.95 + var(--scroll-progress) * 0.05));
+  will-change: transform, opacity;
+}
+
+/* Ambient glow behind video */
+.hero-video-glow {
+  position: absolute;
+  inset: -40px -60px;
+  border-radius: 40px;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(12, 140, 233, 0.08) 0%,
+    rgba(79, 125, 242, 0.04) 40%,
+    transparent 70%
+  );
+  opacity: var(--scroll-progress, 0);
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* Legacy animations - keep for compatibility */
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(40px); }

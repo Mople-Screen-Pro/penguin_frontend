@@ -1,10 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { analytics } from "../lib/analytics";
-
-const DOWNLOAD_URL =
-  "https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download";
 
 const keywords = [
   "Tutorials",
@@ -62,6 +58,8 @@ function MarqueeBand({
 
 export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -85,6 +83,46 @@ export default function Hero() {
         .forEach((el) => observer.observe(el));
     }
     return () => observer.disconnect();
+  }, []);
+
+  // Scroll-driven video reveal + autoplay
+  useEffect(() => {
+    const container = videoContainerRef.current;
+    const video = videoRef.current;
+    if (!container || !video) return;
+
+    video.pause();
+
+    const videoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            container.classList.add("hero-video-visible");
+            video.play().catch(() => {});
+            videoObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+    videoObserver.observe(container);
+
+    const handleScroll = () => {
+      const rect = container.getBoundingClientRect();
+      const windowH = window.innerHeight;
+      const progress = Math.min(
+        Math.max((windowH - rect.top) / (windowH * 0.6), 0),
+        1,
+      );
+      container.style.setProperty("--scroll-progress", String(progress));
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      videoObserver.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
@@ -137,15 +175,13 @@ export default function Hero() {
 
         {/* Subtitle */}
         <p className="animate-on-load delay-2 text-xl md:text-[22px] text-gray-600 mb-16 max-w-3xl mx-auto font-light leading-relaxed">
-          Penguin makes screen recording effortless.
-          <br />
           Record your screen, polish it with built-in editing tools,
           <br />
           and export a pro-quality video — all in minutes.
         </p>
 
         {/* Features */}
-        <div className="animate-on-load delay-3 flex items-center justify-center gap-12 md:gap-16 max-w-3xl mx-auto mb-28 text-left" id="download">
+        <div className="animate-on-load delay-3 flex items-center justify-center gap-12 md:gap-16 max-w-3xl mx-auto mb-16 text-left" id="download">
           <div className="flex-1">
             <h3 className="text-xl font-semibold text-gray-900">Record</h3>
             <p className="text-base text-gray-400 mt-1.5 leading-snug">Screen, mic, and camera — captured in one click.</p>
@@ -162,27 +198,19 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Main Dashboard Mockup with Video */}
-        <div className="animate-on-load delay-5 relative max-w-6xl mx-auto">
-          <div className="relative rounded-t-2xl md:rounded-t-3xl border-t border-l border-r border-gray-200 bg-[#1e1e1e] shadow-2xl overflow-hidden z-10">
-            {/* Browser Chrome */}
-            <div className="h-10 bg-[#2d2d2d] border-b border-[#3d3d3d] flex items-center px-4 gap-2">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-amber-500" />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
-              </div>
-              <div className="mx-auto bg-[#1e1e1e] border border-[#3d3d3d] rounded-md h-6 w-1/3 flex items-center justify-center">
-                <span className="text-[10px] text-gray-400 font-mono">
-                  penguin.app/recorder
-                </span>
-              </div>
-            </div>
-            {/* Video Content */}
-            <div className="relative w-full bg-[#1e1e1e]">
+
+        {/* Main Dashboard Mockup with Video — scroll reveal */}
+        <div
+          ref={videoContainerRef}
+          className="hero-video-container relative max-w-6xl mx-auto"
+        >
+          <div className="hero-video-glow" aria-hidden="true" />
+
+          <div className="relative rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden z-10">
+            <div className="relative w-full">
               <video
+                ref={videoRef}
                 className="w-full h-full object-cover"
-                autoPlay
                 loop
                 muted
                 playsInline
