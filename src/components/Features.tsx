@@ -101,6 +101,16 @@ export default function Features() {
     }
   }, [activeVideo, handleVideoChange])
 
+  // Listen for hero tag clicks
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const index = (e as CustomEvent).detail;
+      if (typeof index === "number") handleVideoChange(index);
+    };
+    window.addEventListener("select-feature", handler);
+    return () => window.removeEventListener("select-feature", handler);
+  }, [handleVideoChange]);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -121,7 +131,7 @@ export default function Features() {
   }, [])
 
   return (
-    <section id="features" ref={sectionRef} className="pt-40 pb-24 px-6 bg-white">
+    <section id="features" ref={sectionRef} className="pt-16 pb-24 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Video Showcase with Tabs */}
         <div>

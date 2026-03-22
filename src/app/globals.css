@@ -161,6 +161,12 @@ select,
   pointer-events: none;
 }
 
+/* Workflow marquee */
+@keyframes workflow-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 /* Legacy animations - keep for compatibility */
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(40px); }

@@ -244,7 +244,7 @@ export default function PricingClient() {
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-sky-500 to-blue-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-sky-500/25">
+                  <span className="bg-gradient-to-r from-sky-500 to-blue-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-sky-500/25 whitespace-nowrap">
                     Most Popular
                   </span>
                 </div>
