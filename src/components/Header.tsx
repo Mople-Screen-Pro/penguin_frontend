@@ -74,7 +74,7 @@ export default function Header() {
           scrolled ? "border-b border-gray-200 shadow-sm" : "border-b border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-12">
             {/* Logo */}
             <a
@@ -98,7 +98,7 @@ export default function Header() {
             </a>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-8 text-[15px] font-medium text-gray-700">
+            <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-gray-700">
               {navLinks.map((link) =>
                 link.sectionId ? (
                   <button
@@ -133,7 +133,7 @@ export default function Header() {
                   <div className="relative">
                     <button
                       onClick={() => setDropdownOpen(!dropdownOpen)}
-                      className="flex items-center gap-2 text-[15px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
+                      className="flex items-center gap-2 text-[16px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
                     >
                       {displayName}
                       <svg className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -170,7 +170,7 @@ export default function Header() {
                 ) : (
                   <Link
                     href="/login"
-                    className="text-[15px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
+                    className="text-[16px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
                   >
                     Sign in
                   </Link>
@@ -181,7 +181,7 @@ export default function Header() {
               href={DOWNLOAD_URL}
               onClick={() => analytics.downloadClick("header")}
               rel="noopener"
-              className="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors text-[15px]"
+              className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-5 py-2.5 rounded-full font-semibold shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-200 text-[16px]"
             >
               Download for Mac
             </a>

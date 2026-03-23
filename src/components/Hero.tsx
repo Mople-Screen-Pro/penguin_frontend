@@ -170,19 +170,30 @@ export default function Hero() {
         {/* Main Headline */}
         <h1 className="animate-on-load text-5xl md:text-7xl lg:text-[84px] font-bold tracking-tight text-gray-900 leading-[1.05] mb-10 max-w-5xl mx-auto">
           Expert Edits.
-          <br className="hidden md:block" />
+          <br />
           <span className="gradient-text">In Record Time.</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="animate-on-load delay-2 text-xl md:text-[22px] text-gray-600 mb-16 max-w-3xl mx-auto font-light leading-relaxed">
+        <p className="animate-on-load delay-2 text-xl md:text-[22px] text-gray-600 mb-14 max-w-3xl mx-auto font-light leading-relaxed">
           Record your screen, polish it with built-in editing tools,
           <br />
           and export a pro-quality video — all in minutes.
         </p>
 
+        {/* CTA Button */}
+        <div className="animate-on-load delay-3 mb-16">
+          <a
+            href="#download"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-lg font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-200"
+          >
+            Download for Mac
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </a>
+        </div>
+
         {/* Features */}
-        <div className="animate-on-load delay-3 flex items-center justify-center gap-12 md:gap-16 max-w-3xl mx-auto mb-16 text-left" id="download">
+        <div className="animate-on-load delay-5 flex items-center justify-center gap-12 md:gap-16 max-w-3xl mx-auto mb-16 text-left" id="download">
           <div className="flex-1">
             <h3 className="text-xl font-semibold text-gray-900">Record</h3>
             <p className="text-base text-gray-400 mt-1.5 leading-snug">Screen, mic, and camera — captured in one click.</p>
@@ -203,7 +214,7 @@ export default function Hero() {
         {/* Main Dashboard Mockup with Video — scroll reveal */}
         <div
           ref={videoContainerRef}
-          className="hero-video-container relative max-w-6xl mx-auto"
+          className="hero-video-container relative max-w-7xl mx-auto"
         >
           <div className="hero-video-glow" aria-hidden="true" />
 
