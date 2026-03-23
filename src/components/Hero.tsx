@@ -193,7 +193,7 @@ export default function Hero() {
         </div>
 
         {/* Features */}
-        <div className="animate-on-load delay-5 flex items-center justify-center gap-12 md:gap-16 max-w-3xl mx-auto mb-16 text-left" id="download">
+        <div className="animate-on-load delay-5 flex items-center justify-center gap-12 md:gap-16 max-w-3xl mx-auto mt-[10px] mb-24 text-left" id="download">
           <div className="flex-1">
             <h3 className="text-xl font-semibold text-white">Record</h3>
             <p className="text-base text-gray-500 mt-1.5 leading-snug">Screen, mic, and camera — captured in one click.</p>
