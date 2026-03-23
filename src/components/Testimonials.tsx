@@ -52,14 +52,14 @@ export default function Testimonials() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 bg-white overflow-hidden">
+    <section ref={sectionRef} className="py-24 px-6 bg-[#0a0a0a] overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 px-4 lg:px-8">
-          <h2 className="animate-on-scroll text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight max-w-2xl leading-tight">
+          <h2 className="animate-on-scroll text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight max-w-2xl leading-tight">
             Creators who switched never went back
           </h2>
-          <div className="animate-on-scroll inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-white shadow-md border border-gray-100">
+          <div className="animate-on-scroll inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-gray-900 shadow-md border border-gray-800">
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, i) => (
                 <svg key={i} className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
@@ -67,7 +67,7 @@ export default function Testimonials() {
                 </svg>
               ))}
             </div>
-            <span className="text-gray-700 font-medium text-sm">4.9 out of 5</span>
+            <span className="text-gray-300 font-medium text-sm">4.9 out of 5</span>
             <span className="text-gray-400 text-sm">from 500+ reviews</span>
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function Testimonials() {
               const el = document.getElementById('contact')
               if (el) el.scrollIntoView({ behavior: 'smooth' })
             }}
-            className="text-gray-600 hover:text-gray-900 border-b border-gray-600 hover:border-gray-900 pb-0.5 transition-colors"
+            className="text-gray-400 hover:text-white border-b border-gray-400 hover:border-white pb-0.5 transition-colors"
           >
             Have questions? Get in touch &rarr;
           </button>

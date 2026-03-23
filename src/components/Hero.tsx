@@ -46,7 +46,7 @@ function MarqueeBand({
         {repeated.map((word, i) => (
           <span
             key={`${word}-${i}`}
-            className="text-[3.5rem] md:text-[5rem] font-bold text-gray-900/[0.028] tracking-tight shrink-0"
+            className="text-[3.5rem] md:text-[5rem] font-bold text-white/[0.03] tracking-tight shrink-0"
           >
             {word}
           </span>
@@ -129,7 +129,7 @@ export default function Hero() {
     <>
     <section
       ref={sectionRef}
-      className="pt-24 pb-16 px-6 bg-[#f5f7ff] relative overflow-hidden"
+      className="pt-24 pb-16 px-6 bg-[#0a0a0a] relative overflow-hidden"
     >
       {/* 3D Marquee bands */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true"
@@ -149,7 +149,7 @@ export default function Hero() {
         <div
           className="absolute w-[600px] h-[600px] rounded-full opacity-[0.15]"
           style={{
-            background: "radial-gradient(circle, #b9ddff 0%, transparent 70%)",
+            background: "radial-gradient(circle, #0c8ce9 0%, transparent 70%)",
             top: "-10%",
             right: "-5%",
             animation: "hero-orb 20s ease-in-out infinite",
@@ -158,7 +158,7 @@ export default function Hero() {
         <div
           className="absolute w-[500px] h-[500px] rounded-full opacity-[0.12]"
           style={{
-            background: "radial-gradient(circle, #a3bffa 0%, transparent 70%)",
+            background: "radial-gradient(circle, #4f7df2 0%, transparent 70%)",
             bottom: "5%",
             left: "-8%",
             animation: "hero-orb 25s ease-in-out 3s infinite reverse",
@@ -168,14 +168,14 @@ export default function Hero() {
 
       <div className="max-w-7xl mx-auto text-center relative z-10">
         {/* Main Headline */}
-        <h1 className="animate-on-load text-5xl md:text-7xl lg:text-[84px] font-bold tracking-tight text-gray-900 leading-[1.05] mb-10 max-w-5xl mx-auto">
+        <h1 className="animate-on-load text-5xl md:text-7xl lg:text-[84px] font-bold tracking-tight text-white leading-[1.05] mb-10 max-w-5xl mx-auto">
           Expert Edits.
           <br />
           <span className="gradient-text">In Record Time.</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="animate-on-load delay-2 text-xl md:text-[22px] text-gray-600 mb-14 max-w-3xl mx-auto font-light leading-relaxed">
+        <p className="animate-on-load delay-2 text-xl md:text-[22px] text-gray-400 mb-14 max-w-3xl mx-auto font-light leading-relaxed">
           Record your screen, polish it with built-in editing tools,
           <br />
           and export a pro-quality video — all in minutes.
@@ -195,21 +195,20 @@ export default function Hero() {
         {/* Features */}
         <div className="animate-on-load delay-5 flex items-center justify-center gap-12 md:gap-16 max-w-3xl mx-auto mb-16 text-left" id="download">
           <div className="flex-1">
-            <h3 className="text-xl font-semibold text-gray-900">Record</h3>
-            <p className="text-base text-gray-400 mt-1.5 leading-snug">Screen, mic, and camera — captured in one click.</p>
+            <h3 className="text-xl font-semibold text-white">Record</h3>
+            <p className="text-base text-gray-500 mt-1.5 leading-snug">Screen, mic, and camera — captured in one click.</p>
           </div>
-          <div className="w-px h-16 bg-gray-200" />
+          <div className="w-px h-16 bg-gray-700" />
           <div className="flex-1">
-            <h3 className="text-xl font-semibold text-gray-900">Edit</h3>
-            <p className="text-base text-gray-400 mt-1.5 leading-snug">Auto-zoom, cursor effects, subtitles, and pro backgrounds.</p>
+            <h3 className="text-xl font-semibold text-white">Edit</h3>
+            <p className="text-base text-gray-500 mt-1.5 leading-snug">Auto-zoom, cursor effects, subtitles, and pro backgrounds.</p>
           </div>
-          <div className="w-px h-16 bg-gray-200" />
+          <div className="w-px h-16 bg-gray-700" />
           <div className="flex-1">
-            <h3 className="text-xl font-semibold text-gray-900">Export</h3>
-            <p className="text-base text-gray-400 mt-1.5 leading-snug">AI-upscaled 4K. YouTube, Instagram, TikTok-ready.</p>
+            <h3 className="text-xl font-semibold text-white">Export</h3>
+            <p className="text-base text-gray-500 mt-1.5 leading-snug">AI-upscaled 4K. YouTube, Instagram, TikTok-ready.</p>
           </div>
         </div>
-
 
         {/* Main Dashboard Mockup with Video — scroll reveal */}
         <div
@@ -237,14 +236,14 @@ export default function Hero() {
     </section>
 
     {/* Whatever you build — marquee */}
-    <div className="pt-[120px] pb-[180px] bg-white text-center overflow-hidden">
-      <p className="text-3xl md:text-4xl text-gray-500 font-light mb-10 px-6">
+    <div className="pt-[120px] pb-[180px] bg-[#0a0a0a] text-center overflow-hidden">
+      <p className="text-3xl md:text-4xl text-gray-400 font-light mb-10 px-6">
         Whatever you build, <span className="gradient-text font-medium">Penguin</span> fits right in.
       </p>
       <div className="relative">
         {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
         <div className="flex whitespace-nowrap" style={{ animation: "workflow-marquee 30s linear infinite" }}>
           {[...Array(2)].map((_, setIndex) => (
             <div key={setIndex} className="inline-flex items-center gap-16 px-8 shrink-0">

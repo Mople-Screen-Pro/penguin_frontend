@@ -25,11 +25,11 @@ export default function Demo() {
   }, [])
 
   return (
-    <section id="demo" ref={sectionRef} className="py-32 px-6 bg-[#fcfcfc] border-y border-gray-100">
+    <section id="demo" ref={sectionRef} className="py-32 px-6 bg-[#0f0f0f] border-y border-gray-800">
       <div className="max-w-4xl mx-auto text-center">
-        <p className="animate-on-scroll text-3xl md:text-4xl lg:text-[42px] font-medium text-gray-900 leading-[1.3] tracking-tight mb-10">
+        <p className="animate-on-scroll text-3xl md:text-4xl lg:text-[42px] font-medium text-white leading-[1.3] tracking-tight mb-10">
           Other screen recorders stop at capturing. Penguin gives you the full workflow — record, edit,{' '}
-          <span className="italic font-serif text-gray-600">and</span>{' '}
+          <span className="italic font-serif text-gray-400">and</span>{' '}
           export polished videos without ever leaving the app. The screen recorder built for people who ship fast.
         </p>
         <button

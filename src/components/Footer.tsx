@@ -25,7 +25,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-white pt-48 pb-12 px-6 relative overflow-hidden">
+    <footer className="bg-[#0a0a0a] pt-48 pb-12 px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16 mb-24">
           {/* Brand */}
@@ -35,9 +35,9 @@ export default function Footer() {
               className="flex items-center gap-2.5 mb-5"
             >
               <img src="/logo.png" alt="Penguin" className="w-8 h-8 rounded-xl" />
-              <span className="text-lg font-bold text-gray-900 tracking-tight">Penguin</span>
+              <span className="text-lg font-bold text-white tracking-tight">Penguin</span>
             </button>
-            <p className="text-sm text-gray-500 leading-relaxed mb-6">
+            <p className="text-sm text-gray-400 leading-relaxed mb-6">
               Record, edit, and export polished screen recordings — all in one app.
             </p>
             <div className="flex items-center gap-2 text-sm">
@@ -51,11 +51,11 @@ export default function Footer() {
 
           {/* Product */}
           <div>
-            <h4 className="font-bold text-gray-900 mb-6">Product</h4>
+            <h4 className="font-bold text-white mb-6">Product</h4>
             <ul className="space-y-4">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  <a href={link.href} className="text-sm text-gray-400 hover:text-white transition-colors">
                     {link.name}
                   </a>
                 </li>
@@ -65,11 +65,11 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="font-bold text-gray-900 mb-6">Resources</h4>
+            <h4 className="font-bold text-white mb-6">Resources</h4>
             <ul className="space-y-4">
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  <a href={link.href} className="text-sm text-gray-400 hover:text-white transition-colors">
                     {link.name}
                   </a>
                 </li>
@@ -79,11 +79,11 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="font-bold text-gray-900 mb-6">Company</h4>
+            <h4 className="font-bold text-white mb-6">Company</h4>
             <ul className="space-y-4">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  <Link href={link.href} className="text-sm text-gray-400 hover:text-white transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -93,20 +93,20 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-gray-100">
-          <p className="text-sm text-gray-500 mb-4 md:mb-0">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-gray-800">
+          <p className="text-sm text-gray-400 mb-4 md:mb-0">
             &copy; {new Date().getFullYear()} Penguin. All rights reserved.
           </p>
           <div className="flex items-center gap-x-2 gap-y-1 text-sm">
-            <Link href="/terms" className="text-gray-500 hover:text-gray-900 transition-colors">
+            <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
               Terms
             </Link>
-            <span className="text-gray-300">&middot;</span>
-            <Link href="/privacy" className="text-gray-500 hover:text-gray-900 transition-colors">
+            <span className="text-gray-600">&middot;</span>
+            <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
               Privacy
             </Link>
-            <span className="text-gray-300">&middot;</span>
-            <Link href="/refund" className="text-gray-500 hover:text-gray-900 transition-colors">
+            <span className="text-gray-600">&middot;</span>
+            <Link href="/refund" className="text-gray-400 hover:text-white transition-colors">
               Refund
             </Link>
           </div>

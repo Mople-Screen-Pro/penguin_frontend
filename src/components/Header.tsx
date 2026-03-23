@@ -70,8 +70,8 @@ export default function Header() {
 
       {/* Navbar */}
       <header
-        className={`sticky top-0 z-50 w-full bg-white transition-all duration-300 ${
-          scrolled ? "border-b border-gray-200 shadow-sm" : "border-b border-transparent"
+        className={`sticky top-0 z-50 w-full bg-[#0a0a0a] transition-all duration-300 ${
+          scrolled ? "border-b border-gray-800 shadow-sm" : "border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -98,7 +98,7 @@ export default function Header() {
             </a>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-gray-700">
+            <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-gray-300">
               {navLinks.map((link) =>
                 link.sectionId ? (
                   <button
@@ -107,7 +107,7 @@ export default function Header() {
                       handleSectionClick(link.sectionId);
                       analytics.navClick(link.name);
                     }}
-                    className="hover:text-gray-900 transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     {link.name}
                   </button>
@@ -116,7 +116,7 @@ export default function Header() {
                     key={link.name}
                     href={link.href!}
                     onClick={() => analytics.navClick(link.name)}
-                    className="hover:text-gray-900 transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -133,7 +133,7 @@ export default function Header() {
                   <div className="relative">
                     <button
                       onClick={() => setDropdownOpen(!dropdownOpen)}
-                      className="flex items-center gap-2 text-[16px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
+                      className="flex items-center gap-2 text-[16px] font-medium text-gray-300 hover:text-white transition-colors"
                     >
                       {displayName}
                       <svg className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -143,11 +143,11 @@ export default function Header() {
                     {dropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
-                        <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl border border-gray-100 shadow-xl z-50 overflow-hidden p-1">
+                        <div className="absolute right-0 mt-3 w-48 bg-[#0a0a0a] rounded-xl border border-gray-800 shadow-xl z-50 overflow-hidden p-1">
                           <Link
                             href="/mypage"
                             onClick={() => setDropdownOpen(false)}
-                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-400 hover:bg-gray-800 rounded-lg transition-colors"
                           >
                             <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -156,7 +156,7 @@ export default function Header() {
                           </Link>
                           <button
                             onClick={handleLogout}
-                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors w-full"
+                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-400 hover:bg-gray-800 rounded-lg transition-colors w-full"
                           >
                             <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -170,7 +170,7 @@ export default function Header() {
                 ) : (
                   <Link
                     href="/login"
-                    className="text-[16px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
+                    className="text-[16px] font-medium text-gray-300 hover:text-white transition-colors"
                   >
                     Sign in
                   </Link>
@@ -190,7 +190,7 @@ export default function Header() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-gray-600"
+            className="lg:hidden p-2 text-gray-400"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -205,7 +205,7 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-b border-gray-100 overflow-hidden">
+          <div className="lg:hidden bg-[#0a0a0a] border-b border-gray-800 overflow-hidden">
             <div className="px-6 py-4 flex flex-col gap-4">
               {navLinks.map((link) =>
                 link.sectionId ? (
@@ -215,7 +215,7 @@ export default function Header() {
                       handleSectionClick(link.sectionId);
                       setMobileMenuOpen(false);
                     }}
-                    className="text-lg font-medium text-gray-800 py-2 border-b border-gray-50 text-left"
+                    className="text-lg font-medium text-gray-200 py-2 border-b border-gray-800 text-left"
                   >
                     {link.name}
                   </button>
@@ -224,7 +224,7 @@ export default function Header() {
                     key={link.name}
                     href={link.href!}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-gray-800 py-2 border-b border-gray-50"
+                    className="text-lg font-medium text-gray-200 py-2 border-b border-gray-800"
                   >
                     {link.name}
                   </Link>
@@ -235,13 +235,13 @@ export default function Header() {
                   <Link
                     href="/mypage"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-gray-800 py-2 border-b border-gray-50"
+                    className="text-lg font-medium text-gray-200 py-2 border-b border-gray-800"
                   >
                     My Page
                   </Link>
                   <button
                     onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
-                    className="text-lg font-medium text-gray-800 py-2 border-b border-gray-50 text-left"
+                    className="text-lg font-medium text-gray-200 py-2 border-b border-gray-800 text-left"
                   >
                     Sign Out
                   </button>
@@ -251,7 +251,7 @@ export default function Header() {
                   <Link
                     href="/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-full py-3 text-center font-medium text-gray-800 border border-gray-200 rounded-lg"
+                    className="w-full py-3 text-center font-medium text-gray-200 border border-gray-800 rounded-lg"
                   >
                     Sign in
                   </Link>

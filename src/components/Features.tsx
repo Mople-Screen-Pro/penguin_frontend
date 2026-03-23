@@ -131,11 +131,11 @@ export default function Features() {
   }, [])
 
   return (
-    <section id="features" ref={sectionRef} className="pt-16 pb-24 px-6 bg-white">
+    <section id="features" ref={sectionRef} className="pt-16 pb-24 px-6 bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto">
         {/* Video Showcase with Tabs */}
         <div>
-          <h2 className="text-5xl md:text-6xl font-bold text-center text-gray-900 mb-3 tracking-tight leading-tight min-h-[140px] md:min-h-[160px] flex items-center justify-center">
+          <h2 className="text-5xl md:text-6xl font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[140px] md:min-h-[160px] flex items-center justify-center">
             <span>How <span className={`gradient-text inline-block transition-all duration-300 ${transitioning ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>{displayRole}</span> Expert Themselves</span>
           </h2>
 
@@ -144,12 +144,12 @@ export default function Features() {
           <div className="animate-on-scroll scale-in max-w-6xl mx-auto">
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
               {/* Video Area */}
-              <div className={`flex-1 rounded-2xl overflow-hidden shadow-xl ring-1 ring-gray-200/60 transition-opacity duration-300 ${transitioning ? 'opacity-0' : 'opacity-100'}`}>
+              <div className={`flex-1 rounded-2xl overflow-hidden shadow-xl ring-1 ring-gray-700/60 transition-opacity duration-300 ${transitioning ? 'opacity-0' : 'opacity-100'}`}>
                 {videos.map((video, i) => (
                   <video
                     key={video.src}
                     ref={(el) => { videoRefs.current[i] = el }}
-                    className={`w-full aspect-video object-cover bg-gray-100 ${activeVideo === i ? 'block' : 'hidden'}`}
+                    className={`w-full aspect-video object-cover bg-gray-800 ${activeVideo === i ? 'block' : 'hidden'}`}
                     autoPlay={i === activeVideo}
                     muted
                     playsInline
@@ -174,8 +174,8 @@ export default function Features() {
                       {video.icon}
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-gray-900">{video.role}</h4>
-                      <p className={`text-sm text-gray-500 mt-0.5 leading-snug transition-all duration-300 ${activeVideo === i ? 'block' : 'hidden md:block'}`}>{video.description}</p>
+                      <h4 className="text-base font-bold text-white">{video.role}</h4>
+                      <p className={`text-sm text-gray-400 mt-0.5 leading-snug transition-all duration-300 ${activeVideo === i ? 'block' : 'hidden md:block'}`}>{video.description}</p>
                     </div>
                   </button>
                 ))}

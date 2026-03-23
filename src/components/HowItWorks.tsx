@@ -45,22 +45,22 @@ export default function HowItWorks() {
   }, [])
 
   return (
-    <section id="how-it-works" ref={sectionRef} className="py-24 px-6 bg-white border-t border-gray-100">
+    <section id="how-it-works" ref={sectionRef} className="py-24 px-6 bg-[#0a0a0a] border-t border-gray-800">
       <div className="max-w-7xl mx-auto">
         {/* Two Column Header */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-          <h2 className="animate-on-scroll slide-left text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight leading-[1.1]">
-            <span className="text-primary-200">From</span> screen <span className="text-gray-900">to</span>
+          <h2 className="animate-on-scroll slide-left text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1]">
+            <span className="text-primary-200">From</span> screen <span className="text-white">to</span>
             <br />
             <span className="gradient-text">finished video</span>, fast
           </h2>
           <div className="animate-on-scroll slide-right md:pl-12" data-delay="0.1">
-            <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+            <p className="text-xl text-gray-400 mb-6 leading-relaxed">
               Penguin handles the entire workflow — record, edit, and export — all in one app. No switching between tools, no steep learning curve. Just fast, polished results.
             </p>
             <a
               href={DOWNLOAD_URL}
-              className="inline-flex items-center text-gray-900 font-semibold hover:text-primary-600 transition-colors border-b border-gray-900 hover:border-primary-600 pb-0.5"
+              className="inline-flex items-center text-white font-semibold hover:text-primary-600 transition-colors border-b border-white hover:border-primary-600 pb-0.5"
             >
               Download Penguin
               <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,7 +71,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Interface Mockup */}
-        <div className="animate-on-scroll scale-in rounded-2xl bg-gray-100 p-4 md:p-8 mb-12">
+        <div className="animate-on-scroll scale-in rounded-2xl bg-gray-800 p-4 md:p-8 mb-12">
           <div className="rounded-xl overflow-hidden shadow-xl bg-[#1e1e1e] aspect-[16/9] md:aspect-[21/9] relative">
             <video
               className="w-full h-full object-cover opacity-90"
@@ -102,11 +102,11 @@ export default function HowItWorks() {
               className="animate-on-scroll group"
               data-delay={String(index * 0.15)}
             >
-              <div className={`h-1 w-full rounded-full mb-6 ${step.active ? 'bg-gray-900' : 'bg-gray-200'}`} />
-              <h3 className={`text-xl font-bold mb-3 ${step.active ? 'text-gray-900' : 'text-gray-500'}`}>
+              <div className={`h-1 w-full rounded-full mb-6 ${step.active ? 'bg-white' : 'bg-gray-700'}`} />
+              <h3 className={`text-xl font-bold mb-3 ${step.active ? 'text-white' : 'text-gray-400'}`}>
                 {step.title}
               </h3>
-              <p className="text-gray-500 leading-relaxed text-sm md:text-base">
+              <p className="text-gray-400 leading-relaxed text-sm md:text-base">
                 {step.description}
               </p>
             </div>

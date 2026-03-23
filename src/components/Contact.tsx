@@ -43,29 +43,29 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 px-6 bg-[#fcfcfc] border-t border-gray-100">
+    <section id="contact" ref={sectionRef} className="py-24 px-6 bg-[#0f0f0f] border-t border-gray-800">
       <div className="max-w-xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-12">
-          <h2 className="animate-on-scroll text-4xl md:text-5xl font-bold text-gray-900 mb-5 tracking-tight leading-snug">
+          <h2 className="animate-on-scroll text-4xl md:text-5xl font-bold text-white mb-5 tracking-tight leading-snug">
             Get in <span className="gradient-text">Touch</span>
           </h2>
-          <p className="animate-on-scroll text-lg text-gray-500 leading-relaxed" data-delay="0.1">
+          <p className="animate-on-scroll text-lg text-gray-400 leading-relaxed" data-delay="0.1">
             Questions, feedback, or feature requests? We'd love to hear from you.
           </p>
         </div>
 
         {/* Contact Form */}
-        <div className="animate-on-scroll bg-white rounded-2xl border border-gray-100 shadow-sm p-8" data-delay="0.2">
+        <div className="animate-on-scroll bg-gray-900 rounded-2xl border border-gray-800 shadow-sm p-8" data-delay="0.2">
           {isSubmitted ? (
             <div className="text-center py-8">
-              <div className="w-14 h-14 bg-primary-50 border border-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-14 h-14 bg-primary-900/30 border border-primary-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg className="w-7 h-7 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <p className="text-lg font-medium text-gray-900">Message sent!</p>
-              <p className="text-gray-500 mt-1 text-sm">We'll get back to you soon</p>
+              <p className="text-lg font-medium text-white">Message sent!</p>
+              <p className="text-gray-400 mt-1 text-sm">We'll get back to you soon</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -77,7 +77,7 @@ export default function Contact() {
                   title="Please enter your name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-white focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none text-sm transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl border border-gray-700 bg-gray-800 text-white focus:border-primary-400 focus:ring-2 focus:ring-primary-900 outline-none text-sm transition-all"
                 />
                 <input
                   type="email"
@@ -86,7 +86,7 @@ export default function Contact() {
                   title="Please enter your email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-white focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none text-sm transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl border border-gray-700 bg-gray-800 text-white focus:border-primary-400 focus:ring-2 focus:ring-primary-900 outline-none text-sm transition-all"
                 />
               </div>
               <textarea
@@ -96,7 +96,7 @@ export default function Contact() {
                 rows={4}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-white focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none resize-none text-sm transition-all"
+                className="w-full px-4 py-3.5 rounded-xl border border-gray-700 bg-gray-800 text-white focus:border-primary-400 focus:ring-2 focus:ring-primary-900 outline-none resize-none text-sm transition-all"
               />
               <button
                 type="submit"

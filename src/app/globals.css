@@ -32,6 +32,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   word-break: keep-all;
+  background: #0a0a0a;
+  color: #e5e7eb;
 }
 
 /* Clickable elements */
@@ -55,12 +57,12 @@ select,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: #4b5563;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: #6b7280;
 }
 
 /* Hide scrollbar utility */
@@ -215,7 +217,7 @@ select,
 
 /* Glass effect */
 .glass {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(15, 15, 15, 0.72);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
 }
@@ -223,7 +225,7 @@ select,
 /* Text selection */
 ::selection {
   background: rgba(12, 140, 233, 0.15);
-  color: #083e6e;
+  color: #e0efff;
 }
 
 /* Focus styles */

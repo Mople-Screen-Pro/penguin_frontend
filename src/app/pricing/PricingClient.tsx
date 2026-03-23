@@ -216,16 +216,16 @@ export default function PricingClient() {
   )
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-gray-900 flex flex-col">
       <Header />
 
       {/* Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-10 sm:pb-16 flex-grow">
         <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Simple, transparent pricing
           </h1>
-          <p className="text-sm sm:text-base text-slate-600">
+          <p className="text-sm sm:text-base text-gray-400">
             Choose the plan that works best for you. All plans include full
             access to Penguin features.
           </p>
@@ -236,10 +236,10 @@ export default function PricingClient() {
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`relative bg-white rounded-2xl border p-5 sm:p-6 lg:p-8 flex flex-col ${
+              className={`relative bg-[#0a0a0a] rounded-2xl border p-5 sm:p-6 lg:p-8 flex flex-col ${
                 plan.popular
                   ? "border-sky-500 shadow-xl shadow-sky-500/10"
-                  : "border-slate-200"
+                  : "border-gray-700"
               }`}
             >
               {plan.popular && (
@@ -252,28 +252,28 @@ export default function PricingClient() {
 
               {plan.savings && (
                 <div className="absolute top-4 right-4">
-                  <span className="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 rounded-full">
+                  <span className="bg-green-900/30 text-green-400 text-xs font-medium px-2 py-1 rounded-full">
                     {plan.savings}
                   </span>
                 </div>
               )}
 
               <div className="mb-4 lg:mb-6">
-                <h2 className="text-lg lg:text-xl font-bold text-slate-900 mb-1 lg:mb-2">
+                <h2 className="text-lg lg:text-xl font-bold text-white mb-1 lg:mb-2">
                   {plan.name}
                 </h2>
-                <p className="text-slate-600 text-sm">{plan.description}</p>
+                <p className="text-gray-400 text-sm">{plan.description}</p>
               </div>
 
               <div className="mb-4 lg:mb-6">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-3xl lg:text-4xl font-bold text-slate-900">
+                  <span className="text-3xl lg:text-4xl font-bold text-white">
                     ${plan.price}
                   </span>
-                  <span className="text-slate-500">{plan.period}</span>
+                  <span className="text-gray-400">{plan.period}</span>
                 </div>
                 {plan.billedAs && (
-                  <p className="text-sm text-slate-500 mt-1">{plan.billedAs}</p>
+                  <p className="text-sm text-gray-400 mt-1">{plan.billedAs}</p>
                 )}
               </div>
 
@@ -281,7 +281,7 @@ export default function PricingClient() {
                 {plan.features.map((feature, index) => (
                   <li
                     key={index}
-                    className="flex items-center gap-2 lg:gap-3 text-sm lg:text-base text-slate-600"
+                    className="flex items-center gap-2 lg:gap-3 text-sm lg:text-base text-gray-400"
                   >
                     <svg
                       className="w-5 h-5 text-sky-500 flex-shrink-0"
@@ -304,7 +304,7 @@ export default function PricingClient() {
               {user && subLoading ? (
                 <button
                   disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-400 cursor-default"
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-800 text-gray-400 cursor-default"
                 >
                   &nbsp;
                 </button>
@@ -327,14 +327,14 @@ export default function PricingClient() {
               ) : currentPriceId === plan.priceId ? (
                 <button
                   disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-500 cursor-default"
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-800 text-gray-400 cursor-default"
                 >
                   Current Plan
                 </button>
               ) : isLifetimePlan && plan.id !== "lifetime" ? (
                 <button
                   disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-400 cursor-not-allowed"
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-800 text-gray-400 cursor-not-allowed"
                 >
                   Lifetime Active
                 </button>
@@ -355,14 +355,14 @@ export default function PricingClient() {
               ) : isYearly && plan.id === "monthly" && hasScheduledDowngrade ? (
                 <button
                   onClick={() => setCancelDowngradeModalOpen(true)}
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors"
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-800 text-gray-400 hover:bg-red-900/30 hover:text-red-400 transition-colors"
                 >
                   Switching Soon
                 </button>
               ) : isYearly && plan.id === "monthly" ? (
                 <button
                   onClick={() => setDowngradeModalOpen(true)}
-                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-slate-200 text-slate-700 hover:bg-slate-300"
+                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gray-800 text-gray-300 hover:bg-gray-700"
                 >
                   Switch to Monthly
                 </button>
@@ -373,7 +373,7 @@ export default function PricingClient() {
                   className={`w-full py-3 px-4 rounded-xl font-medium transition-all disabled:opacity-50 ${
                     plan.popular
                       ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:from-sky-600 hover:to-blue-700"
-                      : "bg-slate-900 text-white hover:bg-slate-800"
+                      : "bg-gray-800 text-white hover:bg-gray-700"
                   }`}
                 >
                   {loading === plan.id
@@ -389,10 +389,10 @@ export default function PricingClient() {
 
         {/* Trust badges */}
         <div className="mt-16 text-center">
-          <p className="text-slate-500 text-sm">
+          <p className="text-gray-400 text-sm">
             Secure payment powered by Paddle.
           </p>
-          <div className="flex items-center justify-center gap-6 mt-4 text-slate-400">
+          <div className="flex items-center justify-center gap-6 mt-4 text-gray-400">
             <span className="flex items-center gap-2">
               <svg
                 className="w-5 h-5"
@@ -414,23 +414,23 @@ export default function PricingClient() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-50 border-t border-slate-200 py-6">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center gap-4 text-sm text-slate-500">
-          <Link href="/terms" className="hover:text-slate-700">
+      <footer className="bg-gray-900 border-t border-gray-700 py-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center gap-4 text-sm text-gray-400">
+          <Link href="/terms" className="hover:text-gray-300">
             Terms of Service
           </Link>
           <span>·</span>
-          <Link href="/privacy" className="hover:text-slate-700">
+          <Link href="/privacy" className="hover:text-gray-300">
             Privacy Policy
           </Link>
           <span>·</span>
-          <Link href="/refund" className="hover:text-slate-700">
+          <Link href="/refund" className="hover:text-gray-300">
             Refund Policy
           </Link>
           <span>·</span>
           <a
             href="mailto:jwjygpt0507@gmail.com"
-            className="hover:text-slate-700"
+            className="hover:text-gray-300"
           >
             Contact Support
           </a>
@@ -440,8 +440,8 @@ export default function PricingClient() {
       {/* 결제 완료 모달 */}
       {showCompleteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center shadow-xl">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="bg-[#0a0a0a] rounded-2xl p-8 max-w-sm mx-4 text-center shadow-xl">
+            <div className="w-16 h-16 bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 className="w-8 h-8 text-green-500"
                 fill="none"
@@ -456,10 +456,10 @@ export default function PricingClient() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">
+            <h3 className="text-xl font-bold text-white mb-2">
               Payment Successful!
             </h3>
-            <p className="text-slate-600 text-sm">
+            <p className="text-gray-400 text-sm">
               Thank you for subscribing to Penguin. Redirecting...
             </p>
           </div>
@@ -469,8 +469,8 @@ export default function PricingClient() {
       {/* Cancel Downgrade Modal */}
       {cancelDowngradeModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl p-6 max-w-md mx-4 w-full shadow-xl">
-            <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="bg-[#0a0a0a] rounded-2xl p-6 max-w-md mx-4 w-full shadow-xl">
+            <div className="w-12 h-12 bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 className="w-6 h-6 text-amber-600"
                 fill="none"
@@ -485,17 +485,17 @@ export default function PricingClient() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-slate-900 text-center mb-2">
+            <h3 className="text-lg font-bold text-white text-center mb-2">
               Cancel Scheduled Switch?
             </h3>
-            <p className="text-sm text-slate-600 text-center mb-5">
+            <p className="text-sm text-gray-400 text-center mb-5">
               Your plan is scheduled to switch to monthly. Would you like to
               cancel this and keep your yearly subscription?
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setCancelDowngradeModalOpen(false)}
-                className="flex-1 px-4 py-2.5 text-sm font-medium text-slate-700 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors"
+                className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-300 bg-gray-800 rounded-xl hover:bg-gray-700 transition-colors"
               >
                 Keep Switch
               </button>
