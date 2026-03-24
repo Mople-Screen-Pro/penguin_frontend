@@ -1,29 +1,29 @@
+import dynamic from 'next/dynamic'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
-import Features from '../components/Features'
-import FeatureRecord from '../components/FeatureRecord'
-import FeatureEdit from '../components/FeatureEdit'
-import FeatureAutoZoom from '../components/FeatureAutoZoom'
-import FeatureStyling from '../components/FeatureStyling'
-import FeatureAIUpscale from '../components/FeatureAIUpscale'
-import FeatureExport from '../components/FeatureExport'
-import HowItWorks from '../components/HowItWorks'
-import Testimonials from '../components/Testimonials'
-import CTA from '../components/CTA'
-import FAQ from '../components/FAQ'
-import Contact from '../components/Contact'
-import Footer from '../components/Footer'
+
+const Features = dynamic(() => import('../components/Features'))
+const FeatureRecord = dynamic(() => import('../components/FeatureRecord'))
+const FeatureEdit = dynamic(() => import('../components/FeatureEdit'))
+const FeatureStyling = dynamic(() => import('../components/FeatureStyling'))
+const FeatureAIUpscale = dynamic(() => import('../components/FeatureAIUpscale'))
+const FeatureExport = dynamic(() => import('../components/FeatureExport'))
+const HowItWorks = dynamic(() => import('../components/HowItWorks'))
+const Testimonials = dynamic(() => import('../components/Testimonials'))
+const CTA = dynamic(() => import('../components/CTA'))
+const FAQ = dynamic(() => import('../components/FAQ'))
+const Contact = dynamic(() => import('../components/Contact'))
+const Footer = dynamic(() => import('../components/Footer'))
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header />
       <main>
         <Hero />
         <Features />
         <FeatureRecord />
         <FeatureEdit />
-        <FeatureAutoZoom />
         <FeatureStyling />
         <FeatureAIUpscale />
         <FeatureExport />
