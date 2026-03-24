@@ -35,26 +35,6 @@ const videos = [
   },
 ]
 
-const features = [
-  {
-    title: 'Record Instantly',
-    description: 'One click to capture your screen. Full screen or custom area — Penguin is ready when you are, with zero setup time.',
-    cta: 'Start recording',
-    gradient: 'from-primary-500/20 via-primary-400/10 to-primary-300/20',
-  },
-  {
-    title: 'Edit with Ease',
-    description: 'Trim, adjust timing, and polish your recording with built-in editing tools. No need to switch to another app.',
-    cta: 'See the editor',
-    gradient: 'from-blue-500/20 via-blue-400/10 to-indigo-300/20',
-  },
-  {
-    title: 'Export in Minutes',
-    description: 'Export as MP4 and share instantly. YouTube, Notion, Slack, docs — your video works everywhere, right away.',
-    cta: 'Try it out',
-    gradient: 'from-emerald-500/20 via-teal-400/10 to-cyan-300/20',
-  },
-]
 
 export default function Features() {
   const sectionRef = useRef<HTMLDivElement>(null)

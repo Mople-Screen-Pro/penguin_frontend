@@ -1,11 +1,13 @@
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Features from '../components/Features'
-import Recording from '../components/Recording'
-import Editor from '../components/Editor'
-import Export from '../components/Export'
+import FeatureRecord from '../components/FeatureRecord'
+import FeatureEdit from '../components/FeatureEdit'
+import FeatureAutoZoom from '../components/FeatureAutoZoom'
+import FeatureStyling from '../components/FeatureStyling'
+import FeatureAIUpscale from '../components/FeatureAIUpscale'
+import FeatureExport from '../components/FeatureExport'
 import HowItWorks from '../components/HowItWorks'
-import Demo from '../components/Demo'
 import Testimonials from '../components/Testimonials'
 import CTA from '../components/CTA'
 import FAQ from '../components/FAQ'
@@ -19,11 +21,13 @@ export default function HomePage() {
       <main>
         <Hero />
         <Features />
-        <Recording />
-        <Editor />
-        <Export />
+        <FeatureRecord />
+        <FeatureEdit />
+        <FeatureAutoZoom />
+        <FeatureStyling />
+        <FeatureAIUpscale />
+        <FeatureExport />
         <HowItWorks />
-        <Demo />
         <Testimonials />
         <CTA />
         <FAQ />
