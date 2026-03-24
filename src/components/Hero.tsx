@@ -213,7 +213,7 @@ export default function Hero() {
         {/* Main Dashboard Mockup with Video — scroll reveal */}
         <div
           ref={videoContainerRef}
-          className="hero-video-container relative max-w-7xl mx-auto"
+          className="hero-video-container relative max-w-6xl mx-auto"
         >
           <div className="hero-video-glow" aria-hidden="true" />
 
