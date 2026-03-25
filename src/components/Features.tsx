@@ -22,6 +22,13 @@ const videos = [
     color: 'bg-yellow-500',
     icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.392 0H13.9L17 4.808 10.444 0H6.949l3.102 6.3L3.494 0H0l3.05 8.131L0 24h3.494L10.05 6.985 6.949 24h3.494L17 5.494 13.899 24h3.493L24 3.672 17.392 0z"/></svg>,
   },
+  // Educator
+  {
+    src: '/education.mp4', label: 'Education', role: 'Educators', category: 'Educator',
+    description: 'Create engaging tutorials and course content effortlessly.',
+    color: 'bg-amber-500',
+    icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75V11.25Z" /></svg>,
+  },
   // Social
   {
     src: '/figma2.mp4', label: 'YouTube', role: 'Creators', category: 'Social',
@@ -40,13 +47,6 @@ const videos = [
     description: 'Create polished video content for Instagram Reels and Stories.',
     color: 'bg-pink-500',
     icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>,
-  },
-  // Educator
-  {
-    src: '/education.mp4', label: 'Education', role: 'Educators', category: 'Educator',
-    description: 'Create engaging tutorials and course content effortlessly.',
-    color: 'bg-amber-500',
-    icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75V11.25Z" /></svg>,
   },
   // Design
   {
@@ -89,7 +89,7 @@ const videos = [
   },
 ]
 
-const categories = ['Start-up', 'Social', 'Educator', 'Design', 'Work', 'Dev'] as const
+const categories = ['Start-up', 'Educator', 'Social', 'Design', 'Work', 'Dev'] as const
 
 export default function Features() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -138,12 +138,20 @@ export default function Features() {
     setActiveCategory(cat)
     manualScrollRef.current = cat
     const groupEl = groupRefs.current[cat]
-    if (groupEl && scrollRef.current) {
-      scrollRef.current.scrollTo({
-        left: groupEl.offsetLeft - 40,
+    const scroll = scrollRef.current
+    if (groupEl && scroll) {
+      const scrollRect = scroll.getBoundingClientRect()
+      const groupRect = groupEl.getBoundingClientRect()
+      const currentScrollLeft = scroll.scrollLeft
+      const groupLeft = groupRect.left - scrollRect.left + currentScrollLeft
+      const groupWidth = groupRect.width
+      const containerWidth = scrollRect.width
+      const centerOffset = groupLeft - (containerWidth - groupWidth) / 2
+      const maxScroll = scroll.scrollWidth - containerWidth
+      scroll.scrollTo({
+        left: Math.max(0, Math.min(centerOffset, maxScroll)),
         behavior: 'smooth',
       })
-      // Keep manual override until scroll settles
       setTimeout(() => { manualScrollRef.current = null }, 800)
     }
   }
@@ -321,7 +329,7 @@ export default function Features() {
       {/* Horizontal scroll card list */}
       <div
         ref={scrollRef}
-        className="animate-on-scroll flex gap-6 overflow-x-auto px-6 md:px-10 pb-4 snap-x snap-mandatory scrollbar-hide"
+        className="animate-on-scroll flex gap-6 overflow-x-auto px-6 md:px-10 pb-4 scrollbar-hide"
         style={{ scrollbarWidth: 'none' }}
       >
         {grouped.map((group) => (
@@ -331,7 +339,7 @@ export default function Features() {
                 key={video.label}
                 ref={(el) => { cardRefs.current[video.globalIndex] = el }}
                 data-index={video.globalIndex}
-                className="snap-start shrink-0 w-[540px] md:w-[640px] group"
+                className="shrink-0 w-[540px] md:w-[640px] group"
                 onMouseEnter={() => handleCardEnter(video.globalIndex)}
                 onMouseLeave={() => handleCardLeave(video.globalIndex)}
                 onClick={() => handleCardClick(video.globalIndex)}
