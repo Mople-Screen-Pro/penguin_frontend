@@ -102,6 +102,7 @@ export default function Features() {
   const [displayCategory, setDisplayCategory] = useState('Start-up')
   const [textAnimating, setTextAnimating] = useState(false)
   const prevCatRef = useRef<string | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
@@ -176,7 +177,7 @@ export default function Features() {
           current = cat
         }
       }
-      setActiveCategory(current)
+      if (current) setActiveCategory(current)
     }
     el.addEventListener('scroll', handleScroll, { passive: true })
     return () => el.removeEventListener('scroll', handleScroll)
@@ -202,11 +203,15 @@ export default function Features() {
     if (cat === prevCatRef.current) return
     prevCatRef.current = cat
 
-    setTextAnimating(true)
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setDisplayCategory(cat)
       setTextAnimating(false)
     }, 250)
+
+    // Use requestAnimationFrame to avoid synchronous setState in effect
+    requestAnimationFrame(() => setTextAnimating(true))
+
+    return () => clearTimeout(timer)
   }, [activeCategory])
 
   // Auto-play videos visible in viewport

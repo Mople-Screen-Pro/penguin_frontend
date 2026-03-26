@@ -42,7 +42,7 @@ export default function FeatureRecord() {
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center">
           {/* Text — left */}
           <div className="animate-on-scroll flex-1 basis-0 min-w-0">
-            <span className="relative inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-[14px] font-semibold text-red-400 bg-red-500/[0.1] border border-red-500/[0.2] mb-6">
+            <span className="relative inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full text-[15px] font-semibold text-red-400 bg-red-500/[0.1] border border-red-500/[0.2] mb-6">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inset-0 rounded-full bg-red-500 opacity-60" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />

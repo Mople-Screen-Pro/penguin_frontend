@@ -98,10 +98,6 @@ export default function Hero() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             container.classList.add("hero-video-visible");
-            // Lazy-load: set src only when visible
-            if (!video.src && video.querySelector("source")) {
-              video.load();
-            }
             video.play().catch(() => {});
             videoObserver.unobserve(entry.target);
           }
