@@ -8,8 +8,6 @@ const FeatureEdit = dynamic(() => import('../components/FeatureEdit'))
 const FeatureStyling = dynamic(() => import('../components/FeatureStyling'))
 const FeatureAIUpscale = dynamic(() => import('../components/FeatureAIUpscale'))
 const FeatureExport = dynamic(() => import('../components/FeatureExport'))
-const Testimonials = dynamic(() => import('../components/Testimonials'))
-const CTA = dynamic(() => import('../components/CTA'))
 const FAQ = dynamic(() => import('../components/FAQ'))
 const Contact = dynamic(() => import('../components/Contact'))
 const Footer = dynamic(() => import('../components/Footer'))
@@ -26,8 +24,6 @@ export default function HomePage() {
         <FeatureStyling />
         <FeatureAIUpscale />
         <FeatureExport />
-        <Testimonials />
-        <CTA />
         <FAQ />
         <Contact />
       </main>
