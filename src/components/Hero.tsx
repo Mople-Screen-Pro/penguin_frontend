@@ -37,7 +37,7 @@ export default function Hero() {
       {/* Hero Video */}
       <div
         ref={containerRef}
-        className="relative bg-[#000] overflow-hidden pt-8 pb-16"
+        className="relative bg-[#000] overflow-hidden pt-[10svh] pb-[10svh]"
         style={{ height: heroHeight }}
       >
         <video
@@ -55,8 +55,8 @@ export default function Hero() {
         <a
           href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
           rel="noopener"
-          className={`absolute left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-lg font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-          style={{ bottom: "18%" }}
+          className={`absolute left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-lg font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+          style={{ bottom: "21%" }}
         >
           Download for Mac
           <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
