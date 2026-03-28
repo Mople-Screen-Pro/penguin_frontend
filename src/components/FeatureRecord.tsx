@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const features = [
   { label: 'Full Screen', desc: 'Capture your entire display', icon: (
@@ -24,17 +24,7 @@ const features = [
 ]
 
 export default function FeatureRecord() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target) }
-      })
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
-    if (sectionRef.current) sectionRef.current.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
+  const sectionRef = useScrollReveal()
 
   return (
     <section id="feature-record" ref={sectionRef} className="py-[120px] md:py-[160px] px-5 bg-[#000]">

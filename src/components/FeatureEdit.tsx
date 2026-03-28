@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback } from 'react'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const editFeatures = [
   {
@@ -56,7 +57,7 @@ const editFeatures = [
 ]
 
 export default function FeatureEdit() {
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useScrollReveal()
   const [active, setActive] = useState(0)
   const [visibleImage, setVisibleImage] = useState(0)
   const [phase, setPhase] = useState<'zoomed' | 'zoomingOut' | 'swapping' | 'zoomingIn'>('zoomed')
@@ -87,16 +88,6 @@ export default function FeatureEdit() {
       })
     }, 500)
   }, [active])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target) }
-      })
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
-    if (sectionRef.current) sectionRef.current.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
 
   const feat = editFeatures[visibleImage]
   const getTransform = () => {

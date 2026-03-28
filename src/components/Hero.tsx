@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const keywords = [
   "Tutorials",
@@ -57,33 +58,9 @@ function MarqueeBand({
 }
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useScrollReveal();
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const delay = (entry.target as HTMLElement).dataset.delay || "0";
-            setTimeout(
-              () => entry.target.classList.add("visible"),
-              parseFloat(delay) * 1000,
-            );
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
-    );
-    if (sectionRef.current) {
-      sectionRef.current
-        .querySelectorAll(".animate-on-scroll")
-        .forEach((el) => observer.observe(el));
-    }
-    return () => observer.disconnect();
-  }, []);
 
   // Scroll-driven video reveal + autoplay
   useEffect(() => {
@@ -270,7 +247,7 @@ export default function Hero() {
       </section>
 
       {/* Whatever you build — marquee */}
-      <div className="pt-[120px] pb-[180px] bg-[#0a0a0a] text-center overflow-hidden">
+      <div className="py-[120px] md:py-[160px] bg-[#0a0a0a] text-center overflow-hidden">
         <p className="text-3xl md:text-4xl text-gray-400 font-light mb-10 px-6">
           Whatever you build,{" "}
           <span className="gradient-text font-medium">Penguin</span> fits right

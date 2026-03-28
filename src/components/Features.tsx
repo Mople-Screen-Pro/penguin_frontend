@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const videos = [
   // Start-up
@@ -92,7 +93,7 @@ const videos = [
 const categories = ['Start-up', 'Educator', 'Social', 'Design', 'Work', 'Dev'] as const
 
 export default function Features() {
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useScrollReveal()
   const scrollRef = useRef<HTMLDivElement>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
@@ -237,25 +238,6 @@ export default function Features() {
     return () => observer.disconnect()
   }, [])
 
-  // Scroll animation
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const delay = (entry.target as HTMLElement).dataset.delay || '0'
-            setTimeout(() => entry.target.classList.add('visible'), parseFloat(delay) * 1000)
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    )
-    if (sectionRef.current) {
-      sectionRef.current.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el))
-    }
-    return () => observer.disconnect()
-  }, [])
 
   // Listen for hero tag clicks
   useEffect(() => {
@@ -284,7 +266,7 @@ export default function Features() {
   }))
 
   return (
-    <section id="features" ref={sectionRef} className="pt-16 pb-24 bg-[#0a0a0a]">
+    <section id="features" ref={sectionRef} className="py-[120px] md:py-[160px] bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="animate-on-scroll text-5xl md:text-6xl font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[140px] md:min-h-[160px] flex items-center justify-center">
           <span>How{' '}

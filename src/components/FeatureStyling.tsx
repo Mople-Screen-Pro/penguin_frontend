@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const wallExt: Record<string, string> = {
   wallpaper_neon: 'jpg', wallpaper_candy: 'jpg', wallpaper_rose: 'jpg', wallpaper_mint: 'jpg',
@@ -60,7 +61,7 @@ const presets = [
 ]
 
 export default function FeatureStyling() {
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useScrollReveal()
   const videoRef = useRef<HTMLVideoElement>(null)
   const [activeIdx, setActiveIdx] = useState(0)
   const active = presets[activeIdx]
@@ -78,12 +79,6 @@ export default function FeatureStyling() {
       video.play()
     }
   }, [activeIdx])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) } }) }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
-    if (sectionRef.current) sectionRef.current.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
 
 
   return (
