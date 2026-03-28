@@ -79,59 +79,55 @@ export default function LoginClient() {
   return (
     <div className="min-h-screen flex">
       {/* Left: Branding & Visual */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        {/* Gradient orbs */}
-        <div className="absolute top-1/4 -left-20 w-80 h-80 bg-sky-500/25 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-blue-500/25 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-cyan-500/15 rounded-full blur-3xl" />
-
-        {/* Grid background */}
-        <div className="absolute inset-0 bg-grid opacity-10" />
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-[#0a0a0a]">
+        {/* Gradient orbs — matches Hero section */}
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary-500/15 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
 
         {/* Content */}
         <div className="relative flex flex-col justify-center items-center w-full px-12">
           {/* Logo & Title */}
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-3 mb-5">
               <img
                 src="/logo.png"
                 alt="Penguin"
-                className="w-14 h-14 rounded-2xl shadow-lg shadow-sky-500/30"
+                className="w-12 h-12 rounded-2xl"
               />
-              <span className="text-3xl font-bold text-white">Penguin</span>
+              <span className="text-2xl font-bold text-white tracking-tight">Penguin</span>
             </div>
-            <p className="text-lg text-slate-300 max-w-sm">
-              Create professional tutorials and demos with automatic cursor zoom
+            <p className="text-gray-400 max-w-xs">
+              Record, edit, and export — all in one place
             </p>
           </div>
 
           {/* Mac Window Mockup */}
           <div className="w-full max-w-md">
-            <div className="rounded-xl overflow-hidden shadow-2xl shadow-black/50 border border-slate-700/50">
+            <div className="rounded-xl overflow-hidden shadow-2xl shadow-black/50 border border-gray-800">
               {/* Window header */}
-              <div className="flex items-center gap-2 px-4 py-3 bg-slate-800/80 border-b border-slate-700/50">
+              <div className="flex items-center gap-2 px-4 py-3 bg-gray-900/80 border-b border-gray-800">
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                <span className="ml-3 text-xs text-slate-400 font-medium">Penguin — Recording</span>
+                <span className="ml-3 text-xs text-gray-500 font-medium">Penguin — Recording</span>
               </div>
 
               {/* Window content */}
-              <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 aspect-[16/10]">
+              <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 aspect-[16/10]">
                 {/* Simulated editor */}
-                <div className="absolute inset-3 rounded-lg bg-slate-800/60 border border-slate-700/40">
+                <div className="absolute inset-3 rounded-lg bg-gray-800/60 border border-gray-700/40">
                   <div className="p-4 font-mono text-xs">
-                    <div className="flex items-center gap-2 text-slate-500 mb-3">
+                    <div className="flex items-center gap-2 text-gray-500 mb-3">
                       <span className="w-2.5 h-2.5 rounded-full bg-sky-500/40" />
                       <span>presentation.tsx</span>
                     </div>
-                    <div className="space-y-1.5 text-slate-400">
+                    <div className="space-y-1.5 text-gray-400">
                       <p><span className="text-blue-400">import</span> <span className="text-sky-300">{'{ motion }'}</span> <span className="text-blue-400">from</span> <span className="text-emerald-400">&quot;framer-motion&quot;</span></p>
                       <p />
                       <p><span className="text-blue-400">export const</span> <span className="text-blue-300">Slide</span> = () =&gt; {'{'}</p>
                       <p className="pl-4"><span className="text-blue-400">return</span> (</p>
                       <p className="pl-8 text-orange-300">&lt;motion.div&gt;</p>
-                      <p className="pl-12 text-slate-500">{'// Your content here'}</p>
+                      <p className="pl-12 text-gray-500">{'// Your content here'}</p>
                       <p className="pl-8 text-orange-300">&lt;/motion.div&gt;</p>
                       <p className="pl-4">)</p>
                       <p>{'}'}</p>
@@ -166,45 +162,16 @@ export default function LoginClient() {
             </div>
           </div>
 
-          {/* Feature highlights */}
-          <div className="flex items-center gap-6 mt-10 text-sm text-slate-400">
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Auto Focus
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Easy Edit
-            </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Quick Export
-            </div>
-          </div>
         </div>
       </div>
 
       {/* Right: Login Form */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col bg-[#0a0a0a]">
         {/* Top bar */}
-        <div className="flex items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2 group">
-            <img
-              src="/logo.png"
-              alt="Penguin"
-              className="w-8 h-8 rounded-xl shadow-md shadow-sky-500/20 group-hover:shadow-sky-500/30 transition-shadow"
-            />
-            <span className="text-lg font-bold text-slate-900 lg:hidden">Penguin</span>
-          </Link>
+        <div className="flex items-center justify-end px-6 py-4">
           <Link
             href="/"
-            className="text-sm text-slate-500 hover:text-slate-700 transition-colors flex items-center gap-1"
+            className="text-sm text-gray-500 hover:text-gray-300 transition-colors flex items-center gap-1"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -218,10 +185,10 @@ export default function LoginClient() {
           <div className="w-full max-w-sm">
             {/* Heading */}
             <div className="text-center mb-10">
-              <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+              <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3">
                 Welcome back
               </h1>
-              <p className="text-slate-500">
+              <p className="text-gray-400">
                 Sign in to access your Penguin account
               </p>
             </div>
@@ -231,7 +198,7 @@ export default function LoginClient() {
               {/* Google */}
               <button
                 onClick={() => signInWithGoogle(from, state)}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white border-2 border-slate-200 rounded-xl text-base font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm transition-all duration-200"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white/[0.05] border border-gray-800 rounded-xl text-base font-medium text-gray-200 hover:bg-white/[0.08] hover:border-gray-700 transition-all duration-200"
               >
                 <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -245,7 +212,7 @@ export default function LoginClient() {
               {/* Apple */}
               <button
                 onClick={() => signInWithApple(from, state)}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-slate-900 rounded-xl text-base font-medium text-white hover:bg-slate-800 transition-all duration-200"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white/[0.05] border border-gray-800 rounded-xl text-base font-medium text-gray-200 hover:bg-white/[0.08] hover:border-gray-700 transition-all duration-200"
               >
                 <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
@@ -256,7 +223,7 @@ export default function LoginClient() {
               {/* GitHub */}
               <button
                 onClick={() => signInWithGithub(from, state)}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white border-2 border-slate-200 rounded-xl text-base font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm transition-all duration-200"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-white/[0.05] border border-gray-800 rounded-xl text-base font-medium text-gray-200 hover:bg-white/[0.08] hover:border-gray-700 transition-all duration-200"
               >
                 <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -268,10 +235,10 @@ export default function LoginClient() {
             {/* Divider */}
             <div className="relative my-8">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-200" />
+                <div className="w-full border-t border-gray-800" />
               </div>
               <div className="relative flex justify-center">
-                <span className="bg-white px-4 text-sm text-slate-400">or download to get started</span>
+                <span className="bg-[#0a0a0a] px-4 text-sm text-gray-500">or download to get started</span>
               </div>
             </div>
 
@@ -279,7 +246,7 @@ export default function LoginClient() {
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
               rel="noopener"
-              className="w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white font-semibold hover:from-sky-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40"
+              className="w-full flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold hover:from-sky-600 hover:to-blue-700 transition-all duration-200 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
@@ -288,11 +255,11 @@ export default function LoginClient() {
             </a>
 
             {/* Terms */}
-            <p className="text-center text-xs text-slate-400 mt-8 leading-relaxed">
+            <p className="text-center text-xs text-gray-500 mt-8 leading-relaxed">
               By continuing, you agree to our{' '}
-              <Link href="/terms" className="text-sky-600 hover:underline">Terms of Service</Link>
+              <Link href="/terms" className="text-sky-500 hover:text-sky-400 transition-colors">Terms of Service</Link>
               {' '}and{' '}
-              <Link href="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>
+              <Link href="/privacy" className="text-sky-500 hover:text-sky-400 transition-colors">Privacy Policy</Link>
             </p>
           </div>
         </div>

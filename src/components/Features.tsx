@@ -102,7 +102,7 @@ export default function Features() {
   const [activeCategory, setActiveCategory] = useState<string>('Start-up')
   const [displayCategory, setDisplayCategory] = useState('Start-up')
   const [textAnimating, setTextAnimating] = useState(false)
-  const prevCatRef = useRef<string | null>(null)
+  const prevCatRef = useRef<string | null>('Start-up')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({})
