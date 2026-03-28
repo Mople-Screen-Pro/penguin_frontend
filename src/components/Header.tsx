@@ -71,7 +71,7 @@ export default function Header() {
 
       {/* Navbar */}
       <header
-        className={`sticky top-0 z-50 w-full bg-[#0a0a0a] transition-all duration-300 ${
+        className={`sticky top-0 z-50 w-full bg-[#000] transition-all duration-300 ${
           scrolled ? "border-b border-gray-800 shadow-sm" : "border-b border-transparent"
         }`}
       >
@@ -144,7 +144,7 @@ export default function Header() {
                     {dropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
-                        <div className="absolute right-0 mt-3 w-48 bg-[#0a0a0a] rounded-xl border border-gray-800 shadow-xl z-50 overflow-hidden p-1">
+                        <div className="absolute right-0 mt-3 w-48 bg-[#000] rounded-xl border border-gray-800 shadow-xl z-50 overflow-hidden p-1">
                           <Link
                             href="/mypage"
                             onClick={() => setDropdownOpen(false)}
@@ -206,7 +206,7 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#0a0a0a] border-b border-gray-800 overflow-hidden">
+          <div className="lg:hidden bg-[#000] border-b border-gray-800 overflow-hidden">
             <div className="px-6 py-4 flex flex-col gap-4">
               {navLinks.map((link) =>
                 link.sectionId ? (
