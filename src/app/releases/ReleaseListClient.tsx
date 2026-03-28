@@ -37,9 +37,9 @@ export default function ReleaseListClient() {
   }, [isAdmin])
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="max-w-3xl mx-auto pt-28 pb-16 px-4">
+      <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
         <div className="flex items-center justify-between mb-10">
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Releases</h1>
           {isAdmin && (
@@ -97,6 +97,6 @@ export default function ReleaseListClient() {
         )}
       </main>
       <Footer />
-    </>
+    </div>
   )
 }

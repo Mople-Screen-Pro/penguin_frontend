@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const videos = [
   // Start-up
@@ -92,7 +93,7 @@ const videos = [
 const categories = ['Start-up', 'Educator', 'Social', 'Design', 'Work', 'Dev'] as const
 
 export default function Features() {
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useScrollReveal()
   const scrollRef = useRef<HTMLDivElement>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
@@ -101,7 +102,7 @@ export default function Features() {
   const [activeCategory, setActiveCategory] = useState<string>('Start-up')
   const [displayCategory, setDisplayCategory] = useState('Start-up')
   const [textAnimating, setTextAnimating] = useState(false)
-  const prevCatRef = useRef<string | null>(null)
+  const prevCatRef = useRef<string | null>('Start-up')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({})
@@ -237,25 +238,6 @@ export default function Features() {
     return () => observer.disconnect()
   }, [])
 
-  // Scroll animation
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const delay = (entry.target as HTMLElement).dataset.delay || '0'
-            setTimeout(() => entry.target.classList.add('visible'), parseFloat(delay) * 1000)
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    )
-    if (sectionRef.current) {
-      sectionRef.current.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el))
-    }
-    return () => observer.disconnect()
-  }, [])
 
   // Listen for hero tag clicks
   useEffect(() => {
@@ -284,9 +266,9 @@ export default function Features() {
   }))
 
   return (
-    <section id="features" ref={sectionRef} className="pt-16 pb-24 bg-[#0a0a0a]">
+    <section id="features" ref={sectionRef} className="py-[80px] md:py-[160px] bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="animate-on-scroll text-5xl md:text-6xl font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[140px] md:min-h-[160px] flex items-center justify-center">
+        <h2 className="animate-on-scroll text-3xl sm:text-5xl md:text-6xl font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[100px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center">
           <span>How{' '}
             <span
               className="gradient-text inline-block transition-all duration-300 ease-out"
@@ -303,10 +285,10 @@ export default function Features() {
         </h2>
 
         {/* Category tabs with sliding pill */}
-        <div className="flex justify-center mb-10">
+        <div className="flex justify-center mb-10 px-2">
           <div
             ref={tabContainerRef}
-            className="relative inline-flex items-center gap-1 p-1 rounded-full bg-white/[0.04] border border-white/[0.06]"
+            className="relative inline-flex items-center gap-1 p-1 rounded-full bg-white/[0.06] border border-white/[0.10] overflow-x-auto hide-scrollbar max-w-full"
           >
             {/* Sliding pill */}
             <div
@@ -318,10 +300,10 @@ export default function Features() {
                 key={cat}
                 ref={(el) => { tabRefs.current[cat] = el }}
                 onClick={() => scrollToCategory(cat)}
-                className={`relative z-10 px-5 py-2 rounded-full text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 ${
+                className={`relative z-10 px-3 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 whitespace-nowrap ${
                   activeCategory === cat
                     ? 'text-white'
-                    : 'text-gray-500 hover:text-gray-300'
+                    : 'text-gray-400 hover:text-gray-300'
                 }`}
               >
                 {cat}
@@ -344,7 +326,7 @@ export default function Features() {
                 key={video.label}
                 ref={(el) => { cardRefs.current[video.globalIndex] = el }}
                 data-index={video.globalIndex}
-                className="shrink-0 w-[540px] md:w-[640px] group"
+                className="shrink-0 w-[300px] sm:w-[540px] md:w-[640px] group"
                 onMouseEnter={() => handleCardEnter(video.globalIndex)}
                 onMouseLeave={() => handleCardLeave(video.globalIndex)}
                 onClick={() => handleCardClick(video.globalIndex)}
@@ -352,7 +334,7 @@ export default function Features() {
                 {/* Category label on first card of group */}
                 {idx === 0 && (
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">
                       {group.name}
                     </span>
                     <div className="flex-1 h-px bg-gray-800" />
@@ -387,7 +369,7 @@ export default function Features() {
                       </div>
                       <div className="min-w-0">
                         <h4 className="text-sm font-semibold text-white truncate">{video.label}</h4>
-                        <p className="text-xs text-gray-500 truncate">{video.description}</p>
+                        <p className="text-xs text-gray-400 truncate">{video.description}</p>
                       </div>
                     </div>
                   </div>
