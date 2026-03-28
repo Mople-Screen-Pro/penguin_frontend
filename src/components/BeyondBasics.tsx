@@ -34,7 +34,7 @@ export default function BeyondBasics() {
   }
 
   return (
-    <section ref={sectionRef} className="py-[80px] md:py-[160px] px-6 bg-[#0a0a0a]">
+    <section ref={sectionRef} className="py-[80px] md:py-[160px] px-6 bg-[#000]">
       <div className="max-w-7xl mx-auto">
         <h2 className="animate-on-scroll text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
           Beyond the basics

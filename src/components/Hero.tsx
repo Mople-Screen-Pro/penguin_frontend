@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [heroHeight, setHeroHeight] = useState("100svh");
+  const [showCta, setShowCta] = useState(false);
 
   useEffect(() => {
     const updateHeight = () => {
@@ -18,26 +20,53 @@ export default function Hero() {
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const handleTimeUpdate = () => {
+      if (video.duration && video.currentTime >= video.duration - 0.2) {
+        setShowCta(true);
+      }
+    };
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
+  }, []);
+
   return (
     <>
       {/* Hero Video */}
       <div
         ref={containerRef}
-        className="relative bg-[#0a0a0a] overflow-hidden pt-8 pb-16"
+        className="relative bg-[#000] overflow-hidden pt-8 pb-16"
         style={{ height: heroHeight }}
       >
         <video
+          ref={videoRef}
           className="w-full h-full object-contain"
+          style={{ mixBlendMode: "lighten" }}
           autoPlay
           muted
           playsInline
         >
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
+
+        {/* CTA Button — appears near end of video */}
+        <a
+          href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
+          rel="noopener"
+          className={`absolute left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-lg font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+          style={{ bottom: "18%" }}
+        >
+          Download for Mac
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14m-7-7 7 7-7 7" />
+          </svg>
+        </a>
       </div>
 
       {/* Whatever you build — marquee */}
-      <div className="pt-[120px] pb-[180px] bg-[#0a0a0a] text-center overflow-hidden">
+      <div className="pt-[120px] pb-[180px] bg-[#000] text-center overflow-hidden">
         <p className="text-3xl md:text-4xl text-gray-400 font-light mb-10 px-6">
           Whatever you build,{" "}
           <span className="gradient-text font-medium">Penguin</span> fits right
