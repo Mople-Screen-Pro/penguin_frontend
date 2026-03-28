@@ -39,7 +39,7 @@ export default function BeyondBasics() {
         <h2 className="animate-on-scroll text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
           Beyond the basics
         </h2>
-        <p className="animate-on-scroll text-lg text-gray-400 mb-16 max-w-xl">
+        <p className="animate-on-scroll text-lg text-gray-300 mb-16 max-w-xl">
           Simple tools that quietly make your recordings better.
         </p>
 

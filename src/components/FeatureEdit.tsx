@@ -111,7 +111,7 @@ export default function FeatureEdit() {
             <span className="absolute -inset-1 rounded-full bg-blue-500/[0.06] blur-md -z-10" />
           </span>
           <h2 className="text-[32px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
-            Trim, cut, and polish.<br /><span className="text-white/40">Without leaving the app.</span>
+            Trim, cut, and polish.<br /><span className="text-white/50">Without leaving the app.</span>
           </h2>
         </div>
 
@@ -126,16 +126,16 @@ export default function FeatureEdit() {
                   onClick={() => handleTabClick(i)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl whitespace-nowrap cursor-pointer transition-all duration-300 flex-shrink-0 ${
                     active === i
-                      ? 'bg-white/[0.05] border border-white/[0.1]'
+                      ? 'bg-white/[0.07] border border-white/[0.15]'
                       : 'bg-transparent border border-transparent'
                   }`}
                 >
                   <div className={`w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
-                    active === i ? 'bg-blue-500/20 text-blue-400' : 'bg-white/[0.06] text-white/40'
+                    active === i ? 'bg-blue-500/20 text-blue-400' : 'bg-white/[0.08] text-white/50'
                   }`}>
                     {f.icon}
                   </div>
-                  <span className={`text-[13px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/45'}`}>
+                  <span className={`text-[13px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/60'}`}>
                     {f.label}
                   </span>
                 </button>
@@ -149,20 +149,20 @@ export default function FeatureEdit() {
                   onClick={() => handleTabClick(i)}
                   className={`w-full flex items-start gap-3.5 p-3.5 rounded-xl text-left cursor-pointer transition-all duration-300 ${
                     active === i
-                      ? 'bg-white/[0.05] border border-white/[0.1]'
-                      : 'bg-transparent border border-transparent hover:bg-white/[0.02]'
+                      ? 'bg-white/[0.07] border border-white/[0.15]'
+                      : 'bg-transparent border border-transparent hover:bg-white/[0.04]'
                   }`}
                 >
                   <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
-                    active === i ? 'bg-blue-500/20 text-blue-400' : 'bg-white/[0.06] text-white/40'
+                    active === i ? 'bg-blue-500/20 text-blue-400' : 'bg-white/[0.08] text-white/50'
                   }`}>
                     {f.icon}
                   </div>
                   <div className="min-w-0">
-                    <h4 className={`text-[14px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/45'}`}>
+                    <h4 className={`text-[14px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/60'}`}>
                       {f.label}
                     </h4>
-                    <p className={`text-[12px] leading-relaxed transition-colors duration-300 ${active === i ? 'text-white/45' : 'text-white/20'}`}>
+                    <p className={`text-[12px] leading-relaxed transition-colors duration-300 ${active === i ? 'text-white/60' : 'text-white/40'}`}>
                       {f.desc}
                     </p>
                   </div>

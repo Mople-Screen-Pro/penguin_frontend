@@ -47,7 +47,7 @@ function MarqueeBand({
         {repeated.map((word, i) => (
           <span
             key={`${word}-${i}`}
-            className="text-[3.5rem] md:text-[5rem] font-bold text-white/[0.03] tracking-tight shrink-0"
+            className="text-[3.5rem] md:text-[5rem] font-bold text-white/[0.06] tracking-tight shrink-0"
           >
             {word}
           </span>
@@ -165,7 +165,7 @@ export default function Hero() {
           </h1>
 
           {/* Subtitle */}
-          <p className="animate-on-load delay-2 text-xl md:text-[22px] text-gray-400 mb-14 max-w-3xl mx-auto font-light leading-relaxed">
+          <p className="animate-on-load delay-2 text-xl md:text-[22px] text-gray-300 mb-14 max-w-3xl mx-auto font-light leading-relaxed">
             Record your screen, polish it with built-in editing tools,
             <br />
             and export a pro-quality video — all in minutes.
@@ -199,21 +199,21 @@ export default function Hero() {
           >
             <div className="flex-1">
               <h3 className="text-xl font-semibold text-white">Record</h3>
-              <p className="text-base text-gray-500 mt-1.5 leading-snug">
+              <p className="text-base text-gray-400 mt-1.5 leading-snug">
                 Screen, mic, and camera — captured in one click.
               </p>
             </div>
             <div className="w-px h-16 bg-gray-700" />
             <div className="flex-1">
               <h3 className="text-xl font-semibold text-white">Edit</h3>
-              <p className="text-base text-gray-500 mt-1.5 leading-snug">
+              <p className="text-base text-gray-400 mt-1.5 leading-snug">
                 Auto-zoom, cursor effects, subtitles, and pro backgrounds.
               </p>
             </div>
             <div className="w-px h-16 bg-gray-700" />
             <div className="flex-1">
               <h3 className="text-xl font-semibold text-white">Export</h3>
-              <p className="text-base text-gray-500 mt-1.5 leading-snug">
+              <p className="text-base text-gray-400 mt-1.5 leading-snug">
                 AI-upscaled 4K. YouTube, Instagram, TikTok-ready.
               </p>
             </div>
@@ -248,7 +248,7 @@ export default function Hero() {
 
       {/* Whatever you build — marquee */}
       <div className="py-[120px] md:py-[160px] bg-[#0a0a0a] text-center overflow-hidden">
-        <p className="text-3xl md:text-4xl text-gray-400 font-light mb-10 px-6">
+        <p className="text-3xl md:text-4xl text-gray-300 font-light mb-10 px-6">
           Whatever you build,{" "}
           <span className="gradient-text font-medium">Penguin</span> fits right
           in.
@@ -266,7 +266,7 @@ export default function Hero() {
                 key={setIndex}
                 className="inline-flex items-center gap-16 px-8 shrink-0"
               >
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -276,7 +276,7 @@ export default function Hero() {
                   </svg>
                   <span className="text-xl font-medium">GitHub</span>
                 </span>
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -286,7 +286,7 @@ export default function Hero() {
                   </svg>
                   <span className="text-xl font-medium">Figma</span>
                 </span>
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -296,7 +296,7 @@ export default function Hero() {
                   </svg>
                   <span className="text-xl font-medium">VS Code</span>
                 </span>
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -306,7 +306,7 @@ export default function Hero() {
                   </svg>
                   <span className="text-xl font-medium">YouTube</span>
                 </span>
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -316,7 +316,7 @@ export default function Hero() {
                   </svg>
                   <span className="text-xl font-medium">TikTok</span>
                 </span>
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -326,7 +326,7 @@ export default function Hero() {
                   </svg>
                   <span className="text-xl font-medium">Instagram</span>
                 </span>
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -336,7 +336,7 @@ export default function Hero() {
                   </svg>
                   <span className="text-xl font-medium">Notion</span>
                 </span>
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -346,7 +346,7 @@ export default function Hero() {
                   </svg>
                   <span className="text-xl font-medium">Slack</span>
                 </span>
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -357,7 +357,7 @@ export default function Hero() {
                   <span className="text-xl font-medium">Canva</span>
                 </span>
 
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"
@@ -371,7 +371,7 @@ export default function Hero() {
                   </svg>
                   <span className="text-xl font-medium">Education</span>
                 </span>
-                <span className="inline-flex items-center gap-3 text-gray-400">
+                <span className="inline-flex items-center gap-3 text-gray-300">
                   <svg
                     className="w-9 h-9"
                     viewBox="0 0 24 24"

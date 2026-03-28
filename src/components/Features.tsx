@@ -288,7 +288,7 @@ export default function Features() {
         <div className="flex justify-center mb-10">
           <div
             ref={tabContainerRef}
-            className="relative inline-flex items-center gap-1 p-1 rounded-full bg-white/[0.04] border border-white/[0.06]"
+            className="relative inline-flex items-center gap-1 p-1 rounded-full bg-white/[0.06] border border-white/[0.10]"
           >
             {/* Sliding pill */}
             <div
@@ -303,7 +303,7 @@ export default function Features() {
                 className={`relative z-10 px-5 py-2 rounded-full text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 ${
                   activeCategory === cat
                     ? 'text-white'
-                    : 'text-gray-500 hover:text-gray-300'
+                    : 'text-gray-400 hover:text-gray-300'
                 }`}
               >
                 {cat}
@@ -334,7 +334,7 @@ export default function Features() {
                 {/* Category label on first card of group */}
                 {idx === 0 && (
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">
                       {group.name}
                     </span>
                     <div className="flex-1 h-px bg-gray-800" />
@@ -369,7 +369,7 @@ export default function Features() {
                       </div>
                       <div className="min-w-0">
                         <h4 className="text-sm font-semibold text-white truncate">{video.label}</h4>
-                        <p className="text-xs text-gray-500 truncate">{video.description}</p>
+                        <p className="text-xs text-gray-400 truncate">{video.description}</p>
                       </div>
                     </div>
                   </div>

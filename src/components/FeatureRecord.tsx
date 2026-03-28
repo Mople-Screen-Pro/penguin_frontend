@@ -43,20 +43,20 @@ export default function FeatureRecord() {
             <h2 className="text-[32px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-6">
               Record it your way
             </h2>
-            <p className="text-base md:text-lg text-white/55 leading-[1.5] max-w-[45ch] mb-10">
+            <p className="text-base md:text-lg text-white/70 leading-[1.5] max-w-[45ch] mb-10">
               One floating panel. Four capture modes. No setup, no learning curve — just click and go.
             </p>
 
             {/* Feature cards */}
             <div className="grid grid-cols-2 gap-3">
               {features.map((f) => (
-                <div key={f.label} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition-colors duration-200">
-                  <div className="w-9 h-9 rounded-lg bg-white/[0.06] flex items-center justify-center text-white/50 flex-shrink-0">
+                <div key={f.label} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.05] border border-white/[0.10] hover:border-white/[0.20] transition-colors duration-200">
+                  <div className="w-9 h-9 rounded-lg bg-white/[0.08] flex items-center justify-center text-white/60 flex-shrink-0">
                     {f.icon}
                   </div>
                   <div className="min-w-0">
                     <span className="text-[14px] font-semibold text-white block">{f.label}</span>
-                    <p className="text-[12px] text-white/35 leading-relaxed">{f.desc}</p>
+                    <p className="text-[12px] text-white/60 leading-relaxed">{f.desc}</p>
                   </div>
                 </div>
               ))}
