@@ -7,9 +7,7 @@ const FeatureRecord = dynamic(() => import('../components/FeatureRecord'))
 const FeatureEdit = dynamic(() => import('../components/FeatureEdit'))
 const FeatureStyling = dynamic(() => import('../components/FeatureStyling'))
 const FeatureAIUpscale = dynamic(() => import('../components/FeatureAIUpscale'))
-const FeatureExport = dynamic(() => import('../components/FeatureExport'))
 const FAQ = dynamic(() => import('../components/FAQ'))
-const Contact = dynamic(() => import('../components/Contact'))
 const Footer = dynamic(() => import('../components/Footer'))
 
 export default function HomePage() {
@@ -23,9 +21,7 @@ export default function HomePage() {
         <FeatureEdit />
         <FeatureStyling />
         <FeatureAIUpscale />
-        <FeatureExport />
         <FAQ />
-        <Contact />
       </main>
       <Footer />
     </div>
