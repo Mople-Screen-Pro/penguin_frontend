@@ -82,7 +82,7 @@ export default function FeatureStyling() {
 
 
   return (
-    <section ref={sectionRef} className="py-[120px] md:py-[160px] px-5 bg-[#000]">
+    <section ref={sectionRef} className="py-[80px] md:py-[160px] px-5 bg-[#000]">
       <div className="max-w-[1240px] mx-auto">
         {/* Header */}
         <div className="animate-on-scroll text-center mb-14">
@@ -91,8 +91,8 @@ export default function FeatureStyling() {
             Styling
             <span className="absolute -inset-1 rounded-full bg-purple-500/[0.06] blur-md -z-10" />
           </span>
-          <h2 className="text-[32px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your style and branding</h2>
-          <p className="text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
+          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your style and branding</h2>
+          <p className="text-sm sm:text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
         </div>
 
         {/* Main Preview */}
@@ -108,14 +108,14 @@ export default function FeatureStyling() {
         </div>
 
         {/* Preset Cards */}
-        <div className="animate-on-scroll overflow-hidden pr-1">
+        <div className="animate-on-scroll overflow-x-auto hide-scrollbar pr-1">
           <div className="relative max-w-[960px] mx-auto pt-4">
             <div className="flex gap-3">
               {presets.map((preset, i) => (
                 <button
                   key={preset.name}
                   onClick={() => handlePresetChange(i)}
-                  className={`group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 text-left flex-shrink-0 w-[calc((100%-60px)/6)] ${
+                  className={`group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 text-left flex-shrink-0 w-[120px] sm:w-[calc((100%-60px)/6)] ${
                     activeIdx === i
                       ? 'ring-2 ring-purple-400/80 ring-offset-2 ring-offset-black -translate-y-2 scale-[1.03] shadow-lg shadow-purple-500/20'
                       : 'ring-1 ring-white/[0.12] hover:ring-white/[0.25]'
@@ -157,7 +157,7 @@ export default function FeatureStyling() {
                 { wallpaper: 'wallpaper_mint', name: 'Mint', desc: 'Cool fresh', opacity: 0.12 },
                 { wallpaper: 'wallpaper_milkyway', name: 'Milkyway', desc: 'Deep space', opacity: 0.05 },
               ].map((ghost, i) => (
-                <div key={`ghost-${i}`} className="flex-shrink-0 w-[calc((100%-60px)/6)] rounded-xl overflow-hidden ring-1 ring-white/[0.12]" style={{ opacity: ghost.opacity }}>
+                <div key={`ghost-${i}`} className="flex-shrink-0 w-[120px] sm:w-[calc((100%-60px)/6)] rounded-xl overflow-hidden ring-1 ring-white/[0.12]" style={{ opacity: ghost.opacity }}>
                   <div className="aspect-[4/3] relative overflow-hidden">
                     <img src={`/wallpapers/${ghost.wallpaper}.${wallExt[ghost.wallpaper] || 'jpg'}`} alt="" className="absolute inset-0 w-full h-full object-cover" />
                     <div className="absolute bottom-2 left-2 flex items-center gap-1.5">

@@ -102,7 +102,7 @@ export default function FeatureEdit() {
   }
 
   return (
-    <section ref={sectionRef} className="py-[120px] md:py-[160px] px-5 bg-[#000]">
+    <section ref={sectionRef} className="py-[80px] md:py-[160px] px-5 bg-[#000]">
       <div className="max-w-[1240px] mx-auto">
         <div className="animate-on-scroll text-center mb-14">
           <span className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[15px] font-semibold text-blue-400 bg-blue-500/[0.1] border border-blue-500/[0.2] mb-6">
@@ -110,7 +110,7 @@ export default function FeatureEdit() {
             Edit
             <span className="absolute -inset-1 rounded-full bg-blue-500/[0.06] blur-md -z-10" />
           </span>
-          <h2 className="text-[32px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
+          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
             Trim, cut, and polish.<br /><span className="text-white/50">Without leaving the app.</span>
           </h2>
         </div>

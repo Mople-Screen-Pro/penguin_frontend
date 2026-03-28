@@ -266,9 +266,9 @@ export default function Features() {
   }))
 
   return (
-    <section id="features" ref={sectionRef} className="py-[120px] md:py-[160px] bg-[#0a0a0a]">
+    <section id="features" ref={sectionRef} className="py-[80px] md:py-[160px] bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="animate-on-scroll text-5xl md:text-6xl font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[140px] md:min-h-[160px] flex items-center justify-center">
+        <h2 className="animate-on-scroll text-3xl sm:text-5xl md:text-6xl font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[100px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center">
           <span>How{' '}
             <span
               className="gradient-text inline-block transition-all duration-300 ease-out"
@@ -285,10 +285,10 @@ export default function Features() {
         </h2>
 
         {/* Category tabs with sliding pill */}
-        <div className="flex justify-center mb-10">
+        <div className="flex justify-center mb-10 px-2">
           <div
             ref={tabContainerRef}
-            className="relative inline-flex items-center gap-1 p-1 rounded-full bg-white/[0.06] border border-white/[0.10]"
+            className="relative inline-flex items-center gap-1 p-1 rounded-full bg-white/[0.06] border border-white/[0.10] overflow-x-auto hide-scrollbar max-w-full"
           >
             {/* Sliding pill */}
             <div
@@ -300,7 +300,7 @@ export default function Features() {
                 key={cat}
                 ref={(el) => { tabRefs.current[cat] = el }}
                 onClick={() => scrollToCategory(cat)}
-                className={`relative z-10 px-5 py-2 rounded-full text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 ${
+                className={`relative z-10 px-3 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 whitespace-nowrap ${
                   activeCategory === cat
                     ? 'text-white'
                     : 'text-gray-400 hover:text-gray-300'
@@ -326,7 +326,7 @@ export default function Features() {
                 key={video.label}
                 ref={(el) => { cardRefs.current[video.globalIndex] = el }}
                 data-index={video.globalIndex}
-                className="shrink-0 w-[540px] md:w-[640px] group"
+                className="shrink-0 w-[300px] sm:w-[540px] md:w-[640px] group"
                 onMouseEnter={() => handleCardEnter(video.globalIndex)}
                 onMouseLeave={() => handleCardLeave(video.globalIndex)}
                 onClick={() => handleCardClick(video.globalIndex)}

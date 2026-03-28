@@ -34,20 +34,20 @@ export default function BeyondBasics() {
   }
 
   return (
-    <section ref={sectionRef} className="py-[120px] md:py-[160px] px-6 bg-[#0a0a0a]">
+    <section ref={sectionRef} className="py-[80px] md:py-[160px] px-6 bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto">
-        <h2 className="animate-on-scroll text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
+        <h2 className="animate-on-scroll text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
           Beyond the basics
         </h2>
         <p className="animate-on-scroll text-lg text-gray-300 mb-16 max-w-xl">
           Simple tools that quietly make your recordings better.
         </p>
 
-        <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
+        <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 hide-scrollbar" style={{ scrollbarWidth: 'none' }}>
           {miniFeatures.map((feature, i) => (
             <div
               key={feature.title}
-              className={`animate-on-scroll shrink-0 ${i === 0 ? 'w-[500px]' : 'w-[340px]'} rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-700 hover:scale-[1.02] transition-all duration-300 cursor-pointer`}
+              className={`animate-on-scroll shrink-0 ${i === 0 ? 'w-[280px] sm:w-[500px]' : 'w-[240px] sm:w-[340px]'} rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-700 hover:scale-[1.02] transition-all duration-300 cursor-pointer`}
               data-delay={String(Math.min(i * 0.06, 0.4))}
               onClick={() => toggleVideo(i)}
             >
@@ -61,8 +61,8 @@ export default function BeyondBasics() {
                   <source src={feature.video} type="video/mp4" />
                 </video>
                 <div className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${playingVideo === i ? 'opacity-0' : 'opacity-100'}`} />
-                <div className={`absolute top-5 left-5 transition-opacity duration-300 ${playingVideo === i ? 'opacity-0' : 'opacity-100'}`}>
-                  <h4 className="text-3xl font-bold text-white mb-1">{feature.title}</h4>
+                <div className={`absolute top-4 left-4 sm:top-5 sm:left-5 transition-opacity duration-300 ${playingVideo === i ? 'opacity-0' : 'opacity-100'}`}>
+                  <h4 className="text-xl sm:text-3xl font-bold text-white mb-1">{feature.title}</h4>
                   <p className="text-[13px] text-white/70 leading-relaxed">{feature.description}</p>
                 </div>
                 <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${playingVideo === i ? 'opacity-0' : 'opacity-100'}`}>

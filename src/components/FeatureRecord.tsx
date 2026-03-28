@@ -27,7 +27,7 @@ export default function FeatureRecord() {
   const sectionRef = useScrollReveal()
 
   return (
-    <section id="feature-record" ref={sectionRef} className="py-[120px] md:py-[160px] px-5 bg-[#000]">
+    <section id="feature-record" ref={sectionRef} className="py-[80px] md:py-[160px] px-5 bg-[#000]">
       <div className="max-w-[1240px] mx-auto">
         <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center">
           {/* Text — left */}
@@ -40,7 +40,7 @@ export default function FeatureRecord() {
               Record
               <span className="absolute -inset-1 rounded-full bg-red-500/[0.06] blur-md -z-10" />
             </span>
-            <h2 className="text-[32px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-6">
+            <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-6">
               Record it your way
             </h2>
             <p className="text-base md:text-lg text-white/70 leading-[1.5] max-w-[45ch] mb-10">
@@ -48,7 +48,7 @@ export default function FeatureRecord() {
             </p>
 
             {/* Feature cards */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {features.map((f) => (
                 <div key={f.label} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.05] border border-white/[0.10] hover:border-white/[0.20] transition-colors duration-200">
                   <div className="w-9 h-9 rounded-lg bg-white/[0.08] flex items-center justify-center text-white/60 flex-shrink-0">

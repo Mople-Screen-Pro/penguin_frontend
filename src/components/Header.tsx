@@ -60,9 +60,10 @@ export default function Header() {
         className="block bg-primary-600 text-white text-sm py-2.5 px-4 text-center hover:bg-primary-700 transition-colors cursor-pointer"
       >
         <span className="flex items-center justify-center gap-2 font-medium">
-          <span>Record, edit, and export pro-quality videos in minutes</span>
+          <span className="hidden sm:inline">Record, edit, and export pro-quality videos in minutes</span>
+          <span className="sm:hidden">Pro-quality videos in minutes</span>
           <span className="opacity-80">— Try it free</span>
-          <svg className="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 ml-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </span>
