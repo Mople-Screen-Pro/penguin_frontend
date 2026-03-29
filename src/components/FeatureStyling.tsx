@@ -85,11 +85,19 @@ export default function FeatureStyling() {
     })
   }, [])
 
+  const activeIdxRef = useRef(0)
+  const frontLayerRef = useRef<'A' | 'B'>('A')
+
   const handlePresetChange = useCallback((idx: number) => {
-    if (idx === activeIdx) return
-    const currentVideo = frontLayer === 'A' ? videoARef.current : videoBRef.current
-    const nextVideo = frontLayer === 'A' ? videoBRef.current : videoARef.current
+    if (idx === activeIdxRef.current) return
+
+    const currentVideo = frontLayerRef.current === 'A' ? videoARef.current : videoBRef.current
+    const nextVideo = frontLayerRef.current === 'A' ? videoBRef.current : videoARef.current
     const savedTime = currentVideo?.currentTime ?? 0
+
+    // Update tab UI immediately
+    activeIdxRef.current = idx
+    setActiveIdx(idx)
 
     if (nextVideo) {
       nextVideo.onloadedmetadata = null
@@ -104,12 +112,13 @@ export default function FeatureStyling() {
         nextVideo.onseeked = () => {
           nextVideo.onseeked = null
           nextVideo.play()
-          setFrontLayer(prev => prev === 'A' ? 'B' : 'A')
-          setActiveIdx(idx)
+          const newLayer = frontLayerRef.current === 'A' ? 'B' : 'A'
+          frontLayerRef.current = newLayer
+          setFrontLayer(newLayer)
         }
       }
     }
-  }, [activeIdx, frontLayer])
+  }, [])
 
 
   return (
