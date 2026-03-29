@@ -61,18 +61,23 @@ export default function FeatureEdit() {
   const [active, setActive] = useState(0)
   const [visibleImage, setVisibleImage] = useState(0)
   const [phase, setPhase] = useState<'zoomed' | 'zoomingOut' | 'swapping' | 'zoomingIn'>('zoomed')
-  const transitioning = useRef(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const handleTabClick = useCallback((i: number) => {
-    if (i === active || transitioning.current) return
-    transitioning.current = true
+    if (i === active) return
+
+    // Cancel any in-progress animation
+    if (timerRef.current) {
+      clearTimeout(timerRef.current)
+      timerRef.current = null
+    }
 
     // Phase 1: zoom out current image
     setPhase('zoomingOut')
     setActive(i)
 
     // Phase 2: at scale ~1, swap image seamlessly
-    setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       setVisibleImage(i)
       setPhase('swapping')
 
@@ -80,10 +85,7 @@ export default function FeatureEdit() {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           setPhase('zoomingIn')
-          // Unlock after zoom-in animation completes
-          setTimeout(() => {
-            transitioning.current = false
-          }, 1000)
+          timerRef.current = null
         })
       })
     }, 500)
