@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -19,7 +19,7 @@ export default function Hero() {
 
   const checkMobile = () => typeof window !== "undefined" && window.innerWidth <= 1040;
 
-  const updateLayout = () => {
+  const updateLayout = useCallback(() => {
     setIsMobile(checkMobile());
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -46,13 +46,13 @@ export default function Hero() {
 
     const offsetTop = rect.top + window.scrollY;
     setHeroHeight(`calc(100svh - ${offsetTop}px)`);
-  };
+  }, [aspectRatio]);
 
   useEffect(() => {
-    updateLayout();
+    requestAnimationFrame(updateLayout);
     window.addEventListener("resize", updateLayout);
     return () => window.removeEventListener("resize", updateLayout);
-  }, [aspectRatio]);
+  }, [updateLayout]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -83,10 +83,9 @@ export default function Hero() {
         video.addEventListener("loadedmetadata", jumpToEnd, { once: true });
       }
     } else {
-      setVideoReady(true);
-      const playWhenReady = () => { video.play(); };
+      const playWhenReady = () => { setVideoReady(true); video.play(); };
       if (video.readyState >= 3) {
-        playWhenReady();
+        requestAnimationFrame(playWhenReady);
       } else {
         video.addEventListener("canplay", playWhenReady, { once: true });
       }
@@ -123,7 +122,7 @@ export default function Hero() {
       video.removeEventListener("timeupdate", handleTimeUpdate);
       cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [updateLayout]);
 
   return (
     <>
@@ -198,7 +197,7 @@ export default function Hero() {
             playsInline
             preload={isMobile ? "metadata" : "auto"}
           >
-            <source src="/hero-video.mp4" type="video/mp4" />
+            <source src="/videos/hero/hero-video.mp4" type="video/mp4" />
           </video>
 
           {/* CTA Button */}
