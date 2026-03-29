@@ -62,12 +62,19 @@ const presets = [
 
 export default function FeatureStyling() {
   const sectionRef = useScrollReveal()
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const videoARef = useRef<HTMLVideoElement>(null)
+  const videoBRef = useRef<HTMLVideoElement>(null)
   const [activeIdx, setActiveIdx] = useState(0)
+  const [frontLayer, setFrontLayer] = useState<'A' | 'B'>('A')
   const active = presets[activeIdx]
 
-  // Preload other videos after first one plays
+  // Set initial src + preload others
   useEffect(() => {
+    if (videoARef.current) {
+      videoARef.current.src = presets[0].video
+      videoARef.current.load()
+      videoARef.current.play()
+    }
     presets.forEach((p, i) => {
       if (i === 0) return
       const link = document.createElement('link')
@@ -80,17 +87,29 @@ export default function FeatureStyling() {
 
   const handlePresetChange = useCallback((idx: number) => {
     if (idx === activeIdx) return
-    const video = videoRef.current
-    const savedTime = video?.currentTime ?? 0
+    const currentVideo = frontLayer === 'A' ? videoARef.current : videoBRef.current
+    const nextVideo = frontLayer === 'A' ? videoBRef.current : videoARef.current
+    const savedTime = currentVideo?.currentTime ?? 0
 
-    setActiveIdx(idx)
-    if (video) {
-      video.src = presets[idx].video
-      video.load()
-      video.currentTime = savedTime
-      video.play()
+    if (nextVideo) {
+      nextVideo.onloadedmetadata = null
+      nextVideo.onseeked = null
+      nextVideo.src = presets[idx].video
+      nextVideo.load()
+
+      nextVideo.onloadedmetadata = () => {
+        nextVideo.onloadedmetadata = null
+        nextVideo.currentTime = savedTime
+
+        nextVideo.onseeked = () => {
+          nextVideo.onseeked = null
+          nextVideo.play()
+          setFrontLayer(prev => prev === 'A' ? 'B' : 'A')
+          setActiveIdx(idx)
+        }
+      }
     }
-  }, [activeIdx])
+  }, [activeIdx, frontLayer])
 
 
   return (
@@ -111,10 +130,16 @@ export default function FeatureStyling() {
         <div className="animate-on-scroll mb-10">
           <div className="aspect-video rounded-2xl overflow-hidden relative max-w-[960px] mx-auto" style={{ cursor: active.cursor.css }}>
               <video
-                ref={videoRef}
-                className="w-full h-full object-cover bg-[#13151b]"
-                autoPlay loop muted playsInline
-                src={active.video}
+                ref={videoARef}
+                className="absolute inset-0 w-full h-full object-cover"
+                loop muted playsInline
+                style={{ zIndex: frontLayer === 'A' ? 1 : 0 }}
+              />
+              <video
+                ref={videoBRef}
+                className="absolute inset-0 w-full h-full object-cover"
+                loop muted playsInline
+                style={{ zIndex: frontLayer === 'B' ? 1 : 0 }}
               />
           </div>
         </div>
