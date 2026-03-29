@@ -28,7 +28,7 @@ export default function FeatureAIUpscale() {
             {/* After (sharp) — right half */}
             <div className="absolute inset-0">
               <img
-                src="/upscale.png"
+                src="/images/upscale.png"
                 alt="After — 4K upscaled"
                 className="w-full h-full object-cover"
                 style={{
@@ -40,7 +40,7 @@ export default function FeatureAIUpscale() {
             {/* Before (pixelated) — left half, clipped at 50% */}
             <div className="absolute inset-0 w-1/2 overflow-hidden">
               <img
-                src="/upscale.png"
+                src="/images/upscale.png"
                 alt="Before — 720p"
                 className="h-full object-cover"
                 style={{

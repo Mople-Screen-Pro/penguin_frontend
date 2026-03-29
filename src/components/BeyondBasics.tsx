@@ -4,9 +4,9 @@ import { useState, useRef } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const miniFeatures = [
-  { title: 'Presets for Every Platform', description: 'YouTube, TikTok, desktop — one click to match any format.', video: '/features/preset.mp4' },
-  { title: 'Custom Zoom', description: 'Adjust zoom scale and position exactly where you want.', video: '/features/zoom.mp4' },
-  { title: 'History Management', description: 'Go back to any previous state whenever you need.', video: '/features/history.mp4' },
+  { title: 'Presets for Every Platform', description: 'YouTube, TikTok, desktop — one click to match any format.', video: '/videos/features/preset.mp4' },
+  { title: 'Custom Zoom', description: 'Adjust zoom scale and position exactly where you want.', video: '/videos/features/zoom.mp4' },
+  { title: 'History Management', description: 'Go back to any previous state whenever you need.', video: '/videos/features/history.mp4' },
 ]
 
 export default function BeyondBasics() {

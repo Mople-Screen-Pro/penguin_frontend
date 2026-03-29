@@ -91,7 +91,7 @@ export default function Header() {
               className="flex items-center gap-2.5 text-2xl font-bold tracking-tighter text-primary-600"
             >
               <img
-                src="/logo.png"
+                src="/images/logo.png"
                 alt="Penguin"
                 className="w-8 h-8 rounded-xl"
               />

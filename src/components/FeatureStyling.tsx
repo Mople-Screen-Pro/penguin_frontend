@@ -13,7 +13,7 @@ const presets = [
   {
     name: 'Sky Pillar',
     description: 'Calm blue tones',
-    video: '/sky-pillar.mp4',
+    video: '/videos/presets/sky-pillar.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_sky_pillar' },
     cursor: { name: 'Default', css: 'default' },
     effect: { name: 'Pulse', color: '#3b82f6' },
@@ -21,7 +21,7 @@ const presets = [
   {
     name: 'Lavender Mist',
     description: 'Soft purple haze',
-    video: '/lavender-mist.mp4',
+    video: '/videos/presets/lavender-mist.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_lavender_mist' },
     cursor: { name: 'Grab', css: 'grab' },
     effect: { name: 'Pulse', color: '#3b82f6' },
@@ -29,7 +29,7 @@ const presets = [
   {
     name: 'Pastel Dream',
     description: 'Light and dreamy',
-    video: '/pastel-dream.mp4',
+    video: '/videos/presets/pastel-dream.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_pastel_dream' },
     cursor: { name: 'Pointer', css: 'pointer' },
     effect: { name: 'Ripple', color: '#a855f7' },
@@ -37,7 +37,7 @@ const presets = [
   {
     name: 'Amber Petal',
     description: 'Warm golden glow',
-    video: '/amber-petal.mp4',
+    video: '/videos/presets/amber-petal.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_amber_petal' },
     cursor: { name: 'Default', css: 'default' },
     effect: { name: 'Highlight', color: '#f97316' },
@@ -45,7 +45,7 @@ const presets = [
   {
     name: 'Rose',
     description: 'Elegant pink bloom',
-    video: '/rose.mp4',
+    video: '/videos/presets/rose.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_rose' },
     cursor: { name: 'Alias', css: 'alias' },
     effect: { name: 'Pulse', color: '#ec4899' },
@@ -53,7 +53,7 @@ const presets = [
   {
     name: 'Trails',
     description: 'Earthy warm paths',
-    video: '/trails.mp4',
+    video: '/videos/presets/trails.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_trails' },
     cursor: { name: 'Default', css: 'default' },
     effect: { name: 'Pulse', color: '#f97316' },

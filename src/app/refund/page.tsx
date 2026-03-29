@@ -27,7 +27,7 @@ export default function RefundPage() {
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link href="/" className="flex items-center gap-2 group w-fit">
-            <img src="/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
+            <img src="/images/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
             <span className="text-xl font-bold text-slate-900">Penguin</span>
           </Link>
         </div>

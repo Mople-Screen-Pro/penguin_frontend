@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       'Auto-zooms to your cursor in real time. Pro-quality tutorials with zero editing. Free for macOS.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/images/og-image.png',
         width: 1200,
         height: 630,
       },
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: 'Penguin - Screen Recording, Reimagined.',
     description:
       'Auto-zooms to your cursor in real time. Pro-quality tutorials with zero editing. Free for macOS.',
-    images: ['/og-image.png'],
+    images: ['/images/og-image.png'],
   },
   robots: {
     index: true,
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/logo.png',
+    icon: '/images/logo.png',
   },
   manifest: '/manifest.json',
   other: {

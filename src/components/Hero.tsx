@@ -48,7 +48,7 @@ export default function Hero() {
           muted
           playsInline
         >
-          <source src="/hero-video.mp4" type="video/mp4" />
+          <source src="/videos/hero/hero-video.mp4" type="video/mp4" />
         </video>
 
         {/* CTA Button — appears near end of video */}
