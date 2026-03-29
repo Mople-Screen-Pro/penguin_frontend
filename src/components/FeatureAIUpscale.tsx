@@ -18,7 +18,7 @@ export default function FeatureAIUpscale() {
             <span className="absolute -inset-1 rounded-full bg-amber-500/[0.06] blur-md -z-10" />
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight">
-            Take every pixel further <span className="text-white/50">with AI Upscale.</span>
+            Take every pixel further<br />with <span className="text-amber-400">AI Upscale.</span>
           </h2>
         </div>
 
@@ -28,7 +28,7 @@ export default function FeatureAIUpscale() {
             {/* After (sharp) — right half */}
             <div className="absolute inset-0">
               <img
-                src="/upscale.png"
+                src="/images/upscale.png"
                 alt="After — 4K upscaled"
                 className="w-full h-full object-cover"
                 style={{
@@ -40,7 +40,7 @@ export default function FeatureAIUpscale() {
             {/* Before (pixelated) — left half, clipped at 50% */}
             <div className="absolute inset-0 w-1/2 overflow-hidden">
               <img
-                src="/upscale.png"
+                src="/images/upscale.png"
                 alt="Before — 720p"
                 className="h-full object-cover"
                 style={{

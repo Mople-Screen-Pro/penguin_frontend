@@ -10,7 +10,7 @@ export default function AppRedirectClient() {
           {/* Logo */}
           <div className="flex items-center justify-center gap-3 mb-8">
             <img
-              src="/logo.png"
+              src="/images/logo.png"
               alt="Penguin"
               className="w-16 h-16 rounded-2xl shadow-lg shadow-sky-500/20"
             />

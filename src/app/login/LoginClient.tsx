@@ -90,7 +90,7 @@ export default function LoginClient() {
           <div className="text-center mb-10">
             <div className="flex items-center justify-center gap-3 mb-5">
               <img
-                src="/logo.png"
+                src="/images/logo.png"
                 alt="Penguin"
                 className="w-12 h-12 rounded-2xl"
               />

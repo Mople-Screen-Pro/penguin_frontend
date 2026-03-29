@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const wallExt: Record<string, string> = {
@@ -13,7 +13,7 @@ const presets = [
   {
     name: 'Sky Pillar',
     description: 'Calm blue tones',
-    video: '/1.mp4',
+    video: '/videos/presets/sky-pillar.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_sky_pillar' },
     cursor: { name: 'Default', css: 'default' },
     effect: { name: 'Pulse', color: '#3b82f6' },
@@ -21,7 +21,7 @@ const presets = [
   {
     name: 'Lavender Mist',
     description: 'Soft purple haze',
-    video: '/5.mp4',
+    video: '/videos/presets/lavender-mist.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_lavender_mist' },
     cursor: { name: 'Grab', css: 'grab' },
     effect: { name: 'Pulse', color: '#3b82f6' },
@@ -29,7 +29,7 @@ const presets = [
   {
     name: 'Pastel Dream',
     description: 'Light and dreamy',
-    video: '/2.mp4',
+    video: '/videos/presets/pastel-dream.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_pastel_dream' },
     cursor: { name: 'Pointer', css: 'pointer' },
     effect: { name: 'Ripple', color: '#a855f7' },
@@ -37,7 +37,7 @@ const presets = [
   {
     name: 'Amber Petal',
     description: 'Warm golden glow',
-    video: '/3.mp4',
+    video: '/videos/presets/amber-petal.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_amber_petal' },
     cursor: { name: 'Default', css: 'default' },
     effect: { name: 'Highlight', color: '#f97316' },
@@ -45,7 +45,7 @@ const presets = [
   {
     name: 'Rose',
     description: 'Elegant pink bloom',
-    video: '/4.mp4',
+    video: '/videos/presets/rose.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_rose' },
     cursor: { name: 'Alias', css: 'alias' },
     effect: { name: 'Pulse', color: '#ec4899' },
@@ -53,7 +53,7 @@ const presets = [
   {
     name: 'Trails',
     description: 'Earthy warm paths',
-    video: '/6.mp4',
+    video: '/videos/presets/trails.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_trails' },
     cursor: { name: 'Default', css: 'default' },
     effect: { name: 'Pulse', color: '#f97316' },
@@ -62,23 +62,54 @@ const presets = [
 
 export default function FeatureStyling() {
   const sectionRef = useScrollReveal()
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const videoARef = useRef<HTMLVideoElement>(null)
+  const videoBRef = useRef<HTMLVideoElement>(null)
   const [activeIdx, setActiveIdx] = useState(0)
+  const [frontLayer, setFrontLayer] = useState<'A' | 'B'>('A')
   const active = presets[activeIdx]
+
+  // Set initial src + preload others
+  useEffect(() => {
+    if (videoARef.current) {
+      videoARef.current.src = presets[0].video
+      videoARef.current.load()
+      videoARef.current.play()
+    }
+    presets.forEach((p, i) => {
+      if (i === 0) return
+      const link = document.createElement('link')
+      link.rel = 'prefetch'
+      link.as = 'video'
+      link.href = p.video
+      document.head.appendChild(link)
+    })
+  }, [])
 
   const handlePresetChange = useCallback((idx: number) => {
     if (idx === activeIdx) return
-    const video = videoRef.current
-    const savedTime = video?.currentTime ?? 0
+    const currentVideo = frontLayer === 'A' ? videoARef.current : videoBRef.current
+    const nextVideo = frontLayer === 'A' ? videoBRef.current : videoARef.current
+    const savedTime = currentVideo?.currentTime ?? 0
 
-    setActiveIdx(idx)
-    if (video) {
-      video.src = presets[idx].video
-      video.load()
-      video.currentTime = savedTime
-      video.play()
+    if (nextVideo) {
+      nextVideo.onloadedmetadata = null
+      nextVideo.onseeked = null
+      nextVideo.src = presets[idx].video
+      nextVideo.load()
+
+      nextVideo.onloadedmetadata = () => {
+        nextVideo.onloadedmetadata = null
+        nextVideo.currentTime = savedTime
+
+        nextVideo.onseeked = () => {
+          nextVideo.onseeked = null
+          nextVideo.play()
+          setFrontLayer(prev => prev === 'A' ? 'B' : 'A')
+          setActiveIdx(idx)
+        }
+      }
     }
-  }, [activeIdx])
+  }, [activeIdx, frontLayer])
 
 
   return (
@@ -91,7 +122,7 @@ export default function FeatureStyling() {
             Styling
             <span className="absolute -inset-1 rounded-full bg-purple-500/[0.06] blur-md -z-10" />
           </span>
-          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your style and branding</h2>
+          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your <span className="text-purple-400">style</span> and <span className="text-purple-400">branding.</span></h2>
           <p className="text-sm sm:text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
         </div>
 
@@ -99,10 +130,16 @@ export default function FeatureStyling() {
         <div className="animate-on-scroll mb-10">
           <div className="aspect-video rounded-2xl overflow-hidden relative max-w-[960px] mx-auto" style={{ cursor: active.cursor.css }}>
               <video
-                ref={videoRef}
-                className="w-full h-full object-cover bg-[#13151b]"
-                autoPlay loop muted playsInline
-                src={active.video}
+                ref={videoARef}
+                className="absolute inset-0 w-full h-full object-cover"
+                loop muted playsInline
+                style={{ zIndex: frontLayer === 'A' ? 1 : 0 }}
+              />
+              <video
+                ref={videoBRef}
+                className="absolute inset-0 w-full h-full object-cover"
+                loop muted playsInline
+                style={{ zIndex: frontLayer === 'B' ? 1 : 0 }}
               />
           </div>
         </div>

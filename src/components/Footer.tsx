@@ -14,7 +14,7 @@ export default function Footer() {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="flex items-center gap-2.5"
             >
-              <img src="/logo.png" alt="Penguin" className="w-7 h-7 rounded-lg" />
+              <img src="/images/logo.png" alt="Penguin" className="w-7 h-7 rounded-lg" />
               <span className="text-base font-bold text-white tracking-tight">Penguin</span>
             </button>
           </div>
