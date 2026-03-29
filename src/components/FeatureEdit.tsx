@@ -62,34 +62,39 @@ export default function FeatureEdit() {
   const [visibleImage, setVisibleImage] = useState(0)
   const [phase, setPhase] = useState<'zoomed' | 'zoomingOut' | 'swapping' | 'zoomingIn'>('zoomed')
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const innerTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const activeRef = useRef(0)
 
   const handleTabClick = useCallback((i: number) => {
-    if (i === active) return
+    if (i === activeRef.current) return
 
     // Cancel any in-progress animation
     if (timerRef.current) {
       clearTimeout(timerRef.current)
       timerRef.current = null
     }
+    if (innerTimerRef.current) {
+      clearTimeout(innerTimerRef.current)
+      innerTimerRef.current = null
+    }
 
-    // Phase 1: zoom out current image
+    activeRef.current = i
     setPhase('zoomingOut')
     setActive(i)
 
     // Phase 2: at scale ~1, swap image seamlessly
     timerRef.current = setTimeout(() => {
+      timerRef.current = null
       setVisibleImage(i)
       setPhase('swapping')
 
       // Wait for browser to paint with transition:none, then start zoom in
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setPhase('zoomingIn')
-          timerRef.current = null
-        })
-      })
+      innerTimerRef.current = setTimeout(() => {
+        innerTimerRef.current = null
+        setPhase('zoomingIn')
+      }, 50)
     }, 500)
-  }, [active])
+  }, [])
 
   const feat = editFeatures[visibleImage]
   const getTransform = () => {
@@ -119,14 +124,14 @@ export default function FeatureEdit() {
 
         <div className="animate-on-scroll flex flex-col lg:flex-row gap-8 items-start">
           {/* Feature tabs — horizontal scroll on mobile, vertical list on desktop */}
-          <div className="w-full lg:w-[300px] flex-shrink-0">
+          <div className="w-full lg:w-[300px] flex-shrink-0 relative z-10">
             {/* Mobile: horizontal scroll */}
             <div className="flex lg:hidden gap-2 overflow-x-auto pb-2 -mx-1 px-1 hide-scrollbar">
               {editFeatures.map((f, i) => (
                 <button
                   key={f.id}
                   onClick={() => handleTabClick(i)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl whitespace-nowrap cursor-pointer transition-all duration-300 flex-shrink-0 ${
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl whitespace-nowrap cursor-pointer transition-all duration-300 flex-shrink-0 touch-manipulation ${
                     active === i
                       ? 'bg-white/[0.07] border border-white/[0.15]'
                       : 'bg-transparent border border-transparent'
