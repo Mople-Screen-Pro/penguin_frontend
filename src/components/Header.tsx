@@ -34,15 +34,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSectionClick = (sectionId: string) => {
-    if (isHome) {
-      const el = document.getElementById(sectionId);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    } else {
-      router.push(`/#${sectionId}`);
-    }
-  };
-
   const navLinks = [
     { name: "Pricing", href: "/pricing" },
     { name: "Blog", href: "/blog" },
@@ -99,29 +90,16 @@ export default function Header() {
 
             {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-gray-300">
-              {navLinks.map((link) =>
-                link.sectionId ? (
-                  <button
-                    key={link.name}
-                    onClick={() => {
-                      handleSectionClick(link.sectionId);
-                      analytics.navClick(link.name);
-                    }}
-                    className="hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </button>
-                ) : (
+              {navLinks.map((link) => (
                   <Link
                     key={link.name}
-                    href={link.href!}
+                    href={link.href}
                     onClick={() => analytics.navClick(link.name)}
                     className="hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
-                )
-              )}
+              ))}
             </nav>
           </div>
 
@@ -207,29 +185,16 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="lg:hidden bg-[#000] border-b border-gray-800 overflow-hidden">
             <div className="px-6 py-4 flex flex-col gap-4">
-              {navLinks.map((link) =>
-                link.sectionId ? (
-                  <button
-                    key={link.name}
-                    onClick={() => {
-                      handleSectionClick(link.sectionId);
-                      setMobileMenuOpen(false);
-                    }}
-                    className="text-lg font-medium text-gray-200 py-2 border-b border-gray-800 text-left"
-                  >
-                    {link.name}
-                  </button>
-                ) : (
+              {navLinks.map((link) => (
                   <Link
                     key={link.name}
-                    href={link.href!}
+                    href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className="text-lg font-medium text-gray-200 py-2 border-b border-gray-800"
                   >
                     {link.name}
                   </Link>
-                )
-              )}
+              ))}
               {user ? (
                 <>
                   <Link
