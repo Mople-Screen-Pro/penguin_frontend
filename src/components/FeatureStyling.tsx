@@ -91,7 +91,7 @@ export default function FeatureStyling() {
             Styling
             <span className="absolute -inset-1 rounded-full bg-purple-500/[0.06] blur-md -z-10" />
           </span>
-          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your style and branding</h2>
+          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your <span className="text-purple-400">style</span> and <span className="text-purple-400">branding.</span></h2>
           <p className="text-sm sm:text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
         </div>
 

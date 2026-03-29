@@ -31,7 +31,7 @@ export default function FeatureRecord() {
             <span className="absolute -inset-1 rounded-full bg-red-500/[0.06] blur-md -z-10" />
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
-            Record it your way
+            <span className="text-red-400">Record it</span> your way.
           </h2>
           <p className="text-sm sm:text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto px-2">
             One floating panel. Four capture modes. No setup, no learning curve — just click and go.

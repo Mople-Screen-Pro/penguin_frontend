@@ -18,7 +18,7 @@ export default function FeatureAIUpscale() {
             <span className="absolute -inset-1 rounded-full bg-amber-500/[0.06] blur-md -z-10" />
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight">
-            Take every pixel further <span className="text-white/50">with AI Upscale.</span>
+            Take every pixel further<br />with <span className="text-amber-400">AI Upscale.</span>
           </h2>
         </div>
 

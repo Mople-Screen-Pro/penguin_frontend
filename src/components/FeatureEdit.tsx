@@ -113,7 +113,7 @@ export default function FeatureEdit() {
             <span className="absolute -inset-1 rounded-full bg-blue-500/[0.06] blur-md -z-10" />
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
-            Trim, cut, and polish.<br /><span className="text-white/50">Without leaving the app.</span>
+            <span className="text-blue-400">Trim, cut, and polish.</span><br />Without leaving the app.
           </h2>
         </div>
 
