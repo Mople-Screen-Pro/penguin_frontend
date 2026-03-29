@@ -2,17 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const TIMELINE_DURATION = 2.6; // seconds
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const rafRef = useRef<number>(0);
-  const [showCta, setShowCta] = useState(false);
+  const initialMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+  const [showCta, setShowCta] = useState(initialMobile);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(initialMobile);
+  const [videoReady, setVideoReady] = useState(initialMobile);
   const [progress, setProgress] = useState(0);
-
-  const TIMELINE_DURATION = 2.6; // seconds
 
   const checkMobile = () => typeof window !== "undefined" && window.innerWidth < 1024;
 
@@ -29,23 +30,7 @@ export default function Hero() {
 
     const handlePlay = () => setIsPlaying(true);
 
-    if (checkMobile()) {
-      const jumpToEnd = () => {
-        video.pause();
-        video.currentTime = video.duration || 0;
-        const onSeeked = () => {
-          setVideoReady(true);
-          setShowCta(true);
-          video.removeEventListener("seeked", onSeeked);
-        };
-        video.addEventListener("seeked", onSeeked);
-      };
-      if (video.readyState >= 1) {
-        jumpToEnd();
-      } else {
-        video.addEventListener("loadedmetadata", jumpToEnd, { once: true });
-      }
-    } else {
+    if (!checkMobile()) {
       const playWhenReady = () => { setVideoReady(true); video.play(); };
       if (video.readyState >= 3) {
         requestAnimationFrame(playWhenReady);
@@ -146,15 +131,23 @@ export default function Hero() {
             </div>
           </div>
 
-          <video
-            ref={videoRef}
-            className={`lg:max-h-[min(80svh,900px)] lg:w-auto lg:max-w-[100vw] h-[70svh] w-auto max-w-none lg:h-auto transition-opacity duration-300 lg:[mix-blend-mode:lighten] ${videoReady ? "opacity-100" : "opacity-0"}`}
-            muted
-            playsInline
-            preload={isMobile ? "metadata" : "auto"}
-          >
-            <source src="/videos/hero/hero-video.mp4" type="video/mp4" />
-          </video>
+          {isMobile ? (
+            <img
+              src="/videos/hero/hero-poster.jpg"
+              alt="Penguin – Expert Edits In Record Time"
+              className={`h-[70svh] w-auto max-w-none transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
+            />
+          ) : (
+            <video
+              ref={videoRef}
+              className={`lg:max-h-[min(80svh,900px)] lg:w-auto lg:max-w-[100vw] lg:h-auto transition-opacity duration-300 lg:[mix-blend-mode:lighten] ${videoReady ? "opacity-100" : "opacity-0"}`}
+              muted
+              playsInline
+              preload="auto"
+            >
+              <source src="/videos/hero/hero-video.mp4" type="video/mp4" />
+            </video>
+          )}
 
           {/* CTA Button */}
           <a
