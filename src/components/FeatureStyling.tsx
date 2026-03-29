@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const wallExt: Record<string, string> = {
@@ -13,7 +13,7 @@ const presets = [
   {
     name: 'Sky Pillar',
     description: 'Calm blue tones',
-    video: '/1.mp4',
+    video: '/sky-pillar.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_sky_pillar' },
     cursor: { name: 'Default', css: 'default' },
     effect: { name: 'Pulse', color: '#3b82f6' },
@@ -21,7 +21,7 @@ const presets = [
   {
     name: 'Lavender Mist',
     description: 'Soft purple haze',
-    video: '/5.mp4',
+    video: '/lavender-mist.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_lavender_mist' },
     cursor: { name: 'Grab', css: 'grab' },
     effect: { name: 'Pulse', color: '#3b82f6' },
@@ -29,7 +29,7 @@ const presets = [
   {
     name: 'Pastel Dream',
     description: 'Light and dreamy',
-    video: '/2.mp4',
+    video: '/pastel-dream.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_pastel_dream' },
     cursor: { name: 'Pointer', css: 'pointer' },
     effect: { name: 'Ripple', color: '#a855f7' },
@@ -37,7 +37,7 @@ const presets = [
   {
     name: 'Amber Petal',
     description: 'Warm golden glow',
-    video: '/3.mp4',
+    video: '/amber-petal.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_amber_petal' },
     cursor: { name: 'Default', css: 'default' },
     effect: { name: 'Highlight', color: '#f97316' },
@@ -45,7 +45,7 @@ const presets = [
   {
     name: 'Rose',
     description: 'Elegant pink bloom',
-    video: '/4.mp4',
+    video: '/rose.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_rose' },
     cursor: { name: 'Alias', css: 'alias' },
     effect: { name: 'Pulse', color: '#ec4899' },
@@ -53,7 +53,7 @@ const presets = [
   {
     name: 'Trails',
     description: 'Earthy warm paths',
-    video: '/6.mp4',
+    video: '/trails.mp4',
     bg: { type: 'wallpaper' as const, wallpaper: 'wallpaper_trails' },
     cursor: { name: 'Default', css: 'default' },
     effect: { name: 'Pulse', color: '#f97316' },
@@ -65,6 +65,18 @@ export default function FeatureStyling() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [activeIdx, setActiveIdx] = useState(0)
   const active = presets[activeIdx]
+
+  // Preload other videos after first one plays
+  useEffect(() => {
+    presets.forEach((p, i) => {
+      if (i === 0) return
+      const link = document.createElement('link')
+      link.rel = 'prefetch'
+      link.as = 'video'
+      link.href = p.video
+      document.head.appendChild(link)
+    })
+  }, [])
 
   const handlePresetChange = useCallback((idx: number) => {
     if (idx === activeIdx) return
