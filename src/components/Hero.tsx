@@ -90,7 +90,7 @@ export default function Hero() {
       {/* Hero Video */}
       <div
         ref={containerRef}
-        className="relative bg-[#000] overflow-hidden pt-0 pb-8 lg:pt-0 lg:pb-[10svh] flex items-center justify-center lg:h-svh"
+        className="relative bg-[#000] overflow-hidden pt-0 pb-[15svh] lg:pt-0 lg:pb-[10svh] flex items-center justify-center h-svh"
       >
         {/* 영상 + 타임라인 + CTA를 하나로 묶는 래퍼 — 영상 크기에 맞춰짐 */}
         <div className="relative inline-block">
@@ -148,7 +148,7 @@ export default function Hero() {
 
           <video
             ref={videoRef}
-            className={`lg:max-h-[min(80svh,900px)] lg:w-auto lg:max-w-[100vw] w-[180vw] sm:w-[130vw] h-auto max-w-none transition-opacity duration-300 lg:[mix-blend-mode:lighten] ${videoReady ? "opacity-100" : "opacity-0"}`}
+            className={`lg:max-h-[min(80svh,900px)] lg:w-auto lg:max-w-[100vw] h-[70svh] w-auto max-w-none lg:h-auto transition-opacity duration-300 lg:[mix-blend-mode:lighten] ${videoReady ? "opacity-100" : "opacity-0"}`}
             muted
             playsInline
             preload={isMobile ? "metadata" : "auto"}
@@ -183,13 +183,13 @@ export default function Hero() {
           <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
           <div
-            className="flex whitespace-nowrap w-max"
+            className="flex whitespace-nowrap"
             style={{ animation: "workflow-marquee 60s linear infinite" }}
           >
             {[...Array(2)].map((_, setIndex) => (
               <div
                 key={setIndex}
-                className="inline-flex items-center gap-8 md:gap-16 px-4 md:px-8 shrink-0"
+                className="inline-flex items-center gap-8 md:gap-16 shrink-0 pr-8 md:pr-16"
               >
                 <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
                   <svg
