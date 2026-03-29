@@ -5,31 +5,124 @@ import { useEffect, useRef, useState } from "react";
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const rafRef = useRef<number>(0);
   const [heroHeight, setHeroHeight] = useState("100svh");
   const [showCta, setShowCta] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [aspectRatio, setAspectRatio] = useState(16 / 9);
+  const [wrapperSize, setWrapperSize] = useState({ width: "100%", height: "100%" });
+
+  const TIMELINE_DURATION = 2.6; // seconds
+
+  const checkMobile = () => typeof window !== "undefined" && window.innerWidth <= 1040;
+
+  const updateLayout = () => {
+    setIsMobile(checkMobile());
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const style = getComputedStyle(containerRef.current);
+    const pt = parseFloat(style.paddingTop);
+    const pb = parseFloat(style.paddingBottom);
+    const innerW = rect.width;
+    const innerH = rect.height - pt - pb;
+
+    const containerRatio = innerW / innerH;
+
+    const mobile = checkMobile();
+    const scale = mobile ? 1 : 0.85;
+
+    if (mobile) {
+      const scale = innerW < 768 ? 2 : 1.3;
+      const mobileW = innerW * scale;
+      setWrapperSize({ width: `${mobileW}px`, height: `${mobileW / aspectRatio}px` });
+    } else if (containerRatio > aspectRatio) {
+      setWrapperSize({ width: `${innerH * aspectRatio * scale}px`, height: `${innerH * scale}px` });
+    } else {
+      setWrapperSize({ width: `${innerW * scale}px`, height: `${innerW / aspectRatio * scale}px` });
+    }
+
+    const offsetTop = rect.top + window.scrollY;
+    setHeroHeight(`calc(100svh - ${offsetTop}px)`);
+  };
 
   useEffect(() => {
-    const updateHeight = () => {
-      if (containerRef.current) {
-        const offsetTop = containerRef.current.getBoundingClientRect().top + window.scrollY;
-        setHeroHeight(`calc(100svh - ${offsetTop}px)`);
-      }
-    };
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
-  }, []);
+    updateLayout();
+    window.addEventListener("resize", updateLayout);
+    return () => window.removeEventListener("resize", updateLayout);
+  }, [aspectRatio]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    const handlePlay = () => setIsPlaying(true);
+    const handleLoadedMetadata = () => {
+      if (video.videoWidth && video.videoHeight) {
+        setAspectRatio(video.videoWidth / video.videoHeight);
+        requestAnimationFrame(updateLayout);
+      }
+    };
+
+    if (checkMobile()) {
+      const jumpToEnd = () => {
+        video.pause();
+        video.currentTime = video.duration || 0;
+        const onSeeked = () => {
+          setVideoReady(true);
+          setShowCta(true);
+          video.removeEventListener("seeked", onSeeked);
+        };
+        video.addEventListener("seeked", onSeeked);
+      };
+      if (video.readyState >= 1) {
+        jumpToEnd();
+      } else {
+        video.addEventListener("loadedmetadata", jumpToEnd, { once: true });
+      }
+    } else {
+      setVideoReady(true);
+      const playWhenReady = () => { video.play(); };
+      if (video.readyState >= 3) {
+        playWhenReady();
+      } else {
+        video.addEventListener("canplay", playWhenReady, { once: true });
+      }
+    }
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
     const handleTimeUpdate = () => {
       if (video.duration && video.currentTime >= video.duration - 0.2) {
         setShowCta(true);
       }
     };
+
+    // Animate playhead with requestAnimationFrame for smooth movement
+    const animatePlayhead = () => {
+      if (!video) return;
+      const p = Math.min(video.currentTime / TIMELINE_DURATION, 1);
+      setProgress(p);
+      if (p < 1) {
+        rafRef.current = requestAnimationFrame(animatePlayhead);
+      }
+    };
+
+    const startAnimation = () => {
+      rafRef.current = requestAnimationFrame(animatePlayhead);
+    };
+
+
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("play", startAnimation);
     video.addEventListener("timeupdate", handleTimeUpdate);
-    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
+    return () => {
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("play", startAnimation);
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   return (
@@ -37,36 +130,94 @@ export default function Hero() {
       {/* Hero Video */}
       <div
         ref={containerRef}
-        className="relative bg-[#000] overflow-hidden pt-[10svh] pb-[10svh]"
-        style={{ height: heroHeight }}
+        className="relative bg-[#000] overflow-hidden pt-4 pb-8 lg:pt-[10svh] lg:pb-[10svh] flex items-center justify-center"
+        style={{ height: isMobile ? "auto" : heroHeight }}
       >
-        <video
-          ref={videoRef}
-          className="w-full h-full object-contain"
-          style={{ mixBlendMode: "lighten" }}
-          autoPlay
-          muted
-          playsInline
+        {/* Video wrapper — sized to video aspect ratio, centered */}
+        <div
+          className="relative mx-auto"
+          style={{ width: wrapperSize.width, height: wrapperSize.height }}
         >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
+          {/* Timeline — editor style */}
+          <div
+            className="absolute top-0 left-0 right-0 z-20 transition-opacity duration-500 hidden lg:block"
+            style={{ opacity: isPlaying && progress > 0.3 / TIMELINE_DURATION && progress < (TIMELINE_DURATION - 0.5) / TIMELINE_DURATION ? 1 : 0 }}
+          >
+            {/* Ruler — transparent, overlaid on video */}
+            <div className="relative h-[28px]">
+              {/* Ticks */}
+              {Array.from({ length: 27 }).map((_, i) => {
+                const isMajor = i % 5 === 0;
+                const sec = (i / 26) * TIMELINE_DURATION;
+                const label = `0:${String(Math.floor(sec)).padStart(2, "0")}`;
+                return (
+                  <div
+                    key={i}
+                    className="absolute top-0"
+                    style={{ left: `${(i / 26) * 100}%` }}
+                  >
+                    <div
+                      className={`w-[1px] ${isMajor ? "h-[14px] bg-gray-400" : "h-[7px] bg-gray-500"}`}
+                    />
+                    {isMajor && i < 26 && (
+                      <span
+                        className="absolute top-[16px] text-[10px] text-gray-400 font-mono tabular-nums"
+                        style={{ left: "4px" }}
+                      >
+                        {label}
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
 
-        {/* CTA Button — appears near end of video */}
-        <a
-          href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
-          rel="noopener"
-          className={`absolute left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-lg font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-          style={{ bottom: "21%" }}
-        >
-          Download for Mac
-          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14m-7-7 7 7-7 7" />
-          </svg>
-        </a>
+            {/* Playhead teardrop — on top, pointing down */}
+            <div
+              className="absolute"
+              style={{ left: `${progress * 100}%`, top: "-10px" }}
+            >
+              <div className="relative -translate-x-1/2">
+                <svg width="14" height="36" viewBox="0 0 14 36" fill="none">
+                  <path
+                    d="M7 0 C3 0, 0 3.5, 0 7 C0 12, 4 22, 7 34 C10 22, 14 12, 14 7 C14 3.5, 11 0, 7 0Z"
+                    fill="#0c8ce9"
+                  />
+                </svg>
+                {/* Vertical line through ruler */}
+                <div className="w-[1.5px] bg-[#0c8ce9] mx-auto -mt-[3px]" style={{ height: "28px" }} />
+              </div>
+            </div>
+          </div>
+
+          <video
+            ref={videoRef}
+            className={`w-full h-full object-contain md:object-contain transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
+            style={{ mixBlendMode: isMobile ? undefined : "lighten", objectFit: isMobile ? "cover" : undefined }}
+            muted
+            playsInline
+            preload={isMobile ? "metadata" : "auto"}
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+          </video>
+
+          {/* CTA Button */}
+          <a
+            href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
+            rel="noopener"
+            className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap inline-flex items-center gap-1.5 md:gap-2 px-4 py-2 sm:px-6 sm:py-2.5 md:px-5 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-sm sm:text-base md:text-sm lg:text-lg font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+            style={{ bottom: isMobile ? "13%" : "12%" }}
+          >
+            Download for Mac
+            <svg className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14m-7-7 7 7-7 7" />
+            </svg>
+          </a>
+        </div>
       </div>
 
       {/* Whatever you build — marquee */}
-      <div className="pt-[120px] pb-[180px] bg-[#000] text-center overflow-hidden">
+      <div className="pt-[60px] pb-[90px] md:pt-[120px] md:pb-[180px] bg-[#000] text-center overflow-hidden">
         <p className="text-3xl md:text-4xl text-gray-400 font-light mb-10 px-6">
           Whatever you build,{" "}
           <span className="gradient-text font-medium">Penguin</span> fits right
