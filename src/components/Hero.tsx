@@ -148,8 +148,7 @@ export default function Hero() {
 
           <video
             ref={videoRef}
-            className={`lg:max-h-[min(80svh,900px)] lg:w-auto lg:max-w-[100vw] w-[180vw] sm:w-[130vw] h-auto max-w-none transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
-            style={{ mixBlendMode: isMobile ? undefined : "lighten" }}
+            className={`lg:max-h-[min(80svh,900px)] lg:w-auto lg:max-w-[100vw] w-[180vw] sm:w-[130vw] h-auto max-w-none transition-opacity duration-300 lg:[mix-blend-mode:lighten] ${videoReady ? "opacity-100" : "opacity-0"}`}
             muted
             playsInline
             preload={isMobile ? "metadata" : "auto"}
