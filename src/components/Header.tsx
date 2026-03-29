@@ -44,7 +44,6 @@ export default function Header() {
   };
 
   const navLinks = [
-    { name: "Features", sectionId: "features" },
     { name: "Pricing", href: "/pricing" },
     { name: "Blog", href: "/blog" },
     { name: "Releases", href: "/releases" },
