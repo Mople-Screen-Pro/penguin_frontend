@@ -88,36 +88,48 @@ export default function FeatureStyling() {
   const activeIdxRef = useRef(0)
   const frontLayerRef = useRef<'A' | 'B'>('A')
 
+  const loadTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const handlePresetChange = useCallback((idx: number) => {
     if (idx === activeIdxRef.current) return
-
-    const currentVideo = frontLayerRef.current === 'A' ? videoARef.current : videoBRef.current
-    const nextVideo = frontLayerRef.current === 'A' ? videoBRef.current : videoARef.current
-    const savedTime = currentVideo?.currentTime ?? 0
 
     // Update tab UI immediately
     activeIdxRef.current = idx
     setActiveIdx(idx)
 
-    if (nextVideo) {
-      nextVideo.onloadedmetadata = null
-      nextVideo.onseeked = null
-      nextVideo.src = presets[idx].video
-      nextVideo.load()
+    // Cancel pending video load from previous click
+    if (loadTimerRef.current) {
+      clearTimeout(loadTimerRef.current)
+      loadTimerRef.current = null
+    }
 
-      nextVideo.onloadedmetadata = () => {
+    // Defer video load to next frame so React can flush the UI update first
+    loadTimerRef.current = setTimeout(() => {
+      loadTimerRef.current = null
+      const currentVideo = frontLayerRef.current === 'A' ? videoARef.current : videoBRef.current
+      const nextVideo = frontLayerRef.current === 'A' ? videoBRef.current : videoARef.current
+      const savedTime = currentVideo?.currentTime ?? 0
+
+      if (nextVideo) {
         nextVideo.onloadedmetadata = null
-        nextVideo.currentTime = savedTime
+        nextVideo.onseeked = null
+        nextVideo.src = presets[idx].video
+        nextVideo.load()
 
-        nextVideo.onseeked = () => {
-          nextVideo.onseeked = null
-          nextVideo.play()
-          const newLayer = frontLayerRef.current === 'A' ? 'B' : 'A'
-          frontLayerRef.current = newLayer
-          setFrontLayer(newLayer)
+        nextVideo.onloadedmetadata = () => {
+          nextVideo.onloadedmetadata = null
+          nextVideo.currentTime = savedTime
+
+          nextVideo.onseeked = () => {
+            nextVideo.onseeked = null
+            nextVideo.play()
+            const newLayer = frontLayerRef.current === 'A' ? 'B' : 'A'
+            frontLayerRef.current = newLayer
+            setFrontLayer(newLayer)
+          }
         }
       }
-    }
+    }, 0)
   }, [])
 
 
