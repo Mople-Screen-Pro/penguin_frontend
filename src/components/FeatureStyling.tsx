@@ -62,74 +62,37 @@ const presets = [
 
 export default function FeatureStyling() {
   const sectionRef = useScrollReveal()
-  const videoARef = useRef<HTMLVideoElement>(null)
-  const videoBRef = useRef<HTMLVideoElement>(null)
   const [activeIdx, setActiveIdx] = useState(0)
-  const [frontLayer, setFrontLayer] = useState<'A' | 'B'>('A')
   const active = presets[activeIdx]
 
-  // Set initial src + preload others
+  // Refs for all video elements
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>(presets.map(() => null))
+
+  // On mount: play the first video, others will lazy-load via preload="none"
   useEffect(() => {
-    if (videoARef.current) {
-      videoARef.current.src = presets[0].video
-      videoARef.current.load()
-      videoARef.current.play()
+    const first = videoRefs.current[0]
+    if (first) {
+      first.play().catch(() => {})
     }
-    presets.forEach((p, i) => {
-      if (i === 0) return
-      const link = document.createElement('link')
-      link.rel = 'prefetch'
-      link.as = 'video'
-      link.href = p.video
-      document.head.appendChild(link)
-    })
   }, [])
 
-  const activeIdxRef = useRef(0)
-  const frontLayerRef = useRef<'A' | 'B'>('A')
-
-  const loadTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
   const handlePresetChange = useCallback((idx: number) => {
-    if (idx === activeIdxRef.current) return
+    setActiveIdx(prev => {
+      if (idx === prev) return prev
 
-    // Update tab UI immediately
-    activeIdxRef.current = idx
-    setActiveIdx(idx)
+      // Pause old video
+      const oldVideo = videoRefs.current[prev]
+      if (oldVideo) oldVideo.pause()
 
-    // Cancel pending video load from previous click
-    if (loadTimerRef.current) {
-      clearTimeout(loadTimerRef.current)
-      loadTimerRef.current = null
-    }
-
-    // Defer video load to next frame so React can flush the UI update first
-    loadTimerRef.current = setTimeout(() => {
-      loadTimerRef.current = null
-      const currentVideo = frontLayerRef.current === 'A' ? videoARef.current : videoBRef.current
-      const nextVideo = frontLayerRef.current === 'A' ? videoBRef.current : videoARef.current
-      const savedTime = currentVideo?.currentTime ?? 0
-
-      if (nextVideo) {
-        nextVideo.onloadedmetadata = null
-        nextVideo.onseeked = null
-        nextVideo.src = presets[idx].video
-        nextVideo.load()
-
-        nextVideo.onloadedmetadata = () => {
-          nextVideo.onloadedmetadata = null
-          nextVideo.currentTime = savedTime
-
-          nextVideo.onseeked = () => {
-            nextVideo.onseeked = null
-            nextVideo.play()
-            const newLayer = frontLayerRef.current === 'A' ? 'B' : 'A'
-            frontLayerRef.current = newLayer
-            setFrontLayer(newLayer)
-          }
-        }
+      // Play new video from same timestamp
+      const newVideo = videoRefs.current[idx]
+      if (newVideo) {
+        if (oldVideo) newVideo.currentTime = oldVideo.currentTime
+        newVideo.play().catch(() => {})
       }
-    }, 0)
+
+      return idx
+    })
   }, [])
 
 
@@ -147,21 +110,23 @@ export default function FeatureStyling() {
           <p className="text-sm sm:text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
         </div>
 
-        {/* Main Preview */}
+        {/* Main Preview — all 6 videos stacked, only active one visible */}
         <div className="animate-on-scroll mb-10">
           <div className="aspect-video rounded-2xl overflow-hidden relative max-w-[960px] mx-auto" style={{ cursor: active.cursor.css }}>
+            {presets.map((preset, i) => (
               <video
-                ref={videoARef}
+                key={preset.name}
+                ref={el => { videoRefs.current[i] = el }}
+                src={preset.video}
+                preload={i === 0 ? 'auto' : 'none'}
                 className="absolute inset-0 w-full h-full object-cover"
                 loop muted playsInline
-                style={{ zIndex: frontLayer === 'A' ? 1 : 0 }}
+                style={{
+                  zIndex: activeIdx === i ? 1 : 0,
+                  opacity: activeIdx === i ? 1 : 0,
+                }}
               />
-              <video
-                ref={videoBRef}
-                className="absolute inset-0 w-full h-full object-cover"
-                loop muted playsInline
-                style={{ zIndex: frontLayer === 'B' ? 1 : 0 }}
-              />
+            ))}
           </div>
         </div>
 
