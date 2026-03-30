@@ -188,7 +188,7 @@ export default function Hero() {
               className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 md:px-8 gap-1.5 sm:gap-2"
               style={{ fontSize: "clamp(0.875rem, 2svh, 1.25rem)", padding: "clamp(0.625rem, 1.5svh, 1rem) 0" }}
             >
-              Download for Mac
+              Download Free for Mac
               <svg style={{ width: "clamp(1rem, 2.2svh, 1.5rem)", height: "clamp(1rem, 2.2svh, 1.5rem)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14m-7-7 7 7-7 7" />
               </svg>
@@ -220,7 +220,7 @@ export default function Hero() {
                 className="whitespace-nowrap inline-flex items-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-300"
                 style={{ fontSize: "clamp(0.75rem, 1.2vw, 1.125rem)", padding: "clamp(0.4rem, 0.8vw, 0.75rem) clamp(1rem, 2vw, 2rem)", gap: "clamp(0.25rem, 0.5vw, 0.5rem)" }}
               >
-                Download for Mac
+                Download Free for Mac
                 <svg style={{ width: "clamp(0.875rem, 1.3vw, 1.25rem)", height: "clamp(0.875rem, 1.3vw, 1.25rem)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14m-7-7 7 7-7 7" />
                 </svg>

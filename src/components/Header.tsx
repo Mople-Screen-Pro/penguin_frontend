@@ -161,7 +161,7 @@ export default function Header() {
               rel="noopener"
               className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-5 py-2.5 rounded-full font-semibold shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-200 text-[16px]"
             >
-              Download for Mac
+              Download Free for Mac
             </a>
           </div>
 
@@ -224,7 +224,7 @@ export default function Header() {
                     href={DOWNLOAD_URL}
                     className="w-full py-3 text-center font-medium text-white bg-primary-600 rounded-lg"
                   >
-                    Download for Mac
+                    Download Free for Mac
                   </a>
                 </div>
               )}
