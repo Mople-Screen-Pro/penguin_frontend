@@ -83,7 +83,7 @@ export default function Hero() {
       <div className="bg-[#000] flex items-center justify-center h-svh">
         <div
           ref={containerRef}
-          className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 xl:pt-0 ${isMobile ? "flex flex-col items-center justify-start pt-[env(safe-area-inset-top)] sm:pt-0 md:justify-center md:pt-0 px-5 sm:px-8 md:px-12" : "flex items-center justify-center"}`}
+          className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 xl:pt-0 ${isMobile ? "flex flex-col items-center justify-end pb-[20svh] sm:pb-[20svh] md:justify-center md:pb-0 px-5 sm:px-8 md:px-12" : "flex items-center justify-center"}`}
           style={isMobile ? undefined : { paddingBottom: "min(13svh, 145px)" }}
         >
         {/* 영상 + 타임라인을 묶는 래퍼 — 영상 크기에 맞춰짐 */}
