@@ -83,7 +83,7 @@ export default function Hero() {
       <div className="bg-[#000] flex items-center justify-center h-svh">
         <div
           ref={containerRef}
-          className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 xl:pt-0 ${isMobile ? "flex flex-col items-center justify-end pb-[30svh] sm:pb-[30svh] md:justify-center md:pb-0 px-5 sm:px-8 md:px-12" : "flex items-center justify-center"}`}
+          className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 xl:pt-0 ${isMobile ? "flex flex-col items-center justify-center px-5 sm:px-8 md:px-12" : "flex items-center justify-center"}`}
           style={isMobile ? undefined : { paddingBottom: "min(13svh, 145px)" }}
         >
         {/* 영상 + 타임라인을 묶는 래퍼 — 영상 크기에 맞춰짐 */}
@@ -168,26 +168,26 @@ export default function Hero() {
         </div>
 
         {isMobile ? (
-          /* 모바일: flow 레이아웃 */
-          <div className="text-center mt-4 sm:mt-6 md:mt-8">
+          <div className="text-center mt-4 min-[375px]:mt-[6svh] sm:mt-6 md:mt-8 flex flex-col items-center h-full">
             <img src="/images/app_icon.png" alt="Penguin" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto rounded-xl md:rounded-2xl" />
             <p className="text-base sm:text-lg md:text-xl font-semibold text-white mt-2 sm:mt-3">Penguin</p>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mt-1 px-2 sm:px-4">
-              Record Instantly, <span className="text-[#0c8ce9]">Edit Effortlessly</span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mt-3 sm:mt-4 px-2 sm:px-4">
+              Record Instantly,<br /><span className="text-[#0c8ce9]">Edit Effortlessly</span>
             </h1>
+            <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-6 sm:mt-7 px-4 sm:px-8 md:px-12 max-w-lg mx-auto">
+              Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
+            </p>
+            <div className="flex-1" />
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
               rel="noopener"
-              className="mt-4 sm:mt-5 md:mt-6 whitespace-nowrap inline-flex items-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 text-sm sm:text-base md:text-lg px-5 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 gap-1.5 sm:gap-2"
+              className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 text-sm sm:text-base md:text-lg py-3 md:px-8 md:py-3 gap-1.5 sm:gap-2"
             >
               Download for Mac
               <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14m-7-7 7 7-7 7" />
               </svg>
             </a>
-            <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-3 sm:mt-4 px-4 sm:px-8 md:px-12 max-w-lg mx-auto">
-              Editing should be effortless for everyone. Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
-            </p>
           </div>
         ) : (
           /* 데스크톱: absolute 레이아웃 */
