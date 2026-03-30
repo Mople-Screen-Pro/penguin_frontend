@@ -8,7 +8,7 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const rafRef = useRef<number>(0);
-  const initialMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+  const initialMobile = typeof window !== "undefined" && window.innerWidth < 1280;
   const [showCta, setShowCta] = useState(initialMobile);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMobile, setIsMobile] = useState(initialMobile);
@@ -16,7 +16,7 @@ export default function Hero() {
   const [progress, setProgress] = useState(0);
   const [shrunk, setShrunk] = useState(false);
 
-  const checkMobile = () => typeof window !== "undefined" && window.innerWidth < 1024;
+  const checkMobile = () => typeof window !== "undefined" && window.innerWidth < 1280;
 
   useEffect(() => {
     const handleResize = () => setIsMobile(checkMobile());
@@ -83,7 +83,7 @@ export default function Hero() {
       <div className="bg-[#000] flex items-center justify-center h-svh">
         <div
           ref={containerRef}
-          className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 lg:pt-0 ${isMobile ? "flex flex-col items-center justify-center px-6" : "flex items-center justify-center"}`}
+          className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 xl:pt-0 ${isMobile ? "flex flex-col items-center justify-center px-5 sm:px-8 md:px-12" : "flex items-center justify-center"}`}
           style={isMobile ? undefined : { paddingBottom: "min(13svh, 145px)" }}
         >
         {/* 영상 + 타임라인을 묶는 래퍼 — 영상 크기에 맞춰짐 */}
@@ -97,7 +97,7 @@ export default function Hero() {
         >
           {/* Timeline — editor style */}
           <div
-            className="absolute top-0 left-[10%] right-[10%] z-20 transition-opacity duration-500 hidden lg:block"
+            className="absolute top-0 left-[10%] right-[10%] z-20 transition-opacity duration-500 hidden xl:block"
             style={{ opacity: isPlaying && progress > 0.3 / TIMELINE_DURATION && progress < 4.0 / TIMELINE_DURATION ? 1 : 0 }}
           >
             {/* Ruler — transparent, overlaid on video */}
@@ -149,45 +149,45 @@ export default function Hero() {
 
           {isMobile ? (
             <img
-              src="/videos/hero/hero-poster.png"
+              src="/videos/hero/hero-poster.png?v=2"
               alt="Penguin – Record Instantly, Edit Effortlessly"
-              className={`h-[40svh] w-auto max-w-none transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
+              className={`h-[32svh] sm:h-[38svh] md:h-[44svh] w-auto max-w-[90vw] object-contain transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
             />
           ) : (
             <video
               ref={videoRef}
-              className={`lg:max-h-[min(80svh,900px)] lg:w-auto lg:max-w-[100vw] lg:h-auto transition-opacity duration-300 lg:[mix-blend-mode:lighten] ${videoReady ? "opacity-100" : "opacity-0"}`}
+              className={`xl:max-h-[min(80svh,900px)] xl:w-auto xl:max-w-[100vw] xl:h-auto transition-opacity duration-300 xl:[mix-blend-mode:lighten] ${videoReady ? "opacity-100" : "opacity-0"}`}
               muted
               playsInline
               preload="auto"
             >
-              <source src="/videos/hero/hero-video.mp4" type="video/mp4" />
+              <source src="/videos/hero/hero-video.mp4?v=2" type="video/mp4" />
             </video>
           )}
 
         </div>
 
         {isMobile ? (
-          /* 모바일: flow 레이아웃 */
-          <div className="text-center mt-4">
-            <img src="/images/app_icon.png" alt="Penguin" className="w-10 h-10 mx-auto rounded-xl" />
-            <p className="text-base font-semibold text-white mt-2">Penguin</p>
-            <h1 className="text-2xl font-bold text-white leading-tight mt-1 px-2">
-              Record Instantly, <span className="text-[#0c8ce9]">Edit Effortlessly</span>
+          <div className="text-center mt-4 min-[375px]:mt-[6svh] sm:mt-6 md:mt-8 flex flex-col items-center h-full">
+            <img src="/images/app_icon.png" alt="Penguin" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto rounded-xl md:rounded-2xl" />
+            <p className="text-base sm:text-lg md:text-xl font-semibold text-white mt-2 sm:mt-3">Penguin</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mt-3 sm:mt-4 px-2 sm:px-4">
+              Record Instantly,<br /><span className="text-[#0c8ce9]">Edit Effortlessly</span>
             </h1>
+            <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-6 sm:mt-7 px-4 sm:px-8 md:px-12 max-w-lg mx-auto">
+              Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
+            </p>
+            <div className="flex-1" />
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
               rel="noopener"
-              className="mt-4 whitespace-nowrap inline-flex items-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 text-sm px-5 py-2 gap-1.5"
+              className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 text-sm sm:text-base md:text-lg py-3 md:px-8 md:py-3 gap-1.5 sm:gap-2"
             >
               Download for Mac
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14m-7-7 7 7-7 7" />
               </svg>
             </a>
-            <p className="text-xs text-gray-400 mt-3 px-4">
-              Editing should be effortless for everyone. Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
-            </p>
           </div>
         ) : (
           /* 데스크톱: absolute 레이아웃 */
@@ -197,9 +197,9 @@ export default function Hero() {
               className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
               style={{ bottom: "min(33%, 369px)", transitionDelay: showCta ? "0ms" : "0ms" }}
             >
-              <img src="/images/app_icon.png" alt="Penguin" className="w-14 h-14 lg:w-16 lg:h-16 mx-auto rounded-2xl" />
-              <p className="text-xl lg:text-2xl font-semibold text-white mt-3">Penguin</p>
-              <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mt-0.5 px-4">
+              <img src="/images/app_icon.png" alt="Penguin" className="w-14 h-14 xl:w-16 xl:h-16 mx-auto rounded-2xl" />
+              <p className="text-xl xl:text-2xl font-semibold text-white mt-3">Penguin</p>
+              <h1 className="text-4xl xl:text-6xl font-bold text-white leading-tight mt-0.5 px-4">
                 Record Instantly, <span className="text-[#0c8ce9]">Edit Effortlessly</span>
               </h1>
             </div>
@@ -227,7 +227,7 @@ export default function Hero() {
               className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
               style={{ bottom: "min(15%, 168px)", transitionDelay: showCta ? "300ms" : "0ms" }}
             >
-              <p className="text-sm lg:text-base text-gray-400 max-w-xl mx-auto px-6">
+              <p className="text-sm xl:text-base text-gray-400 max-w-xl mx-auto px-6">
                 Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools,<br />and export a pro quality video — all in minutes.
               </p>
             </div>
