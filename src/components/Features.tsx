@@ -70,10 +70,10 @@ const videos = [
     icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L18.29 2.168c-.42-.326-.98-.7-2.055-.607L3.01 2.721c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.886l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.886.747-.933zM1.936 1.035l13.86-1.026c1.7-.14 2.1.047 2.8.56l3.876 2.707c.56.42.746.933.746 1.54v15.09c0 .98-.373 1.54-1.215 1.634l-15.503.933c-.654.046-1.026-.046-1.4-.466L1.43 19.1c-.42-.56-.607-1.026-.607-1.634V2.575c0-.748.28-1.4 1.12-1.54z"/></svg>,
   },
   {
-    src: '/videos/integrations/figma2.mp4', label: 'Slack', role: 'Teams', category: 'Work',
-    description: 'Share quick video messages in Slack instead of long threads.',
-    color: 'bg-emerald-500',
-    icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>,
+    src: '/videos/integrations/calendly.mp4', label: 'Calendly', role: 'Teams', category: 'Work',
+    description: 'Share video intros on your Calendly booking page to build rapport.',
+    color: 'bg-blue-500',
+    icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.655 14.262c-.207.554-.48 1.074-.803 1.554a5.577 5.577 0 0 1-1.202 1.3 5.588 5.588 0 0 1-1.555.803 5.574 5.574 0 0 1-3.593 0 5.588 5.588 0 0 1-1.555-.803 5.577 5.577 0 0 1-1.202-1.3 5.632 5.632 0 0 1-.803-1.554 5.574 5.574 0 0 1 0-3.593c.207-.554.48-1.074.803-1.555a5.577 5.577 0 0 1 1.202-1.3 5.588 5.588 0 0 1 1.555-.803 5.574 5.574 0 0 1 3.593 0c.554.207 1.074.48 1.555.803.462.362.866.803 1.202 1.3.323.48.596 1.001.803 1.555a5.574 5.574 0 0 1 0 3.593zm3.058-5.87a9.14 9.14 0 0 0-1.352-2.596 9.2 9.2 0 0 0-2.07-2.07 9.14 9.14 0 0 0-2.596-1.352A8.985 8.985 0 0 0 13.702 2c-1.05 0-2.07.13-3.043.374a9.14 9.14 0 0 0-2.596 1.352 9.2 9.2 0 0 0-2.07 2.07A9.14 9.14 0 0 0 4.64 8.393 8.985 8.985 0 0 0 4.267 11.5H1.5l3.75 4.5 3.75-4.5H6.267c.13-.82.374-1.604.72-2.337a7.14 7.14 0 0 1 1.05-2.02 7.2 7.2 0 0 1 1.604-1.604 7.14 7.14 0 0 1 2.02-1.05A6.985 6.985 0 0 1 13.997 4c.82 0 1.604.13 2.337.374a7.14 7.14 0 0 1 2.02 1.05c.608.449 1.148 1 1.604 1.604a7.14 7.14 0 0 1 1.05 2.02c.345.733.59 1.517.72 2.337h-2.72l3.75 4.5 3.75-4.5h-2.768a8.985 8.985 0 0 0-.374-3.043z"/></svg>,
   },
   // Dev
   {
@@ -132,6 +132,7 @@ export default function Features() {
   }
 
   const manualScrollRef = useRef<string | null>(null)
+  const userWheelRef = useRef(false)
   const tabContainerRef = useRef<HTMLDivElement>(null)
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({})
   const [pillStyle, setPillStyle] = useState({ left: 0, width: 0 })
@@ -142,46 +143,77 @@ export default function Features() {
     const groupEl = groupRefs.current[cat]
     const scroll = scrollRef.current
     if (groupEl && scroll) {
-      const scrollRect = scroll.getBoundingClientRect()
-      const groupRect = groupEl.getBoundingClientRect()
-      const currentScrollLeft = scroll.scrollLeft
-      const groupLeft = groupRect.left - scrollRect.left + currentScrollLeft
-      const groupWidth = groupRect.width
-      const containerWidth = scrollRect.width
-      const centerOffset = groupLeft - (containerWidth - groupWidth) / 2
-      const maxScroll = scroll.scrollWidth - containerWidth
+      // Use position relative to scroll container's content
+      const targetLeft = groupEl.offsetLeft - 40
+      const maxScroll = scroll.scrollWidth - scroll.clientWidth
       scroll.scrollTo({
-        left: Math.max(0, Math.min(centerOffset, maxScroll)),
+        left: Math.max(0, Math.min(targetLeft, maxScroll)),
         behavior: 'smooth',
       })
-      setTimeout(() => { manualScrollRef.current = null }, 800)
     }
   }
 
-  // Track active category on scroll
+  // Track active category on manual user scroll (not programmatic)
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
+
+    let isPointerDown = false
+    let wheelTimer: ReturnType<typeof setTimeout> | null = null
+
+    const onPointerDown = () => { isPointerDown = true }
+    const onPointerUp = () => { isPointerDown = false }
+    const onWheel = () => {
+      // Mark wheel-initiated scrolling, clear after momentum dies
+      userWheelRef.current = true
+      if (wheelTimer) clearTimeout(wheelTimer)
+      wheelTimer = setTimeout(() => { userWheelRef.current = false }, 150)
+    }
+
+    // Clear manualScrollRef when programmatic scroll finishes
+    const onScrollEnd = () => {
+      if (manualScrollRef.current) {
+        manualScrollRef.current = null
+      }
+    }
+
     const handleScroll = () => {
+      // Only update category from user-initiated scroll (drag/swipe/wheel), not programmatic
       if (manualScrollRef.current) return
-      const scrollLeft = el.scrollLeft + 60
+      if (!isPointerDown && !userWheelRef.current) return
+
+      const scrollLeft = el.scrollLeft
       const maxScroll = el.scrollWidth - el.clientWidth
-      // If scrolled to the end, pick the last category
-      if (el.scrollLeft >= maxScroll - 20) {
+
+      if (scrollLeft >= maxScroll - 20) {
         setActiveCategory(categories[categories.length - 1])
         return
       }
+
+      // Find the category whose group is most visible at the left edge
       let current: string | null = null
       for (const cat of categories) {
         const groupEl = groupRefs.current[cat]
-        if (groupEl && groupEl.offsetLeft <= scrollLeft) {
+        if (groupEl && groupEl.offsetLeft <= scrollLeft + 80) {
           current = cat
         }
       }
       if (current) setActiveCategory(current)
     }
+
+    el.addEventListener('pointerdown', onPointerDown)
+    window.addEventListener('pointerup', onPointerUp)
+    el.addEventListener('wheel', onWheel, { passive: true })
+    el.addEventListener('scrollend', onScrollEnd)
     el.addEventListener('scroll', handleScroll, { passive: true })
-    return () => el.removeEventListener('scroll', handleScroll)
+    return () => {
+      el.removeEventListener('pointerdown', onPointerDown)
+      window.removeEventListener('pointerup', onPointerUp)
+      el.removeEventListener('wheel', onWheel)
+      el.removeEventListener('scrollend', onScrollEnd)
+      el.removeEventListener('scroll', handleScroll)
+      if (wheelTimer) clearTimeout(wheelTimer)
+    }
   }, [])
 
   // Update sliding pill position
@@ -285,10 +317,10 @@ export default function Features() {
         </h2>
 
         {/* Category tabs with sliding pill */}
-        <div className="flex justify-center mb-10 px-2">
+        <div className="flex justify-center mb-10 -mx-6 px-6 overflow-x-auto hide-scrollbar">
           <div
             ref={tabContainerRef}
-            className="relative inline-flex items-center gap-1 p-1 rounded-full bg-white/[0.06] border border-white/[0.10] overflow-x-auto hide-scrollbar max-w-full"
+            className="relative inline-flex items-center gap-1 p-1 rounded-full bg-white/[0.06] border border-white/[0.10] shrink-0"
           >
             {/* Sliding pill */}
             <div
