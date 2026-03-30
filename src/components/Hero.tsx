@@ -43,7 +43,7 @@ export default function Hero() {
       if (video.currentTime >= 5.2) {
         setShrunk(true);
       }
-      if (video.duration && video.currentTime >= video.duration - 0.2) {
+      if (video.duration && video.currentTime >= video.duration - 1.0) {
         setShowCta(true);
       }
     };
