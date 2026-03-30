@@ -168,15 +168,19 @@ export default function Hero() {
         </div>
 
         {isMobile ? (
-          <div className="text-center mt-4 min-[375px]:mt-[6svh] sm:mt-6 md:mt-8 flex flex-col items-center h-full">
-            <img src="/images/app_icon.png" alt="Penguin" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto rounded-xl md:rounded-2xl" />
-            <p className="text-base sm:text-lg md:text-xl font-semibold text-white mt-2 sm:mt-3">Penguin</p>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mt-3 sm:mt-4 px-2 sm:px-4">
-              Record Instantly,<br /><span className="text-[#0c8ce9]">Edit Effortlessly</span>
-            </h1>
-            <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-6 sm:mt-7 px-4 sm:px-8 md:px-12 max-w-lg mx-auto">
-              Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
-            </p>
+          <div className="text-center mt-2 min-[375px]:mt-[3svh] sm:mt-3 md:mt-4 flex flex-col items-center h-full">
+            <div className="flex flex-col items-center gap-4 sm:gap-5">
+              <div className="flex flex-col items-center gap-1.5">
+                <img src="/images/app_icon.png" alt="Penguin" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto rounded-xl md:rounded-2xl" />
+                <p className="text-base sm:text-lg md:text-xl font-semibold text-white">Penguin</p>
+              </div>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight px-2 sm:px-4">
+                Record Instantly,<br /><span className="text-[#0c8ce9]">Edit Effortlessly</span>
+              </h1>
+              <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-2 sm:mt-3 px-4 sm:px-8 md:px-12 max-w-lg mx-auto">
+                Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
+              </p>
+            </div>
             <div className="flex-1" />
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
