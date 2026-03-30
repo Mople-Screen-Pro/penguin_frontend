@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const videos = [
@@ -217,7 +217,7 @@ export default function Features() {
   }, [])
 
   // Update sliding pill position
-  useEffect(() => {
+  const updatePill = useCallback(() => {
     const tab = tabRefs.current[activeCategory]
     const container = tabContainerRef.current
     if (tab && container) {
@@ -229,6 +229,12 @@ export default function Features() {
       })
     }
   }, [activeCategory])
+
+  useEffect(() => {
+    updatePill()
+    window.addEventListener('resize', updatePill)
+    return () => window.removeEventListener('resize', updatePill)
+  }, [updatePill])
 
   // Animate text when category changes
   useEffect(() => {
@@ -317,10 +323,10 @@ export default function Features() {
         </h2>
 
         {/* Category tabs with sliding pill */}
-        <div className="flex justify-center mb-10 -mx-6 px-6 overflow-x-auto hide-scrollbar">
+        <div className="flex justify-center mb-10 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-x-auto hide-scrollbar">
           <div
             ref={tabContainerRef}
-            className="relative inline-flex items-center gap-1 p-1 rounded-full bg-white/[0.06] border border-white/[0.10] shrink-0"
+            className="relative inline-flex items-center gap-0.5 sm:gap-1 p-1 rounded-full bg-white/[0.06] border border-white/[0.10] shrink-0"
           >
             {/* Sliding pill */}
             <div
@@ -332,7 +338,7 @@ export default function Features() {
                 key={cat}
                 ref={(el) => { tabRefs.current[cat] = el }}
                 onClick={() => scrollToCategory(cat)}
-                className={`relative z-10 px-3 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 whitespace-nowrap ${
+                className={`relative z-10 px-2 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 whitespace-nowrap ${
                   activeCategory === cat
                     ? 'text-white'
                     : 'text-gray-400 hover:text-gray-300'
