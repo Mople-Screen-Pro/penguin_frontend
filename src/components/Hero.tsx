@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const TIMELINE_DURATION = 2.6; // seconds
+const TIMELINE_DURATION = 5.0; // seconds
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,6 +40,9 @@ export default function Hero() {
       }
     }
     const handleTimeUpdate = () => {
+      if (video.currentTime >= 5.2) {
+        setShrunk(true);
+      }
       if (video.duration && video.currentTime >= video.duration - 0.2) {
         setShowCta(true);
       }
@@ -50,9 +53,8 @@ export default function Hero() {
       if (!video) return;
       const p = Math.min(video.currentTime / TIMELINE_DURATION, 1);
       setProgress(p);
-      if (video.currentTime >= 2.2) {
+      if (video.currentTime >= 5.2) {
         setShrunk(true);
-        video.playbackRate = 1.5;
       }
       if (p < 1) {
         rafRef.current = requestAnimationFrame(animatePlayhead);
@@ -78,40 +80,43 @@ export default function Hero() {
   return (
     <>
       {/* Hero Video */}
-      <div
-        ref={containerRef}
-        className="relative bg-[#000] overflow-hidden pt-0 pb-[15svh] lg:pt-0 lg:pb-[10svh] flex items-center justify-center h-svh"
-      >
-        {/* 영상 + 타임라인 + CTA를 하나로 묶는 래퍼 — 영상 크기에 맞춰짐 */}
+      <div className="bg-[#000] flex items-center justify-center h-svh">
         <div
-          className="relative inline-block"
-          style={{
-            transform: shrunk ? "scale(0.5) translateY(-40%)" : "scale(1) translateY(0)",
+          ref={containerRef}
+          className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 lg:pt-0 ${isMobile ? "flex flex-col items-center justify-center px-6" : "flex items-center justify-center"}`}
+          style={isMobile ? undefined : { paddingBottom: "min(13svh, 145px)" }}
+        >
+        {/* 영상 + 타임라인을 묶는 래퍼 — 영상 크기에 맞춰짐 */}
+        <div
+          className={`relative ${isMobile ? "" : "inline-block"}`}
+          style={isMobile ? undefined : {
+            transformOrigin: "center center",
+            transform: shrunk ? "scale(0.5) translateY(-42.5%)" : "scale(1)",
             transition: "transform 1s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
           {/* Timeline — editor style */}
           <div
             className="absolute top-0 left-[10%] right-[10%] z-20 transition-opacity duration-500 hidden lg:block"
-            style={{ opacity: isPlaying && progress > 0.3 / TIMELINE_DURATION && progress < 1.9 / TIMELINE_DURATION ? 1 : 0 }}
+            style={{ opacity: isPlaying && progress > 0.3 / TIMELINE_DURATION && progress < 4.0 / TIMELINE_DURATION ? 1 : 0 }}
           >
             {/* Ruler — transparent, overlaid on video */}
             <div className="relative h-[28px]">
               {/* Ticks */}
-              {Array.from({ length: 27 }).map((_, i) => {
-                const isMajor = i % 5 === 0;
-                const sec = (i / 26) * TIMELINE_DURATION;
+              {Array.from({ length: 51 }).map((_, i) => {
+                const isMajor = i % 10 === 0;
+                const sec = (i / 50) * TIMELINE_DURATION;
                 const label = `0:${String(Math.floor(sec)).padStart(2, "0")}`;
                 return (
                   <div
                     key={i}
                     className="absolute top-0"
-                    style={{ left: `${(i / 26) * 100}%` }}
+                    style={{ left: `${(i / 50) * 100}%` }}
                   >
                     <div
                       className={`w-[1px] ${isMajor ? "h-[14px] bg-gray-400" : "h-[7px] bg-gray-500"}`}
                     />
-                    {isMajor && i < 26 && (
+                    {isMajor && i < 50 && (
                       <span
                         className="absolute top-[16px] text-[10px] text-gray-400 font-mono tabular-nums"
                         style={{ left: "4px" }}
@@ -144,9 +149,9 @@ export default function Hero() {
 
           {isMobile ? (
             <img
-              src="/videos/hero/hero-poster.jpg"
-              alt="Penguin – Expert Edits In Record Time"
-              className={`h-[70svh] w-auto max-w-none transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
+              src="/videos/hero/hero-poster.png"
+              alt="Penguin – Record Instantly, Edit Effortlessly"
+              className={`h-[40svh] w-auto max-w-none transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
             />
           ) : (
             <video
@@ -160,18 +165,74 @@ export default function Hero() {
             </video>
           )}
 
-          {/* CTA Button */}
-          <a
-            href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
-            rel="noopener"
-            className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap inline-flex items-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-            style={{ bottom: "13%", fontSize: "clamp(0.75rem, 1.2vw, 1.125rem)", padding: "clamp(0.4rem, 0.8vw, 0.75rem) clamp(1rem, 2vw, 2rem)", gap: "clamp(0.25rem, 0.5vw, 0.5rem)" }}
-          >
-            Download for Mac
-            <svg style={{ width: "clamp(0.875rem, 1.3vw, 1.25rem)", height: "clamp(0.875rem, 1.3vw, 1.25rem)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14m-7-7 7 7-7 7" />
-            </svg>
-          </a>
+        </div>
+
+        {isMobile ? (
+          /* 모바일: flow 레이아웃 */
+          <div className="text-center mt-4">
+            <img src="/images/app_icon.png" alt="Penguin" className="w-10 h-10 mx-auto rounded-xl" />
+            <p className="text-base font-semibold text-white mt-2">Penguin</p>
+            <h1 className="text-2xl font-bold text-white leading-tight mt-1 px-2">
+              Record Instantly, <span className="text-[#0c8ce9]">Edit Effortlessly</span>
+            </h1>
+            <a
+              href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
+              rel="noopener"
+              className="mt-4 whitespace-nowrap inline-flex items-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 text-sm px-5 py-2 gap-1.5"
+            >
+              Download for Mac
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14m-7-7 7 7-7 7" />
+              </svg>
+            </a>
+            <p className="text-xs text-gray-400 mt-3 px-4">
+              Editing should be effortless for everyone. Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
+            </p>
+          </div>
+        ) : (
+          /* 데스크톱: absolute 레이아웃 */
+          <>
+            {/* App Icon + Penguin + Tagline */}
+            <div
+              className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+              style={{ bottom: "min(33%, 369px)", transitionDelay: showCta ? "0ms" : "0ms" }}
+            >
+              <img src="/images/app_icon.png" alt="Penguin" className="w-14 h-14 lg:w-16 lg:h-16 mx-auto rounded-2xl" />
+              <p className="text-xl lg:text-2xl font-semibold text-white mt-3">Penguin</p>
+              <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mt-0.5 px-4">
+                Record Instantly, <span className="text-[#0c8ce9]">Edit Effortlessly</span>
+              </h1>
+            </div>
+
+            {/* CTA Button */}
+            <div
+              className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+              style={{ bottom: "min(25%, 279px)", transitionDelay: showCta ? "150ms" : "0ms" }}
+            >
+              <a
+                href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
+                rel="noopener"
+                className="whitespace-nowrap inline-flex items-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-300"
+                style={{ fontSize: "clamp(0.75rem, 1.2vw, 1.125rem)", padding: "clamp(0.4rem, 0.8vw, 0.75rem) clamp(1rem, 2vw, 2rem)", gap: "clamp(0.25rem, 0.5vw, 0.5rem)" }}
+              >
+                Download for Mac
+                <svg style={{ width: "clamp(0.875rem, 1.3vw, 1.25rem)", height: "clamp(0.875rem, 1.3vw, 1.25rem)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14m-7-7 7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+
+            {/* Description */}
+            <div
+              className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+              style={{ bottom: "min(15%, 168px)", transitionDelay: showCta ? "300ms" : "0ms" }}
+            >
+              <p className="text-sm lg:text-base text-gray-400 max-w-xl mx-auto px-6">
+                Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools,<br />and export a pro quality video — all in minutes.
+              </p>
+            </div>
+          </>
+        )}
         </div>
       </div>
 
