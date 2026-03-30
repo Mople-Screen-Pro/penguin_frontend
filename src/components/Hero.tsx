@@ -171,13 +171,13 @@ export default function Hero() {
           <div className="text-center mt-2 min-[375px]:mt-[3svh] sm:mt-3 md:mt-4 flex flex-col items-center h-full">
             <div className="flex flex-col items-center gap-4 sm:gap-5">
               <div className="flex flex-col items-center gap-1.5">
-                <img src="/images/app_icon.png" alt="Penguin" className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto rounded-xl md:rounded-2xl" />
-                <p className="text-base sm:text-lg md:text-xl font-semibold text-white">Penguin</p>
+                <img src="/images/app_icon.png" alt="Penguin" className="mx-auto rounded-xl md:rounded-2xl" style={{ width: "clamp(2.5rem, 7vw, 3.5rem)", height: "clamp(2.5rem, 7vw, 3.5rem)" }} />
+                <p className="font-semibold text-white" style={{ fontSize: "clamp(1rem, 3vw, 1.25rem)" }}>Penguin</p>
               </div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight px-2 sm:px-4">
+              <h1 className="font-bold text-white leading-tight px-2 sm:px-4" style={{ fontSize: "clamp(1.5rem, 5.5vw, 2.25rem)" }}>
                 Record Instantly,<br /><span className="text-[#0c8ce9]">Edit Effortlessly</span>
               </h1>
-              <p className="text-xs sm:text-sm md:text-base text-gray-400 mt-2 sm:mt-3 px-4 sm:px-8 md:px-12 max-w-lg mx-auto">
+              <p className="text-gray-400 mt-2 sm:mt-3 px-4 sm:px-8 md:px-12 max-w-lg mx-auto" style={{ fontSize: "clamp(0.75rem, 2.2vw, 1rem)" }}>
                 Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
               </p>
             </div>
@@ -185,10 +185,11 @@ export default function Hero() {
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
               rel="noopener"
-              className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 text-sm sm:text-base md:text-lg py-3 md:px-8 md:py-3 gap-1.5 sm:gap-2"
+              className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 py-3 md:px-8 md:py-3 gap-1.5 sm:gap-2"
+              style={{ fontSize: "clamp(0.875rem, 2.8vw, 1.125rem)" }}
             >
               Download for Mac
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg style={{ width: "clamp(1rem, 2.8vw, 1.25rem)", height: "clamp(1rem, 2.8vw, 1.25rem)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14m-7-7 7 7-7 7" />
               </svg>
             </a>
