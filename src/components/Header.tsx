@@ -78,7 +78,7 @@ export default function Header() {
                   router.push("/");
                 }
               }}
-              className="flex items-center gap-2.5 text-2xl font-bold tracking-tighter text-primary-600"
+              className="flex items-center gap-2.5 text-2xl font-bold tracking-tighter text-primary-600 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
             >
               <img
                 src="/images/logo.png"
@@ -95,7 +95,7 @@ export default function Header() {
                     key={link.name}
                     href={link.href}
                     onClick={() => analytics.navClick(link.name)}
-                    className="hover:text-white transition-colors"
+                    className="hover:text-white hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
                   >
                     {link.name}
                   </Link>
