@@ -14,6 +14,7 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(initialMobile);
   const [videoReady, setVideoReady] = useState(initialMobile);
   const [progress, setProgress] = useState(0);
+  const [shrunk, setShrunk] = useState(false);
 
   const checkMobile = () => typeof window !== "undefined" && window.innerWidth < 1024;
 
@@ -49,6 +50,10 @@ export default function Hero() {
       if (!video) return;
       const p = Math.min(video.currentTime / TIMELINE_DURATION, 1);
       setProgress(p);
+      if (video.currentTime >= 2.2) {
+        setShrunk(true);
+        video.playbackRate = 1.5;
+      }
       if (p < 1) {
         rafRef.current = requestAnimationFrame(animatePlayhead);
       }
@@ -78,11 +83,17 @@ export default function Hero() {
         className="relative bg-[#000] overflow-hidden pt-0 pb-[15svh] lg:pt-0 lg:pb-[10svh] flex items-center justify-center h-svh"
       >
         {/* 영상 + 타임라인 + CTA를 하나로 묶는 래퍼 — 영상 크기에 맞춰짐 */}
-        <div className="relative inline-block">
+        <div
+          className="relative inline-block"
+          style={{
+            transform: shrunk ? "scale(0.5) translateY(-40%)" : "scale(1) translateY(0)",
+            transition: "transform 1s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
+        >
           {/* Timeline — editor style */}
           <div
-            className="absolute top-0 left-0 right-0 z-20 transition-opacity duration-500 hidden lg:block"
-            style={{ opacity: isPlaying && progress > 0.3 / TIMELINE_DURATION && progress < (TIMELINE_DURATION - 0.5) / TIMELINE_DURATION ? 1 : 0 }}
+            className="absolute top-0 left-[10%] right-[10%] z-20 transition-opacity duration-500 hidden lg:block"
+            style={{ opacity: isPlaying && progress > 0.3 / TIMELINE_DURATION && progress < 1.9 / TIMELINE_DURATION ? 1 : 0 }}
           >
             {/* Ruler — transparent, overlaid on video */}
             <div className="relative h-[28px]">
