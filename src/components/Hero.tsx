@@ -168,16 +168,16 @@ export default function Hero() {
         </div>
 
         {isMobile ? (
-          <div className="text-center mt-2 min-[375px]:mt-[3svh] sm:mt-3 md:mt-4 flex flex-col items-center h-full">
-            <div className="flex flex-col items-center gap-4 sm:gap-5">
-              <div className="flex flex-col items-center gap-1.5">
-                <img src="/images/app_icon.png" alt="Penguin" className="mx-auto rounded-xl md:rounded-2xl" style={{ width: "clamp(2.5rem, 7vw, 3.5rem)", height: "clamp(2.5rem, 7vw, 3.5rem)" }} />
-                <p className="font-semibold text-white" style={{ fontSize: "clamp(1rem, 3vw, 1.25rem)" }}>Penguin</p>
+          <div className="text-center flex flex-col items-center h-full" style={{ marginTop: "clamp(0.5rem, 2svh, 1.5rem)" }}>
+            <div className="flex flex-col items-center" style={{ gap: "clamp(1rem, 2.2svh, 1.75rem)" }}>
+              <div className="flex flex-col items-center" style={{ gap: "clamp(0.25rem, 0.8svh, 0.625rem)" }}>
+                <img src="/images/app_icon.png" alt="Penguin" className="mx-auto rounded-xl md:rounded-2xl" style={{ width: "clamp(2.5rem, 5.5svh, 4rem)", height: "clamp(2.5rem, 5.5svh, 4rem)" }} />
+                <p className="font-semibold text-white" style={{ fontSize: "clamp(1rem, 2.2svh, 1.5rem)" }}>Penguin</p>
               </div>
-              <h1 className="font-bold text-white leading-tight px-2 sm:px-4" style={{ fontSize: "clamp(1.5rem, 5.5vw, 2.25rem)" }}>
+              <h1 className="font-bold text-white leading-tight px-2 sm:px-4" style={{ fontSize: "clamp(1.5rem, 3.5svh, 2.5rem)" }}>
                 Record Instantly,<br /><span className="text-[#0c8ce9]">Edit Effortlessly</span>
               </h1>
-              <p className="text-gray-400 mt-2 sm:mt-3 px-4 sm:px-8 md:px-12 max-w-lg mx-auto" style={{ fontSize: "clamp(0.75rem, 2.2vw, 1rem)" }}>
+              <p className="text-gray-400 px-4 sm:px-8 md:px-12 max-w-lg mx-auto" style={{ fontSize: "clamp(0.75rem, 1.6svh, 1.1rem)", marginTop: "clamp(0.25rem, 0.8svh, 0.625rem)" }}>
                 Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
               </p>
             </div>
@@ -185,11 +185,11 @@ export default function Hero() {
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
               rel="noopener"
-              className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 py-3 md:px-8 md:py-3 gap-1.5 sm:gap-2"
-              style={{ fontSize: "clamp(0.875rem, 2.8vw, 1.125rem)" }}
+              className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 md:px-8 gap-1.5 sm:gap-2"
+              style={{ fontSize: "clamp(0.875rem, 2svh, 1.25rem)", padding: "clamp(0.625rem, 1.5svh, 1rem) 0" }}
             >
               Download for Mac
-              <svg style={{ width: "clamp(1rem, 2.8vw, 1.25rem)", height: "clamp(1rem, 2.8vw, 1.25rem)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg style={{ width: "clamp(1rem, 2.2svh, 1.5rem)", height: "clamp(1rem, 2.2svh, 1.5rem)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14m-7-7 7 7-7 7" />
               </svg>
             </a>
