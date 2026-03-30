@@ -149,7 +149,7 @@ export default function Hero() {
 
           {isMobile ? (
             <img
-              src="/videos/hero/hero-poster.png"
+              src="/videos/hero/hero-poster.png?v=2"
               alt="Penguin – Record Instantly, Edit Effortlessly"
               className={`h-[32svh] sm:h-[38svh] md:h-[44svh] w-auto max-w-[90vw] object-contain transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
             />
@@ -161,7 +161,7 @@ export default function Hero() {
               playsInline
               preload="auto"
             >
-              <source src="/videos/hero/hero-video.mp4" type="video/mp4" />
+              <source src="/videos/hero/hero-video.mp4?v=2" type="video/mp4" />
             </video>
           )}
 
