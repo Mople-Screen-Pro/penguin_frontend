@@ -62,18 +62,18 @@ export default function BeyondBasics() {
         </p>
 
         <div
-          className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 hide-scrollbar"
+          className="flex flex-col sm:flex-row gap-4 sm:gap-6 sm:overflow-x-auto pb-4 hide-scrollbar"
           style={{ scrollbarWidth: "none" }}
         >
           {miniFeatures.map((feature, i) => (
             <div
               key={feature.title}
-              className={`animate-on-scroll shrink-0 ${i === 0 ? "w-[280px] sm:w-[500px]" : "w-[240px] sm:w-[340px]"} rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-700 hover:scale-[1.02] transition-all duration-300 cursor-pointer`}
+              className={`animate-on-scroll sm:shrink-0 w-full ${i === 0 ? "sm:w-[500px]" : "sm:w-[340px]"} rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-700 hover:scale-[1.02] transition-all duration-300 cursor-pointer`}
               data-delay={String(Math.min(i * 0.06, 0.4))}
               onClick={() => toggleVideo(i)}
             >
               <div
-                className={`${i === 0 ? "aspect-[5/4]" : "aspect-[3/4]"} bg-gray-900 relative rounded-2xl overflow-hidden`}
+                className={`aspect-video ${i === 0 ? "sm:aspect-[5/4]" : "sm:aspect-[3/4]"} bg-gray-900 relative rounded-2xl overflow-hidden`}
               >
                 <video
                   ref={(el) => {
