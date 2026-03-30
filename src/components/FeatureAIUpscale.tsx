@@ -6,7 +6,7 @@ export default function FeatureAIUpscale() {
   const sectionRef = useScrollReveal()
 
   return (
-    <section ref={sectionRef} className="py-[80px] md:py-[160px] px-5 bg-[#060606]">
+    <section ref={sectionRef} className="pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#000]">
       <div className="max-w-[1240px] mx-auto">
         {/* Headline */}
         <div className="animate-on-scroll text-center mb-10 md:mb-14">

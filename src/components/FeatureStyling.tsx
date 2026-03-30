@@ -97,7 +97,7 @@ export default function FeatureStyling() {
 
 
   return (
-    <section ref={sectionRef} className="py-[80px] md:py-[160px] px-5 bg-[#000]">
+    <section ref={sectionRef} className="pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#000]">
       <div className="max-w-[1240px] mx-auto">
         {/* Header */}
         <div className="animate-on-scroll text-center mb-14">

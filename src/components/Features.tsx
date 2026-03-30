@@ -51,13 +51,13 @@ const videos = [
   },
   // Design
   {
-    src: '/videos/integrations/figma.mp4', label: 'Figma', role: 'Designers', category: 'Design',
+    src: '/videos/integrations/figma.mp4', label: 'Figma', role: 'Designers', category: 'Designer',
     description: 'Showcase design decisions and iterate faster with visual feedback.',
     color: 'bg-purple-500',
     icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 00-3.019 3.019c0 1.678 1.368 3.07 3.088 3.07 1.691 0 3.068-1.378 3.068-3.07v-3.019H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.098-7.509a3.023 3.023 0 00-3.019 3.019 3.023 3.023 0 003.019 3.019h.098a3.023 3.023 0 003.019-3.019 3.023 3.023 0 00-3.019-3.019h-.098z"/></svg>,
   },
   {
-    src: '/videos/integrations/canva.mp4', label: 'Canva', role: 'Content Creators', category: 'Design',
+    src: '/videos/integrations/canva.mp4', label: 'Canva', role: 'Content Creators', category: 'Designer',
     description: 'Record design walkthroughs and create stunning visual content.',
     color: 'bg-cyan-500',
     icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.14 16.09c-.564.94-1.88 1.51-3.36 1.51-2.72 0-5.28-2.1-5.28-5.52 0-3.18 2.28-6.48 6.12-6.48 1.68 0 2.88.84 2.88 1.92 0 .84-.6 1.32-1.14 1.32-.42 0-.78-.24-.78-.72 0-.36.18-.6.18-.96 0-.42-.42-.72-1.08-.72-2.16 0-3.78 2.34-3.78 4.92 0 2.16 1.32 3.96 3.48 3.96 1.14 0 2.04-.54 2.64-1.26l.12.03z"/></svg>,
@@ -77,20 +77,20 @@ const videos = [
   },
   // Dev
   {
-    src: '/videos/integrations/github.mp4', label: 'GitHub', role: 'Developers', category: 'Dev',
+    src: '/videos/integrations/github.mp4', label: 'GitHub', role: 'Developers', category: 'Developer',
     description: 'Record code walkthroughs and share with your team instantly.',
     color: 'bg-gray-900',
     icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>,
   },
   {
-    src: '/videos/integrations/vscode.mp4', label: 'VS Code', role: 'Engineers', category: 'Dev',
+    src: '/videos/integrations/vscode.mp4', label: 'VS Code', role: 'Engineers', category: 'Developer',
     description: 'Document technical flows and debug sessions for knowledge sharing.',
     color: 'bg-sky-500',
     icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 00-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 00-1.276.057L.327 7.261A1 1 0 00.326 8.74L3.899 12 .326 15.26a1 1 0 00.001 1.479L1.65 17.94a.999.999 0 001.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 001.704.29l4.942-2.377A1.5 1.5 0 0024 20.06V3.939a1.5 1.5 0 00-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>,
   },
 ]
 
-const categories = ['Start-up', 'Educator', 'Social', 'Design', 'Work', 'Dev'] as const
+const categories = ['Start-up', 'Educator', 'Social', 'Designer', 'Work', 'Developer'] as const
 
 export default function Features() {
   const sectionRef = useScrollReveal()
@@ -298,9 +298,9 @@ export default function Features() {
   }))
 
   return (
-    <section id="features" ref={sectionRef} className="py-[80px] md:py-[160px] bg-[#060606]">
+    <section id="features" ref={sectionRef} className="pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] bg-[#000]">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="animate-on-scroll text-3xl sm:text-5xl md:text-6xl font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[100px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center">
+        <h2 className="animate-on-scroll font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[60px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center whitespace-nowrap text-[clamp(1.25rem,5vw,3.75rem)]">
           <span>How{' '}
             <span
               className="gradient-text inline-block transition-all duration-300 ease-out"

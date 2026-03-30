@@ -237,8 +237,8 @@ export default function Hero() {
       </div>
 
       {/* Whatever you build — marquee */}
-      <div className="pt-[60px] pb-[90px] md:pt-[120px] md:pb-[180px] bg-[#000] text-center overflow-hidden">
-        <p className="text-3xl md:text-4xl text-gray-400 font-light mb-10 px-6">
+      <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#000] text-center overflow-hidden">
+        <p className="text-gray-400 font-light mb-10 px-6 whitespace-nowrap text-[clamp(1rem,4vw,2.25rem)]">
           Whatever you build,{" "}
           <span className="inline-block"><span className="gradient-text font-medium">Penguin</span> fits right
           in.</span>
@@ -251,7 +251,7 @@ export default function Hero() {
             className="flex whitespace-nowrap"
             style={{ animation: "workflow-marquee 60s linear infinite" }}
           >
-            {[...Array(2)].map((_, setIndex) => (
+            {[...Array(4)].map((_, setIndex) => (
               <div
                 key={setIndex}
                 className="inline-flex items-center gap-8 md:gap-16 shrink-0 pr-8 md:pr-16"

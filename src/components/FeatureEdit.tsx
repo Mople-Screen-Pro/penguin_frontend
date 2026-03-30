@@ -109,7 +109,7 @@ export default function FeatureEdit() {
   }
 
   return (
-    <section ref={sectionRef} className="py-[80px] md:py-[160px] px-5 bg-[#060606]">
+    <section ref={sectionRef} className="pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#000]">
       <div className="max-w-[1240px] mx-auto">
         <div className="animate-on-scroll text-center mb-14">
           <span className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[15px] font-semibold text-blue-400 bg-blue-500/[0.1] border border-blue-500/[0.2] mb-6">

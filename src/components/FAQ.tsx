@@ -60,7 +60,7 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" ref={sectionRef} className="py-[80px] md:py-[160px] px-6 bg-[#060606]">
+    <section id="faq" ref={sectionRef} className="py-[80px] md:py-[160px] px-6 bg-[#000]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
