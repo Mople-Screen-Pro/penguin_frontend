@@ -348,7 +348,7 @@ export default function Features() {
       {/* Horizontal scroll card list */}
       <div
         ref={scrollRef}
-        className="animate-on-scroll flex gap-6 overflow-x-auto px-6 md:px-10 pb-4 scrollbar-hide"
+        className="animate-on-scroll flex gap-6 overflow-x-auto px-6 md:px-10 pb-4 hide-scrollbar"
         style={{ scrollbarWidth: 'none' }}
       >
         {grouped.map((group) => (
