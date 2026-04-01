@@ -57,7 +57,7 @@ export default function BlogDetailClient() {
       <>
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <p className="text-slate-500">Loading...</p>
+          <p className="text-gray-500">Loading...</p>
         </main>
       </>
     )
@@ -68,11 +68,11 @@ export default function BlogDetailClient() {
       <>
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <h1 className="text-2xl font-bold text-slate-900 mb-4">404 - Post Not Found</h1>
-          <p className="text-slate-600 mb-6">The post you are looking for does not exist.</p>
+          <h1 className="text-2xl font-bold text-white mb-4">404 - Post Not Found</h1>
+          <p className="text-gray-400 mb-6">The post you are looking for does not exist.</p>
           <Link
             href="/blog"
-            className="text-blue-600 hover:text-blue-800 font-medium"
+            className="text-primary-400 hover:text-primary-300 font-medium"
           >
             &larr; Back to Blog
           </Link>
@@ -84,27 +84,17 @@ export default function BlogDetailClient() {
   return (
     <>
       <Header />
-      <main className="max-w-3xl mx-auto pt-28 pb-16 px-4">
+      <main className="max-w-3xl mx-auto pt-28 pb-20 px-4">
         <Link
           href="/blog"
-          className="inline-block text-blue-600 hover:text-blue-800 font-medium mb-8"
+          className="inline-flex items-center gap-1 text-gray-400 hover:text-primary-400 font-medium mb-10 transition-colors"
         >
           &larr; Back to Blog
         </Link>
 
-        {post.cover_image_url && (
-          <img
-            src={post.cover_image_url}
-            alt={post.title}
-            className="w-full rounded-xl max-h-96 object-cover mb-8"
-          />
-        )}
-
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">{post.title}</h1>
-
-        <div className="flex items-center gap-3 mb-8">
+        <div className="flex items-center gap-3 mb-6">
           {post.published_at && (
-            <time className="text-sm text-slate-500">
+            <time className="text-sm text-gray-500">
               {new Date(post.published_at).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
@@ -113,27 +103,43 @@ export default function BlogDetailClient() {
             </time>
           )}
           {!post.published && (
-            <span className="inline-block bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+            <span className="inline-block bg-yellow-500/10 text-yellow-400 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-yellow-500/20">
               Draft
             </span>
           )}
         </div>
 
-        <article className="prose prose-slate max-w-none">
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
+          {post.title}
+        </h1>
+
+        {post.excerpt && (
+          <p className="text-lg text-gray-400 mb-10 leading-relaxed">{post.excerpt}</p>
+        )}
+
+        {post.cover_image_url && (
+          <img
+            src={post.cover_image_url}
+            alt={post.title}
+            className="w-full rounded-2xl max-h-[480px] object-cover mb-12 border border-gray-800"
+          />
+        )}
+
+        <article className="prose prose-invert prose-slate max-w-none prose-headings:text-white prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-primary-400 prose-a:no-underline hover:prose-a:text-primary-300 prose-strong:text-white prose-code:text-primary-300 prose-code:bg-gray-800/60 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#111] prose-pre:border prose-pre:border-gray-800 prose-pre:rounded-xl prose-blockquote:border-primary-500/50 prose-blockquote:text-gray-400 prose-li:text-gray-300 prose-img:rounded-xl prose-hr:border-gray-800">
           <ReactMarkdown>{post.content}</ReactMarkdown>
         </article>
 
         {isAdmin && (
-          <div className="flex items-center gap-4 mt-12 pt-8 border-t border-slate-200">
+          <div className="flex items-center gap-4 mt-16 pt-8 border-t border-gray-800">
             <Link
               href={`/blog/${post.slug}/edit`}
-              className="inline-flex items-center px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-xl hover:bg-slate-700 transition-colors"
+              className="inline-flex items-center px-5 py-2.5 bg-gray-800 text-white text-sm font-medium rounded-xl hover:bg-gray-700 transition-colors border border-gray-700"
             >
               Edit
             </Link>
             <button
               onClick={handleDelete}
-              className="inline-flex items-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-xl hover:bg-red-700 transition-colors"
+              className="inline-flex items-center px-5 py-2.5 bg-red-500/10 text-red-400 text-sm font-medium rounded-xl hover:bg-red-500/20 transition-colors border border-red-500/20"
             >
               Delete
             </button>
