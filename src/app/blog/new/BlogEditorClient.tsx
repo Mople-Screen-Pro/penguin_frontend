@@ -21,6 +21,7 @@ export default function BlogEditorClient() {
   const [excerpt, setExcerpt] = useState('')
   const [content, setContent] = useState('')
   const [coverImageUrl, setCoverImageUrl] = useState('')
+  const [coverPreview, setCoverPreview] = useState('')
   const [published, setPublished] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -30,6 +31,7 @@ export default function BlogEditorClient() {
     const file = e.target.files?.[0]
     if (!file) return
 
+    setCoverPreview(URL.createObjectURL(file))
     setUploading(true)
     setError(null)
     try {
@@ -156,16 +158,21 @@ export default function BlogEditorClient() {
             <label className="block text-sm font-medium text-gray-400 mb-1">
               Cover Image
             </label>
-            {coverImageUrl && (
+            {(coverPreview || coverImageUrl) && (
               <div className="mb-3 relative">
                 <img
-                  src={coverImageUrl}
+                  src={coverPreview || coverImageUrl}
                   alt="Cover preview"
                   className="w-full max-h-48 object-cover rounded-xl border border-gray-800"
                 />
+                {uploading && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-xl">
+                    <span className="text-white text-sm font-medium">Uploading...</span>
+                  </div>
+                )}
                 <button
                   type="button"
-                  onClick={() => setCoverImageUrl('')}
+                  onClick={() => { setCoverPreview(''); setCoverImageUrl('') }}
                   className="absolute top-2 right-2 bg-black/60 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-black/80 transition-colors text-sm"
                 >
                   &times;
