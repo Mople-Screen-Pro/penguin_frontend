@@ -47,7 +47,7 @@ export default function BlogEditorClient() {
       <>
         <Header />
         <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <p className="text-slate-500">Loading...</p>
+          <p className="text-gray-500">Loading...</p>
         </div>
       </>
     )
@@ -58,9 +58,9 @@ export default function BlogEditorClient() {
       <>
         <Header />
         <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <h1 className="text-2xl font-bold text-slate-900 mb-4">Access denied</h1>
-          <p className="text-slate-600 mb-6">You do not have permission to create blog posts.</p>
-          <Link href="/blog" className="text-sky-600 hover:text-sky-700 font-medium">
+          <h1 className="text-2xl font-bold text-white mb-4">Access denied</h1>
+          <p className="text-gray-400 mb-6">You do not have permission to create blog posts.</p>
+          <Link href="/blog" className="text-primary-400 hover:text-primary-300 font-medium">
             Back to Blog
           </Link>
         </div>
@@ -96,23 +96,23 @@ export default function BlogEditorClient() {
   }
 
   const inputClass =
-    'w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 outline-none'
+    'w-full rounded-xl border border-gray-800 bg-[#111] px-4 py-3 text-gray-100 placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors'
 
   return (
     <>
       <Header />
       <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-        <h1 className="text-3xl font-bold text-slate-900 mb-8">New Blog Post</h1>
+        <h1 className="text-3xl font-bold text-white mb-8">New Blog Post</h1>
 
         {error && (
-          <div className="mb-6 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-red-700 text-sm">
+          <div className="mb-6 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3 text-red-400 text-sm">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-slate-700 mb-1">
+            <label htmlFor="title" className="block text-sm font-medium text-gray-400 mb-1">
               Title
             </label>
             <input
@@ -127,7 +127,7 @@ export default function BlogEditorClient() {
           </div>
 
           <div>
-            <label htmlFor="excerpt" className="block text-sm font-medium text-slate-700 mb-1">
+            <label htmlFor="excerpt" className="block text-sm font-medium text-gray-400 mb-1">
               Excerpt
             </label>
             <textarea
@@ -140,8 +140,8 @@ export default function BlogEditorClient() {
             />
           </div>
 
-          <div data-color-mode="light">
-            <label htmlFor="content" className="block text-sm font-medium text-slate-700 mb-1">
+          <div data-color-mode="dark">
+            <label htmlFor="content" className="block text-sm font-medium text-gray-400 mb-1">
               Content
             </label>
             <MDEditor
@@ -153,7 +153,7 @@ export default function BlogEditorClient() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Cover Image
             </label>
             {coverImageUrl && (
@@ -161,19 +161,19 @@ export default function BlogEditorClient() {
                 <img
                   src={coverImageUrl}
                   alt="Cover preview"
-                  className="w-full max-h-48 object-cover rounded-xl border border-slate-200"
+                  className="w-full max-h-48 object-cover rounded-xl border border-gray-800"
                 />
                 <button
                   type="button"
                   onClick={() => setCoverImageUrl('')}
-                  className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-black/70 transition-colors text-sm"
+                  className="absolute top-2 right-2 bg-black/60 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-black/80 transition-colors text-sm"
                 >
                   &times;
                 </button>
               </div>
             )}
             <label
-              className={`flex items-center justify-center gap-2 w-full rounded-xl border-2 border-dashed border-slate-300 px-4 py-6 text-slate-500 hover:border-sky-400 hover:text-sky-600 transition-colors cursor-pointer ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
+              className={`flex items-center justify-center gap-2 w-full rounded-xl border-2 border-dashed border-gray-700 px-4 py-6 text-gray-500 hover:border-primary-500 hover:text-primary-400 transition-colors cursor-pointer ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -194,9 +194,9 @@ export default function BlogEditorClient() {
               type="checkbox"
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
-              className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+              className="h-4 w-4 rounded border-gray-700 bg-[#111] text-primary-500 focus:ring-primary-500"
             />
-            <label htmlFor="published" className="text-sm font-medium text-slate-700">
+            <label htmlFor="published" className="text-sm font-medium text-gray-400">
               Publish immediately
             </label>
           </div>
@@ -205,11 +205,11 @@ export default function BlogEditorClient() {
             <button
               type="submit"
               disabled={submitting}
-              className="bg-gradient-to-br from-sky-500 to-blue-600 text-white font-semibold rounded-xl px-6 py-3 hover:from-sky-600 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {submitting ? 'Creating...' : 'Create Post'}
             </button>
-            <Link href="/blog" className="text-slate-600 hover:text-slate-900 font-medium">
+            <Link href="/blog" className="text-gray-400 hover:text-white font-medium transition-colors">
               Cancel
             </Link>
           </div>
