@@ -58,7 +58,7 @@ export async function uploadBlogImage(file: File): Promise<string> {
   return data.publicUrl
 }
 
-const VIDEO_MAX_SIZE = 50 * 1024 * 1024 // 50MB
+const VIDEO_MAX_SIZE = 200 * 1024 * 1024 // 200MB
 
 export async function uploadBlogVideo(file: File): Promise<string> {
   if (file.size > VIDEO_MAX_SIZE) {
