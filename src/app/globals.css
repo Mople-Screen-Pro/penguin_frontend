@@ -359,26 +359,18 @@ select,
 
 .blog-prose ol li {
   position: relative;
-  padding-left: 2.25rem;
+  padding-left: 1.75rem;
   margin-bottom: 0.625rem;
   counter-increment: blog-ol;
 }
 
 .blog-prose ol li::before {
-  content: counter(blog-ol);
+  content: counter(blog-ol) '.';
   position: absolute;
   left: 0;
-  top: 0.1em;
-  width: 1.5rem;
-  height: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 700;
+  top: 0;
+  font-weight: 600;
   color: #36a9ff;
-  background: rgba(54, 169, 255, 0.1);
-  border-radius: 50%;
 }
 
 .blog-prose blockquote {
@@ -429,6 +421,13 @@ select,
 .blog-prose img {
   border-radius: 12px;
   margin: 2rem 0;
+}
+
+.blog-prose video {
+  width: 100%;
+  border-radius: 12px;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Grid background pattern */

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 import Header from '../../../components/Header'
 import { useAdmin } from '../../../hooks/useAdmin'
 import { getPostBySlug, deletePost } from '../../../lib/blog'
@@ -126,7 +127,7 @@ export default function BlogDetailClient() {
         )}
 
         <article className="blog-prose">
-          <ReactMarkdown>{post.content}</ReactMarkdown>
+          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{post.content}</ReactMarkdown>
         </article>
 
         {isAdmin && (

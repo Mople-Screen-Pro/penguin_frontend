@@ -57,3 +57,27 @@ export async function uploadBlogImage(file: File): Promise<string> {
 
   return data.publicUrl
 }
+
+const VIDEO_MAX_SIZE = 50 * 1024 * 1024 // 50MB
+
+export async function uploadBlogVideo(file: File): Promise<string> {
+  if (file.size > VIDEO_MAX_SIZE) {
+    throw new Error(`Video is too large (${Math.round(file.size / 1024 / 1024)}MB). Maximum size is 50MB.`)
+  }
+
+  const ext = file.name.split('.').pop() || 'mp4'
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+  const filePath = `videos/${fileName}`
+
+  const { error } = await supabase.storage
+    .from('blog-images')
+    .upload(filePath, file)
+
+  if (error) throw error
+
+  const { data } = supabase.storage
+    .from('blog-images')
+    .getPublicUrl(filePath)
+
+  return data.publicUrl
+}
