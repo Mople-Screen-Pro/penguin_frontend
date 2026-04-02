@@ -347,7 +347,7 @@ select,
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #36a9ff;
+  background: #6b7280;
 }
 
 .blog-prose ol {
@@ -370,7 +370,7 @@ select,
   left: 0;
   top: 0;
   font-weight: 600;
-  color: #36a9ff;
+  color: #6b7280;
 }
 
 .blog-prose blockquote {
