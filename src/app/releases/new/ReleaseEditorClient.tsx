@@ -28,7 +28,7 @@ export default function ReleaseEditorClient() {
       <>
         <Header />
         <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <p className="text-slate-500">Loading...</p>
+          <p className="text-gray-500">Loading...</p>
         </div>
       </>
     )
@@ -39,9 +39,9 @@ export default function ReleaseEditorClient() {
       <>
         <Header />
         <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <h1 className="text-2xl font-bold text-slate-900 mb-4">Access denied</h1>
-          <p className="text-slate-600 mb-6">You do not have permission to create releases.</p>
-          <Link href="/releases" className="text-sky-600 hover:text-sky-700 font-medium">
+          <h1 className="text-2xl font-bold text-white mb-4">Access denied</h1>
+          <p className="text-gray-400 mb-6">You do not have permission to create releases.</p>
+          <Link href="/releases" className="text-primary-400 hover:text-primary-300 font-medium">
             Back to Releases
           </Link>
         </div>
@@ -76,16 +76,16 @@ export default function ReleaseEditorClient() {
   }
 
   const inputClass =
-    'w-full rounded-xl border border-slate-200 px-4 py-3 text-slate-900 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 outline-none'
+    'w-full rounded-xl border border-gray-800 bg-[#111] px-4 py-3 text-gray-100 placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors'
 
   return (
     <>
       <Header />
       <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-        <h1 className="text-3xl font-bold text-slate-900 mb-8">New Release</h1>
+        <h1 className="text-3xl font-bold text-white mb-8">New Release</h1>
 
         {error && (
-          <div className="mb-6 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-red-700 text-sm">
+          <div className="mb-6 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3 text-red-400 text-sm">
             {error}
           </div>
         )}
@@ -93,7 +93,7 @@ export default function ReleaseEditorClient() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="version" className="block text-sm font-medium text-slate-700 mb-1">
+              <label htmlFor="version" className="block text-sm font-medium text-gray-400 mb-1">
                 Version
               </label>
               <input
@@ -107,7 +107,7 @@ export default function ReleaseEditorClient() {
               />
             </div>
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-slate-700 mb-1">
+              <label htmlFor="title" className="block text-sm font-medium text-gray-400 mb-1">
                 Title
               </label>
               <input
@@ -122,8 +122,8 @@ export default function ReleaseEditorClient() {
             </div>
           </div>
 
-          <div data-color-mode="light">
-            <label htmlFor="content" className="block text-sm font-medium text-slate-700 mb-1">
+          <div data-color-mode="dark">
+            <label htmlFor="content" className="block text-sm font-medium text-gray-400 mb-1">
               Release Notes
             </label>
             <MDEditor
@@ -140,9 +140,9 @@ export default function ReleaseEditorClient() {
               type="checkbox"
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
-              className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+              className="h-4 w-4 rounded border-gray-700 bg-[#111] text-primary-500 focus:ring-primary-500"
             />
-            <label htmlFor="published" className="text-sm font-medium text-slate-700">
+            <label htmlFor="published" className="text-sm font-medium text-gray-400">
               Publish immediately
             </label>
           </div>
@@ -151,11 +151,11 @@ export default function ReleaseEditorClient() {
             <button
               type="submit"
               disabled={submitting}
-              className="bg-gradient-to-br from-sky-500 to-blue-600 text-white font-semibold rounded-xl px-6 py-3 hover:from-sky-600 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl px-6 py-3 shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {submitting ? 'Creating...' : 'Create Release'}
             </button>
-            <Link href="/releases" className="text-slate-600 hover:text-slate-900 font-medium">
+            <Link href="/releases" className="text-gray-400 hover:text-white font-medium transition-colors">
               Cancel
             </Link>
           </div>
