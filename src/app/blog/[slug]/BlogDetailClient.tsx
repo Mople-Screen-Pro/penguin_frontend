@@ -125,7 +125,7 @@ export default function BlogDetailClient() {
           />
         )}
 
-        <article className="prose prose-invert prose-slate max-w-none prose-headings:text-white prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-primary-400 prose-a:no-underline hover:prose-a:text-primary-300 prose-strong:text-white prose-code:text-primary-300 prose-code:bg-gray-800/60 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#111] prose-pre:border prose-pre:border-gray-800 prose-pre:rounded-xl prose-blockquote:border-primary-500/50 prose-blockquote:text-gray-400 prose-li:text-gray-300 prose-img:rounded-xl prose-hr:border-gray-800">
+        <article className="blog-prose">
           <ReactMarkdown>{post.content}</ReactMarkdown>
         </article>
 
