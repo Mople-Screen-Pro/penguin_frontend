@@ -223,7 +223,7 @@ export default function PricingClient() {
       <Header />
 
       {/* Content */}
-      <main className="max-w-7xl mx-auto px-6 pt-32 sm:pt-40 pb-[80px] md:pb-[160px] flex-grow w-full">
+      <main className="max-w-7xl mx-auto px-6 pt-24 sm:pt-28 pb-[80px] md:pb-[160px] flex-grow w-full">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h1 className="heading-lg font-bold text-white mb-4 animate-on-load">
