@@ -166,7 +166,7 @@ export default function MyPageClient() {
   const planBadge = getPlanBadge()
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#000]">
       <Header />
 
       {/* Content */}

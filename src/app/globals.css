@@ -39,7 +39,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   word-break: keep-all;
-  background: #0a0a0a;
+  background: #000;
   color: #e5e7eb;
 }
 

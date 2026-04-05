@@ -96,7 +96,7 @@ export default function ReleaseListClient() {
   }, [isAdmin])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#000]">
       <Header />
       <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
         <div className="flex items-center justify-between mb-12">
