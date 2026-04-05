@@ -175,7 +175,7 @@ export default function MyPageClient() {
 
         <div className="space-y-6">
           {/* Profile Card */}
-          <div className="rounded-2xl border border-gray-800 bg-[#111] p-6">
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-6">
             <h2 className="text-lg font-semibold text-white mb-4">Profile</h2>
             <div className="flex items-center gap-4">
               {avatar ? (
@@ -198,7 +198,7 @@ export default function MyPageClient() {
           </div>
 
           {/* Subscription Card */}
-          <div className="rounded-2xl border border-gray-800 bg-[#111] p-6">
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-6">
             <div className="flex items-center justify-between mb-5">
               <div>
                 <h2 className="text-lg font-semibold text-white">Subscription</h2>
@@ -215,7 +215,7 @@ export default function MyPageClient() {
             {(() => {
               if (!subscription || (canceled && expired)) {
                 return (
-                  <div className="flex items-center gap-3 rounded-xl bg-gray-900 border border-gray-800 p-4">
+                  <div className="flex items-center gap-3 rounded-xl bg-white/[0.03] border border-white/[0.06] p-4">
                     <div className="flex-1">
                       <p className="font-medium text-white">{canceled && expired ? 'Subscription Expired' : 'No Active Subscription'}</p>
                       <p className="text-sm text-gray-400">
@@ -345,14 +345,14 @@ export default function MyPageClient() {
                   const daysLeft = Math.max(0, Math.ceil((end - now) / (1000 * 60 * 60 * 24)))
 
                   return (
-                    <div className="bg-gray-900 rounded-xl p-4">
+                    <div className="bg-white/[0.03] rounded-xl p-4">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm text-gray-400">Current billing period</span>
                         <span className="text-sm font-medium text-white">
                           {daysLeft > 0 ? `${daysLeft} days left` : 'Renewing soon'}
                         </span>
                       </div>
-                      <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-white/[0.06] rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-primary-500 to-primary-400 rounded-full transition-all"
                           style={{ width: `${progress}%` }}
@@ -368,11 +368,11 @@ export default function MyPageClient() {
 
                 {/* 결제 수단 정보 */}
                 {subscription.payment_method && (
-                  <div className="bg-gray-900 rounded-xl p-4">
+                  <div className="bg-white/[0.03] rounded-xl p-4">
                     <p className="text-sm text-gray-400 mb-3">Payment Method</p>
                     {subscription.payment_method === 'card' && subscription.card_last4 ? (
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-8 bg-gray-800 rounded-md border border-gray-700 flex items-center justify-center shrink-0">
+                        <div className="w-12 h-8 bg-white/[0.04] rounded-md border border-white/[0.08] flex items-center justify-center shrink-0">
                           {(() => {
                             const t = subscription.card_type?.toLowerCase() || ''
                             if (t === 'visa') return (
@@ -422,7 +422,7 @@ export default function MyPageClient() {
                       </div>
                     ) : (
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-8 bg-gray-800 rounded-md border border-gray-700 flex items-center justify-center shrink-0">
+                        <div className="w-12 h-8 bg-white/[0.04] rounded-md border border-white/[0.08] flex items-center justify-center shrink-0">
                           {subscription.payment_method === 'paypal' ? (
                             <span className="text-[9px] font-bold text-blue-400 italic">PayPal</span>
                           ) : (
@@ -463,7 +463,7 @@ export default function MyPageClient() {
           {(active || pastDue || lifetime) && <ActiveDeviceSection />}
 
           {/* Account Actions */}
-          <div className="rounded-2xl border border-gray-800 bg-[#111] p-6">
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-6">
             <h2 className="text-lg font-semibold text-white mb-4">Account</h2>
             <div className="space-y-3">
               <button
@@ -471,8 +471,8 @@ export default function MyPageClient() {
                 disabled={!subscription || (canceled && expired)}
                 className={`w-full text-left px-4 py-3 rounded-xl border flex items-center justify-between transition-colors ${
                   !subscription || (canceled && expired)
-                    ? 'border-gray-800 text-gray-600 cursor-not-allowed bg-gray-900'
-                    : 'border-gray-800 text-gray-300 hover:bg-gray-900'
+                    ? 'border-white/[0.06] text-gray-600 cursor-not-allowed bg-white/[0.02]'
+                    : 'border-white/[0.06] text-gray-300 hover:bg-white/[0.04]'
                 }`}
               >
                 <span>Manage Subscription</span>
@@ -498,7 +498,7 @@ export default function MyPageClient() {
         </div>
 
         {/* Footer Links */}
-        <div className="mt-8 pt-8 border-t border-gray-800 flex flex-wrap gap-4 text-sm text-gray-500">
+        <div className="mt-8 pt-8 border-t border-white/[0.06] flex flex-wrap gap-4 text-sm text-gray-500">
           <Link href="/terms" className="hover:text-gray-300 transition-colors">Terms of Service</Link>
           <span>·</span>
           <Link href="/privacy" className="hover:text-gray-300 transition-colors">Privacy Policy</Link>
@@ -526,7 +526,7 @@ export default function MyPageClient() {
       {/* Delete Account Modal */}
       {deleteModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="bg-[#111] border border-gray-800 rounded-2xl p-6 max-w-md mx-4 w-full shadow-xl">
+          <div className="bg-[#0a0a0a] border border-white/[0.08] rounded-2xl p-6 max-w-md mx-4 w-full shadow-2xl">
             <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
@@ -542,7 +542,7 @@ export default function MyPageClient() {
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteModalOpen(false)}
-                className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-300 bg-gray-800 rounded-xl hover:bg-gray-700 transition-colors"
+                className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-300 bg-white/[0.06] rounded-xl hover:bg-white/[0.1] transition-colors"
               >
                 Cancel
               </button>
