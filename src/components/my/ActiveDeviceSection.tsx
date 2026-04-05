@@ -23,7 +23,7 @@ export default function ActiveDeviceSection() {
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-6">
+      <div className="rounded-2xl border border-white/[0.1] bg-white/[0.05] backdrop-blur-sm p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Active Device</h2>
         <div className="flex items-center justify-center py-4">
           <div className="w-5 h-5 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />
@@ -34,7 +34,7 @@ export default function ActiveDeviceSection() {
 
   return (
     <>
-      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-6">
+      <div className="rounded-2xl border border-white/[0.1] bg-white/[0.05] backdrop-blur-sm p-6">
         <h2 className="text-lg font-semibold text-white mb-4">Active Device</h2>
 
         {device ? (

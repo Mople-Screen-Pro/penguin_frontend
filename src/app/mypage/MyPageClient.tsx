@@ -175,7 +175,7 @@ export default function MyPageClient() {
 
         <div className="space-y-6">
           {/* Profile Card */}
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-6">
+          <div className="rounded-2xl border border-white/[0.1] bg-white/[0.05] backdrop-blur-sm p-6">
             <h2 className="text-lg font-semibold text-white mb-4">Profile</h2>
             <div className="flex items-center gap-4">
               {avatar ? (
@@ -198,7 +198,7 @@ export default function MyPageClient() {
           </div>
 
           {/* Subscription Card */}
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-6">
+          <div className="rounded-2xl border border-white/[0.1] bg-white/[0.05] backdrop-blur-sm p-6">
             <div className="flex items-center justify-between mb-5">
               <div>
                 <h2 className="text-lg font-semibold text-white">Subscription</h2>
@@ -215,7 +215,7 @@ export default function MyPageClient() {
             {(() => {
               if (!subscription || (canceled && expired)) {
                 return (
-                  <div className="flex items-center gap-3 rounded-xl bg-white/[0.03] border border-white/[0.06] p-4">
+                  <div className="flex items-center gap-3 rounded-xl bg-white/[0.03] border border-white/[0.1] p-4">
                     <div className="flex-1">
                       <p className="font-medium text-white">{canceled && expired ? 'Subscription Expired' : 'No Active Subscription'}</p>
                       <p className="text-sm text-gray-400">
@@ -463,7 +463,7 @@ export default function MyPageClient() {
           {(active || pastDue || lifetime) && <ActiveDeviceSection />}
 
           {/* Account Actions */}
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm p-6">
+          <div className="rounded-2xl border border-white/[0.1] bg-white/[0.05] backdrop-blur-sm p-6">
             <h2 className="text-lg font-semibold text-white mb-4">Account</h2>
             <div className="space-y-3">
               <button
@@ -471,8 +471,8 @@ export default function MyPageClient() {
                 disabled={!subscription || (canceled && expired)}
                 className={`w-full text-left px-4 py-3 rounded-xl border flex items-center justify-between transition-colors ${
                   !subscription || (canceled && expired)
-                    ? 'border-white/[0.06] text-gray-600 cursor-not-allowed bg-white/[0.02]'
-                    : 'border-white/[0.06] text-gray-300 hover:bg-white/[0.04]'
+                    ? 'border-white/[0.1] text-gray-600 cursor-not-allowed bg-white/[0.02]'
+                    : 'border-white/[0.1] text-gray-300 hover:bg-white/[0.04]'
                 }`}
               >
                 <span>Manage Subscription</span>
@@ -498,7 +498,7 @@ export default function MyPageClient() {
         </div>
 
         {/* Footer Links */}
-        <div className="mt-8 pt-8 border-t border-white/[0.06] flex flex-wrap gap-4 text-sm text-gray-500">
+        <div className="mt-8 pt-8 border-t border-white/[0.1] flex flex-wrap gap-4 text-sm text-gray-500">
           <Link href="/terms" className="hover:text-gray-300 transition-colors">Terms of Service</Link>
           <span>·</span>
           <Link href="/privacy" className="hover:text-gray-300 transition-colors">Privacy Policy</Link>
