@@ -208,13 +208,13 @@ export default function UpgradeModal({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-md mx-4 bg-[#111] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-5 border-b border-slate-100">
-          <h2 className="text-xl font-bold text-slate-900">
+        <div className="px-6 py-5 border-b border-gray-800">
+          <h2 className="text-xl font-bold text-white">
             {isLifetime ? 'Upgrade to Lifetime' : isDowngrade ? 'Switch to Monthly' : 'Upgrade to Yearly'}
           </h2>
-          <p className="text-slate-600 mt-1">
+          <p className="text-gray-400 mt-1">
             {isLifetime
               ? 'Pay once, use forever'
               : isDowngrade
@@ -223,7 +223,7 @@ export default function UpgradeModal({
           </p>
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-1 text-slate-400 hover:text-slate-600 transition-colors"
+            className="absolute top-4 right-4 p-1 text-gray-500 hover:text-gray-300 transition-colors"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -235,48 +235,48 @@ export default function UpgradeModal({
         <div className="p-6">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-8">
-              <div className="w-8 h-8 border-4 border-sky-500 border-t-transparent rounded-full animate-spin" />
-              <p className="text-sm text-slate-500 mt-3">
+              <div className="w-8 h-8 border-4 border-primary-500 border-t-transparent rounded-full animate-spin" />
+              <p className="text-sm text-gray-400 mt-3">
                 {isDowngrade ? 'Loading plan details...' : 'Calculating your upgrade price\u2026'}
               </p>
             </div>
           ) : error && !hasPreview ? (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
-              <p className="text-sm text-red-700">{error}</p>
+            <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 mb-4">
+              <p className="text-sm text-red-400">{error}</p>
             </div>
           ) : isDowngrade && downgradePreview ? (
             <>
               <div className="space-y-4 mb-6">
-                <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
+                <div className="rounded-xl bg-amber-500/5 border border-amber-500/20 p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <svg className="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="font-medium text-amber-900">Scheduled Change</span>
+                    <span className="font-medium text-amber-400">Scheduled Change</span>
                   </div>
-                  <p className="text-sm text-amber-800">
+                  <p className="text-sm text-amber-400/70">
                     Your yearly subscription will remain active until{' '}
-                    <span className="font-semibold">
+                    <span className="font-semibold text-amber-400">
                       {formatDate(downgradePreview.scheduledChange.effectiveAt)}
                     </span>.
                   </p>
-                  <p className="text-sm text-amber-800 mt-1">
-                    After that date, you'll be billed <span className="font-semibold">$21/month</span>.
+                  <p className="text-sm text-amber-400/70 mt-1">
+                    After that date, you&apos;ll be billed <span className="font-semibold text-amber-400">$21/month</span>.
                   </p>
                 </div>
 
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between py-2 border-b border-slate-100">
-                    <span className="text-slate-600 text-sm">Current plan</span>
-                    <span className="font-medium text-slate-900">Yearly ($96/year)</span>
+                  <div className="flex items-center justify-between py-2 border-b border-gray-800">
+                    <span className="text-gray-400 text-sm">Current plan</span>
+                    <span className="font-medium text-white">Yearly ($96/year)</span>
                   </div>
-                  <div className="flex items-center justify-between py-2 border-b border-slate-100">
-                    <span className="text-slate-600 text-sm">New plan</span>
-                    <span className="font-medium text-slate-900">Monthly ($21/month)</span>
+                  <div className="flex items-center justify-between py-2 border-b border-gray-800">
+                    <span className="text-gray-400 text-sm">New plan</span>
+                    <span className="font-medium text-white">Monthly ($21/month)</span>
                   </div>
                   <div className="flex items-center justify-between py-2">
-                    <span className="text-slate-600 text-sm">Effective date</span>
-                    <span className="font-medium text-slate-900">
+                    <span className="text-gray-400 text-sm">Effective date</span>
+                    <span className="font-medium text-white">
                       {formatDate(downgradePreview.scheduledChange.effectiveAt)}
                     </span>
                   </div>
@@ -284,56 +284,56 @@ export default function UpgradeModal({
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
-                  <p className="text-sm text-red-700">{error}</p>
+                <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 mb-4">
+                  <p className="text-sm text-red-400">{error}</p>
                 </div>
               )}
             </>
           ) : isLifetime && lifetimePreview ? (
             <>
               <div className="space-y-3 mb-6">
-                <div className="flex items-center justify-between py-3 border-b border-slate-100">
-                  <span className="text-slate-600">Lifetime plan</span>
-                  <span className="font-medium text-slate-900">{formatCents(lifetimePreview.lifetimePrice)}</span>
+                <div className="flex items-center justify-between py-3 border-b border-gray-800">
+                  <span className="text-gray-400">Lifetime plan</span>
+                  <span className="font-medium text-white">{formatCents(lifetimePreview.lifetimePrice)}</span>
                 </div>
                 {lifetimePreview.creditAmount > 0 && (
-                  <div className="flex items-center justify-between py-3 border-b border-slate-100">
-                    <span className="text-slate-600">Remaining credit ({lifetimePreview.currentPlan === 'year' ? 'yearly' : 'monthly'})</span>
-                    <span className="font-medium text-green-600">-{formatCents(lifetimePreview.creditAmount)}</span>
+                  <div className="flex items-center justify-between py-3 border-b border-gray-800">
+                    <span className="text-gray-400">Remaining credit ({lifetimePreview.currentPlan === 'year' ? 'yearly' : 'monthly'})</span>
+                    <span className="font-medium text-green-400">-{formatCents(lifetimePreview.creditAmount)}</span>
                   </div>
                 )}
                 <div className="flex items-center justify-between py-3">
-                  <span className="font-semibold text-slate-900">Amount due today</span>
-                  <span className="text-lg font-bold text-sky-600">{formatCents(lifetimePreview.netAmount)}</span>
+                  <span className="font-semibold text-white">Amount due today</span>
+                  <span className="text-lg font-bold text-primary-400">{formatCents(lifetimePreview.netAmount)}</span>
                 </div>
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
-                  <p className="text-sm text-red-700">{error}</p>
+                <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 mb-4">
+                  <p className="text-sm text-red-400">{error}</p>
                 </div>
               )}
             </>
           ) : upgradePreview ? (
             <>
               <div className="space-y-3 mb-6">
-                <div className="flex items-center justify-between py-3 border-b border-slate-100">
-                  <span className="text-slate-600">Yearly plan</span>
-                  <span className="font-medium text-slate-900">{formatCents(upgradePreview.charge)}</span>
+                <div className="flex items-center justify-between py-3 border-b border-gray-800">
+                  <span className="text-gray-400">Yearly plan</span>
+                  <span className="font-medium text-white">{formatCents(upgradePreview.charge)}</span>
                 </div>
-                <div className="flex items-center justify-between py-3 border-b border-slate-100">
-                  <span className="text-slate-600">Remaining credit</span>
-                  <span className="font-medium text-green-600">-{formatCents(upgradePreview.credit)}</span>
+                <div className="flex items-center justify-between py-3 border-b border-gray-800">
+                  <span className="text-gray-400">Remaining credit</span>
+                  <span className="font-medium text-green-400">-{formatCents(upgradePreview.credit)}</span>
                 </div>
                 <div className="flex items-center justify-between py-3">
-                  <span className="font-semibold text-slate-900">Amount due today</span>
-                  <span className="text-lg font-bold text-sky-600">{formatCents(upgradePreview.result)}</span>
+                  <span className="font-semibold text-white">Amount due today</span>
+                  <span className="text-lg font-bold text-primary-400">{formatCents(upgradePreview.result)}</span>
                 </div>
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
-                  <p className="text-sm text-red-700">{error}</p>
+                <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 mb-4">
+                  <p className="text-sm text-red-400">{error}</p>
                 </div>
               )}
             </>
@@ -342,7 +342,7 @@ export default function UpgradeModal({
           <div className="flex gap-3">
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-3 text-slate-700 font-medium rounded-xl border-2 border-slate-200 hover:bg-slate-50 transition-colors"
+              className="flex-1 px-4 py-3 text-gray-300 font-medium rounded-xl border-2 border-gray-700 hover:bg-gray-800 transition-colors"
             >
               Cancel
             </button>
@@ -352,7 +352,7 @@ export default function UpgradeModal({
               className={`flex-1 px-4 py-3 text-white font-medium rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                 isDowngrade
                   ? 'bg-gradient-to-br from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700'
-                  : 'bg-gradient-to-br from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700'
+                  : 'bg-gradient-to-r from-primary-500 to-primary-600 shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30'
               }`}
             >
               {confirming ? (

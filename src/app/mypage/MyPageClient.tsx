@@ -78,8 +78,8 @@ export default function MyPageClient() {
 
   if (authLoading || subLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-sky-500 border-t-transparent rounded-full" />
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-primary-500 border-t-transparent rounded-full" />
       </div>
     )
   }
@@ -154,42 +154,42 @@ export default function MyPageClient() {
   const hasScheduledCancel = hasAnyScheduledChange && !hasScheduledChange
 
   const getPlanBadge = () => {
-    if (!subscription) return { label: 'No Plan', color: 'bg-slate-100 text-slate-700' }
-    if (pastDue) return { label: `${planLabel} (Past Due)`, color: 'bg-amber-100 text-amber-700' }
-    if (canceled && !expired) return { label: `${planLabel} (Canceled)`, color: 'bg-red-100 text-red-700' }
-    if (canceled && expired) return { label: 'Expired', color: 'bg-slate-100 text-slate-700' }
-    if (lifetime) return { label: 'Lifetime', color: 'bg-sky-100 text-sky-700' }
-    if (planLabel === 'Yearly') return { label: 'Yearly', color: 'bg-blue-100 text-blue-700' }
-    return { label: 'Monthly', color: 'bg-green-100 text-green-700' }
+    if (!subscription) return { label: 'No Plan', color: 'bg-gray-800 text-gray-400' }
+    if (pastDue) return { label: `${planLabel} (Past Due)`, color: 'bg-amber-500/10 text-amber-400 ring-1 ring-inset ring-amber-500/20' }
+    if (canceled && !expired) return { label: `${planLabel} (Canceled)`, color: 'bg-red-500/10 text-red-400 ring-1 ring-inset ring-red-500/20' }
+    if (canceled && expired) return { label: 'Expired', color: 'bg-gray-800 text-gray-400' }
+    if (lifetime) return { label: 'Lifetime', color: 'bg-primary-500/10 text-primary-400 ring-1 ring-inset ring-primary-500/20' }
+    if (planLabel === 'Yearly') return { label: 'Yearly', color: 'bg-primary-500/10 text-primary-400 ring-1 ring-inset ring-primary-500/20' }
+    return { label: 'Monthly', color: 'bg-green-500/10 text-green-400 ring-1 ring-inset ring-green-500/20' }
   }
 
   const planBadge = getPlanBadge()
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen">
       <Header />
 
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 lg:pt-28 pb-12">
-        <h1 className="text-2xl font-bold text-slate-900 mb-8">My Account</h1>
+        <h1 className="text-2xl font-bold text-white mb-8">My Account</h1>
 
         <div className="space-y-6">
           {/* Profile Card */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6">
-            <h2 className="text-lg font-semibold text-slate-900 mb-4">Profile</h2>
+          <div className="rounded-2xl border border-gray-800 bg-[#111] p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Profile</h2>
             <div className="flex items-center gap-4">
               {avatar ? (
                 <img src={avatar} alt="" className="w-16 h-16 rounded-full" />
               ) : (
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center text-white text-2xl font-bold">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white text-2xl font-bold">
                   {email.charAt(0).toUpperCase()}
                 </div>
               )}
               <div>
-                <p className="font-medium text-slate-900">{name || 'User'}</p>
-                <p className="text-slate-600">{email}</p>
+                <p className="font-medium text-white">{name || 'User'}</p>
+                <p className="text-gray-400">{email}</p>
                 {user?.created_at && (
-                  <p className="text-xs text-slate-400 mt-1">
+                  <p className="text-xs text-gray-500 mt-1">
                     Joined {formatDate(user.created_at)}
                   </p>
                 )}
@@ -198,12 +198,12 @@ export default function MyPageClient() {
           </div>
 
           {/* Subscription Card */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6">
+          <div className="rounded-2xl border border-gray-800 bg-[#111] p-6">
             <div className="flex items-center justify-between mb-5">
               <div>
-                <h2 className="text-lg font-semibold text-slate-900">Subscription</h2>
+                <h2 className="text-lg font-semibold text-white">Subscription</h2>
                 {subscription && !(canceled && expired) && (
-                  <p className="text-xs text-slate-400 mt-0.5">Since {formatDate(subscription.subscription_created_at)}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">Since {formatDate(subscription.subscription_created_at)}</p>
                 )}
               </div>
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${planBadge.color}`}>
@@ -215,16 +215,16 @@ export default function MyPageClient() {
             {(() => {
               if (!subscription || (canceled && expired)) {
                 return (
-                  <div className="flex items-center gap-3 rounded-xl bg-slate-50 p-4">
+                  <div className="flex items-center gap-3 rounded-xl bg-gray-900 border border-gray-800 p-4">
                     <div className="flex-1">
-                      <p className="font-medium text-slate-900">{canceled && expired ? 'Subscription Expired' : 'No Active Subscription'}</p>
-                      <p className="text-sm text-slate-500">
+                      <p className="font-medium text-white">{canceled && expired ? 'Subscription Expired' : 'No Active Subscription'}</p>
+                      <p className="text-sm text-gray-400">
                         {canceled && expired ? 'Resubscribe to access Pro features.' : 'Subscribe to unlock all features.'}
                       </p>
                     </div>
                     <Link
                       href="/pricing"
-                      className="px-4 py-2 bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all shrink-0"
+                      className="px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-sm font-medium rounded-xl shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all shrink-0"
                     >
                       {canceled && expired ? 'Resubscribe' : 'Subscribe'}
                     </Link>
@@ -233,24 +233,24 @@ export default function MyPageClient() {
               }
               if (lifetime) {
                 return (
-                  <div className="rounded-xl bg-gradient-to-r from-sky-50 to-blue-50 p-4">
-                    <p className="font-medium text-sky-900">Lifetime Access</p>
-                    <p className="text-sm text-sky-600">Active forever — no renewal needed</p>
+                  <div className="rounded-xl bg-primary-500/5 border border-primary-500/20 p-4">
+                    <p className="font-medium text-primary-400">Lifetime Access</p>
+                    <p className="text-sm text-primary-400/70">Active forever — no renewal needed</p>
                   </div>
                 )
               }
               if (canceled && !expired) {
                 return (
-                  <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
+                  <div className="rounded-xl bg-amber-500/5 border border-amber-500/20 p-4">
                     <div className="flex items-center justify-between gap-4">
                       <div>
-                        <p className="font-medium text-amber-900">Canceled</p>
-                        <p className="text-sm text-amber-700">Pro features available until {formatDate(subscription.subscription_period_end)}</p>
+                        <p className="font-medium text-amber-400">Canceled</p>
+                        <p className="text-sm text-amber-400/70">Pro features available until {formatDate(subscription.subscription_period_end)}</p>
                       </div>
                       <button
                         onClick={handleReactivate}
                         disabled={reactivateLoading}
-                        className="px-4 py-2 bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all shrink-0 disabled:opacity-50"
+                        className="px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-sm font-medium rounded-xl shadow-lg shadow-primary-500/25 transition-all shrink-0 disabled:opacity-50"
                       >
                         {reactivateLoading ? 'Resubscribing…' : 'Resubscribe'}
                       </button>
@@ -260,23 +260,23 @@ export default function MyPageClient() {
               }
               if (pastDue) {
                 return (
-                  <div className="rounded-xl bg-red-50 border border-red-200 p-4">
-                    <p className="font-medium text-red-900">Payment Failed</p>
-                    <p className="text-sm text-red-700">Please update your payment method to keep your subscription.</p>
+                  <div className="rounded-xl bg-red-500/5 border border-red-500/20 p-4">
+                    <p className="font-medium text-red-400">Payment Failed</p>
+                    <p className="text-sm text-red-400/70">Please update your payment method to keep your subscription.</p>
                   </div>
                 )
               }
               // active
               if (hasScheduledChange) {
                 return (
-                  <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
+                  <div className="rounded-xl bg-amber-500/5 border border-amber-500/20 p-4">
                     <div className="flex items-center gap-2 mb-1">
-                      <svg className="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <p className="font-medium text-amber-900 text-sm">Scheduled Plan Change</p>
+                      <p className="font-medium text-amber-400 text-sm">Scheduled Plan Change</p>
                     </div>
-                    <p className="text-sm text-amber-700">
+                    <p className="text-sm text-amber-400/70">
                       Your {subscription.billing_cycle_interval === 'year' ? 'yearly' : 'monthly'} subscription will switch to{' '}
                       {subscription.scheduled_change_billing_cycle_interval === 'month' ? 'monthly ($21/month)' : 'yearly ($96/year)'}{' '}
                       on {formatDate(subscription.scheduled_change_effective_at)}.
@@ -286,16 +286,16 @@ export default function MyPageClient() {
               }
               if (hasScheduledCancel) {
                 return (
-                  <div className="rounded-xl bg-amber-50 border border-amber-200 p-4">
+                  <div className="rounded-xl bg-amber-500/5 border border-amber-500/20 p-4">
                     <div className="flex items-center justify-between gap-4">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <svg className="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
-                          <p className="font-medium text-amber-900 text-sm">Cancellation Scheduled</p>
+                          <p className="font-medium text-amber-400 text-sm">Cancellation Scheduled</p>
                         </div>
-                        <p className="text-sm text-amber-700">
+                        <p className="text-sm text-amber-400/70">
                           Your subscription is active until {formatDate(subscription.scheduled_change_effective_at)}.
                           After this date, your plan will be canceled and Pro features will no longer be available.
                         </p>
@@ -303,7 +303,7 @@ export default function MyPageClient() {
                       <button
                         onClick={handleReactivate}
                         disabled={reactivateLoading}
-                        className="px-4 py-2 bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all shrink-0 disabled:opacity-50"
+                        className="px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-sm font-medium rounded-xl shadow-lg shadow-primary-500/25 transition-all shrink-0 disabled:opacity-50"
                       >
                         {reactivateLoading ? 'Resubscribing…' : 'Resubscribe'}
                       </button>
@@ -312,16 +312,16 @@ export default function MyPageClient() {
                 )
               }
               return (
-                <div className="rounded-xl bg-green-50 border border-green-200 p-4">
+                <div className="rounded-xl bg-green-500/5 border border-green-500/20 p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-green-900">Active</p>
-                      <p className="text-sm text-green-700">Next billing on {formatDate(subscription.next_billed_at)}</p>
+                      <p className="font-medium text-green-400">Active</p>
+                      <p className="text-sm text-green-400/70">Next billing on {formatDate(subscription.next_billed_at)}</p>
                     </div>
                     {!lifetime && subscription.billing_cycle_interval === 'month' && (
                       <button
                         onClick={() => setUpgradeModalOpen(true)}
-                        className="px-4 py-2 bg-gradient-to-br from-sky-500 to-blue-600 text-white text-sm font-medium rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all shrink-0"
+                        className="px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-sm font-medium rounded-xl shadow-lg shadow-primary-500/25 transition-all shrink-0"
                       >
                         Upgrade to Yearly
                       </button>
@@ -345,20 +345,20 @@ export default function MyPageClient() {
                   const daysLeft = Math.max(0, Math.ceil((end - now) / (1000 * 60 * 60 * 24)))
 
                   return (
-                    <div className="bg-slate-50 rounded-xl p-4">
+                    <div className="bg-gray-900 rounded-xl p-4">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-slate-600">Current billing period</span>
-                        <span className="text-sm font-medium text-slate-900">
+                        <span className="text-sm text-gray-400">Current billing period</span>
+                        <span className="text-sm font-medium text-white">
                           {daysLeft > 0 ? `${daysLeft} days left` : 'Renewing soon'}
                         </span>
                       </div>
-                      <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-sky-500 to-blue-500 rounded-full transition-all"
+                          className="h-full bg-gradient-to-r from-primary-500 to-primary-400 rounded-full transition-all"
                           style={{ width: `${progress}%` }}
                         />
                       </div>
-                      <div className="flex justify-between mt-2 text-xs text-slate-400">
+                      <div className="flex justify-between mt-2 text-xs text-gray-500">
                         <span>{formatDate(subscription.subscription_period_start)}</span>
                         <span>{formatDate(subscription.subscription_period_end)}</span>
                       </div>
@@ -368,15 +368,15 @@ export default function MyPageClient() {
 
                 {/* 결제 수단 정보 */}
                 {subscription.payment_method && (
-                  <div className="bg-slate-50 rounded-xl p-4">
-                    <p className="text-sm text-slate-600 mb-3">Payment Method</p>
+                  <div className="bg-gray-900 rounded-xl p-4">
+                    <p className="text-sm text-gray-400 mb-3">Payment Method</p>
                     {subscription.payment_method === 'card' && subscription.card_last4 ? (
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-8 bg-white rounded-md border border-slate-200 flex items-center justify-center shrink-0">
+                        <div className="w-12 h-8 bg-gray-800 rounded-md border border-gray-700 flex items-center justify-center shrink-0">
                           {(() => {
                             const t = subscription.card_type?.toLowerCase() || ''
                             if (t === 'visa') return (
-                              <span className="text-[11px] font-bold tracking-tight text-blue-600 italic">VISA</span>
+                              <span className="text-[11px] font-bold tracking-tight text-blue-400 italic">VISA</span>
                             )
                             if (t === 'mastercard') return (
                               <div className="flex items-center -space-x-1">
@@ -385,29 +385,29 @@ export default function MyPageClient() {
                               </div>
                             )
                             if (t === 'american_express' || t === 'amex') return (
-                              <span className="text-[8px] font-bold text-blue-700 leading-none text-center">AMEX</span>
+                              <span className="text-[8px] font-bold text-blue-400 leading-none text-center">AMEX</span>
                             )
                             if (t === 'discover') return (
-                              <span className="text-[8px] font-bold text-orange-500">DISC</span>
+                              <span className="text-[8px] font-bold text-orange-400">DISC</span>
                             )
                             if (t === 'jcb') return (
-                              <span className="text-[9px] font-bold text-green-700">JCB</span>
+                              <span className="text-[9px] font-bold text-green-400">JCB</span>
                             )
                             return (
-                              <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                               </svg>
                             )
                           })()}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-slate-900 tracking-wide">
-                            <span className="text-slate-400">••••</span>
-                            <span className="text-slate-400 ml-1.5">••••</span>
-                            <span className="text-slate-400 ml-1.5">••••</span>
+                          <p className="text-sm font-medium text-white tracking-wide">
+                            <span className="text-gray-600">••••</span>
+                            <span className="text-gray-600 ml-1.5">••••</span>
+                            <span className="text-gray-600 ml-1.5">••••</span>
                             <span className="ml-1.5">{subscription.card_last4}</span>
                           </p>
-                          <p className="text-xs text-slate-500 mt-0.5">
+                          <p className="text-xs text-gray-500 mt-0.5">
                             {subscription.card_type
                               ? subscription.card_type.charAt(0).toUpperCase() + subscription.card_type.slice(1).replace('_', ' ')
                               : 'Card'
@@ -422,16 +422,16 @@ export default function MyPageClient() {
                       </div>
                     ) : (
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-8 bg-white rounded-md border border-slate-200 flex items-center justify-center shrink-0">
+                        <div className="w-12 h-8 bg-gray-800 rounded-md border border-gray-700 flex items-center justify-center shrink-0">
                           {subscription.payment_method === 'paypal' ? (
-                            <span className="text-[9px] font-bold text-blue-700 italic">PayPal</span>
+                            <span className="text-[9px] font-bold text-blue-400 italic">PayPal</span>
                           ) : (
-                            <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
                             </svg>
                           )}
                         </div>
-                        <p className="text-sm font-medium text-slate-900 capitalize">
+                        <p className="text-sm font-medium text-white capitalize">
                           {subscription.payment_method}
                         </p>
                       </div>
@@ -441,16 +441,16 @@ export default function MyPageClient() {
 
                 {/* 구독 상세 정보 */}
                 {canceled && subscription.canceled_at && (
-                  <div className="bg-slate-50 rounded-xl p-3">
-                    <p className="text-xs text-slate-500 mb-1">Canceled On</p>
-                    <p className="text-sm font-medium text-red-600">{formatDate(subscription.canceled_at)}</p>
+                  <div className="bg-gray-900 rounded-xl p-3">
+                    <p className="text-xs text-gray-500 mb-1">Canceled On</p>
+                    <p className="text-sm font-medium text-red-400">{formatDate(subscription.canceled_at)}</p>
                   </div>
                 )}
 
                 {(active || pastDue) && !lifetime && !hasAnyScheduledChange && (
                   <button
                     onClick={() => setCancelModalOpen(true)}
-                    className="text-sm text-slate-400 hover:text-red-500 transition-colors"
+                    className="text-sm text-gray-500 hover:text-red-400 transition-colors"
                   >
                     Cancel subscription
                   </button>
@@ -463,33 +463,33 @@ export default function MyPageClient() {
           {(active || pastDue || lifetime) && <ActiveDeviceSection />}
 
           {/* Account Actions */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6">
-            <h2 className="text-lg font-semibold text-slate-900 mb-4">Account</h2>
+          <div className="rounded-2xl border border-gray-800 bg-[#111] p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Account</h2>
             <div className="space-y-3">
               <button
                 onClick={openManageSubscription}
                 disabled={!subscription || (canceled && expired)}
                 className={`w-full text-left px-4 py-3 rounded-xl border flex items-center justify-between transition-colors ${
                   !subscription || (canceled && expired)
-                    ? 'border-slate-100 text-slate-400 cursor-not-allowed bg-slate-50'
-                    : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                    ? 'border-gray-800 text-gray-600 cursor-not-allowed bg-gray-900'
+                    : 'border-gray-800 text-gray-300 hover:bg-gray-900'
                 }`}
               >
                 <span>Manage Subscription</span>
                 {portalLoading ? (
-                  <div className="w-5 h-5 border-2 border-slate-300 border-t-slate-600 rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-gray-600 border-t-gray-300 rounded-full animate-spin" />
                 ) : (
-                  <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 )}
               </button>
               <button
                 onClick={() => setDeleteModalOpen(true)}
-                className="w-full text-left px-4 py-3 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 transition-colors flex items-center justify-between"
+                className="w-full text-left px-4 py-3 rounded-xl border border-red-500/20 text-red-400 hover:bg-red-500/5 transition-colors flex items-center justify-between"
               >
                 <span>Delete Account</span>
-                <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5 text-red-500/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
@@ -498,14 +498,14 @@ export default function MyPageClient() {
         </div>
 
         {/* Footer Links */}
-        <div className="mt-8 pt-8 border-t border-slate-200 flex flex-wrap gap-4 text-sm text-slate-500">
-          <Link href="/terms" className="hover:text-slate-700">Terms of Service</Link>
+        <div className="mt-8 pt-8 border-t border-gray-800 flex flex-wrap gap-4 text-sm text-gray-500">
+          <Link href="/terms" className="hover:text-gray-300 transition-colors">Terms of Service</Link>
           <span>·</span>
-          <Link href="/privacy" className="hover:text-slate-700">Privacy Policy</Link>
+          <Link href="/privacy" className="hover:text-gray-300 transition-colors">Privacy Policy</Link>
           <span>·</span>
-          <Link href="/refund" className="hover:text-slate-700">Refund Policy</Link>
+          <Link href="/refund" className="hover:text-gray-300 transition-colors">Refund Policy</Link>
           <span>·</span>
-          <a href="mailto:jwjygpt0507@gmail.com" className="hover:text-slate-700">Contact Support</a>
+          <a href="mailto:jwjygpt0507@gmail.com" className="hover:text-gray-300 transition-colors">Contact Support</a>
         </div>
       </main>
 
@@ -525,24 +525,24 @@ export default function MyPageClient() {
 
       {/* Delete Account Modal */}
       {deleteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-2xl p-6 max-w-md mx-4 w-full shadow-xl">
-            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-[#111] border border-gray-800 rounded-2xl p-6 max-w-md mx-4 w-full shadow-xl">
+            <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-slate-900 text-center mb-2">Delete Account</h3>
-            <p className="text-sm text-slate-600 text-center mb-1">
-              This action is <span className="font-semibold text-red-600">permanent and irreversible</span>.
+            <h3 className="text-lg font-bold text-white text-center mb-2">Delete Account</h3>
+            <p className="text-sm text-gray-400 text-center mb-1">
+              This action is <span className="font-semibold text-red-400">permanent and irreversible</span>.
             </p>
-            <p className="text-sm text-slate-600 text-center mb-5">
+            <p className="text-sm text-gray-400 text-center mb-5">
               All your account data and subscription will be permanently deleted. Your local recordings will not be affected.
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteModalOpen(false)}
-                className="flex-1 px-4 py-2.5 text-sm font-medium text-slate-700 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors"
+                className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-300 bg-gray-800 rounded-xl hover:bg-gray-700 transition-colors"
               >
                 Cancel
               </button>

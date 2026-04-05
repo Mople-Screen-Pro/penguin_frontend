@@ -41,15 +41,15 @@ export default function DeactivateDeviceModal({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-md mx-4 bg-[#111] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-5 border-b border-slate-100">
-          <h2 className="text-xl font-bold text-slate-900">
+        <div className="px-6 py-5 border-b border-gray-800">
+          <h2 className="text-xl font-bold text-white">
             Deactivate Device
           </h2>
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-1 text-slate-400 hover:text-slate-600 transition-colors"
+            className="absolute top-4 right-4 p-1 text-gray-500 hover:text-gray-300 transition-colors"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -59,16 +59,16 @@ export default function DeactivateDeviceModal({
 
         {/* Body */}
         <div className="p-6">
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+          <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4 mb-6">
             <div className="flex gap-3">
-              <svg className="w-6 h-6 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-6 h-6 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
               <div>
-                <p className="font-medium text-amber-800">
-                  Deactivating "{deviceName}"
+                <p className="font-medium text-amber-400">
+                  Deactivating &quot;{deviceName}&quot;
                 </p>
-                <p className="text-amber-700 text-sm mt-1">
+                <p className="text-amber-400/70 text-sm mt-1">
                   Watermark-free export will be disabled on this Mac. You can then activate a different device.
                 </p>
               </div>
@@ -78,14 +78,14 @@ export default function DeactivateDeviceModal({
           <div className="flex gap-3">
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-3 text-slate-700 font-medium rounded-xl border-2 border-slate-200 hover:bg-slate-50 transition-colors"
+              className="flex-1 px-4 py-3 text-gray-300 font-medium rounded-xl border-2 border-gray-700 hover:bg-gray-800 transition-colors"
             >
               Cancel
             </button>
             <button
               onClick={handleConfirm}
               disabled={loading}
-              className="flex-1 px-4 py-3 text-white font-medium rounded-xl bg-red-500 hover:bg-red-600 transition-colors disabled:opacity-50"
+              className="flex-1 px-4 py-3 text-white font-medium rounded-xl bg-red-600 hover:bg-red-700 transition-colors disabled:opacity-50"
             >
               {loading ? (
                 <div className="flex items-center justify-center gap-2">

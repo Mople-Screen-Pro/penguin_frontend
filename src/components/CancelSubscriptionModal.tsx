@@ -76,20 +76,20 @@ export default function CancelSubscriptionModal({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-md mx-4 bg-[#111] border border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
         {step === 'reason' ? (
           <>
             {/* Header */}
-            <div className="px-6 py-5 border-b border-slate-100">
-              <h2 className="text-xl font-bold text-slate-900">
-                We're sorry to see you go
+            <div className="px-6 py-5 border-b border-gray-800">
+              <h2 className="text-xl font-bold text-white">
+                We&apos;re sorry to see you go
               </h2>
-              <p className="text-slate-600 mt-1">
+              <p className="text-gray-400 mt-1">
                 How did we fall short?
               </p>
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 p-1 text-slate-400 hover:text-slate-600 transition-colors"
+                className="absolute top-4 right-4 p-1 text-gray-500 hover:text-gray-300 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -106,11 +106,11 @@ export default function CancelSubscriptionModal({
                     onClick={() => handleReasonSelect(reason.id)}
                     className={`w-full text-left px-4 py-3 rounded-xl border-2 transition-all ${
                       selectedReason === reason.id
-                        ? 'border-sky-500 bg-sky-50'
-                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                        ? 'border-primary-500 bg-primary-500/5'
+                        : 'border-gray-800 hover:border-gray-700 hover:bg-gray-900'
                     }`}
                   >
-                    <span className={selectedReason === reason.id ? 'text-sky-700' : 'text-slate-700'}>
+                    <span className={selectedReason === reason.id ? 'text-primary-400' : 'text-gray-300'}>
                       {reason.label}
                     </span>
                   </button>
@@ -122,7 +122,7 @@ export default function CancelSubscriptionModal({
                   value={otherDetail}
                   onChange={(e) => setOtherDetail(e.target.value)}
                   placeholder="Please tell us more..."
-                  className="w-full mt-3 px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-sky-500 focus:outline-none resize-none"
+                  className="w-full mt-3 px-4 py-3 border-2 border-gray-800 bg-gray-900 text-gray-100 placeholder-gray-500 rounded-xl focus:border-primary-500 focus:outline-none resize-none"
                   rows={3}
                 />
               )}
@@ -130,14 +130,14 @@ export default function CancelSubscriptionModal({
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={handleClose}
-                  className="flex-1 px-4 py-3 text-slate-700 font-medium rounded-xl border-2 border-slate-200 hover:bg-slate-50 transition-colors"
+                  className="flex-1 px-4 py-3 text-gray-300 font-medium rounded-xl border-2 border-gray-700 hover:bg-gray-800 transition-colors"
                 >
                   Never mind
                 </button>
                 <button
                   onClick={handleNext}
                   disabled={!selectedReason}
-                  className="flex-1 px-4 py-3 text-white font-medium rounded-xl bg-red-500 hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-4 py-3 text-white font-medium rounded-xl bg-red-600 hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continue
                 </button>
@@ -147,13 +147,13 @@ export default function CancelSubscriptionModal({
         ) : (
           <>
             {/* Confirm Step */}
-            <div className="px-6 py-5 border-b border-slate-100">
-              <h2 className="text-xl font-bold text-slate-900">
+            <div className="px-6 py-5 border-b border-gray-800">
+              <h2 className="text-xl font-bold text-white">
                 Confirm cancellation
               </h2>
               <button
                 onClick={handleClose}
-                className="absolute top-4 right-4 p-1 text-slate-400 hover:text-slate-600 transition-colors"
+                className="absolute top-4 right-4 p-1 text-gray-500 hover:text-gray-300 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -162,15 +162,15 @@ export default function CancelSubscriptionModal({
             </div>
 
             <div className="p-6">
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+              <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4 mb-6">
                 <div className="flex gap-3">
-                  <svg className="w-6 h-6 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-6 h-6 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
                   <div>
-                    <p className="font-medium text-amber-800">Your subscription will be canceled</p>
-                    <p className="text-amber-700 text-sm mt-1">
-                      You'll lose access to Pro features at the end of your billing period.
+                    <p className="font-medium text-amber-400">Your subscription will be canceled</p>
+                    <p className="text-amber-400/70 text-sm mt-1">
+                      You&apos;ll lose access to Pro features at the end of your billing period.
                     </p>
                   </div>
                 </div>
@@ -179,14 +179,14 @@ export default function CancelSubscriptionModal({
               <div className="flex gap-3">
                 <button
                   onClick={() => setStep('reason')}
-                  className="flex-1 px-4 py-3 text-slate-700 font-medium rounded-xl border-2 border-slate-200 hover:bg-slate-50 transition-colors"
+                  className="flex-1 px-4 py-3 text-gray-300 font-medium rounded-xl border-2 border-gray-700 hover:bg-gray-800 transition-colors"
                 >
                   Go back
                 </button>
                 <button
                   onClick={handleConfirm}
                   disabled={loading}
-                  className="flex-1 px-4 py-3 text-white font-medium rounded-xl bg-red-500 hover:bg-red-600 transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-3 text-white font-medium rounded-xl bg-red-600 hover:bg-red-700 transition-colors disabled:opacity-50"
                 >
                   {loading ? (
                     <div className="flex items-center justify-center gap-2">
