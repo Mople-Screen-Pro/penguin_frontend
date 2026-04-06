@@ -94,10 +94,7 @@ export default function Header() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    onClick={() => {
-                      analytics.navClick(link.name);
-                      if (link.name === "Pricing") analytics.pricingClick("header_nav");
-                    }}
+                    onClick={() => analytics.navClick(link.name)}
                     className="hover:text-white hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
                   >
                     {link.name}

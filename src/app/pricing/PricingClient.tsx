@@ -13,6 +13,7 @@ import { useSubscription } from "../../hooks/useSubscription"
 import { isActive, isPastDue, isCanceled, isExpired } from "../../types/subscription"
 import { redirectToApp } from "../../lib/deeplink"
 import { supabase } from "../../lib/supabase"
+import { analytics } from "../../lib/analytics"
 import UpgradeModal from "../../components/UpgradeModal"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
@@ -79,6 +80,7 @@ export default function PricingClient() {
   const [downgradeModalOpen, setDowngradeModalOpen] = useState(false)
   const [lifetimeModalOpen, setLifetimeModalOpen] = useState(false)
   const [pendingPriceId, setPendingPriceId] = useState<string | null>(null)
+  const [lastPlanId, setLastPlanId] = useState<string | null>(null)
   const [showCompleteModal, setShowCompleteModal] = useState(false)
   const [cancelDowngradeModalOpen, setCancelDowngradeModalOpen] =
     useState(false)
@@ -97,6 +99,7 @@ export default function PricingClient() {
   // 체크아웃 완료 콜백 등록
   useEffect(() => {
     setOnCheckoutComplete(async () => {
+      analytics.purchaseComplete(lastPlanId || "unknown")
       setShowCompleteModal(true)
 
       await new Promise((r) => setTimeout(r, 3000))
@@ -115,7 +118,7 @@ export default function PricingClient() {
       }
       router.push("/mypage?fromCheckout=true")
     })
-  }, [from, state, router, user])
+  }, [from, state, router, user, lastPlanId])
 
   // 로그인 후 pending checkout 자동 실행
   useEffect(() => {
@@ -132,6 +135,7 @@ export default function PricingClient() {
 
   const handlePurchase = async (priceId: string, planId: string) => {
     setLoading(planId)
+    setLastPlanId(planId)
 
     if (!user) {
       // 비로그인 → 로그인 페이지로 이동, 결제할 priceId 저장
