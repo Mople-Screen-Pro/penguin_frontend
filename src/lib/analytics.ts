@@ -4,6 +4,7 @@ const SLACK_WEBHOOK_URL = process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL || "";
 
 // 슬랙 알림 전송
 const sendSlackNotification = async (message: string) => {
+  if (!SLACK_WEBHOOK_URL) return;
   try {
     await fetch(SLACK_WEBHOOK_URL, {
       method: "POST",
@@ -43,8 +44,29 @@ export const analytics = {
   downloadClick: (location: "header" | "hero" | "cta" | "mobile_menu") => {
     trackEvent("download_click", "CTA", location);
     sendSlackNotification(
-      `<!channel>\n🔔 딩동! 다운로드 알림이에요~ 🔔 \n\n(${location}에서 왔어요)`
+      `<!channel>\n🔔 딩동! 다운로드 알림이에요~ 🔔\n\n(${location}에서 왔어요)`
     );
+  },
+
+  // 문의 이메일 클릭
+  contactEmailClick: () => {
+    trackEvent("contact_email_click", "engagement", "faq_section");
+    sendSlackNotification(
+      `<!channel>\n📩 문의 이메일 링크가 클릭되었어요! 📩\n\n(FAQ 하단에서 왔어요)`
+    );
+  },
+
+  // Pricing 페이지 이동
+  pricingClick: (location: string) => {
+    trackEvent("pricing_click", "engagement", location);
+    sendSlackNotification(
+      `<!channel>\n💰 Pricing 페이지로 이동했어요! 💰\n\n(${location}에서 왔어요)`
+    );
+  },
+
+  // 랜딩페이지 방문
+  pageVisit: () => {
+    trackEvent("page_visit", "traffic", "landing");
   },
 
   // Watch Demo 클릭
@@ -60,24 +82,6 @@ export const analytics = {
   // FAQ 열기
   faqOpen: (question: string) => {
     trackEvent("faq_open", "engagement", question);
-  },
-
-  // Contact Support 클릭
-  contactClick: () => {
-    trackEvent("contact_click", "engagement", "faq_section");
-  },
-
-  // 문의 전송
-  contactSubmit: async (name: string, email: string, message: string) => {
-    trackEvent("contact_submit", "engagement", "contact_form");
-    await sendSlackNotification(
-      `<!channel>\n📩 새로운 문의가 도착했어요! 📩 \n\n 이름: ${name}\n 이메일: ${email}\n 메시지: ${message}`
-    );
-  },
-
-  // Demo 재생/일시정지
-  demoInteract: (action: "play" | "pause") => {
-    trackEvent("demo_interact", "engagement", action);
   },
 
   // 구독 취소 사유

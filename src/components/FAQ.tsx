@@ -119,6 +119,7 @@ export default function FAQ() {
             Still have questions?{' '}
             <a
               href="mailto:jwjygpt0507@gmail.com"
+              onClick={() => analytics.contactEmailClick()}
               className="text-primary-400 hover:text-primary-300 font-medium transition-colors"
             >
               Send us an email &rarr;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { analytics } from "../lib/analytics";
 
 const TIMELINE_DURATION = 5.0; // seconds
 
@@ -17,6 +18,10 @@ export default function Hero() {
   const [shrunk, setShrunk] = useState(false);
 
   const checkMobile = () => typeof window !== "undefined" && window.innerWidth < 1280;
+
+  useEffect(() => {
+    analytics.pageVisit();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(checkMobile());
