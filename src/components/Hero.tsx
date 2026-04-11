@@ -143,11 +143,11 @@ export default function Hero() {
                 <svg width="14" height="36" viewBox="0 0 14 36" fill="none">
                   <path
                     d="M7 0 C3 0, 0 3.5, 0 7 C0 12, 4 22, 7 34 C10 22, 14 12, 14 7 C14 3.5, 11 0, 7 0Z"
-                    fill="#0c8ce9"
+                    fill="#7048a6"
                   />
                 </svg>
                 {/* Vertical line through ruler */}
-                <div className="w-[1.5px] bg-[#0c8ce9] mx-auto -mt-[3px]" style={{ height: "28px" }} />
+                <div className="w-[1.5px] bg-[#7048a6] mx-auto -mt-[3px]" style={{ height: "28px" }} />
               </div>
             </div>
           </div>
@@ -177,10 +177,10 @@ export default function Hero() {
             <div className="flex flex-col items-center" style={{ gap: "clamp(1rem, 2.2svh, 1.75rem)" }}>
               <div className="flex flex-col items-center" style={{ gap: "clamp(0.25rem, 0.8svh, 0.625rem)" }}>
                 <img src="/images/app_icon.png" alt="Clipa" className="mx-auto rounded-xl md:rounded-2xl" style={{ width: "clamp(2.5rem, 5.5svh, 4rem)", height: "clamp(2.5rem, 5.5svh, 4rem)" }} />
-                <p className="font-semibold text-white" style={{ fontSize: "clamp(1rem, 2.2svh, 1.5rem)" }}>Clipa</p>
+                <p className="font-semibold text-white" style={{ fontSize: "clamp(1rem, 2.2svh, 1.5rem)" }}>Clipa Studio</p>
               </div>
               <h1 className="font-bold text-white leading-tight px-2 sm:px-4" style={{ fontSize: "clamp(1.5rem, 3.5svh, 2.5rem)" }}>
-                Record Instantly,<br /><span className="text-[#0c8ce9]">Edit Effortlessly</span>
+                Record Instantly,<br /><span className="text-white">Edit Effortlessly</span>
               </h1>
               <p className="text-gray-400 px-4 sm:px-8 md:px-12 max-w-lg mx-auto" style={{ fontSize: "clamp(0.75rem, 1.6svh, 1.1rem)", marginTop: "clamp(0.25rem, 0.8svh, 0.625rem)" }}>
                 Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
@@ -208,9 +208,9 @@ export default function Hero() {
               style={{ bottom: "min(33%, 369px)", transitionDelay: showCta ? "0ms" : "0ms" }}
             >
               <img src="/images/app_icon.png" alt="Clipa" className="w-14 h-14 xl:w-16 xl:h-16 mx-auto rounded-2xl" />
-              <p className="text-xl xl:text-2xl font-semibold text-white mt-3">Clipa</p>
+              <p className="text-xl xl:text-2xl font-semibold text-white mt-3">Clipa Studio</p>
               <h1 className="text-4xl xl:text-6xl font-bold text-white leading-tight mt-0.5 px-4">
-                Record Instantly, <span className="text-[#0c8ce9]">Edit Effortlessly</span>
+                Record Instantly, <span className="text-white">Edit Effortlessly</span>
               </h1>
             </div>
 

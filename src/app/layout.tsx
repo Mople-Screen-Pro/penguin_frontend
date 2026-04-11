@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   other: {
     'apple-mobile-web-app-title': 'Clipa',
-    'theme-color': '#0c8ce9',
+    'theme-color': '#5e3a91',
   },
 }
 

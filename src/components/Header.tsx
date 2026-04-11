@@ -42,23 +42,6 @@ export default function Header() {
 
   return (
     <>
-      {/* Top Banner */}
-      <a
-        href={DOWNLOAD_URL}
-        onClick={() => analytics.downloadClick("header")}
-        rel="noopener"
-        className="block bg-primary-600 text-white text-sm py-2.5 px-4 text-center hover:bg-primary-700 transition-colors cursor-pointer"
-      >
-        <span className="flex items-center justify-center gap-2 font-medium">
-          <span className="hidden sm:inline">Record, edit, and export pro-quality videos in minutes</span>
-          <span className="sm:hidden">Pro-quality videos in minutes</span>
-          <span className="opacity-80">— Try it free</span>
-          <svg className="w-4 h-4 ml-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </span>
-      </a>
-
       {/* Navbar */}
       <header
         className={`sticky top-0 z-50 w-full bg-[#000] transition-all duration-300 ${
@@ -78,14 +61,14 @@ export default function Header() {
                   router.push("/");
                 }
               }}
-              className="flex items-center gap-2.5 text-2xl font-bold tracking-tighter text-primary-600 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+              className="flex items-center gap-2.5 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
             >
               <img
                 src="/images/logo.png"
                 alt="Clipa"
                 className="w-8 h-8 rounded-xl"
               />
-              Clipa
+              <span className="text-[22px] font-semibold text-white tracking-wide">Clipa</span>
             </a>
 
             {/* Desktop Nav */}

@@ -112,13 +112,13 @@ export default function FeatureEdit() {
     <section ref={sectionRef} className="pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#000]">
       <div className="max-w-[1240px] mx-auto">
         <div className="animate-on-scroll text-center mb-14">
-          <span className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[15px] font-semibold text-blue-400 bg-blue-500/[0.1] border border-blue-500/[0.2] mb-6">
+          <span className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[15px] font-semibold text-purple-400 bg-purple-500/[0.1] border border-purple-500/[0.2] mb-6">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7.848 8.25l1.536.887M7.848 8.25a3 3 0 11-5.196-3 3 3 0 015.196 3zm9.304 0a3 3 0 105.196-3 3 3 0 00-5.196 3zm0 0l-1.536.887m0 0L12 12m3.616-2.863L12 12m0 0l-3.616-2.863M12 12v9" /></svg>
             Edit
-            <span className="absolute -inset-1 rounded-full bg-blue-500/[0.06] blur-md -z-10" />
+            <span className="absolute -inset-1 rounded-full bg-purple-500/[0.06] blur-md -z-10" />
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
-            <span className="text-blue-400">Trim, cut, and polish.</span><br />Without leaving the app.
+            <span className="text-purple-400">Trim, cut, and polish.</span><br />Without leaving the app.
           </h2>
         </div>
 
@@ -138,7 +138,7 @@ export default function FeatureEdit() {
                   }`}
                 >
                   <div className={`w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
-                    active === i ? 'bg-blue-500/20 text-blue-400' : 'bg-white/[0.08] text-white/50'
+                    active === i ? 'bg-purple-500/20 text-purple-400' : 'bg-white/[0.08] text-white/50'
                   }`}>
                     {f.icon}
                   </div>
@@ -161,7 +161,7 @@ export default function FeatureEdit() {
                   }`}
                 >
                   <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
-                    active === i ? 'bg-blue-500/20 text-blue-400' : 'bg-white/[0.08] text-white/50'
+                    active === i ? 'bg-purple-500/20 text-purple-400' : 'bg-white/[0.08] text-white/50'
                   }`}>
                     {f.icon}
                   </div>
