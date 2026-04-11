@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Refund Policy',
-  description: 'Penguin refund policy. Monthly subscriptions: 14-day refund window. Annual and lifetime plans: 30-day refund window. All refunds processed through Paddle.',
+  description: 'Clipa refund policy. Monthly subscriptions: 14-day refund window. Annual and lifetime plans: 30-day refund window. All refunds processed through Paddle.',
   alternates: { canonical: '/refund' },
 }
 
@@ -17,8 +17,8 @@ export default function RefundPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.penguin-editor.com" },
-              { "@type": "ListItem", "position": 2, "name": "Refund Policy", "item": "https://www.penguin-editor.com/refund" }
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.clipa.studio" },
+              { "@type": "ListItem", "position": 2, "name": "Refund Policy", "item": "https://www.clipa.studio/refund" }
             ]
           })
         }}
@@ -27,8 +27,8 @@ export default function RefundPage() {
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link href="/" className="flex items-center gap-2 group w-fit">
-            <img src="/images/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
-            <span className="text-xl font-bold text-slate-900">Penguin</span>
+            <img src="/images/logo.png" alt="Clipa" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
+            <span className="text-xl font-bold text-slate-900">Clipa</span>
           </Link>
         </div>
       </header>
@@ -40,7 +40,7 @@ export default function RefundPage() {
 
         <div className="prose prose-slate max-w-none">
           <p className="text-slate-600 mb-6">
-            This Refund Policy applies to purchases and subscriptions of Penguin, a macOS-only desktop application, provided by Mople ("Company", "we", "us", or "our").
+            This Refund Policy applies to purchases and subscriptions of Clipa, a macOS-only desktop application, provided by Mople ("Company", "we", "us", or "our").
           </p>
           <p className="text-slate-600 mb-8">
             By purchasing or subscribing to the Service, you agree to this Refund Policy.
@@ -66,7 +66,7 @@ export default function RefundPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">2. Digital Product and Right of Withdrawal</h2>
             <p className="text-slate-600 mb-4">
-              Penguin is a digital software product delivered immediately upon purchase.
+              Clipa is a digital software product delivered immediately upon purchase.
             </p>
             <p className="text-slate-600 font-medium mb-2">Important Notice for EU/UK Consumers:</p>
             <p className="text-slate-600 mb-4">
@@ -107,7 +107,7 @@ export default function RefundPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">4. Data Storage Notice</h2>
             <p className="text-slate-600 mb-4">
-              Penguin stores user account data on Supabase servers to provide service functionality. By using the Service, you acknowledge that certain data is transmitted to and stored on third-party servers as described in our <Link href="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>.
+              Clipa stores user account data on Supabase servers to provide service functionality. By using the Service, you acknowledge that certain data is transmitted to and stored on third-party servers as described in our <Link href="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>.
             </p>
             <p className="text-slate-600 mb-4">
               All recordings and camera footage created using the Service are stored locally on your device only and are not transmitted to our servers.
@@ -176,7 +176,7 @@ export default function RefundPage() {
             <h2 className="text-xl font-semibold text-slate-900 mb-4">9. Lifetime License - Version Updates</h2>
             <p className="text-slate-600 mb-2">Lifetime License grants you access to:</p>
             <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
-              <li>The current major version of Penguin (e.g., version 1.x)</li>
+              <li>The current major version of Clipa (e.g., version 1.x)</li>
               <li>All minor updates and bug fixes within that major version</li>
             </ul>
             <p className="text-slate-600 mb-4">
@@ -219,7 +219,7 @@ export default function RefundPage() {
             </p>
             <p className="text-slate-600 mb-2">Updated versions will be posted:</p>
             <ul className="list-disc list-inside text-slate-600 space-y-1 mb-4">
-              <li>Within the Penguin application</li>
+              <li>Within the Clipa application</li>
               <li>On our official website</li>
             </ul>
             <p className="text-slate-600">
@@ -275,7 +275,7 @@ export default function RefundPage() {
               This policy works in conjunction with our <Link href="/terms" className="text-sky-600 hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-sky-600 hover:underline">Privacy Policy</Link>, which should be read together as a complete agreement.
             </p>
             <p className="text-slate-600 font-medium">
-              By purchasing Penguin, you acknowledge that you have read, understood, and agreed to this Refund Policy.
+              By purchasing Clipa, you acknowledge that you have read, understood, and agreed to this Refund Policy.
             </p>
           </section>
         </div>

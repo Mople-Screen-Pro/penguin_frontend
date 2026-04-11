@@ -24,7 +24,7 @@ const plans = [
     name: "Monthly",
     price: 21,
     period: "/month",
-    description: "Perfect for trying out Penguin",
+    description: "Perfect for trying out Clipa",
     priceId: PRICE_IDS.monthly,
     popular: true,
     features: [
@@ -236,7 +236,7 @@ export default function PricingClient() {
           <p className="text-base sm:text-lg text-gray-400 max-w-lg mx-auto animate-on-load delay-1">
             Choose the plan that works best for you.
             <br className="hidden sm:block" />
-            All plans include full access to Penguin features.
+            All plans include full access to Clipa features.
           </p>
         </div>
 
@@ -442,7 +442,7 @@ export default function PricingClient() {
               Payment Successful!
             </h3>
             <p className="text-gray-400 text-sm">
-              Thank you for subscribing to Penguin. Redirecting...
+              Thank you for subscribing to Clipa. Redirecting...
             </p>
           </div>
         </div>

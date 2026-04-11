@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Learn how Penguin handles your data. All recordings stay on your device. We only collect minimal data needed for authentication and service operation.',
+  description: 'Learn how Clipa handles your data. All recordings stay on your device. We only collect minimal data needed for authentication and service operation.',
   alternates: { canonical: '/privacy' },
 }
 
@@ -17,8 +17,8 @@ export default function PrivacyPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.penguin-editor.com" },
-              { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://www.penguin-editor.com/privacy" }
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.clipa.studio" },
+              { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://www.clipa.studio/privacy" }
             ]
           })
         }}
@@ -27,8 +27,8 @@ export default function PrivacyPage() {
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link href="/" className="flex items-center gap-2 group w-fit">
-            <img src="/images/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
-            <span className="text-xl font-bold text-slate-900">Penguin</span>
+            <img src="/images/logo.png" alt="Clipa" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
+            <span className="text-xl font-bold text-slate-900">Clipa</span>
           </Link>
         </div>
       </header>
@@ -40,7 +40,7 @@ export default function PrivacyPage() {
 
         <div className="prose prose-slate max-w-none">
           <p className="text-slate-600 mb-6">
-            This Privacy Policy explains how Mople, a sole proprietorship ("Company", "we", "us", or "our"), collects, uses, stores, and protects personal information when you use Penguin, a macOS-only desktop application (the "Service").
+            This Privacy Policy explains how Mople, a sole proprietorship ("Company", "we", "us", or "our"), collects, uses, stores, and protects personal information when you use Clipa, a macOS-only desktop application (the "Service").
           </p>
           <p className="text-slate-600 mb-8">
             By using the Service, you agree to the collection and use of information in accordance with this Privacy Policy.

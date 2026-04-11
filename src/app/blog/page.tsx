@@ -3,7 +3,7 @@ import BlogListClient from './BlogListClient'
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description: 'Latest news, tips, and tutorials about Penguin screen recording.',
+  description: 'Latest news, tips, and tutorials about Clipa screen recording.',
   alternates: { canonical: '/blog' },
 }
 

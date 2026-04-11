@@ -1,4 +1,4 @@
-# robots.txt for Penguin
+# robots.txt for Clipa
 User-agent: *
 Allow: /
 Disallow: /auth/callback
@@ -7,4 +7,4 @@ Disallow: /mypage
 Disallow: /login
 
 # Sitemap
-Sitemap: https://www.penguin-editor.com/sitemap.xml
+Sitemap: https://www.clipa.studio/sitemap.xml

@@ -184,7 +184,7 @@ export default function FeatureEdit() {
               <div className="overflow-hidden rounded-xl" style={{ aspectRatio: '2495 / 1384' }}>
                 <img
                   src={feat.image}
-                  alt={`Penguin editor — ${feat.label}`}
+                  alt={`Clipa editor — ${feat.label}`}
                   className="w-full h-full object-cover"
                   style={{
                     transformOrigin: `${feat.originX} ${feat.originY}`,

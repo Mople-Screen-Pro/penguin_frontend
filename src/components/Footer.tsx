@@ -14,8 +14,8 @@ export default function Footer() {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="flex items-center gap-2.5"
             >
-              <img src="/images/logo.png" alt="Penguin" className="w-7 h-7 rounded-lg" />
-              <span className="text-base font-bold text-white tracking-tight">Penguin</span>
+              <img src="/images/logo.png" alt="Clipa" className="w-7 h-7 rounded-lg" />
+              <span className="text-base font-bold text-white tracking-tight">Clipa</span>
             </button>
           </div>
 
@@ -32,7 +32,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-6 border-t border-gray-800 gap-3">
           <p className="text-xs text-gray-400">
-            &copy; {new Date().getFullYear()} Penguin. All rights reserved.
+            &copy; {new Date().getFullYear()} Clipa. All rights reserved.
           </p>
           <div className="flex items-center gap-x-3 text-xs">
             <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms</Link>

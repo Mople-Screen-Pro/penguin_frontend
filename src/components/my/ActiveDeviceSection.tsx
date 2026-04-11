@@ -62,7 +62,7 @@ export default function ActiveDeviceSection() {
         ) : (
           <div className="rounded-xl bg-white/[0.03] p-4">
             <p className="text-sm text-gray-400">
-              No active device. Export from the Penguin Mac app to activate a device.
+              No active device. Export from the Clipa Mac app to activate a device.
             </p>
           </div>
         )}

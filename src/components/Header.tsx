@@ -82,10 +82,10 @@ export default function Header() {
             >
               <img
                 src="/images/logo.png"
-                alt="Penguin"
+                alt="Clipa"
                 className="w-8 h-8 rounded-xl"
               />
-              Penguin
+              Clipa
             </a>
 
             {/* Desktop Nav */}

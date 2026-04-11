@@ -155,7 +155,7 @@ export default function Hero() {
           {isMobile ? (
             <img
               src="/videos/hero/hero-poster.png?v=2"
-              alt="Penguin – Record Instantly, Edit Effortlessly"
+              alt="Clipa – Record Instantly, Edit Effortlessly"
               className={`h-[32svh] sm:h-[38svh] md:h-[44svh] w-auto max-w-[90vw] object-contain transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
             />
           ) : (
@@ -176,8 +176,8 @@ export default function Hero() {
           <div className="text-center flex flex-col items-center h-full" style={{ marginTop: "clamp(0.5rem, 2svh, 1.5rem)" }}>
             <div className="flex flex-col items-center" style={{ gap: "clamp(1rem, 2.2svh, 1.75rem)" }}>
               <div className="flex flex-col items-center" style={{ gap: "clamp(0.25rem, 0.8svh, 0.625rem)" }}>
-                <img src="/images/app_icon.png" alt="Penguin" className="mx-auto rounded-xl md:rounded-2xl" style={{ width: "clamp(2.5rem, 5.5svh, 4rem)", height: "clamp(2.5rem, 5.5svh, 4rem)" }} />
-                <p className="font-semibold text-white" style={{ fontSize: "clamp(1rem, 2.2svh, 1.5rem)" }}>Penguin</p>
+                <img src="/images/app_icon.png" alt="Clipa" className="mx-auto rounded-xl md:rounded-2xl" style={{ width: "clamp(2.5rem, 5.5svh, 4rem)", height: "clamp(2.5rem, 5.5svh, 4rem)" }} />
+                <p className="font-semibold text-white" style={{ fontSize: "clamp(1rem, 2.2svh, 1.5rem)" }}>Clipa</p>
               </div>
               <h1 className="font-bold text-white leading-tight px-2 sm:px-4" style={{ fontSize: "clamp(1.5rem, 3.5svh, 2.5rem)" }}>
                 Record Instantly,<br /><span className="text-[#0c8ce9]">Edit Effortlessly</span>
@@ -202,13 +202,13 @@ export default function Hero() {
         ) : (
           /* 데스크톱: absolute 레이아웃 */
           <>
-            {/* App Icon + Penguin + Tagline */}
+            {/* App Icon + Clipa + Tagline */}
             <div
               className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
               style={{ bottom: "min(33%, 369px)", transitionDelay: showCta ? "0ms" : "0ms" }}
             >
-              <img src="/images/app_icon.png" alt="Penguin" className="w-14 h-14 xl:w-16 xl:h-16 mx-auto rounded-2xl" />
-              <p className="text-xl xl:text-2xl font-semibold text-white mt-3">Penguin</p>
+              <img src="/images/app_icon.png" alt="Clipa" className="w-14 h-14 xl:w-16 xl:h-16 mx-auto rounded-2xl" />
+              <p className="text-xl xl:text-2xl font-semibold text-white mt-3">Clipa</p>
               <h1 className="text-4xl xl:text-6xl font-bold text-white leading-tight mt-0.5 px-4">
                 Record Instantly, <span className="text-[#0c8ce9]">Edit Effortlessly</span>
               </h1>
@@ -250,7 +250,7 @@ export default function Hero() {
       <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#000] text-center overflow-hidden">
         <p className="text-gray-400 font-light mb-10 px-6 whitespace-nowrap text-[clamp(1rem,4vw,2.25rem)]">
           Whatever you build,{" "}
-          <span className="inline-block"><span className="gradient-text font-medium">Penguin</span> fits right
+          <span className="inline-block"><span className="gradient-text font-medium">Clipa</span> fits right
           in.</span>
         </p>
         <div className="relative">

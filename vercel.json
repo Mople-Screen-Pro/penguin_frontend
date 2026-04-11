@@ -19,8 +19,8 @@
   "redirects": [
     {
       "source": "/:path(.*)",
-      "has": [{ "type": "host", "value": "penguin-editor.com" }],
-      "destination": "https://www.penguin-editor.com/:path",
+      "has": [{ "type": "host", "value": "clipa.studio" }],
+      "destination": "https://www.clipa.studio/:path",
       "permanent": true
     }
   ],

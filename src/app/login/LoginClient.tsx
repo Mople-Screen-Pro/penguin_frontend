@@ -91,10 +91,10 @@ export default function LoginClient() {
             <div className="flex items-center justify-center gap-3 mb-5">
               <img
                 src="/images/logo.png"
-                alt="Penguin"
+                alt="Clipa"
                 className="w-12 h-12 rounded-2xl"
               />
-              <span className="text-2xl font-bold text-white tracking-tight">Penguin</span>
+              <span className="text-2xl font-bold text-white tracking-tight">Clipa</span>
             </div>
             <p className="text-gray-400 max-w-xs">
               Record, edit, and export — all in one place
@@ -109,7 +109,7 @@ export default function LoginClient() {
                 <div className="w-3 h-3 rounded-full bg-red-500/80" />
                 <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                <span className="ml-3 text-xs text-gray-500 font-medium">Penguin — Recording</span>
+                <span className="ml-3 text-xs text-gray-500 font-medium">Clipa — Recording</span>
               </div>
 
               {/* Window content */}
@@ -189,7 +189,7 @@ export default function LoginClient() {
                 Welcome back
               </h1>
               <p className="text-gray-400">
-                Sign in to access your Penguin account
+                Sign in to access your Clipa account
               </p>
             </div>
 

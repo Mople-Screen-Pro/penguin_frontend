@@ -6,11 +6,11 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Penguin - Screen Recording, Reimagined. Auto Cursor Zoom for Mac.',
-    template: '%s | Penguin',
+    default: 'Clipa - Screen Recording, Reimagined. Auto Cursor Zoom for Mac.',
+    template: '%s | Clipa',
   },
   description:
-    'Penguin auto-zooms to your cursor in real time — making every tutorial look professionally edited. Half the price, zero effort. Download free for macOS.',
+    'Clipa auto-zooms to your cursor in real time — making every tutorial look professionally edited. Half the price, zero effort. Download free for macOS.',
   keywords: [
     'screen recording',
     'screen capture',
@@ -27,16 +27,16 @@ export const metadata: Metadata = {
     '맥 화면 녹화',
     '전문 화면 녹화 프로그램',
   ],
-  authors: [{ name: 'Penguin' }],
-  applicationName: 'Penguin',
-  metadataBase: new URL('https://www.penguin-editor.com'),
+  authors: [{ name: 'Clipa' }],
+  applicationName: 'Clipa',
+  metadataBase: new URL('https://www.clipa.studio'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
-    url: 'https://www.penguin-editor.com',
-    title: 'Penguin - Screen Recording, Reimagined.',
+    url: 'https://www.clipa.studio',
+    title: 'Clipa - Screen Recording, Reimagined.',
     description:
       'Auto-zooms to your cursor in real time. Pro-quality tutorials with zero editing. Free for macOS.',
     images: [
@@ -46,12 +46,12 @@ export const metadata: Metadata = {
         height: 630,
       },
     ],
-    siteName: 'Penguin',
+    siteName: 'Clipa',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Penguin - Screen Recording, Reimagined.',
+    title: 'Clipa - Screen Recording, Reimagined.',
     description:
       'Auto-zooms to your cursor in real time. Pro-quality tutorials with zero editing. Free for macOS.',
     images: ['/images/og-image.png'],
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   other: {
-    'apple-mobile-web-app-title': 'Penguin',
+    'apple-mobile-web-app-title': 'Clipa',
     'theme-color': '#0c8ce9',
   },
 }

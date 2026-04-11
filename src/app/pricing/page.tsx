@@ -5,7 +5,7 @@ import PricingClient from './PricingClient'
 export const metadata: Metadata = {
   title: 'Pricing',
   description:
-    'Choose the perfect Penguin plan. Monthly, yearly, or lifetime — all plans include unlimited recordings, auto cursor zoom, and MP4 export. Starting from $8/month.',
+    'Choose the perfect Clipa plan. Monthly, yearly, or lifetime — all plans include unlimited recordings, auto cursor zoom, and MP4 export. Starting from $8/month.',
   alternates: { canonical: '/pricing' },
 }
 
@@ -18,10 +18,10 @@ export default function PricingPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Product",
-            name: "Penguin Screen Recorder",
+            name: "Clipa Screen Recorder",
             description: "Professional screen recording with auto cursor zoom for macOS",
-            image: "https://www.penguin-editor.com/og-image.png",
-            brand: { "@type": "Brand", name: "Penguin" },
+            image: "https://www.clipa.studio/og-image.png",
+            brand: { "@type": "Brand", name: "Clipa" },
             offers: [
               {
                 "@type": "Offer",
@@ -30,7 +30,7 @@ export default function PricingPage() {
                 priceCurrency: "USD",
                 priceValidUntil: "2027-12-31",
                 availability: "https://schema.org/InStock",
-                url: "https://www.penguin-editor.com/pricing",
+                url: "https://www.clipa.studio/pricing",
                 hasMerchantReturnPolicy: {
                   "@type": "MerchantReturnPolicy",
                   applicableCountry: "US",
@@ -58,7 +58,7 @@ export default function PricingPage() {
                 priceCurrency: "USD",
                 priceValidUntil: "2027-12-31",
                 availability: "https://schema.org/InStock",
-                url: "https://www.penguin-editor.com/pricing",
+                url: "https://www.clipa.studio/pricing",
                 hasMerchantReturnPolicy: {
                   "@type": "MerchantReturnPolicy",
                   applicableCountry: "US",
@@ -86,7 +86,7 @@ export default function PricingPage() {
                 priceCurrency: "USD",
                 priceValidUntil: "2027-12-31",
                 availability: "https://schema.org/InStock",
-                url: "https://www.penguin-editor.com/pricing",
+                url: "https://www.clipa.studio/pricing",
                 hasMerchantReturnPolicy: {
                   "@type": "MerchantReturnPolicy",
                   applicableCountry: "US",

@@ -5,7 +5,7 @@ import LoginClient from './LoginClient'
 export const metadata: Metadata = {
   title: 'Sign In',
   description:
-    'Sign in to your Penguin account. Access your screen recording settings, manage your subscription, and more.',
+    'Sign in to your Clipa account. Access your screen recording settings, manage your subscription, and more.',
   robots: { index: false, follow: false },
 }
 

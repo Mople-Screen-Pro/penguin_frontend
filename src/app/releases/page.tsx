@@ -3,7 +3,7 @@ import ReleaseListClient from './ReleaseListClient'
 
 export const metadata: Metadata = {
   title: 'Releases',
-  description: 'See what\'s new in each version of Penguin.',
+  description: 'See what\'s new in each version of Clipa.',
   alternates: { canonical: '/releases' },
 }
 

@@ -1,6 +1,6 @@
 {
-  "name": "Penguin - Screen Recording with Auto Cursor Zoom",
-  "short_name": "Penguin",
+  "name": "Clipa - Screen Recording with Auto Cursor Zoom",
+  "short_name": "Clipa",
   "description": "Professional screen recording with automatic cursor zoom for macOS.",
   "start_url": "/",
   "display": "standalone",

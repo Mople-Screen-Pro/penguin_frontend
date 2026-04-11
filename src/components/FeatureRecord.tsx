@@ -61,7 +61,7 @@ export default function FeatureRecord() {
               <div className="absolute -inset-8 rounded-3xl bg-white/[0.02] blur-2xl" />
               <img
                 src="/screenshots/panel.png"
-                alt="Penguin recording control panel"
+                alt="Clipa recording control panel"
                 className="relative w-full rounded-xl"
                 style={{
                   filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.8))',

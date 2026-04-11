@@ -11,17 +11,17 @@ export default function AppRedirectClient() {
           <div className="flex items-center justify-center gap-3 mb-8">
             <img
               src="/images/logo.png"
-              alt="Penguin"
+              alt="Clipa"
               className="w-16 h-16 rounded-2xl shadow-lg shadow-sky-500/20"
             />
           </div>
 
           {/* Title */}
           <h1 className="text-2xl font-bold text-slate-900 mb-3">
-            Penguin 앱에서 열어주세요
+            Clipa 앱에서 열어주세요
           </h1>
           <p className="text-slate-500 mb-8 leading-relaxed">
-            이 링크는 Penguin 앱에서 열어야 합니다.<br />
+            이 링크는 Clipa 앱에서 열어야 합니다.<br />
             앱이 설치되어 있지 않다면 아래에서 다운로드해주세요.
           </p>
 

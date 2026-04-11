@@ -136,7 +136,7 @@ export default function BlogListClient() {
         <div className="flex items-center justify-between mb-12">
           <div>
             <h1 className="text-3xl font-bold text-white">Blog</h1>
-            <p className="text-gray-400 mt-1">News, tips, and stories from the Penguin team.</p>
+            <p className="text-gray-400 mt-1">News, tips, and stories from the Clipa team.</p>
           </div>
           {isAdmin && (
             <Link

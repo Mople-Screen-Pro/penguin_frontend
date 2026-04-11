@@ -116,7 +116,7 @@ export const analytics = {
   ) => {
     trackEvent("subscription_cancel", "churn", reason);
     await sendSlackNotification(
-      `<!channel>\n🚨 [Penguin] 구독 취소 요청 🚨\n\n 이메일: ${email}\n 취소 사유: ${reason}${
+      `<!channel>\n🚨 [Clipa] 구독 취소 요청 🚨\n\n 이메일: ${email}\n 취소 사유: ${reason}${
         detail ? `\n 상세: ${detail}` : ""
       }`,
       true

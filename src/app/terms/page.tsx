@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description:
-    'Read the Terms of Service for Penguin, the macOS screen recording app with auto cursor zoom. Learn about usage rights, subscriptions, and policies.',
+    'Read the Terms of Service for Clipa, the macOS screen recording app with auto cursor zoom. Learn about usage rights, subscriptions, and policies.',
   alternates: { canonical: '/terms' },
 }
 
@@ -18,8 +18,8 @@ export default function TermsPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.penguin-editor.com" },
-              { "@type": "ListItem", position: 2, name: "Terms of Service", item: "https://www.penguin-editor.com/terms" },
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.clipa.studio" },
+              { "@type": "ListItem", position: 2, name: "Terms of Service", item: "https://www.clipa.studio/terms" },
             ],
           }),
         }}
@@ -28,8 +28,8 @@ export default function TermsPage() {
       <header className="border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link href="/" className="flex items-center gap-2 group w-fit">
-            <img src="/images/logo.png" alt="Penguin" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
-            <span className="text-xl font-bold text-slate-900">Penguin</span>
+            <img src="/images/logo.png" alt="Clipa" className="w-9 h-9 rounded-xl shadow-lg shadow-sky-500/25" />
+            <span className="text-xl font-bold text-slate-900">Clipa</span>
           </Link>
         </div>
       </header>
@@ -41,7 +41,7 @@ export default function TermsPage() {
 
         <div className="prose prose-slate max-w-none">
           <p className="text-slate-600 mb-6">
-            These Terms of Service (&quot;Terms&quot;) govern your access to and use of Penguin, a macOS-only desktop application, and any related services (collectively, the &quot;Service&quot;) provided by Mople (&quot;Company&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;).
+            These Terms of Service (&quot;Terms&quot;) govern your access to and use of Clipa, a macOS-only desktop application, and any related services (collectively, the &quot;Service&quot;) provided by Mople (&quot;Company&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;).
           </p>
           <p className="text-slate-600 mb-8">
             By downloading, installing, or using the Service, you agree to be bound by these Terms. If you do not agree to these Terms, you must not use the Service.
@@ -57,7 +57,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-slate-900 mb-4">2. Definitions</h2>
             <ul className="list-disc list-inside text-slate-600 space-y-2">
-              <li>&quot;Service&quot; means the macOS-only desktop application Penguin and all related features provided by the Company.</li>
+              <li>&quot;Service&quot; means the macOS-only desktop application Clipa and all related features provided by the Company.</li>
               <li>&quot;User&quot; means an individual who agrees to these Terms and uses the Service.</li>
               <li>&quot;Subscription&quot; means a recurring paid plan that provides access to the Service.</li>
               <li>&quot;Lifetime License&quot; means a one-time purchase that grants access to the Service as defined herein.</li>

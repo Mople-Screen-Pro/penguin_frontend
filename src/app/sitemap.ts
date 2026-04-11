@@ -4,38 +4,38 @@ import { supabase } from '../lib/supabase'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: 'https://www.penguin-editor.com',
+      url: 'https://www.clipa.studio',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
-      url: 'https://www.penguin-editor.com/pricing',
+      url: 'https://www.clipa.studio/pricing',
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: 'https://www.penguin-editor.com/blog',
+      url: 'https://www.clipa.studio/blog',
       changeFrequency: 'weekly',
       priority: 0.7,
     },
     {
-      url: 'https://www.penguin-editor.com/releases',
+      url: 'https://www.clipa.studio/releases',
       changeFrequency: 'weekly',
       priority: 0.6,
     },
     {
-      url: 'https://www.penguin-editor.com/terms',
+      url: 'https://www.clipa.studio/terms',
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: 'https://www.penguin-editor.com/privacy',
+      url: 'https://www.clipa.studio/privacy',
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: 'https://www.penguin-editor.com/refund',
+      url: 'https://www.clipa.studio/refund',
       changeFrequency: 'yearly',
       priority: 0.3,
     },
@@ -55,14 +55,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ])
 
   const blogPages: MetadataRoute.Sitemap = (posts ?? []).map((post) => ({
-    url: `https://www.penguin-editor.com/blog/${post.slug}`,
+    url: `https://www.clipa.studio/blog/${post.slug}`,
     lastModified: new Date(post.updated_at),
     changeFrequency: 'monthly',
     priority: 0.6,
   }))
 
   const releasePages: MetadataRoute.Sitemap = (releases ?? []).map((release) => ({
-    url: `https://www.penguin-editor.com/releases/${release.slug}`,
+    url: `https://www.clipa.studio/releases/${release.slug}`,
     lastModified: new Date(release.updated_at),
     changeFrequency: 'yearly',
     priority: 0.5,
