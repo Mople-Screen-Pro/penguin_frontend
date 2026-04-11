@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/images/logo.png',
+    icon: '/images/app_icon.png',
   },
   manifest: '/manifest.json',
   other: {
