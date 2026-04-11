@@ -22,16 +22,16 @@ export default function FeatureRecord() {
       <div className="max-w-[1240px] mx-auto">
         {/* Header — center aligned */}
         <div className="animate-on-scroll text-center mb-14">
-          <span className="relative inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full text-[15px] font-semibold text-red-400 bg-red-500/[0.1] border border-red-500/[0.2] mb-6">
+          <span className="relative inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full text-[15px] font-semibold mb-6" style={{ color: '#d46060', backgroundColor: 'rgba(181,53,53,0.1)', borderWidth: 1, borderColor: 'rgba(181,53,53,0.2)' }}>
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inset-0 rounded-full bg-red-500 opacity-60" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+              <span className="animate-ping absolute inset-0 rounded-full opacity-60" style={{ backgroundColor: '#b53535' }} />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ backgroundColor: '#b53535' }} />
             </span>
             Record
-            <span className="absolute -inset-1 rounded-full bg-red-500/[0.06] blur-md -z-10" />
+            <span className="absolute -inset-1 rounded-full blur-md -z-10" style={{ backgroundColor: 'rgba(181,53,53,0.06)' }} />
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
-            <span className="text-red-400">Record it</span> your way.
+            <span style={{ color: '#d46060' }}>Record it</span> your way.
           </h2>
           <p className="text-sm sm:text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto px-2">
             One floating panel. Four capture modes. No setup, no learning curve — just click and go.

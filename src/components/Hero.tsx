@@ -205,7 +205,7 @@ export default function Hero() {
             {/* App Icon + Clipa + Tagline */}
             <div
               className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-              style={{ bottom: "min(33%, 369px)", transitionDelay: showCta ? "0ms" : "0ms" }}
+              style={{ bottom: "min(30%, 336px)", transitionDelay: showCta ? "0ms" : "0ms" }}
             >
               <img src="/images/app_icon.png" alt="Clipa" className="w-14 h-14 xl:w-16 xl:h-16 mx-auto rounded-2xl" />
               <p className="text-xl xl:text-2xl font-semibold text-white mt-3">Clipa Studio</p>
@@ -217,7 +217,7 @@ export default function Hero() {
             {/* CTA Button */}
             <div
               className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-              style={{ bottom: "min(25%, 279px)", transitionDelay: showCta ? "150ms" : "0ms" }}
+              style={{ bottom: "min(22%, 246px)", transitionDelay: showCta ? "150ms" : "0ms" }}
             >
               <a
                 href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
@@ -235,7 +235,7 @@ export default function Hero() {
             {/* Description */}
             <div
               className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-              style={{ bottom: "min(15%, 168px)", transitionDelay: showCta ? "300ms" : "0ms" }}
+              style={{ bottom: "min(12%, 135px)", transitionDelay: showCta ? "300ms" : "0ms" }}
             >
               <p className="text-sm xl:text-base text-gray-400 max-w-xl mx-auto px-6">
                 Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools,<br />and export a pro quality video — all in minutes.

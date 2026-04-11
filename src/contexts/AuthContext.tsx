@@ -24,14 +24,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // 현재 세션 가져오기
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      console.log('[Auth] getSession:', { hasSession: !!session, userId: session?.user?.id, email: session?.user?.email, error })
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
     })
 
     // 인증 상태 변경 리스너
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('[Auth] onAuthStateChange:', { event, hasSession: !!session, userId: session?.user?.id, email: session?.user?.email })
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
