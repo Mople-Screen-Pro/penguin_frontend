@@ -44,7 +44,7 @@ export default function Header() {
     <>
       {/* Navbar */}
       <header
-        className={`sticky top-0 z-50 w-full bg-[#000] transition-all duration-300 ${
+        className={`sticky top-2 z-50 w-full bg-[#000] transition-all duration-300 ${
           scrolled ? "border-b border-gray-800 shadow-sm" : "border-b border-transparent"
         }`}
       >

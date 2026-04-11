@@ -101,12 +101,12 @@ export default function FeatureStyling() {
       <div className="max-w-[1240px] mx-auto">
         {/* Header */}
         <div className="animate-on-scroll text-center mb-14">
-          <span className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[15px] font-semibold text-purple-400 bg-purple-500/[0.1] border border-purple-500/[0.2] mb-6">
+          <span className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[15px] font-semibold text-[#60d490] bg-[rgba(53,181,101,0.1)] border border-[rgba(53,181,101,0.2)] mb-6">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
             Styling
-            <span className="absolute -inset-1 rounded-full bg-purple-500/[0.06] blur-md -z-10" />
+            <span className="absolute -inset-1 rounded-full bg-[rgba(53,181,101,0.06)] blur-md -z-10" />
           </span>
-          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your <span className="text-purple-400">style</span> and <span className="text-purple-400">branding.</span></h2>
+          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your <span className="text-[#60d490]">style</span> and <span className="text-[#60d490]">branding.</span></h2>
           <p className="text-sm sm:text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
         </div>
 
@@ -140,7 +140,7 @@ export default function FeatureStyling() {
                   onClick={() => handlePresetChange(i)}
                   className={`group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 text-left flex-shrink-0 w-[120px] sm:w-[calc((100%-60px)/6)] ${
                     activeIdx === i
-                      ? 'ring-2 ring-purple-400/80 ring-offset-2 ring-offset-black -translate-y-2 scale-[1.03] shadow-lg shadow-purple-500/20'
+                      ? 'ring-2 ring-[#60d490]/80 ring-offset-2 ring-offset-black -translate-y-2 scale-[1.03] shadow-lg shadow-[#35b565]/20'
                       : 'ring-1 ring-white/[0.12] hover:ring-white/[0.25]'
                   }`}
                 >
@@ -186,7 +186,7 @@ export default function FeatureStyling() {
                     <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
                       <span className="w-5 h-5 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-[10px] text-white/80">↗</span>
                       <span className="w-5 h-5 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center">
-                        <span className="w-2 h-2 rounded-full bg-purple-400" />
+                        <span className="w-2 h-2 rounded-full bg-[#60d490]" />
                       </span>
                     </div>
                   </div>

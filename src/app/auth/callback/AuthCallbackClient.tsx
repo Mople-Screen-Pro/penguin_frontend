@@ -12,13 +12,32 @@ export default function AuthCallbackClient() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      const { data, error } = await supabase.auth.getSession()
+      // PKCE flow: URL에 code가 있으면 세션으로 교환
+      const url = new URL(window.location.href)
+      const code = url.searchParams.get('code')
 
-      if (error || !data.session) {
+      let session = null
+      let error = null
+
+      if (code) {
+        const result = await supabase.auth.exchangeCodeForSession(code)
+        session = result.data.session
+        error = result.error
+        console.log('[Auth Callback] exchangeCodeForSession:', { hasSession: !!session, error })
+      } else {
+        const result = await supabase.auth.getSession()
+        session = result.data.session
+        error = result.error
+        console.log('[Auth Callback] getSession:', { hasSession: !!session, error })
+      }
+
+      if (error || !session) {
         console.error('Auth callback error:', error)
         router.push('/')
         return
       }
+
+      const data = { session }
 
       const from = searchParams.get('from')
       const state = searchParams.get('state') || ''

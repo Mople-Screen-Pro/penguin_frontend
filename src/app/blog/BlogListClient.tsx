@@ -20,7 +20,7 @@ function HeroCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block rounded-2xl border border-gray-800 bg-[#111] shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+      className="group block rounded-2xl border border-gray-800 bg-[#111] shadow-sm hover:shadow-xl hover:border-[#7EB4E8]/40 transition-all duration-300 overflow-hidden"
     >
       {post.cover_image_url && (
         <div className="aspect-[2/1] overflow-hidden">
@@ -44,7 +44,7 @@ function HeroCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-white group-hover:text-primary-400 transition-colors mb-3">
+        <h2 className="text-2xl md:text-3xl font-bold text-white group-hover:text-white transition-colors mb-3">
           {post.title}
         </h2>
         {post.excerpt && (
@@ -52,14 +52,6 @@ function HeroCard({ post }: { post: BlogPost }) {
             {post.excerpt}
           </p>
         )}
-        <div className="mt-5">
-          <span className="inline-flex items-center gap-1 text-sm font-medium text-primary-400 group-hover:gap-2 transition-all">
-            Read more
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </span>
-        </div>
       </div>
     </Link>
   )
@@ -69,7 +61,7 @@ function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block rounded-2xl border border-gray-800 bg-[#111] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+      className="group block rounded-2xl border border-gray-800 bg-[#111] shadow-sm hover:shadow-lg hover:border-[#7EB4E8]/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
     >
       {post.cover_image_url && (
         <div className="aspect-video overflow-hidden">
@@ -93,7 +85,7 @@ function PostCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-lg font-semibold text-white group-hover:text-primary-400 transition-colors mb-2">
+        <h2 className="text-lg font-semibold text-white group-hover:text-white transition-colors mb-2">
           {post.title}
         </h2>
         {post.excerpt && (
