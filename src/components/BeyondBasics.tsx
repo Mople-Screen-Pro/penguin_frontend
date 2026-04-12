@@ -51,7 +51,7 @@ export default function BeyondBasics() {
   return (
     <section
       ref={sectionRef}
-      className="py-[80px] md:py-[160px] px-6 bg-[#000]"
+      className="section-glow py-[80px] md:py-[160px] px-6 bg-[#0A0A0F]"
     >
       <div className="max-w-7xl mx-auto">
         <h2 className="animate-on-scroll text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
@@ -68,12 +68,12 @@ export default function BeyondBasics() {
           {miniFeatures.map((feature, i) => (
             <div
               key={feature.title}
-              className={`animate-on-scroll sm:shrink-0 w-full ${i === 0 ? "sm:w-[500px]" : "sm:w-[340px]"} rounded-2xl border border-gray-800 bg-gray-900/50 hover:border-gray-700 hover:scale-[1.02] transition-all duration-300 cursor-pointer`}
+              className={`animate-on-scroll sm:shrink-0 w-full ${i === 0 ? "sm:w-[500px]" : "sm:w-[340px]"} glass-card cursor-pointer`}
               data-delay={String(Math.min(i * 0.06, 0.4))}
               onClick={() => toggleVideo(i)}
             >
               <div
-                className={`aspect-video ${i === 0 ? "sm:aspect-[5/4]" : "sm:aspect-[3/4]"} bg-gray-900 relative rounded-2xl overflow-hidden`}
+                className={`aspect-video ${i === 0 ? "sm:aspect-[5/4]" : "sm:aspect-[3/4]"} bg-[#1A1025] relative rounded-[17px] overflow-hidden`}
               >
                 <video
                   ref={(el) => {

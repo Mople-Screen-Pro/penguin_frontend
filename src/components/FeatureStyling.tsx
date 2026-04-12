@@ -97,14 +97,13 @@ export default function FeatureStyling() {
 
 
   return (
-    <section ref={sectionRef} className="pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#000]">
+    <section ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#0A0A0F]">
       <div className="max-w-[1240px] mx-auto">
         {/* Header */}
         <div className="animate-on-scroll text-center mb-14">
-          <span className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[15px] font-semibold text-[#60d490] bg-[rgba(53,181,101,0.1)] border border-[rgba(53,181,101,0.2)] mb-6">
+          <span className="badge-block badge-green mb-6">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
             Styling
-            <span className="absolute -inset-1 rounded-full bg-[rgba(53,181,101,0.06)] blur-md -z-10" />
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your <span className="text-[#60d490]">style</span> and <span className="text-[#60d490]">branding.</span></h2>
           <p className="text-sm sm:text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
@@ -112,7 +111,7 @@ export default function FeatureStyling() {
 
         {/* Main Preview — all 6 videos stacked, only active one visible */}
         <div className="animate-on-scroll mb-10">
-          <div className="aspect-video rounded-2xl overflow-hidden relative max-w-[960px] mx-auto" style={{ cursor: active.cursor.css }}>
+          <div className="glass-card-static !rounded-2xl aspect-video overflow-hidden relative max-w-[960px] mx-auto p-1" style={{ cursor: active.cursor.css }}>
             {presets.map((preset, i) => (
               <video
                 key={preset.name}

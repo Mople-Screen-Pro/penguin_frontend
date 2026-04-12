@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0a0a10] pt-16 pb-10 px-6">
+    <footer className="section-glow bg-[#0A0A0F] pt-16 pb-10 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Top — Brand + Links */}
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 mb-10">

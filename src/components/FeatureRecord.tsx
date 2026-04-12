@@ -18,17 +18,16 @@ export default function FeatureRecord() {
   const sectionRef = useScrollReveal()
 
   return (
-    <section id="feature-record" ref={sectionRef} className="pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#000]">
+    <section id="feature-record" ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#0A0A0F]">
       <div className="max-w-[1240px] mx-auto">
         {/* Header — center aligned */}
         <div className="animate-on-scroll text-center mb-14">
-          <span className="relative inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full text-[15px] font-semibold mb-6" style={{ color: '#d46060', backgroundColor: 'rgba(181,53,53,0.1)', borderWidth: 1, borderColor: 'rgba(181,53,53,0.2)' }}>
+          <span className="badge-block badge-red mb-6">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inset-0 rounded-full opacity-60" style={{ backgroundColor: '#b53535' }} />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ backgroundColor: '#b53535' }} />
+              <span className="animate-ping absolute inset-0 rounded-full opacity-60 bg-red-400" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-400" />
             </span>
             Record
-            <span className="absolute -inset-1 rounded-full blur-md -z-10" style={{ backgroundColor: 'rgba(181,53,53,0.06)' }} />
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
             <span style={{ color: '#d46060' }}>Record it</span> your way.
@@ -43,8 +42,8 @@ export default function FeatureRecord() {
           {/* Highlight cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-0">
             {highlights.map((h) => (
-              <div key={h.label} className="flex items-start gap-3.5 p-5 rounded-xl bg-white/[0.05] border border-white/[0.10] hover:border-white/[0.20] transition-colors duration-200">
-                <div className="w-10 h-10 rounded-lg bg-white/[0.08] flex items-center justify-center text-white/60 flex-shrink-0">
+              <div key={h.label} className="glass-card flex items-start gap-3.5 p-5">
+                <div className="w-10 h-10 rounded-xl bg-white/[0.08] border border-white/[0.06] border-b-2 border-b-white/[0.04] flex items-center justify-center text-white/60 flex-shrink-0">
                   {h.icon}
                 </div>
                 <div>
@@ -62,7 +61,7 @@ export default function FeatureRecord() {
               <img
                 src="/screenshots/panel.png"
                 alt="Clipa recording control panel"
-                className="relative w-full rounded-xl"
+                className="relative w-full rounded-2xl"
                 style={{
                   filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.8))',
                 }}

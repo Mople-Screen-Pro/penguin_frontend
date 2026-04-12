@@ -85,7 +85,7 @@ export default function Hero() {
   return (
     <>
       {/* Hero Video */}
-      <div className="bg-[#000] flex items-center justify-center h-svh">
+      <div className="bg-[#0A0A0F] flex items-center justify-center h-svh">
         <div
           ref={containerRef}
           className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 xl:pt-0 ${isMobile ? "flex flex-col items-center justify-center px-5 sm:px-8 md:px-12" : "flex items-center justify-center"}`}
@@ -143,11 +143,11 @@ export default function Hero() {
                 <svg width="14" height="36" viewBox="0 0 14 36" fill="none">
                   <path
                     d="M7 0 C3 0, 0 3.5, 0 7 C0 12, 4 22, 7 34 C10 22, 14 12, 14 7 C14 3.5, 11 0, 7 0Z"
-                    fill="#7048a6"
+                    fill="#8A5CF6"
                   />
                 </svg>
                 {/* Vertical line through ruler */}
-                <div className="w-[1.5px] bg-[#7048a6] mx-auto -mt-[3px]" style={{ height: "28px" }} />
+                <div className="w-[1.5px] bg-[#8A5CF6] mx-auto -mt-[3px]" style={{ height: "28px" }} />
               </div>
             </div>
           </div>
@@ -190,7 +190,7 @@ export default function Hero() {
             <a
               href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
               rel="noopener"
-              className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 md:px-8 gap-1.5 sm:gap-2"
+              className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center btn-block text-white font-semibold rounded-full shadow-lg shadow-purple-500/25 md:px-8 gap-1.5 sm:gap-2"
               style={{ fontSize: "clamp(0.875rem, 2svh, 1.25rem)", padding: "clamp(0.625rem, 1.5svh, 1rem) 0" }}
             >
               Download Free for Mac
@@ -222,7 +222,7 @@ export default function Hero() {
               <a
                 href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
                 rel="noopener"
-                className="whitespace-nowrap inline-flex items-center bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-full shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-300"
+                className="whitespace-nowrap inline-flex items-center btn-block text-white font-semibold rounded-full shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-pink-500/30 hover:-translate-y-0.5 transition-all duration-300"
                 style={{ fontSize: "clamp(0.75rem, 1.2vw, 1.125rem)", padding: "clamp(0.4rem, 0.8vw, 0.75rem) clamp(1rem, 2vw, 2rem)", gap: "clamp(0.25rem, 0.5vw, 0.5rem)" }}
               >
                 Download Free for Mac
@@ -247,7 +247,7 @@ export default function Hero() {
       </div>
 
       {/* Whatever you build — marquee */}
-      <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#000] text-center overflow-hidden">
+      <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#0A0A0F] text-center overflow-hidden">
         <p className="text-gray-400 font-light mb-10 px-6 whitespace-nowrap text-[clamp(1rem,4vw,2.25rem)]">
           Whatever you build,{" "}
           <span className="inline-block"><span className="gradient-text font-medium">Clipa</span> fits right
@@ -255,8 +255,8 @@ export default function Hero() {
         </p>
         <div className="relative">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#0A0A0F] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#0A0A0F] to-transparent z-10 pointer-events-none" />
           <div
             className="flex whitespace-nowrap"
             style={{ animation: "workflow-marquee 60s linear infinite" }}

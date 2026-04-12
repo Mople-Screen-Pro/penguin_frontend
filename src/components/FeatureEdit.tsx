@@ -109,13 +109,12 @@ export default function FeatureEdit() {
   }
 
   return (
-    <section ref={sectionRef} className="pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#000]">
+    <section ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#0A0A0F]">
       <div className="max-w-[1240px] mx-auto">
         <div className="animate-on-scroll text-center mb-14">
-          <span className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-[15px] font-semibold mb-6" style={{ color: '#6090d4', backgroundColor: 'rgba(53,101,181,0.1)', borderWidth: 1, borderColor: 'rgba(53,101,181,0.2)' }}>
+          <span className="badge-block badge-blue mb-6">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7.848 8.25l1.536.887M7.848 8.25a3 3 0 11-5.196-3 3 3 0 015.196 3zm9.304 0a3 3 0 105.196-3 3 3 0 00-5.196 3zm0 0l-1.536.887m0 0L12 12m3.616-2.863L12 12m0 0l-3.616-2.863M12 12v9" /></svg>
             Edit
-            <span className="absolute -inset-1 rounded-full blur-md -z-10" style={{ backgroundColor: 'rgba(53,101,181,0.06)' }} />
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
             <span style={{ color: '#6090d4' }}>Trim, cut, and polish.</span><br />Without leaving the app.
@@ -133,7 +132,7 @@ export default function FeatureEdit() {
                   onClick={() => handleTabClick(i)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl whitespace-nowrap cursor-pointer transition-all duration-300 flex-shrink-0 touch-manipulation ${
                     active === i
-                      ? 'bg-white/[0.07] border border-white/[0.15]'
+                      ? 'glass-card-static !rounded-xl !border-white/[0.15]'
                       : 'bg-transparent border border-transparent'
                   }`}
                 >
@@ -156,7 +155,7 @@ export default function FeatureEdit() {
                   onClick={() => handleTabClick(i)}
                   className={`w-full flex items-start gap-3.5 p-3.5 rounded-xl text-left cursor-pointer transition-all duration-300 ${
                     active === i
-                      ? 'bg-white/[0.07] border border-white/[0.15]'
+                      ? 'glass-card-static !rounded-xl !border-white/[0.15]'
                       : 'bg-transparent border border-transparent hover:bg-white/[0.04]'
                   }`}
                 >
@@ -180,8 +179,8 @@ export default function FeatureEdit() {
 
           {/* Right: Single image with zoom out → swap → zoom in */}
           <div className="flex-1 min-w-0">
-            <div className="rounded-xl overflow-hidden" style={{ filter: 'drop-shadow(0 16px 40px rgba(0,0,0,0.5))' }}>
-              <div className="overflow-hidden rounded-xl" style={{ aspectRatio: '2495 / 1384' }}>
+            <div className="glass-card-static !rounded-2xl overflow-hidden p-1" style={{ filter: 'drop-shadow(0 16px 40px rgba(0,0,0,0.5))' }}>
+              <div className="overflow-hidden rounded-2xl" style={{ aspectRatio: '2495 / 1384' }}>
                 <img
                   src={feat.image}
                   alt={`Clipa editor — ${feat.label}`}

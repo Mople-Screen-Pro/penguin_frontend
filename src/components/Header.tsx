@@ -44,8 +44,8 @@ export default function Header() {
     <>
       {/* Navbar */}
       <header
-        className={`sticky top-2 z-50 w-full bg-[#000] transition-all duration-300 ${
-          scrolled ? "border-b border-gray-800 shadow-sm" : "border-b border-transparent"
+        className={`sticky top-2 z-50 w-full transition-all duration-300 ${
+          scrolled ? "bg-[#0A0A0F]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-purple-900/10" : "bg-[#0A0A0F] border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -104,7 +104,7 @@ export default function Header() {
                     {dropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
-                        <div className="absolute right-0 mt-3 w-48 bg-[#000] rounded-xl border border-gray-800 shadow-xl z-50 overflow-hidden p-1">
+                        <div className="absolute right-0 mt-3 w-48 bg-[#0A0A0F] rounded-xl border border-gray-800 shadow-xl z-50 overflow-hidden p-1">
                           <Link
                             href="/mypage"
                             onClick={() => setDropdownOpen(false)}
@@ -142,7 +142,7 @@ export default function Header() {
               href={DOWNLOAD_URL}
               onClick={() => analytics.downloadClick("header")}
               rel="noopener"
-              className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-5 py-2.5 rounded-full font-semibold shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all duration-200 text-[16px]"
+              className="btn-block btn-block-sm"
             >
               Download Free for Mac
             </a>
@@ -166,7 +166,7 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#000] border-b border-gray-800 overflow-hidden">
+          <div className="lg:hidden bg-[#0A0A0F] border-b border-gray-800 overflow-hidden">
             <div className="px-6 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
                   <Link
@@ -199,13 +199,13 @@ export default function Header() {
                   <Link
                     href="/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-full py-3 text-center font-medium text-gray-200 border border-gray-800 rounded-lg"
+                    className="btn-block-ghost w-full py-3 text-center"
                   >
                     Sign in
                   </Link>
                   <a
                     href={DOWNLOAD_URL}
-                    className="w-full py-3 text-center font-medium text-white bg-primary-600 rounded-lg"
+                    className="btn-block w-full py-3 text-center"
                   >
                     Download Free for Mac
                   </a>

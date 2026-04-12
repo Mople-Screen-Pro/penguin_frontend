@@ -10,19 +10,25 @@
   --font-sans: "Pretendard", "Inter", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
 
-  --color-primary-50: #f5f2fa;
-  --color-primary-100: #e8e1f3;
-  --color-primary-200: #d1c3e6;
-  --color-primary-300: #b09ad2;
-  --color-primary-400: #9070bc;
-  --color-primary-500: #7048a6;
-  --color-primary-600: #5e3a91;
-  --color-primary-700: #4d2f78;
-  --color-primary-800: #3e2662;
-  --color-primary-900: #311e4e;
+  --color-primary-50: #f5f0ff;
+  --color-primary-100: #ede5ff;
+  --color-primary-200: #d4bfff;
+  --color-primary-300: #b794f6;
+  --color-primary-400: #a078f0;
+  --color-primary-500: #8A5CF6;
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6d28d9;
+  --color-primary-800: #5b21b6;
+  --color-primary-900: #4c1d95;
 
-  --color-accent: #7048a6;
-  --color-accent-light: #b09ad2;
+  --color-accent: #8A5CF6;
+  --color-accent-light: #b794f6;
+  --color-accent-pink: #EC4899;
+  --color-accent-blue: #4F7BF7;
+
+  --color-surface: #1A1025;
+  --color-surface-glass: rgba(138, 92, 246, 0.08);
+  --color-border-glass: rgba(255, 255, 255, 0.12);
 
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -39,7 +45,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   word-break: keep-all;
-  background: #000;
+  background: #0A0A0F;
   color: #e5e7eb;
 }
 
@@ -161,8 +167,8 @@ select,
   border-radius: 40px;
   background: radial-gradient(
     ellipse at 50% 40%,
-    rgba(112, 72, 166, 0.08) 0%,
-    rgba(94, 58, 145, 0.04) 40%,
+    rgba(138, 92, 246, 0.1) 0%,
+    rgba(168, 85, 247, 0.05) 40%,
     transparent 70%
   );
   opacity: var(--scroll-progress, 0);
@@ -216,7 +222,7 @@ select,
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #9070bc 0%, #7048a6 40%, #5e3a91 100%);
+  background: linear-gradient(135deg, #A855F7 0%, #8A5CF6 40%, #EC4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -224,20 +230,21 @@ select,
 
 /* Glass effect */
 .glass {
-  background: rgba(15, 15, 15, 0.72);
+  background: rgba(26, 16, 37, 0.72);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* Text selection */
 ::selection {
-  background: rgba(112, 72, 166, 0.15);
-  color: #e8e1f3;
+  background: rgba(138, 92, 246, 0.2);
+  color: #f5f0ff;
 }
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid #7048a6;
+  outline: 2px solid #8A5CF6;
   outline-offset: 2px;
 }
 
@@ -440,4 +447,225 @@ h1, h2, .heading-xl, .heading-lg {
   background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
   background-size: 64px 64px;
+}
+
+/* ── Block Buttons (Toy/Logo style) ── */
+
+/* Primary block button — gradient with 3D depth */
+.btn-block {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 14px;
+  font-weight: 650;
+  font-size: 1rem;
+  color: #fff;
+  background: #6366F1;
+  border: none;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 4px 0 0 rgba(75, 75, 190, 0.5),
+    0 6px 20px -4px rgba(99, 102, 241, 0.35);
+  transform: translateY(0);
+  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-bottom-width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-block::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.btn-block:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 0 0 rgba(75, 75, 190, 0.5),
+    0 10px 30px -4px rgba(99, 102, 241, 0.4);
+}
+
+.btn-block:active {
+  transform: translateY(3px);
+  border-bottom-width: 1px;
+  box-shadow:
+    0 1px 0 0 rgba(75, 75, 190, 0.5),
+    0 2px 8px -2px rgba(99, 102, 241, 0.3);
+}
+
+/* Secondary/Ghost block button */
+.btn-block-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #d4bfff;
+  background: rgba(138, 92, 246, 0.08);
+  border: 1.5px solid rgba(138, 92, 246, 0.25);
+  border-bottom: 4px solid rgba(138, 92, 246, 0.2);
+  box-shadow: 0 4px 0 0 rgba(138, 92, 246, 0.1);
+  transform: translateY(0);
+  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-color 0.15s ease,
+              background 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-block-ghost:hover {
+  transform: translateY(-2px);
+  background: rgba(138, 92, 246, 0.12);
+  border-color: rgba(138, 92, 246, 0.4);
+  color: #fff;
+  box-shadow: 0 6px 0 0 rgba(138, 92, 246, 0.12);
+}
+
+.btn-block-ghost:active {
+  transform: translateY(3px);
+  border-bottom-width: 1.5px;
+  box-shadow: 0 1px 0 0 rgba(138, 92, 246, 0.1);
+}
+
+/* Small block button variant */
+.btn-block-sm {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  border-radius: 12px;
+  border-bottom-width: 3px;
+  box-shadow:
+    0 3px 0 0 rgba(75, 75, 190, 0.5),
+    0 4px 14px -4px rgba(99, 102, 241, 0.3);
+}
+
+.btn-block-sm:hover {
+  box-shadow:
+    0 5px 0 0 rgba(75, 75, 190, 0.5),
+    0 8px 24px -4px rgba(99, 102, 241, 0.35);
+}
+
+.btn-block-sm:active {
+  border-bottom-width: 1px;
+  box-shadow:
+    0 1px 0 0 rgba(75, 75, 190, 0.5),
+    0 2px 6px -2px rgba(99, 102, 241, 0.25);
+}
+
+/* ── Glass Card (Toy block style) ── */
+.glass-card {
+  background: rgba(26, 16, 37, 0.55);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  box-shadow:
+    0 3px 0 0 rgba(0, 0, 0, 0.15),
+    0 8px 32px -8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-3px) scale(1.015);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 6px 0 0 rgba(0, 0, 0, 0.12),
+    0 16px 48px -8px rgba(99, 102, 241, 0.15);
+}
+
+/* Glass card — no hover lift (for static containers) */
+.glass-card-static {
+  background: rgba(26, 16, 37, 0.45);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  box-shadow:
+    0 3px 0 0 rgba(0, 0, 0, 0.15),
+    0 8px 32px -8px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Section Badge (Block pill) ── */
+.badge-block {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.badge-block::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Badge color variants */
+.badge-red {
+  color: #ff8a8a;
+  background: rgba(220, 80, 80, 0.15);
+  border-color: rgba(220, 80, 80, 0.25);
+  border-bottom-color: rgba(180, 50, 50, 0.3);
+}
+
+.badge-blue {
+  color: #8ab4ff;
+  background: rgba(80, 130, 220, 0.15);
+  border-color: rgba(80, 130, 220, 0.25);
+  border-bottom-color: rgba(50, 100, 180, 0.3);
+}
+
+.badge-green {
+  color: #8affa8;
+  background: rgba(80, 200, 120, 0.15);
+  border-color: rgba(80, 200, 120, 0.25);
+  border-bottom-color: rgba(50, 160, 90, 0.3);
+}
+
+.badge-gold {
+  color: #ffd98a;
+  background: rgba(210, 170, 60, 0.15);
+  border-color: rgba(210, 170, 60, 0.25);
+  border-bottom-color: rgba(170, 130, 30, 0.3);
+}
+
+/* ── Section divider glow ── */
+.section-glow {
+  position: relative;
+}
+
+.section-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.2), transparent);
 }

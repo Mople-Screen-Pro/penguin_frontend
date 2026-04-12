@@ -60,7 +60,7 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" ref={sectionRef} className="py-[80px] md:py-[160px] px-6 bg-[#000]">
+    <section id="faq" ref={sectionRef} className="section-glow py-[80px] md:py-[160px] px-6 bg-[#0A0A0F]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -75,10 +75,10 @@ export default function FAQ() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className={`rounded-2xl border overflow-hidden transition-[border-color,background-color,box-shadow] duration-500 ${
+              className={`rounded-2xl overflow-hidden transition-all duration-500 ${
                 openIndex === index
-                  ? 'border-primary-800/60 bg-gray-900 shadow-lg shadow-primary-900/30'
-                  : 'border-gray-700/60 bg-gray-900/80 hover:bg-gray-900 hover:border-gray-700'
+                  ? 'glass-card-static !border-indigo-400/30 shadow-lg shadow-indigo-900/20'
+                  : 'glass-card-static !border-white/[0.06] hover:!border-white/[0.15]'
               }`}
             >
               <button

@@ -304,7 +304,7 @@ export default function Features() {
   }))
 
   return (
-    <section id="features" ref={sectionRef} className="pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] bg-[#000]">
+    <section id="features" ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] bg-[#0A0A0F]">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="animate-on-scroll font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[60px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center whitespace-nowrap text-[clamp(1.25rem,5vw,3.75rem)]">
           <span>How{' '}
@@ -326,7 +326,7 @@ export default function Features() {
         <div className="flex justify-center mb-10 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-x-auto hide-scrollbar">
           <div
             ref={tabContainerRef}
-            className="relative inline-flex items-center gap-0.5 sm:gap-1 p-1 rounded-full bg-white/[0.06] border border-white/[0.10] shrink-0"
+            className="relative inline-flex items-center gap-0.5 sm:gap-1 p-1 rounded-full bg-[rgba(138,92,246,0.08)] border border-white/[0.12] shrink-0"
           >
             {/* Sliding pill */}
             <div
@@ -381,13 +381,13 @@ export default function Features() {
                 {idx !== 0 && <div className="mb-3 h-[18px]" />}
 
                 {/* Card */}
-                <div className={`rounded-2xl overflow-hidden ring-1 ring-gray-800 transition-all duration-300 ${
+                <div className={`glass-card-static !rounded-2xl overflow-hidden transition-all duration-300 ${
                   hoveredCard === video.globalIndex
-                    ? 'ring-gray-600 shadow-2xl shadow-white/5 scale-[1.02]'
-                    : 'hover:ring-gray-700'
+                    ? '!border-white/[0.2] shadow-2xl shadow-indigo-500/10 scale-[1.02]'
+                    : ''
                 }`}>
                   {/* Video */}
-                  <div className="relative aspect-video bg-gray-900">
+                  <div className="relative aspect-video bg-[#1A1025]">
                     <video
                       ref={(el) => { videoRefs.current[video.globalIndex] = el }}
                       className="w-full h-full object-cover"
@@ -400,7 +400,7 @@ export default function Features() {
                   </div>
 
                   {/* Card footer */}
-                  <div className="px-4 py-3 bg-[#111]">
+                  <div className="px-4 py-3 bg-white/[0.03]">
                     <div className="flex items-center gap-3">
                       <div className={`w-8 h-8 rounded-full ${video.color} text-white flex items-center justify-center shrink-0`}>
                         {video.icon}
