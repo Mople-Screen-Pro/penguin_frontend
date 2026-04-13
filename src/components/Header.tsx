@@ -66,7 +66,7 @@ export default function Header() {
               <img
                 src="/images/logo.png"
                 alt="Clipa"
-                className="w-8 h-8 rounded-xl"
+                className="w-8 h-8"
               />
               <span className="text-[22px] font-semibold text-white tracking-wide">Clipa</span>
             </a>

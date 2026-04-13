@@ -176,7 +176,7 @@ export default function Hero() {
           <div className="text-center flex flex-col items-center h-full" style={{ marginTop: "clamp(0.5rem, 2svh, 1.5rem)" }}>
             <div className="flex flex-col items-center" style={{ gap: "clamp(1rem, 2.2svh, 1.75rem)" }}>
               <div className="flex flex-col items-center" style={{ gap: "clamp(0.25rem, 0.8svh, 0.625rem)" }}>
-                <img src="/images/app_icon.png" alt="Clipa" className="mx-auto rounded-xl md:rounded-2xl" style={{ width: "clamp(2.5rem, 5.5svh, 4rem)", height: "clamp(2.5rem, 5.5svh, 4rem)" }} />
+                <img src="/images/app_icon.png" alt="Clipa" className="mx-auto" style={{ width: "clamp(2.5rem, 5.5svh, 4rem)", height: "clamp(2.5rem, 5.5svh, 4rem)" }} />
                 <p className="font-semibold text-white" style={{ fontSize: "clamp(1rem, 2.2svh, 1.5rem)" }}>Clipa Studio</p>
               </div>
               <h1 className="font-bold text-white leading-tight px-2 sm:px-4" style={{ fontSize: "clamp(1.5rem, 3.5svh, 2.5rem)" }}>
@@ -207,7 +207,7 @@ export default function Hero() {
               className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
               style={{ bottom: "min(30%, 336px)", transitionDelay: showCta ? "0ms" : "0ms" }}
             >
-              <img src="/images/app_icon.png" alt="Clipa" className="w-14 h-14 xl:w-16 xl:h-16 mx-auto rounded-2xl" />
+              <img src="/images/app_icon.png" alt="Clipa" className="w-14 h-14 xl:w-16 xl:h-16 mx-auto" />
               <p className="text-xl xl:text-2xl font-semibold text-white mt-3">Clipa Studio</p>
               <h1 className="text-4xl xl:text-6xl font-bold text-white leading-tight mt-0.5 px-4">
                 Record Instantly, <span className="text-white">Edit Effortlessly</span>
