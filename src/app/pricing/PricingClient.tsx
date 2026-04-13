@@ -243,10 +243,10 @@ export default function PricingClient() {
             </svg>
             Pricing
           </span>
-          <h1 className="heading-lg font-bold text-white mb-4 animate-on-load delay-1">
+          <h1 className="heading-lg font-bold text-gray-900 mb-4 animate-on-load delay-1">
             Simple, <span className="gradient-text">transparent</span> pricing
           </h1>
-          <p className="text-base sm:text-lg text-gray-400 max-w-lg mx-auto animate-on-load delay-2">
+          <p className="text-base sm:text-lg text-gray-500 max-w-lg mx-auto animate-on-load delay-2">
             Choose the plan that works best for you.
             <br className="hidden sm:block" />
             All plans include full access to Clipa features.
@@ -274,14 +274,14 @@ export default function PricingClient() {
 
               {plan.savings && (
                 <div className="absolute top-5 right-5">
-                  <span className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-300 text-xs font-semibold px-3 py-1.5 rounded-full border border-green-400/30 shadow-sm shadow-green-500/10">
+                  <span className="bg-gradient-to-r from-green-50 to-emerald-50 text-green-600 text-xs font-semibold px-3 py-1.5 rounded-full border border-green-200 shadow-sm shadow-green-500/10">
                     {plan.savings}
                   </span>
                 </div>
               )}
 
               <div className="mb-6">
-                <h2 className="text-lg font-bold text-white mb-1">
+                <h2 className="text-lg font-bold text-gray-900 mb-1">
                   {plan.name}
                 </h2>
                 <p className="text-gray-500 text-sm">{plan.description}</p>
@@ -289,7 +289,7 @@ export default function PricingClient() {
 
               <div className="mb-6">
                 <div className="flex items-baseline gap-1">
-                  <span className={`text-4xl lg:text-5xl font-bold tracking-tight ${plan.popular ? 'gradient-text' : 'text-white'}`}>
+                  <span className={`text-4xl lg:text-5xl font-bold tracking-tight ${plan.popular ? 'gradient-text' : 'text-gray-900'}`}>
                     ${plan.price}
                   </span>
                   <span className="text-gray-500 text-sm">{plan.period}</span>
@@ -299,13 +299,13 @@ export default function PricingClient() {
                 )}
               </div>
 
-              <div className="h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mb-6" />
+              <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-6" />
 
               <ul className="space-y-3 mb-8 flex-grow">
                 {plan.features.map((feature, index) => (
                   <li
                     key={index}
-                    className="flex items-center gap-3 text-sm text-gray-300"
+                    className="flex items-center gap-3 text-sm text-gray-600"
                   >
                     <svg
                       className={`w-4 h-4 flex-shrink-0 ${plan.popular ? 'text-accent-pink' : 'text-primary-400'}`}
@@ -328,7 +328,7 @@ export default function PricingClient() {
               {user && subLoading ? (
                 <button
                   disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-white/5 text-gray-500 cursor-default"
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-100 text-gray-500 cursor-default"
                 >
                   &nbsp;
                 </button>
@@ -351,14 +351,14 @@ export default function PricingClient() {
               ) : currentPriceId === plan.priceId ? (
                 <button
                   disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-white/5 text-gray-500 cursor-default"
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-100 text-gray-500 cursor-default"
                 >
                   Current Plan
                 </button>
               ) : isLifetimePlan && plan.id !== "lifetime" ? (
                 <button
                   disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-white/5 text-gray-500 cursor-not-allowed"
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-100 text-gray-500 cursor-not-allowed"
                 >
                   Lifetime Active
                 </button>
@@ -379,7 +379,7 @@ export default function PricingClient() {
               ) : isYearly && plan.id === "monthly" && hasScheduledDowngrade ? (
                 <button
                   onClick={() => setCancelDowngradeModalOpen(true)}
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-white/5 text-gray-400 hover:bg-red-500/10 hover:text-red-400 transition-colors"
+                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-400 transition-colors"
                 >
                   Switching Soon
                 </button>
@@ -413,7 +413,7 @@ export default function PricingClient() {
 
         {/* Trust badge */}
         <div className="mt-16 sm:mt-20 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] text-gray-400 text-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-200 text-gray-500 text-sm">
             <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>
@@ -427,8 +427,8 @@ export default function PricingClient() {
       {/* 결제 완료 모달 */}
       {showCompleteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-[#0a0a0a] rounded-2xl p-8 max-w-sm mx-4 text-center shadow-xl">
-            <div className="w-16 h-16 bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center shadow-xl">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 className="w-8 h-8 text-green-500"
                 fill="none"
@@ -443,10 +443,10 @@ export default function PricingClient() {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
               Payment Successful!
             </h3>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-500 text-sm">
               Thank you for subscribing to Clipa. Redirecting...
             </p>
           </div>
@@ -456,8 +456,8 @@ export default function PricingClient() {
       {/* Cancel Downgrade Modal */}
       {cancelDowngradeModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-[#0a0a0a] rounded-2xl p-6 max-w-md mx-4 w-full shadow-xl">
-            <div className="w-12 h-12 bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="bg-white rounded-2xl p-6 max-w-md mx-4 w-full shadow-xl">
+            <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 className="w-6 h-6 text-amber-600"
                 fill="none"
@@ -472,17 +472,17 @@ export default function PricingClient() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-white text-center mb-2">
+            <h3 className="text-lg font-bold text-gray-900 text-center mb-2">
               Cancel Scheduled Switch?
             </h3>
-            <p className="text-sm text-gray-400 text-center mb-5">
+            <p className="text-sm text-gray-500 text-center mb-5">
               Your plan is scheduled to switch to monthly. Would you like to
               cancel this and keep your yearly subscription?
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setCancelDowngradeModalOpen(false)}
-                className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-300 bg-gray-800 rounded-xl hover:bg-gray-700 transition-colors"
+                className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
               >
                 Keep Switch
               </button>

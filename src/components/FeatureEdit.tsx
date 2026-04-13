@@ -109,14 +109,14 @@ export default function FeatureEdit() {
   }
 
   return (
-    <section ref={sectionRef} className="section-glow ambient-blue pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#0B0D14]">
+    <section ref={sectionRef} className="section-glow ambient-blue pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#FAFBFF]">
       <div className="max-w-[1240px] mx-auto">
         <div className="animate-on-scroll text-center mb-14">
           <span className="badge-block badge-blue mb-6">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7.848 8.25l1.536.887M7.848 8.25a3 3 0 11-5.196-3 3 3 0 015.196 3zm9.304 0a3 3 0 105.196-3 3 3 0 00-5.196 3zm0 0l-1.536.887m0 0L12 12m3.616-2.863L12 12m0 0l-3.616-2.863M12 12v9" /></svg>
             Edit
           </span>
-          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
+          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-gray-900 leading-[1.1] tracking-tight mb-5">
             <span style={{ color: '#6090d4' }}>Trim, cut, and polish.</span><br />Without leaving the app.
           </h2>
         </div>
@@ -132,16 +132,16 @@ export default function FeatureEdit() {
                   onClick={() => handleTabClick(i)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl whitespace-nowrap cursor-pointer transition-all duration-300 flex-shrink-0 touch-manipulation ${
                     active === i
-                      ? 'glass-card-static !rounded-xl !border-white/[0.15]'
+                      ? 'glass-card-static !rounded-xl !border-gray-200'
                       : 'bg-transparent border border-transparent'
                   }`}
                 >
                   <div className={`w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
-                    active === i ? 'bg-[rgba(53,101,181,0.2)] text-[#6090d4]' : 'bg-white/[0.08] text-white/50'
+                    active === i ? 'bg-blue-100 text-[#6090d4]' : 'bg-gray-100 text-gray-400'
                   }`}>
                     {f.icon}
                   </div>
-                  <span className={`text-[13px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/60'}`}>
+                  <span className={`text-[13px] font-semibold transition-colors duration-300 ${active === i ? 'text-gray-900' : 'text-gray-500'}`}>
                     {f.label}
                   </span>
                 </button>
@@ -155,20 +155,20 @@ export default function FeatureEdit() {
                   onClick={() => handleTabClick(i)}
                   className={`w-full flex items-start gap-3.5 p-3.5 rounded-xl text-left cursor-pointer transition-all duration-300 ${
                     active === i
-                      ? 'glass-card-static !rounded-xl !border-white/[0.15]'
-                      : 'bg-transparent border border-transparent hover:bg-white/[0.04]'
+                      ? 'glass-card-static !rounded-xl !border-gray-200'
+                      : 'bg-transparent border border-transparent hover:bg-gray-50'
                   }`}
                 >
                   <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
-                    active === i ? 'bg-[rgba(53,101,181,0.2)] text-[#6090d4]' : 'bg-white/[0.08] text-white/50'
+                    active === i ? 'bg-blue-100 text-[#6090d4]' : 'bg-gray-100 text-gray-400'
                   }`}>
                     {f.icon}
                   </div>
                   <div className="min-w-0">
-                    <h4 className={`text-[14px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/60'}`}>
+                    <h4 className={`text-[14px] font-semibold transition-colors duration-300 ${active === i ? 'text-gray-900' : 'text-gray-500'}`}>
                       {f.label}
                     </h4>
-                    <p className={`text-[12px] leading-relaxed transition-colors duration-300 ${active === i ? 'text-white/60' : 'text-white/40'}`}>
+                    <p className={`text-[12px] leading-relaxed transition-colors duration-300 ${active === i ? 'text-gray-500' : 'text-gray-500'}`}>
                       {f.desc}
                     </p>
                   </div>

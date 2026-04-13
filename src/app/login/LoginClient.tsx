@@ -50,10 +50,10 @@ export default function LoginClient() {
   // 세션 확인 중 로딩 표시
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0B0D14]">
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFBFF]">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4"></div>
-          <p className="text-gray-400">Checking login status...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4"></div>
+          <p className="text-gray-500">Checking login status...</p>
         </div>
       </div>
     )
@@ -67,17 +67,17 @@ export default function LoginClient() {
   // from=app이고 이미 로그인된 유저는 앱으로 리다이렉트
   if (user && isFromApp) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0B0D14]">
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFBFF]">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4"></div>
-          <p className="text-gray-400">Already signed in. Redirecting to app...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4"></div>
+          <p className="text-gray-500">Already signed in. Redirecting to app...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0D14] relative overflow-hidden flex items-center justify-center px-5 py-12">
+    <div className="min-h-screen bg-[#FAFBFF] relative overflow-hidden flex items-center justify-center px-5 py-12">
       {/* Floating decorative blocks — matches logo aesthetic */}
       <div className="absolute top-[10%] left-[8%] w-48 h-28 rounded-3xl bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/10 rotate-[-8deg] blur-[1px] animate-float" />
       <div className="absolute top-[25%] right-[10%] w-36 h-36 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-600/5 border border-blue-500/10 rotate-[12deg] blur-[1px] animate-float" style={{ animationDelay: '1.5s' }} />
@@ -85,12 +85,12 @@ export default function LoginClient() {
       <div className="absolute bottom-[30%] right-[6%] w-44 h-24 rounded-3xl bg-gradient-to-br from-indigo-500/8 to-violet-600/4 border border-indigo-500/8 rotate-[-5deg] blur-[1px] animate-float" style={{ animationDelay: '2s' }} />
 
       {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-500/[0.04] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-500/[0.06] blur-[120px] pointer-events-none" />
 
       {/* Back to home */}
       <Link
         href="/"
-        className="absolute top-6 left-6 text-sm text-gray-500 hover:text-gray-300 transition-colors flex items-center gap-1.5 z-10"
+        className="absolute top-6 left-6 text-sm text-gray-500 hover:text-gray-600 transition-colors flex items-center gap-1.5 z-10"
       >
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -107,10 +107,10 @@ export default function LoginClient() {
             alt="Clipa"
             className="w-16 h-16 rounded-2xl mx-auto mb-4 border-b-[3px] border-black/20 shadow-lg"
           />
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
             Welcome back
           </h1>
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-500 text-sm">
             Sign in to access your Clipa account
           </p>
         </div>
@@ -120,7 +120,7 @@ export default function LoginClient() {
           {/* Google */}
           <button
             onClick={() => signInWithGoogle(from, state)}
-            className="btn-block-ghost w-full !justify-center !gap-3 !text-gray-200 !border-white/[0.1] !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.2]"
+            className="btn-block-ghost w-full !justify-center !gap-3 !text-gray-700 !border-gray-200 !bg-gray-50 hover:!bg-gray-100 hover:!border-gray-300"
           >
             <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -134,7 +134,7 @@ export default function LoginClient() {
           {/* Apple */}
           <button
             onClick={() => signInWithApple(from, state)}
-            className="btn-block-ghost w-full !justify-center !gap-3 !text-gray-200 !border-white/[0.1] !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.2]"
+            className="btn-block-ghost w-full !justify-center !gap-3 !text-gray-700 !border-gray-200 !bg-gray-50 hover:!bg-gray-100 hover:!border-gray-300"
           >
             <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
@@ -145,7 +145,7 @@ export default function LoginClient() {
           {/* GitHub */}
           <button
             onClick={() => signInWithGithub(from, state)}
-            className="btn-block-ghost w-full !justify-center !gap-3 !text-gray-200 !border-white/[0.1] !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.2]"
+            className="btn-block-ghost w-full !justify-center !gap-3 !text-gray-700 !border-gray-200 !bg-gray-50 hover:!bg-gray-100 hover:!border-gray-300"
           >
             <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -157,10 +157,10 @@ export default function LoginClient() {
         {/* Divider */}
         <div className="relative my-8">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent" />
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent" />
           </div>
           <div className="relative flex justify-center">
-            <span className="bg-[#1A1025] px-4 text-xs text-gray-500 uppercase tracking-wider font-medium">or download</span>
+            <span className="bg-[#FAFBFF] px-4 text-xs text-gray-500 uppercase tracking-wider font-medium">or download</span>
           </div>
         </div>
 

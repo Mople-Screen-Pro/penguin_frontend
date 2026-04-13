@@ -61,7 +61,7 @@ export default function Header() {
       {/* Navbar */}
       <header
         className={`sticky top-2 z-50 w-full transition-all duration-300 ${
-          scrolled ? "bg-[#0B0D14]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-purple-900/10" : "bg-[#0B0D14] border-b border-transparent"
+          scrolled ? "bg-[#0a0a12]/90 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/20" : "bg-[#0a0a12] border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -84,7 +84,7 @@ export default function Header() {
                 alt="Clipa"
                 className="w-8 h-8"
               />
-              <span className="text-[22px] font-semibold text-white tracking-wide">Clipa</span>
+              <span className="text-[22px] font-semibold tracking-wide text-white">Clipa</span>
             </a>
 
             {/* Desktop Nav */}
@@ -113,29 +113,29 @@ export default function Header() {
                       className="flex items-center gap-2 text-[16px] font-medium text-gray-300 hover:text-white transition-colors"
                     >
                       {displayName}
-                      <svg className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
                     {dropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
-                        <div className="absolute right-0 mt-3 w-48 bg-[#0B0D14] rounded-xl border border-gray-800 shadow-xl z-50 overflow-hidden p-1">
+                        <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl border border-gray-200 shadow-xl z-50 overflow-hidden p-1">
                           <Link
                             href="/mypage"
                             onClick={() => setDropdownOpen(false)}
-                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-400 hover:bg-gray-800 rounded-lg transition-colors"
+                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-500 hover:bg-gray-100 rounded-lg transition-colors"
                           >
-                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                             My Page
                           </Link>
                           <button
                             onClick={handleLogout}
-                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-400 hover:bg-gray-800 rounded-lg transition-colors w-full"
+                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-500 hover:bg-gray-100 rounded-lg transition-colors w-full"
                           >
-                            <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                             </svg>
                             Sign Out
@@ -167,7 +167,7 @@ export default function Header() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-gray-400"
+            className="lg:hidden p-2 text-gray-300"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -181,9 +181,9 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden bg-[#0B0D14] border-b overflow-hidden transition-all duration-200 ease-out ${
+        <div className={`lg:hidden bg-[#0a0a12] border-b overflow-hidden transition-all duration-200 ease-out ${
           mobileMenuOpen
-            ? 'max-h-[400px] opacity-100 border-gray-800'
+            ? 'max-h-[400px] opacity-100 border-white/[0.08]'
             : 'max-h-0 opacity-0 border-transparent'
         }`}>
             <div className="px-6 py-4 flex flex-col gap-4">
@@ -192,7 +192,7 @@ export default function Header() {
                     key={link.name}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-gray-200 py-2 border-b border-gray-800"
+                    className="text-lg font-medium text-gray-200 py-2 border-b border-white/[0.08]"
                   >
                     {link.name}
                   </Link>
@@ -202,13 +202,13 @@ export default function Header() {
                   <Link
                     href="/mypage"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-gray-200 py-2 border-b border-gray-800"
+                    className="text-lg font-medium text-gray-200 py-2 border-b border-white/[0.08]"
                   >
                     My Page
                   </Link>
                   <button
                     onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
-                    className="text-lg font-medium text-gray-200 py-2 border-b border-gray-800 text-left"
+                    className="text-lg font-medium text-gray-200 py-2 border-b border-white/[0.08] text-left"
                   >
                     Sign Out
                   </button>

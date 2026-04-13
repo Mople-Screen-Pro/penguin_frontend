@@ -1,262 +1,121 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { analytics } from "../lib/analytics";
 
-const TIMELINE_DURATION = 5.0; // seconds
+const DOWNLOAD_URL =
+  "https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download";
 
 export default function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const rafRef = useRef<number>(0);
-  const initialMobile = typeof window !== "undefined" && window.innerWidth < 1280;
-  const [showCta, setShowCta] = useState(initialMobile);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMobile, setIsMobile] = useState(initialMobile);
-  const [videoReady, setVideoReady] = useState(initialMobile);
-  const [progress, setProgress] = useState(0);
-  const [shrunk, setShrunk] = useState(false);
-
-  const checkMobile = () => typeof window !== "undefined" && window.innerWidth < 1280;
+  const logoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     analytics.pageVisit();
   }, []);
 
+  // Logo: play, wait 1s, repeat
   useEffect(() => {
-    const handleResize = () => setIsMobile(checkMobile());
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
+    const video = logoRef.current;
     if (!video) return;
-
-    const handlePlay = () => setIsPlaying(true);
-
-    if (!checkMobile()) {
-      const playWhenReady = () => { setVideoReady(true); video.play(); };
-      if (video.readyState >= 3) {
-        requestAnimationFrame(playWhenReady);
-      } else {
-        video.addEventListener("canplay", playWhenReady, { once: true });
-      }
-    }
-    const handleTimeUpdate = () => {
-      if (video.currentTime >= 5.2) {
-        setShrunk(true);
-      }
-      if (video.duration && video.currentTime >= video.duration - 1.0) {
-        setShowCta(true);
-      }
+    const handleEnded = () => {
+      setTimeout(() => {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      }, 500);
     };
-
-    // Animate playhead with requestAnimationFrame for smooth movement
-    const animatePlayhead = () => {
-      if (!video) return;
-      const p = Math.min(video.currentTime / TIMELINE_DURATION, 1);
-      setProgress(p);
-      if (video.currentTime >= 5.2) {
-        setShrunk(true);
-      }
-      if (p < 1) {
-        rafRef.current = requestAnimationFrame(animatePlayhead);
-      }
-    };
-
-    const startAnimation = () => {
-      rafRef.current = requestAnimationFrame(animatePlayhead);
-    };
-
-
-    video.addEventListener("play", handlePlay);
-    video.addEventListener("play", startAnimation);
-    video.addEventListener("timeupdate", handleTimeUpdate);
-    return () => {
-      video.removeEventListener("play", handlePlay);
-      video.removeEventListener("play", startAnimation);
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-      cancelAnimationFrame(rafRef.current);
-    };
+    video.addEventListener("ended", handleEnded);
+    return () => video.removeEventListener("ended", handleEnded);
   }, []);
+
+  const scrollToFeatures = () => {
+    const el = document.getElementById("features");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent("clipa:open-demo", { detail: { label: "Canva" } }));
+      }, 800);
+    }
+  };
 
   return (
     <>
-      {/* Hero Video */}
-      <div className="bg-[#0B0D14] flex items-center justify-center h-svh">
-        <div
-          ref={containerRef}
-          className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 xl:pt-0 ${isMobile ? "flex flex-col items-center justify-center px-5 sm:px-8 md:px-12" : "flex items-center justify-center"}`}
-          style={isMobile ? undefined : { paddingBottom: "min(13svh, 145px)" }}
-        >
-        {/* 영상 + 타임라인을 묶는 래퍼 — 영상 크기에 맞춰짐 */}
-        <div
-          className={`relative ${isMobile ? "" : "inline-block"}`}
-          style={isMobile ? undefined : {
-            transformOrigin: "center center",
-            transform: shrunk ? "scale(0.5) translateY(-42.5%)" : "scale(1)",
-            transition: "transform 1s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        >
-          {/* Timeline — editor style */}
-          <div
-            className="absolute top-0 left-[10%] right-[10%] z-20 transition-opacity duration-500 hidden xl:block"
-            style={{ opacity: isPlaying && progress > 0.3 / TIMELINE_DURATION && progress < 4.0 / TIMELINE_DURATION ? 1 : 0 }}
+      {/* Hero — dark section with editor background */}
+      <section className="relative bg-[#0a0a12] overflow-hidden select-none min-h-svh">
+        {/* Background video */}
+        <div className="absolute inset-0 flex items-center justify-center px-4" style={{ top: '5%', bottom: '25%' }}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover xl:object-contain opacity-30 rounded-xl"
           >
-            {/* Ruler — transparent, overlaid on video */}
-            <div className="relative h-[28px]">
-              {/* Ticks */}
-              {Array.from({ length: 51 }).map((_, i) => {
-                const isMajor = i % 10 === 0;
-                const sec = (i / 50) * TIMELINE_DURATION;
-                const label = `0:${String(Math.floor(sec)).padStart(2, "0")}`;
-                return (
-                  <div
-                    key={i}
-                    className="absolute top-0"
-                    style={{ left: `${(i / 50) * 100}%` }}
-                  >
-                    <div
-                      className={`w-[1px] ${isMajor ? "h-[14px] bg-gray-400" : "h-[7px] bg-gray-500"}`}
-                    />
-                    {isMajor && i < 50 && (
-                      <span
-                        className="absolute top-[16px] text-[10px] text-gray-400 font-mono tabular-nums"
-                        style={{ left: "4px" }}
-                      >
-                        {label}
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Playhead teardrop — on top, pointing down */}
-            <div
-              className="absolute"
-              style={{ left: `${progress * 100}%`, top: "-10px" }}
-            >
-              <div className="relative -translate-x-1/2">
-                <svg width="14" height="36" viewBox="0 0 14 36" fill="none">
-                  <path
-                    d="M7 0 C3 0, 0 3.5, 0 7 C0 12, 4 22, 7 34 C10 22, 14 12, 14 7 C14 3.5, 11 0, 7 0Z"
-                    fill="#8A5CF6"
-                  />
-                </svg>
-                {/* Vertical line through ruler */}
-                <div className="w-[1.5px] bg-[#8A5CF6] mx-auto -mt-[3px]" style={{ height: "28px" }} />
-              </div>
-            </div>
-          </div>
-
-          {isMobile ? (
-            <img
-              src="/videos/hero/hero-poster.png?v=2"
-              alt="Clipa – Record Instantly, Edit Effortlessly"
-              className={`h-[32svh] sm:h-[38svh] md:h-[44svh] w-auto max-w-[90vw] object-contain transition-opacity duration-300 ${videoReady ? "opacity-100" : "opacity-0"}`}
-            />
-          ) : (
-            <video
-              ref={videoRef}
-              className={`xl:max-h-[min(80svh,900px)] xl:w-auto xl:max-w-[100vw] xl:h-auto transition-opacity duration-300 xl:[mix-blend-mode:lighten] ${videoReady ? "opacity-100" : "opacity-0"}`}
-              muted
-              playsInline
-              preload="auto"
-            >
-              <source src="/videos/hero/hero-video.mp4?v=2" type="video/mp4" />
-            </video>
-          )}
-
+            <source src="/videos/hero/hero-bg-v4.mp4" type="video/mp4" />
+          </video>
         </div>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#0a0a12]/50" />
 
-        {isMobile ? (
-          <div className="text-center flex flex-col items-center h-full" style={{ marginTop: "clamp(0.5rem, 2svh, 1.5rem)" }}>
-            <div className="flex flex-col items-center" style={{ gap: "clamp(1rem, 2.2svh, 1.75rem)" }}>
-              <div className="flex flex-col items-center" style={{ gap: "clamp(0.25rem, 0.8svh, 0.625rem)" }}>
-                <img src="/images/app_icon.png" alt="Clipa" className="mx-auto" style={{ width: "clamp(2.5rem, 5.5svh, 4rem)", height: "clamp(2.5rem, 5.5svh, 4rem)" }} />
-                <p className="font-semibold text-white" style={{ fontSize: "clamp(1rem, 2.2svh, 1.5rem)" }}>Clipa Studio</p>
-              </div>
-              <h1 className="font-bold text-white leading-tight px-2 sm:px-4" style={{ fontSize: "clamp(1.5rem, 3.5svh, 2.5rem)" }}>
-                Record Instantly,<br /><span className="text-white">Edit Effortlessly</span>
-              </h1>
-              <p className="text-gray-400 px-4 sm:px-8 md:px-12 max-w-lg mx-auto" style={{ fontSize: "clamp(0.75rem, 1.6svh, 1.1rem)", marginTop: "clamp(0.25rem, 0.8svh, 0.625rem)" }}>
-                Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools, and export a pro quality video — all in minutes.
-              </p>
-            </div>
-            <div className="flex-1" />
-            <a
-              href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
-              rel="noopener"
-              className="mb-[20svh] md:mb-[10svh] w-full whitespace-nowrap flex items-center justify-center btn-block text-white font-semibold rounded-full shadow-lg shadow-purple-500/25 md:px-8 gap-1.5 sm:gap-2"
-              style={{ fontSize: "clamp(0.875rem, 2svh, 1.25rem)", padding: "clamp(0.625rem, 1.5svh, 1rem) 0" }}
-            >
-              Download Free for Mac
-              <svg style={{ width: "clamp(1rem, 2.2svh, 1.5rem)", height: "clamp(1rem, 2.2svh, 1.5rem)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14m-7-7 7 7-7 7" />
-              </svg>
-            </a>
-          </div>
-        ) : (
-          /* 데스크톱: absolute 레이아웃 */
-          <>
-            {/* App Icon + Clipa + Tagline */}
-            <div
-              className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-              style={{ bottom: "min(30%, 336px)", transitionDelay: showCta ? "0ms" : "0ms" }}
-            >
-              <img src="/images/app_icon.png" alt="Clipa" className="w-14 h-14 xl:w-16 xl:h-16 mx-auto" />
-              <p className="text-xl xl:text-2xl font-semibold text-white mt-3">Clipa Studio</p>
-              <h1 className="text-4xl xl:text-6xl font-bold text-white leading-tight mt-0.5 px-4">
-                Record Instantly, <span className="text-white">Edit Effortlessly</span>
-              </h1>
-            </div>
-
-            {/* CTA Button */}
-            <div
-              className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-              style={{ bottom: "min(22%, 246px)", transitionDelay: showCta ? "150ms" : "0ms" }}
-            >
-              <a
-                href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
-                rel="noopener"
-                className="whitespace-nowrap inline-flex items-center btn-block text-white font-semibold rounded-full shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-pink-500/30 hover:-translate-y-0.5 transition-all duration-300"
-                style={{ fontSize: "clamp(0.75rem, 1.2vw, 1.125rem)", padding: "clamp(0.4rem, 0.8vw, 0.75rem) clamp(1rem, 2vw, 2rem)", gap: "clamp(0.25rem, 0.5vw, 0.5rem)" }}
+        <div className="relative max-w-7xl mx-auto px-4 pt-24 md:pt-32 pb-48 md:pb-64 min-h-svh flex flex-col justify-center">
+          {/* Content */}
+          <div className="relative z-10 text-center max-w-3xl mx-auto">
+            {/* App icon + name */}
+            <div className="animate-on-load flex flex-col items-center gap-2 mb-6">
+              <video
+                ref={logoRef}
+                autoPlay
+                muted
+                playsInline
+                className="w-20 h-20 md:w-24 md:h-24"
               >
-                Download Free for Mac
-                <svg style={{ width: "clamp(0.875rem, 1.3vw, 1.25rem)", height: "clamp(0.875rem, 1.3vw, 1.25rem)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14m-7-7 7 7-7 7" />
-                </svg>
-              </a>
-            </div>
-
-            {/* Description */}
-            <div
-              className={`absolute left-0 right-0 z-30 text-center transition-all duration-500 ${showCta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
-              style={{ bottom: "min(12%, 135px)", transitionDelay: showCta ? "300ms" : "0ms" }}
-            >
-              <p className="text-sm xl:text-base text-gray-400 max-w-xl mx-auto px-6">
-                Editing should be effortless for everyone.<br />Record your screen, polish it with built-in editing tools,<br />and export a pro quality video — all in minutes.
+                <source src="/images/logo-anim.webm" type="video/webm" />
+                <source src="/images/logo-anim.mp4" type="video/mp4" />
+              </video>
+              <p className="text-2xl md:text-3xl font-semibold text-white/90">
+                Clipa Studio
               </p>
             </div>
-          </>
-        )}
+
+            {/* Heading */}
+            <h1 className="animate-on-load delay-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-10 text-left mx-auto w-fit pt-3 pb-3">
+              Easy to Record.<br />Easy to Edit.<br />Easy to Share.
+            </h1>
+            <p className="animate-on-load delay-2 text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-16 leading-snug">
+              Make your videos look professional.<br />
+              Grow your audience effortlessly.<br />
+              No editing skills required — that's Clipa Studio.
+            </p>
+
+            {/* CTA */}
+            <div className="animate-on-load delay-3 flex items-center justify-center">
+              <button
+                onClick={scrollToFeatures}
+                className="btn-block text-white font-semibold px-8 py-3 text-base"
+              >
+                See it in action
+                <svg className="w-5 h-5 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 5v14m-7-7 7 7 7-7" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+
+        {/* Bottom fade to page bg */}
+        <div className="absolute bottom-0 left-0 right-0 h-[10%] bg-gradient-to-t from-[#FAFBFF] to-transparent" />
+      </section>
 
       {/* Whatever you build — marquee */}
-      <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#0B0D14] text-center overflow-hidden">
-        <p className="text-gray-400 font-light mb-10 px-6 whitespace-nowrap text-[clamp(1rem,4vw,2.25rem)]">
+      <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#FAFBFF] text-center overflow-hidden">
+        <p className="text-gray-500 font-light mb-10 px-6 whitespace-nowrap text-[clamp(1rem,4vw,2.25rem)]">
           Whatever you build,{" "}
           <span className="inline-block"><span className="gradient-text font-medium">Clipa</span> fits right
           in.</span>
         </p>
         <div className="relative">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#0A0A0F] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#0A0A0F] to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#FAFBFF] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#FAFBFF] to-transparent z-10 pointer-events-none" />
           <div
             className="flex whitespace-nowrap"
             style={{ animation: "workflow-marquee 60s linear infinite" }}
@@ -266,125 +125,24 @@ export default function Hero() {
                 key={setIndex}
                 className="inline-flex items-center gap-8 md:gap-16 shrink-0 pr-8 md:pr-16"
               >
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">GitHub</span>
-                </span>
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 00-3.019 3.019c0 1.678 1.368 3.07 3.088 3.07 1.691 0 3.068-1.378 3.068-3.07v-3.019H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.098-7.509a3.023 3.023 0 00-3.019 3.019 3.023 3.023 0 003.019 3.019h.098a3.023 3.023 0 003.019-3.019 3.023 3.023 0 00-3.019-3.019h-.098z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">Figma</span>
-                </span>
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M23.15 2.587L18.21.21a1.494 1.494 0 00-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 00-1.276.057L.327 7.261A1 1 0 00.326 8.74L3.899 12 .326 15.26a1 1 0 00.001 1.479L1.65 17.94a.999.999 0 001.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 001.704.29l4.942-2.377A1.5 1.5 0 0024 20.06V3.939a1.5 1.5 0 00-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">VS Code</span>
-                </span>
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">YouTube</span>
-                </span>
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">TikTok</span>
-                </span>
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">Instagram</span>
-                </span>
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L18.29 2.168c-.42-.326-.98-.7-2.055-.607L3.01 2.721c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.886l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.886.747-.933zM1.936 1.035l13.86-1.026c1.7-.14 2.1.047 2.8.56l3.876 2.707c.56.42.746.933.746 1.54v15.09c0 .98-.373 1.54-1.215 1.634l-15.503.933c-.654.046-1.026-.046-1.4-.466L1.43 19.1c-.42-.56-.607-1.026-.607-1.634V2.575c0-.748.28-1.4 1.12-1.54z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">Notion</span>
-                </span>
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">Slack</span>
-                </span>
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.14 16.09c-.564.94-1.88 1.51-3.36 1.51-2.72 0-5.28-2.1-5.28-5.52 0-3.18 2.28-6.48 6.12-6.48 1.68 0 2.88.84 2.88 1.92 0 .84-.6 1.32-1.14 1.32-.42 0-.78-.24-.78-.72 0-.36.18-.6.18-.96 0-.42-.42-.72-1.08-.72-2.16 0-3.78 2.34-3.78 4.92 0 2.16 1.32 3.96 3.48 3.96 1.14 0 2.04-.54 2.64-1.26l.12.03z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">Canva</span>
-                </span>
-
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15v-3.75m0 0h-.008v.008H6.75V11.25Z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">Education</span>
-                </span>
-                <span className="inline-flex items-center gap-2 md:gap-3 text-gray-400">
-                  <svg
-                    className="w-6 h-6 md:w-9 md:h-9"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-                  </svg>
-                  <span className="text-base md:text-xl font-medium">Start-up</span>
-                </span>
+                {[
+                  { name: "GitHub", path: "M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" },
+                  { name: "Figma", path: "M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 00-3.019 3.019c0 1.678 1.368 3.07 3.088 3.07 1.691 0 3.068-1.378 3.068-3.07v-3.019H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.098-7.509a3.023 3.023 0 00-3.019 3.019 3.023 3.023 0 003.019 3.019h.098a3.023 3.023 0 003.019-3.019 3.023 3.023 0 00-3.019-3.019h-.098z" },
+                  { name: "VS Code", path: "M23.15 2.587L18.21.21a1.494 1.494 0 00-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 00-1.276.057L.327 7.261A1 1 0 00.326 8.74L3.899 12 .326 15.26a1 1 0 00.001 1.479L1.65 17.94a.999.999 0 001.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 001.704.29l4.942-2.377A1.5 1.5 0 0024 20.06V3.939a1.5 1.5 0 00-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z" },
+                  { name: "YouTube", path: "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" },
+                  { name: "TikTok", path: "M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" },
+                  { name: "Instagram", path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" },
+                  { name: "Notion", path: "M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L18.29 2.168c-.42-.326-.98-.7-2.055-.607L3.01 2.721c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.886l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.886.747-.933zM1.936 1.035l13.86-1.026c1.7-.14 2.1.047 2.8.56l3.876 2.707c.56.42.746.933.746 1.54v15.09c0 .98-.373 1.54-1.215 1.634l-15.503.933c-.654.046-1.026-.046-1.4-.466L1.43 19.1c-.42-.56-.607-1.026-.607-1.634V2.575c0-.748.28-1.4 1.12-1.54z" },
+                  { name: "Slack", path: "M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" },
+                  { name: "Canva", path: "M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.14 16.09c-.564.94-1.88 1.51-3.36 1.51-2.72 0-5.28-2.1-5.28-5.52 0-3.18 2.28-6.48 6.12-6.48 1.68 0 2.88.84 2.88 1.92 0 .84-.6 1.32-1.14 1.32-.42 0-.78-.24-.78-.72 0-.36.18-.6.18-.96 0-.42-.42-.72-1.08-.72-2.16 0-3.78 2.34-3.78 4.92 0 2.16 1.32 3.96 3.48 3.96 1.14 0 2.04-.54 2.64-1.26l.12.03z" },
+                ].map((brand) => (
+                  <span key={brand.name} className="inline-flex items-center gap-2 md:gap-3 text-gray-500">
+                    <svg className="w-6 h-6 md:w-9 md:h-9" viewBox="0 0 24 24" fill="currentColor">
+                      <path d={brand.path} />
+                    </svg>
+                    <span className="text-base md:text-xl font-medium">{brand.name}</span>
+                  </span>
+                ))}
               </div>
             ))}
           </div>

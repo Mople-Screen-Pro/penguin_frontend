@@ -22,20 +22,20 @@ function ReleaseEntry({ release, isLatest, isAdmin }: { release: Release; isLate
   return (
     <div className="relative pl-8 md:pl-12 pb-12 last:pb-0 group">
       {/* Timeline line */}
-      <div className="absolute left-[7px] md:left-[11px] top-3 bottom-0 w-px bg-gray-800 group-last:hidden" />
+      <div className="absolute left-[7px] md:left-[11px] top-3 bottom-0 w-px bg-gray-200 group-last:hidden" />
 
       {/* Timeline dot */}
       <div
         className={`absolute left-0 md:left-1 top-[6px] w-[15px] h-[15px] rounded-full border-2 ${
           isLatest
             ? 'border-primary-500 bg-primary-500 shadow-md shadow-primary-500/30'
-            : 'border-gray-700 bg-gray-900'
+            : 'border-gray-300 bg-gray-100'
         }`}
       />
 
       {/* Header */}
       <div className="flex items-center gap-3 mb-3 flex-wrap">
-        <h2 className="text-xl md:text-2xl font-bold text-white">
+        <h2 className="text-xl md:text-2xl font-bold text-gray-900">
           v{release.version}
         </h2>
         <span className="text-sm text-gray-500">
@@ -96,7 +96,7 @@ export default function ReleaseListClient() {
   }, [isAdmin])
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B0D14]">
+    <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
       <Header />
       {/* Decorative background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -112,10 +112,10 @@ export default function ReleaseListClient() {
             </svg>
             Changelog
           </span>
-          <h1 className="heading-lg font-bold text-white mb-4 animate-on-load delay-1">
+          <h1 className="heading-lg font-bold text-gray-900 mb-4 animate-on-load delay-1">
             What's <span className="gradient-text">new</span> in Clipa
           </h1>
-          <p className="text-base sm:text-lg text-gray-400 max-w-lg mx-auto animate-on-load delay-2">
+          <p className="text-base sm:text-lg text-gray-500 max-w-lg mx-auto animate-on-load delay-2">
             All the latest updates and improvements.
           </p>
           {isAdmin && (

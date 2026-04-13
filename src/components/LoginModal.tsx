@@ -53,11 +53,11 @@ export default function LoginModal({ isOpen, onClose, from }: LoginModalProps) {
       {/* Modal */}
       <div className="relative w-full max-w-md mx-4 glass-card-static !rounded-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
         {/* Header with gradient */}
-        <div className="relative px-6 py-5 bg-gradient-to-br from-primary-500/20 to-primary-600/10 border-b border-white/[0.08]">
-          <h2 className="text-xl font-bold text-white">Sign in to Clipa</h2>
+        <div className="relative px-6 py-5 bg-gradient-to-br from-primary-500/20 to-primary-600/10 border-b border-black/[0.06]">
+          <h2 className="text-xl font-bold text-gray-900">Sign in to Clipa</h2>
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-1 text-white/80 hover:text-white transition-colors"
+            className="absolute top-4 right-4 p-1 text-gray-500 hover:text-gray-900 transition-colors"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -72,7 +72,7 @@ export default function LoginModal({ isOpen, onClose, from }: LoginModalProps) {
             {/* Google */}
             <button
               onClick={handleGoogleLogin}
-              className="btn-block-ghost !justify-center !gap-3 !text-gray-200 !border-white/[0.1] !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.2] !py-4 transition-all"
+              className="btn-block-ghost !justify-center !gap-3 !text-gray-700 !border-gray-200 !bg-gray-50 hover:!bg-gray-100 hover:!border-gray-300 !py-4 transition-all"
             >
               <svg className="w-6 h-6 shrink-0" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -86,7 +86,7 @@ export default function LoginModal({ isOpen, onClose, from }: LoginModalProps) {
             {/* Apple */}
             <button
               onClick={handleAppleLogin}
-              className="btn-block-ghost !justify-center !gap-3 !text-gray-200 !border-white/[0.1] !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.2] !py-4 transition-all"
+              className="btn-block-ghost !justify-center !gap-3 !text-gray-700 !border-gray-200 !bg-gray-50 hover:!bg-gray-100 hover:!border-gray-300 !py-4 transition-all"
             >
               <svg className="w-7 h-7 shrink-0" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
@@ -97,7 +97,7 @@ export default function LoginModal({ isOpen, onClose, from }: LoginModalProps) {
             {/* GitHub */}
             <button
               onClick={handleGithubLogin}
-              className="btn-block-ghost !justify-center !gap-3 !text-gray-200 !border-white/[0.1] !bg-white/[0.04] hover:!bg-white/[0.08] hover:!border-white/[0.2] !py-4 transition-all"
+              className="btn-block-ghost !justify-center !gap-3 !text-gray-700 !border-gray-200 !bg-gray-50 hover:!bg-gray-100 hover:!border-gray-300 !py-4 transition-all"
             >
               <svg className="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>

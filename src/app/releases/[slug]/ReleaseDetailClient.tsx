@@ -56,7 +56,7 @@ export default function ReleaseDetailClient() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#0B0D14]">
+      <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
           <div className="flex flex-col items-center justify-center py-20">
@@ -71,11 +71,11 @@ export default function ReleaseDetailClient() {
 
   if (notFound || !release) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#0B0D14]">
+      <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
-          <h1 className="text-2xl font-bold text-white mb-4">404 - Release Not Found</h1>
-          <p className="text-gray-400 mb-6">The release you are looking for does not exist.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">404 - Release Not Found</h1>
+          <p className="text-gray-500 mb-6">The release you are looking for does not exist.</p>
           <Link
             href="/releases"
             className="text-primary-400 hover:text-primary-300 font-medium"
@@ -89,7 +89,7 @@ export default function ReleaseDetailClient() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B0D14]">
+    <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
       <Header />
       {/* Decorative background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -98,7 +98,7 @@ export default function ReleaseDetailClient() {
       <main className="relative z-10 max-w-3xl mx-auto pt-28 pb-20 px-4 flex-grow w-full">
         <Link
           href="/releases"
-          className="inline-flex items-center gap-1 text-gray-400 hover:text-primary-400 font-medium mb-10 transition-colors"
+          className="inline-flex items-center gap-1 text-gray-500 hover:text-primary-400 font-medium mb-10 transition-colors"
         >
           &larr; Back to Releases
         </Link>
@@ -120,18 +120,18 @@ export default function ReleaseDetailClient() {
           )}
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-3 leading-tight tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3 leading-tight tracking-tight">
           v{release.version}
         </h1>
 
-        <p className="text-lg text-gray-400 mb-10 leading-relaxed">{release.title}</p>
+        <p className="text-lg text-gray-500 mb-10 leading-relaxed">{release.title}</p>
 
         <article className="blog-prose">
           <ReactMarkdown rehypePlugins={[rehypeRaw]}>{release.content}</ReactMarkdown>
         </article>
 
         {isAdmin && (
-          <div className="flex items-center gap-4 mt-16 pt-8 border-t border-gray-800">
+          <div className="flex items-center gap-4 mt-16 pt-8 border-t border-gray-200">
             <Link
               href={`/releases/${release.slug}/edit`}
               className="btn-block-ghost btn-block-sm"

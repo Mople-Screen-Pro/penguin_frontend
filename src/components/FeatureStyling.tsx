@@ -97,7 +97,7 @@ export default function FeatureStyling() {
 
 
   return (
-    <section ref={sectionRef} className="section-glow ambient-purple pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#0B0D14]">
+    <section ref={sectionRef} className="section-glow ambient-purple pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#FAFBFF]">
       <div className="max-w-[1240px] mx-auto">
         {/* Header */}
         <div className="animate-on-scroll text-center mb-14">
@@ -105,8 +105,8 @@ export default function FeatureStyling() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" /></svg>
             Styling
           </span>
-          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your <span className="text-[#60d490]">style</span> and <span className="text-[#60d490]">branding.</span></h2>
-          <p className="text-sm sm:text-base text-white/70 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
+          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-gray-900 leading-[1.1] tracking-tight mb-5">Add your <span className="text-[#60d490]">style</span> and <span className="text-[#60d490]">branding.</span></h2>
+          <p className="text-sm sm:text-base text-gray-500 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
         </div>
 
         {/* Main Preview — all 6 videos stacked, only active one visible */}
@@ -139,8 +139,8 @@ export default function FeatureStyling() {
                   onClick={() => handlePresetChange(i)}
                   className={`group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-300 text-left flex-shrink-0 w-[120px] sm:w-[calc((100%-60px)/6)] ${
                     activeIdx === i
-                      ? 'ring-2 ring-[#60d490]/80 ring-offset-2 ring-offset-black -translate-y-2 scale-[1.03] shadow-lg shadow-[#35b565]/20'
-                      : 'ring-1 ring-white/[0.12] hover:ring-white/[0.25]'
+                      ? 'ring-2 ring-[#60d490]/80 ring-offset-2 ring-offset-[#FAFBFF] -translate-y-2 scale-[1.03] shadow-lg shadow-[#35b565]/20'
+                      : 'ring-1 ring-gray-200 hover:ring-gray-300'
                   }`}
                 >
                   {/* Card background preview */}
@@ -166,9 +166,9 @@ export default function FeatureStyling() {
                     </div>
                   </div>
                   {/* Card label */}
-                  <div className="px-3 py-2.5 bg-white/[0.05]">
-                    <span className={`block text-[13px] font-semibold leading-none mb-1 transition-colors ${activeIdx === i ? 'text-white' : 'text-white/70'}`}>{preset.name}</span>
-                    <span className="block text-[11px] text-white/50 leading-none">{preset.description}</span>
+                  <div className="px-3 py-2.5 bg-gray-50">
+                    <span className={`block text-[13px] font-semibold leading-none mb-1 transition-colors ${activeIdx === i ? 'text-gray-900' : 'text-gray-500'}`}>{preset.name}</span>
+                    <span className="block text-[11px] text-gray-500 leading-none">{preset.description}</span>
                   </div>
                 </button>
               ))}
@@ -179,7 +179,7 @@ export default function FeatureStyling() {
                 { wallpaper: 'wallpaper_mint', name: 'Mint', desc: 'Cool fresh', opacity: 0.12 },
                 { wallpaper: 'wallpaper_milkyway', name: 'Milkyway', desc: 'Deep space', opacity: 0.05 },
               ].map((ghost, i) => (
-                <div key={`ghost-${i}`} className="flex-shrink-0 w-[120px] sm:w-[calc((100%-60px)/6)] rounded-xl overflow-hidden ring-1 ring-white/[0.12]" style={{ opacity: ghost.opacity }}>
+                <div key={`ghost-${i}`} className="flex-shrink-0 w-[120px] sm:w-[calc((100%-60px)/6)] rounded-xl overflow-hidden ring-1 ring-gray-200" style={{ opacity: ghost.opacity }}>
                   <div className="aspect-[4/3] relative overflow-hidden">
                     <img src={`/wallpapers/${ghost.wallpaper}.${wallExt[ghost.wallpaper] || 'jpg'}`} alt="" className="absolute inset-0 w-full h-full object-cover" />
                     <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
@@ -189,9 +189,9 @@ export default function FeatureStyling() {
                       </span>
                     </div>
                   </div>
-                  <div className="px-3 py-2.5 bg-white/[0.05]">
-                    <span className="block text-[13px] font-semibold leading-none mb-1 text-white/70">{ghost.name}</span>
-                    <span className="block text-[11px] text-white/50 leading-none">{ghost.desc}</span>
+                  <div className="px-3 py-2.5 bg-gray-50">
+                    <span className="block text-[13px] font-semibold leading-none mb-1 text-gray-500">{ghost.name}</span>
+                    <span className="block text-[11px] text-gray-500 leading-none">{ghost.desc}</span>
                   </div>
                 </div>
               ))}

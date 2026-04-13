@@ -56,7 +56,7 @@ export default function BlogDetailClient() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#0B0D14]">
+      <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
           <div className="flex flex-col items-center justify-center py-20">
@@ -71,11 +71,11 @@ export default function BlogDetailClient() {
 
   if (notFound || !post) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#0B0D14]">
+      <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
-          <h1 className="text-2xl font-bold text-white mb-4">404 - Post Not Found</h1>
-          <p className="text-gray-400 mb-6">The post you are looking for does not exist.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">404 - Post Not Found</h1>
+          <p className="text-gray-500 mb-6">The post you are looking for does not exist.</p>
           <Link
             href="/blog"
             className="text-primary-400 hover:text-primary-300 font-medium"
@@ -89,7 +89,7 @@ export default function BlogDetailClient() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B0D14]">
+    <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
       <Header />
       {/* Decorative background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -98,7 +98,7 @@ export default function BlogDetailClient() {
       <main className="relative z-10 max-w-3xl mx-auto pt-28 pb-20 px-4 flex-grow w-full">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1 text-gray-400 hover:text-primary-400 font-medium mb-10 transition-colors"
+          className="inline-flex items-center gap-1 text-gray-500 hover:text-primary-400 font-medium mb-10 transition-colors"
         >
           &larr; Back to Blog
         </Link>
@@ -120,19 +120,19 @@ export default function BlogDetailClient() {
           )}
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
           {post.title}
         </h1>
 
         {post.excerpt && (
-          <p className="text-lg text-gray-400 mb-10 leading-relaxed">{post.excerpt}</p>
+          <p className="text-lg text-gray-500 mb-10 leading-relaxed">{post.excerpt}</p>
         )}
 
         {post.cover_image_url && (
           <img
             src={post.cover_image_url}
             alt={post.title}
-            className="w-full rounded-2xl max-h-[480px] object-cover mb-12 border border-gray-800"
+            className="w-full rounded-2xl max-h-[480px] object-cover mb-12 border border-gray-200"
           />
         )}
 
@@ -141,7 +141,7 @@ export default function BlogDetailClient() {
         </article>
 
         {isAdmin && (
-          <div className="flex items-center gap-4 mt-16 pt-8 border-t border-gray-800">
+          <div className="flex items-center gap-4 mt-16 pt-8 border-t border-gray-200">
             <Link
               href={`/blog/${post.slug}/edit`}
               className="btn-block-ghost btn-block-sm"

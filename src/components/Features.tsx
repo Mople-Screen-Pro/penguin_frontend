@@ -99,6 +99,7 @@ export default function Features() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
+  const [closing, setClosing] = useState(false)
   const [activeCategory, setActiveCategory] = useState<string>('Start-up')
   const [displayCategory, setDisplayCategory] = useState('Start-up')
   const [textAnimating, setTextAnimating] = useState(false)
@@ -128,7 +129,11 @@ export default function Features() {
   }
 
   const closeExpanded = () => {
-    setExpandedCard(null)
+    setClosing(true)
+    setTimeout(() => {
+      setExpandedCard(null)
+      setClosing(false)
+    }, 250)
   }
 
   const manualScrollRef = useRef<string | null>(null)
@@ -152,6 +157,25 @@ export default function Features() {
       })
     }
   }
+
+  // Listen for demo open event from Hero
+  useEffect(() => {
+    const handleOpenDemo = (e: Event) => {
+      const label = (e as CustomEvent).detail?.label
+      if (!label) return
+      const idx = videos.findIndex(v => v.label === label)
+      if (idx !== -1) {
+        setExpandedCard(idx)
+        const video = videoRefs.current[idx]
+        if (video) {
+          video.currentTime = 0
+          video.play().catch(() => {})
+        }
+      }
+    }
+    window.addEventListener("clipa:open-demo", handleOpenDemo)
+    return () => window.removeEventListener("clipa:open-demo", handleOpenDemo)
+  }, [])
 
   // Track active category on manual user scroll (not programmatic)
   useEffect(() => {
@@ -304,9 +328,9 @@ export default function Features() {
   }))
 
   return (
-    <section id="features" ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] bg-[#0B0D14]">
+    <section id="features" ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] bg-[#FAFBFF]">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="animate-on-scroll font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[60px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center whitespace-nowrap text-[clamp(1.25rem,5vw,3.75rem)]">
+        <h2 className="animate-on-scroll font-bold text-center text-gray-900 mb-3 tracking-tight leading-tight min-h-[60px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center whitespace-nowrap text-[clamp(1.25rem,5vw,3.75rem)]">
           <span>How{' '}
             <span
               className="gradient-text inline-block transition-all duration-300 ease-out"
@@ -326,11 +350,11 @@ export default function Features() {
         <div className="flex justify-center mb-10 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-x-auto hide-scrollbar">
           <div
             ref={tabContainerRef}
-            className="relative inline-flex items-center gap-0.5 sm:gap-1 p-1 rounded-full bg-[rgba(138,92,246,0.08)] border border-white/[0.12] shrink-0"
+            className="relative inline-flex items-center gap-0.5 sm:gap-1 p-1 rounded-full bg-[rgba(138,92,246,0.08)] border border-black/[0.06] shrink-0"
           >
             {/* Sliding pill */}
             <div
-              className="absolute top-1 bottom-1 rounded-full bg-white/10 transition-all duration-300 ease-out"
+              className="absolute top-1 bottom-1 rounded-full bg-black/[0.06] transition-all duration-300 ease-out"
               style={{ left: pillStyle.left, width: pillStyle.width }}
             />
             {categories.map((cat) => (
@@ -340,8 +364,8 @@ export default function Features() {
                 onClick={() => scrollToCategory(cat)}
                 className={`relative z-10 px-2 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 whitespace-nowrap ${
                   activeCategory === cat
-                    ? 'text-white'
-                    : 'text-gray-400 hover:text-gray-300'
+                    ? 'text-gray-900'
+                    : 'text-gray-500 hover:text-gray-600'
                 }`}
               >
                 {cat}
@@ -372,10 +396,10 @@ export default function Features() {
                 {/* Category label on first card of group */}
                 {idx === 0 && (
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-gray-500">
                       {group.name}
                     </span>
-                    <div className="flex-1 h-px bg-gray-800" />
+                    <div className="flex-1 h-px bg-gray-200" />
                   </div>
                 )}
                 {idx !== 0 && <div className="mb-3 h-[18px]" />}
@@ -383,11 +407,11 @@ export default function Features() {
                 {/* Card */}
                 <div className={`glass-card-static !rounded-2xl overflow-hidden transition-all duration-300 ${
                   hoveredCard === video.globalIndex
-                    ? '!border-white/[0.2] shadow-2xl shadow-indigo-500/10 scale-[1.02]'
+                    ? '!border-gray-300 shadow-2xl shadow-indigo-500/10 scale-[1.02]'
                     : ''
                 }`}>
                   {/* Video */}
-                  <div className="relative aspect-video bg-[#1A1025]">
+                  <div className="relative aspect-video bg-gray-100">
                     <video
                       ref={(el) => { videoRefs.current[video.globalIndex] = el }}
                       className="w-full h-full object-cover"
@@ -400,14 +424,14 @@ export default function Features() {
                   </div>
 
                   {/* Card footer */}
-                  <div className="px-4 py-3 bg-white/[0.03]">
+                  <div className="px-4 py-3 bg-gray-50">
                     <div className="flex items-center gap-3">
                       <div className={`w-8 h-8 rounded-full ${video.color} text-white flex items-center justify-center shrink-0`}>
                         {video.icon}
                       </div>
                       <div className="min-w-0">
-                        <h4 className="text-sm font-semibold text-white truncate">{video.label}</h4>
-                        <p className="text-xs text-gray-400 truncate">{video.description}</p>
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">{video.label}</h4>
+                        <p className="text-xs text-gray-500 truncate">{video.description}</p>
                       </div>
                     </div>
                   </div>
@@ -421,16 +445,18 @@ export default function Features() {
       {/* Expanded video overlay */}
       {expandedCard !== null && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-pointer animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm cursor-pointer"
           onClick={closeExpanded}
+          style={{ animation: closing ? 'fadeOut 0.25s ease-in forwards' : 'fadeIn 0.2s ease-out forwards' }}
         >
           <div
-            className="relative w-[90vw] max-w-5xl animate-in zoom-in-95 duration-300"
+            className="relative w-[90vw] max-w-5xl"
+            style={{ animation: closing ? 'scaleOut 0.25s ease-in forwards' : 'scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-700/60">
+            <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-300/60">
               <video
-                className="w-full aspect-video object-cover bg-gray-900"
+                className="w-full aspect-video object-cover bg-gray-100"
                 src={videos[expandedCard].src}
                 autoPlay
                 muted
@@ -444,7 +470,7 @@ export default function Features() {
               </div>
               <div>
                 <h4 className="text-lg font-semibold text-white">{videos[expandedCard].label}</h4>
-                <p className="text-sm text-gray-400">{videos[expandedCard].description}</p>
+                <p className="text-sm text-gray-300">{videos[expandedCard].description}</p>
               </div>
             </div>
             {/* Close button */}

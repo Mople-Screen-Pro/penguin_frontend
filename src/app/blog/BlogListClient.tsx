@@ -44,11 +44,11 @@ function HeroCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-white group-hover:text-primary-300 transition-colors mb-3">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-primary-300 transition-colors mb-3">
           {post.title}
         </h2>
         {post.excerpt && (
-          <p className="text-base text-gray-400 line-clamp-2 leading-relaxed">
+          <p className="text-base text-gray-500 line-clamp-2 leading-relaxed">
             {post.excerpt}
           </p>
         )}
@@ -85,11 +85,11 @@ function PostCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-lg font-semibold text-white group-hover:text-primary-300 transition-colors mb-2">
+        <h2 className="text-lg font-semibold text-gray-900 group-hover:text-primary-300 transition-colors mb-2">
           {post.title}
         </h2>
         {post.excerpt && (
-          <p className="text-sm text-gray-400 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
             {post.excerpt}
           </p>
         )}
@@ -122,7 +122,7 @@ export default function BlogListClient() {
   const restPosts = posts.slice(1)
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B0D14]">
+    <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
       <Header />
       {/* Decorative background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -137,10 +137,10 @@ export default function BlogListClient() {
             </svg>
             Blog
           </span>
-          <h1 className="heading-lg font-bold text-white mb-4 animate-on-load delay-1">
+          <h1 className="heading-lg font-bold text-gray-900 mb-4 animate-on-load delay-1">
             News, tips, and <span className="gradient-text">stories</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-400 max-w-lg mx-auto animate-on-load delay-2">
+          <p className="text-base sm:text-lg text-gray-500 max-w-lg mx-auto animate-on-load delay-2">
             From the Clipa team.
           </p>
           {isAdmin && (

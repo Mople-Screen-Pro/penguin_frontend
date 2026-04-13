@@ -70,8 +70,8 @@ export default function ReleaseEditClient() {
       <>
         <Header />
         <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <h1 className="text-2xl font-bold text-white mb-4">Access denied</h1>
-          <p className="text-gray-400 mb-6">You do not have permission to edit releases.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Access denied</h1>
+          <p className="text-gray-500 mb-6">You do not have permission to edit releases.</p>
           <Link href="/releases" className="text-primary-400 hover:text-primary-300 font-medium">
             Back to Releases
           </Link>
@@ -85,7 +85,7 @@ export default function ReleaseEditClient() {
       <>
         <Header />
         <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <h1 className="text-2xl font-bold text-white mb-4">Release not found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Release not found</h1>
           <Link href="/releases" className="text-primary-400 hover:text-primary-300 font-medium">
             Back to Releases
           </Link>
@@ -125,13 +125,13 @@ export default function ReleaseEditClient() {
   }
 
   const inputClass =
-    'w-full rounded-xl border border-gray-800 bg-[#111] px-4 py-3 text-gray-100 placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors'
+    'w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors'
 
   return (
     <>
       <Header />
       <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-        <h1 className="text-3xl font-bold text-white mb-8">Edit Release</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Edit Release</h1>
 
         {error && (
           <div className="mb-6 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3 text-red-400 text-sm">
@@ -142,7 +142,7 @@ export default function ReleaseEditClient() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="version" className="block text-sm font-medium text-gray-400 mb-1">
+              <label htmlFor="version" className="block text-sm font-medium text-gray-500 mb-1">
                 Version
               </label>
               <input
@@ -156,7 +156,7 @@ export default function ReleaseEditClient() {
               />
             </div>
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-400 mb-1">
+              <label htmlFor="title" className="block text-sm font-medium text-gray-500 mb-1">
                 Title
               </label>
               <input
@@ -171,8 +171,8 @@ export default function ReleaseEditClient() {
             </div>
           </div>
 
-          <div data-color-mode="dark">
-            <label htmlFor="content" className="block text-sm font-medium text-gray-400 mb-1">
+          <div data-color-mode="light">
+            <label htmlFor="content" className="block text-sm font-medium text-gray-500 mb-1">
               Release Notes
             </label>
             <MDEditor
@@ -189,9 +189,9 @@ export default function ReleaseEditClient() {
               type="checkbox"
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-700 bg-[#111] text-primary-500 focus:ring-primary-500"
+              className="h-4 w-4 rounded border-gray-300 bg-white text-primary-500 focus:ring-primary-500"
             />
-            <label htmlFor="published" className="text-sm font-medium text-gray-400">
+            <label htmlFor="published" className="text-sm font-medium text-gray-500">
               Published
             </label>
           </div>
@@ -204,7 +204,7 @@ export default function ReleaseEditClient() {
             >
               {submitting ? 'Saving...' : 'Save Changes'}
             </button>
-            <Link href={`/releases/${slug}`} className="text-gray-400 hover:text-white font-medium transition-colors">
+            <Link href={`/releases/${slug}`} className="text-gray-500 hover:text-gray-900 font-medium transition-colors">
               Cancel
             </Link>
           </div>

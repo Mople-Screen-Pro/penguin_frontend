@@ -110,8 +110,8 @@ export default function BlogEditClient() {
       <>
         <Header />
         <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <h1 className="text-2xl font-bold text-white mb-4">Access denied</h1>
-          <p className="text-gray-400 mb-6">You do not have permission to edit blog posts.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Access denied</h1>
+          <p className="text-gray-500 mb-6">You do not have permission to edit blog posts.</p>
           <Link href="/blog" className="text-primary-400 hover:text-primary-300 font-medium">
             Back to Blog
           </Link>
@@ -125,7 +125,7 @@ export default function BlogEditClient() {
       <>
         <Header />
         <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <h1 className="text-2xl font-bold text-white mb-4">Post not found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Post not found</h1>
           <Link href="/blog" className="text-primary-400 hover:text-primary-300 font-medium">
             Back to Blog
           </Link>
@@ -167,13 +167,13 @@ export default function BlogEditClient() {
   }
 
   const inputClass =
-    'w-full rounded-xl border border-gray-800 bg-[#111] px-4 py-3 text-gray-100 placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors'
+    'w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-colors'
 
   return (
     <>
       <Header />
       <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-        <h1 className="text-3xl font-bold text-white mb-8">Edit Blog Post</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Edit Blog Post</h1>
 
         {error && (
           <div className="mb-6 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3 text-red-400 text-sm">
@@ -183,7 +183,7 @@ export default function BlogEditClient() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-400 mb-1">
+            <label htmlFor="title" className="block text-sm font-medium text-gray-500 mb-1">
               Title
             </label>
             <input
@@ -198,7 +198,7 @@ export default function BlogEditClient() {
           </div>
 
           <div>
-            <label htmlFor="excerpt" className="block text-sm font-medium text-gray-400 mb-1">
+            <label htmlFor="excerpt" className="block text-sm font-medium text-gray-500 mb-1">
               Excerpt
             </label>
             <textarea
@@ -211,8 +211,8 @@ export default function BlogEditClient() {
             />
           </div>
 
-          <div data-color-mode="dark">
-            <label htmlFor="content" className="block text-sm font-medium text-gray-400 mb-1">
+          <div data-color-mode="light">
+            <label htmlFor="content" className="block text-sm font-medium text-gray-500 mb-1">
               Content
             </label>
             <MDEditor
@@ -222,7 +222,7 @@ export default function BlogEditClient() {
               preview="live"
             />
             <label
-              className={`inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-lg border border-gray-700 text-sm text-gray-400 hover:border-primary-500 hover:text-primary-400 transition-colors cursor-pointer ${uploadingVideo ? 'opacity-50 pointer-events-none' : ''}`}
+              className={`inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-lg border border-gray-300 text-sm text-gray-500 hover:border-primary-500 hover:text-primary-400 transition-colors cursor-pointer ${uploadingVideo ? 'opacity-50 pointer-events-none' : ''}`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -238,7 +238,7 @@ export default function BlogEditClient() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-1">
+            <label className="block text-sm font-medium text-gray-500 mb-1">
               Cover Image
             </label>
             {(coverPreview || coverImageUrl) && (
@@ -246,7 +246,7 @@ export default function BlogEditClient() {
                 <img
                   src={coverPreview || coverImageUrl}
                   alt="Cover preview"
-                  className="w-full max-h-48 object-cover rounded-xl border border-gray-800"
+                  className="w-full max-h-48 object-cover rounded-xl border border-gray-200"
                 />
                 {uploading && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-xl">
@@ -263,7 +263,7 @@ export default function BlogEditClient() {
               </div>
             )}
             <label
-              className={`flex items-center justify-center gap-2 w-full rounded-xl border-2 border-dashed border-gray-700 px-4 py-6 text-gray-500 hover:border-primary-500 hover:text-primary-400 transition-colors cursor-pointer ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
+              className={`flex items-center justify-center gap-2 w-full rounded-xl border-2 border-dashed border-gray-300 px-4 py-6 text-gray-500 hover:border-primary-500 hover:text-primary-400 transition-colors cursor-pointer ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -284,9 +284,9 @@ export default function BlogEditClient() {
               type="checkbox"
               checked={published}
               onChange={(e) => setPublished(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-700 bg-[#111] text-primary-500 focus:ring-primary-500"
+              className="h-4 w-4 rounded border-gray-300 bg-white text-primary-500 focus:ring-primary-500"
             />
-            <label htmlFor="published" className="text-sm font-medium text-gray-400">
+            <label htmlFor="published" className="text-sm font-medium text-gray-500">
               Published
             </label>
           </div>
@@ -299,7 +299,7 @@ export default function BlogEditClient() {
             >
               {submitting ? 'Saving...' : 'Save Changes'}
             </button>
-            <Link href={`/blog/${slug}`} className="text-gray-400 hover:text-white font-medium transition-colors">
+            <Link href={`/blog/${slug}`} className="text-gray-500 hover:text-gray-900 font-medium transition-colors">
               Cancel
             </Link>
           </div>

@@ -6,7 +6,7 @@ export default function FeatureAIUpscale() {
   const sectionRef = useScrollReveal()
 
   return (
-    <section ref={sectionRef} className="section-glow ambient-pink pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#0B0D14]">
+    <section ref={sectionRef} className="section-glow ambient-pink pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#FAFBFF]">
       <div className="max-w-[1240px] mx-auto">
         {/* Headline */}
         <div className="animate-on-scroll text-center mb-10 md:mb-14">
@@ -16,7 +16,7 @@ export default function FeatureAIUpscale() {
             </svg>
             AI Upscale
           </span>
-          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight">
+          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-gray-900 leading-[1.1] tracking-tight">
             Take every pixel further<br />with <span className="text-[#D3B65F]">AI Upscale.</span>
           </h2>
         </div>
@@ -54,10 +54,10 @@ export default function FeatureAIUpscale() {
             <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] bg-white/90 z-10 shadow-[0_0_12px_rgba(255,255,255,0.3)]" />
 
             {/* Labels */}
-            <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-white/10">
+            <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-black/10">
               <span className="text-[12px] md:text-[13px] font-semibold text-white/70">720p</span>
             </div>
-            <div className="absolute top-4 right-4 z-10 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-white/10">
+            <div className="absolute top-4 right-4 z-10 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-black/10">
               <span className="text-[12px] md:text-[13px] font-semibold text-[#D3B65F]">4K</span>
             </div>
           </div>
@@ -71,8 +71,8 @@ export default function FeatureAIUpscale() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
               </svg>
             </div>
-            <span className="text-[15px] font-semibold text-white block mb-1">3 AI Models</span>
-            <p className="text-[13px] text-white/50 leading-relaxed">
+            <span className="text-[15px] font-semibold text-gray-900 block mb-1">3 AI Models</span>
+            <p className="text-[13px] text-gray-500 leading-relaxed">
               FSRCNN, ESPCN, Real-ESRGAN — choose between speed and quality for your export.
             </p>
           </div>
@@ -83,8 +83,8 @@ export default function FeatureAIUpscale() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            <span className="text-[15px] font-semibold text-white block mb-1">Apple Neural Engine</span>
-            <p className="text-[13px] text-white/50 leading-relaxed">
+            <span className="text-[15px] font-semibold text-gray-900 block mb-1">Apple Neural Engine</span>
+            <p className="text-[13px] text-gray-500 leading-relaxed">
               Powered by Core ML and ANE. Everything runs on your Mac — fast, efficient, and completely offline.
             </p>
           </div>
@@ -95,8 +95,8 @@ export default function FeatureAIUpscale() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9m11.25-5.25v4.5m0-4.5h-4.5m4.5 0L15 9m-11.25 11.25v-4.5m0 4.5h4.5m-4.5 0L9 15m11.25 5.25v-4.5m0 4.5h-4.5m4.5 0L15 15" />
               </svg>
             </div>
-            <span className="text-[15px] font-semibold text-white block mb-1">4x Resolution</span>
-            <p className="text-[13px] text-white/50 leading-relaxed">
+            <span className="text-[15px] font-semibold text-gray-900 block mb-1">4x Resolution</span>
+            <p className="text-[13px] text-gray-500 leading-relaxed">
               Upscale from 720p up to 4K. Intelligent tiling ensures seamless, artifact-free results.
             </p>
           </div>

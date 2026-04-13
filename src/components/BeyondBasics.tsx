@@ -51,13 +51,13 @@ export default function BeyondBasics() {
   return (
     <section
       ref={sectionRef}
-      className="section-glow ambient-blue py-[80px] md:py-[160px] px-6 bg-[#0B0D14]"
+      className="section-glow ambient-blue py-[80px] md:py-[160px] px-6 bg-[#FAFBFF]"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="animate-on-scroll text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
+        <h2 className="animate-on-scroll text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-4">
           Beyond the basics.
         </h2>
-        <p className="animate-on-scroll text-lg text-gray-300 mb-16 max-w-xl">
+        <p className="animate-on-scroll text-lg text-gray-600 mb-16 max-w-xl">
           Simple tools that quietly make your recordings better.
         </p>
 
@@ -73,7 +73,7 @@ export default function BeyondBasics() {
               onClick={() => toggleVideo(i)}
             >
               <div
-                className={`aspect-video ${i === 0 ? "sm:aspect-[5/4]" : "sm:aspect-[3/4]"} bg-[#1A1025] relative rounded-[17px] overflow-hidden`}
+                className={`aspect-video ${i === 0 ? "sm:aspect-[5/4]" : "sm:aspect-[3/4]"} bg-gray-100 relative rounded-[17px] overflow-hidden`}
               >
                 <video
                   ref={(el) => {
@@ -101,7 +101,7 @@ export default function BeyondBasics() {
                 <div
                   className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${playingVideo === i ? "opacity-0" : "opacity-100"}`}
                 >
-                  <div className="w-10 h-10 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm flex items-center justify-center">
                     <svg
                       className="w-4 h-4 text-white ml-0.5"
                       fill="currentColor"
