@@ -122,9 +122,14 @@ export default function BlogListClient() {
   const restPosts = posts.slice(1)
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
+    <div className="min-h-screen flex flex-col bg-[#0B0D14]">
       <Header />
-      <main className="section-glow max-w-5xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
+      {/* Decorative background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[20%] right-[10%] w-64 h-40 rounded-3xl bg-gradient-to-br from-blue-500/[0.06] to-indigo-600/[0.03] rotate-[10deg] blur-sm" />
+        <div className="absolute bottom-[30%] left-[8%] w-48 h-48 rounded-2xl bg-gradient-to-br from-purple-500/[0.05] to-purple-600/[0.02] rotate-[-8deg] blur-sm" />
+      </div>
+      <main className="relative z-10 section-glow max-w-5xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
         <div className="text-center mb-14">
           <span className="badge-block badge-blue mb-6 animate-on-load">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

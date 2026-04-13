@@ -56,7 +56,7 @@ export default function ReleaseDetailClient() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
+      <div className="min-h-screen flex flex-col bg-[#0B0D14]">
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
           <div className="flex flex-col items-center justify-center py-20">
@@ -71,7 +71,7 @@ export default function ReleaseDetailClient() {
 
   if (notFound || !release) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
+      <div className="min-h-screen flex flex-col bg-[#0B0D14]">
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
           <h1 className="text-2xl font-bold text-white mb-4">404 - Release Not Found</h1>
@@ -89,9 +89,13 @@ export default function ReleaseDetailClient() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
+    <div className="min-h-screen flex flex-col bg-[#0B0D14]">
       <Header />
-      <main className="max-w-3xl mx-auto pt-28 pb-20 px-4 flex-grow w-full">
+      {/* Decorative background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[20%] left-[10%] w-48 h-48 rounded-2xl bg-gradient-to-br from-green-500/[0.04] to-emerald-600/[0.02] rotate-[-10deg] blur-sm" />
+      </div>
+      <main className="relative z-10 max-w-3xl mx-auto pt-28 pb-20 px-4 flex-grow w-full">
         <Link
           href="/releases"
           className="inline-flex items-center gap-1 text-gray-400 hover:text-primary-400 font-medium mb-10 transition-colors"

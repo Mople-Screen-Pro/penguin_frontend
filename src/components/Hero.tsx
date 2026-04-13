@@ -85,7 +85,7 @@ export default function Hero() {
   return (
     <>
       {/* Hero Video */}
-      <div className="bg-[#0A0A0F] flex items-center justify-center h-svh">
+      <div className="bg-[#0B0D14] flex items-center justify-center h-svh">
         <div
           ref={containerRef}
           className={`relative w-full h-full max-w-[1728px] max-h-[1117px] overflow-hidden pt-0 xl:pt-0 ${isMobile ? "flex flex-col items-center justify-center px-5 sm:px-8 md:px-12" : "flex items-center justify-center"}`}
@@ -247,7 +247,7 @@ export default function Hero() {
       </div>
 
       {/* Whatever you build — marquee */}
-      <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#0A0A0F] text-center overflow-hidden">
+      <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#0B0D14] text-center overflow-hidden">
         <p className="text-gray-400 font-light mb-10 px-6 whitespace-nowrap text-[clamp(1rem,4vw,2.25rem)]">
           Whatever you build,{" "}
           <span className="inline-block"><span className="gradient-text font-medium">Clipa</span> fits right

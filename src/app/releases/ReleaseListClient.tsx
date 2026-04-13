@@ -96,9 +96,14 @@ export default function ReleaseListClient() {
   }, [isAdmin])
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
+    <div className="min-h-screen flex flex-col bg-[#0B0D14]">
       <Header />
-      <main className="section-glow max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
+      {/* Decorative background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[25%] left-[5%] w-56 h-36 rounded-3xl bg-gradient-to-br from-green-500/[0.05] to-emerald-600/[0.02] rotate-[-6deg] blur-sm" />
+        <div className="absolute bottom-[25%] right-[12%] w-44 h-44 rounded-2xl bg-gradient-to-br from-purple-500/[0.04] to-violet-600/[0.02] rotate-[12deg] blur-sm" />
+      </div>
+      <main className="relative z-10 section-glow max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
         <div className="text-center mb-14">
           <span className="badge-block badge-green mb-6 animate-on-load">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

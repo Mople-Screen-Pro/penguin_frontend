@@ -61,7 +61,7 @@ export default function Header() {
       {/* Navbar */}
       <header
         className={`sticky top-2 z-50 w-full transition-all duration-300 ${
-          scrolled ? "bg-[#0A0A0F]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-purple-900/10" : "bg-[#0A0A0F] border-b border-transparent"
+          scrolled ? "bg-[#0B0D14]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-purple-900/10" : "bg-[#0B0D14] border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -120,7 +120,7 @@ export default function Header() {
                     {dropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
-                        <div className="absolute right-0 mt-3 w-48 bg-[#0A0A0F] rounded-xl border border-gray-800 shadow-xl z-50 overflow-hidden p-1">
+                        <div className="absolute right-0 mt-3 w-48 bg-[#0B0D14] rounded-xl border border-gray-800 shadow-xl z-50 overflow-hidden p-1">
                           <Link
                             href="/mypage"
                             onClick={() => setDropdownOpen(false)}
@@ -181,7 +181,7 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden bg-[#0A0A0F] border-b overflow-hidden transition-all duration-200 ease-out ${
+        <div className={`lg:hidden bg-[#0B0D14] border-b overflow-hidden transition-all duration-200 ease-out ${
           mobileMenuOpen
             ? 'max-h-[400px] opacity-100 border-gray-800'
             : 'max-h-0 opacity-0 border-transparent'

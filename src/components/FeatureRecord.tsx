@@ -18,7 +18,7 @@ export default function FeatureRecord() {
   const sectionRef = useScrollReveal()
 
   return (
-    <section id="feature-record" ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#0A0A0F]">
+    <section id="feature-record" ref={sectionRef} className="section-glow ambient-purple pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#0B0D14]">
       <div className="max-w-[1240px] mx-auto">
         {/* Header — center aligned */}
         <div className="animate-on-scroll text-center mb-14">

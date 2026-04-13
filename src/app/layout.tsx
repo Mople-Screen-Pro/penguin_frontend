@@ -87,7 +87,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://grkyrqhgfgthpghircbu.supabase.co" />
         <link rel="dns-prefetch" href="https://cdn.paddle.com" />
       </head>
-      <body>
+      <body className="grain">
         <FontLoader />
         <Providers>{children}</Providers>
         <GoogleAnalytics />

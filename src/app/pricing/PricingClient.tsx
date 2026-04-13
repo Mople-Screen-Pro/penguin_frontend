@@ -226,8 +226,15 @@ export default function PricingClient() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
+      {/* Decorative background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[15%] left-[5%] w-72 h-44 rounded-3xl bg-gradient-to-br from-purple-500/[0.07] to-purple-600/[0.03] rotate-[-12deg] blur-sm" />
+        <div className="absolute top-[40%] right-[8%] w-56 h-56 rounded-2xl bg-gradient-to-br from-blue-500/[0.05] to-indigo-600/[0.02] rotate-[8deg] blur-sm" />
+        <div className="absolute bottom-[20%] left-[15%] w-48 h-48 rounded-2xl bg-gradient-to-br from-pink-500/[0.05] to-rose-600/[0.02] rotate-[5deg] blur-sm" />
+      </div>
+
       {/* Content */}
-      <main className="section-glow max-w-7xl mx-auto px-6 pt-24 sm:pt-28 pb-[80px] md:pb-[160px] flex-grow w-full">
+      <main className="relative z-10 section-glow max-w-7xl mx-auto px-6 pt-24 sm:pt-28 pb-[80px] md:pb-[160px] flex-grow w-full">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <span className="badge-block badge-gold mb-6 animate-on-load">
@@ -253,7 +260,7 @@ export default function PricingClient() {
               key={plan.id}
               className={`animate-on-load delay-${i + 2} relative glass-card p-6 lg:p-8 flex flex-col ${
                 plan.popular
-                  ? "!border-primary-500/40 shadow-lg shadow-primary-500/[0.08]"
+                  ? "!border-primary-400/50 shadow-xl shadow-primary-500/20 scale-[1.03] lg:scale-105"
                   : ""
               }`}
             >
@@ -267,7 +274,7 @@ export default function PricingClient() {
 
               {plan.savings && (
                 <div className="absolute top-5 right-5">
-                  <span className="bg-green-500/10 text-green-400 text-xs font-medium px-2.5 py-1 rounded-full border border-green-500/20">
+                  <span className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-300 text-xs font-semibold px-3 py-1.5 rounded-full border border-green-400/30 shadow-sm shadow-green-500/10">
                     {plan.savings}
                   </span>
                 </div>
@@ -282,7 +289,7 @@ export default function PricingClient() {
 
               <div className="mb-6">
                 <div className="flex items-baseline gap-1">
-                  <span className="text-4xl lg:text-5xl font-bold text-white tracking-tight">
+                  <span className={`text-4xl lg:text-5xl font-bold tracking-tight ${plan.popular ? 'gradient-text' : 'text-white'}`}>
                     ${plan.price}
                   </span>
                   <span className="text-gray-500 text-sm">{plan.period}</span>
@@ -301,7 +308,7 @@ export default function PricingClient() {
                     className="flex items-center gap-3 text-sm text-gray-300"
                   >
                     <svg
-                      className="w-4 h-4 text-primary-400 flex-shrink-0"
+                      className={`w-4 h-4 flex-shrink-0 ${plan.popular ? 'text-accent-pink' : 'text-primary-400'}`}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -405,21 +412,13 @@ export default function PricingClient() {
         </div>
 
         {/* Trust badge */}
-        <div className="mt-12 sm:mt-16 flex items-center justify-center gap-2 text-gray-500 text-sm">
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-            />
-          </svg>
-          <span>Secure payment powered by Paddle</span>
+        <div className="mt-16 sm:mt-20 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] text-gray-400 text-sm">
+            <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+            Secure payment via Paddle &middot; Cancel anytime
+          </div>
         </div>
       </main>
 

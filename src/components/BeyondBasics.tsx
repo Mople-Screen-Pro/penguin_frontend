@@ -51,7 +51,7 @@ export default function BeyondBasics() {
   return (
     <section
       ref={sectionRef}
-      className="section-glow py-[80px] md:py-[160px] px-6 bg-[#0A0A0F]"
+      className="section-glow ambient-blue py-[80px] md:py-[160px] px-6 bg-[#0B0D14]"
     >
       <div className="max-w-7xl mx-auto">
         <h2 className="animate-on-scroll text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">

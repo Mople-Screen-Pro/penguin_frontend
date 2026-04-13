@@ -50,7 +50,7 @@ export default function LoginClient() {
   // 세션 확인 중 로딩 표시
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0A0A0F]">
+      <div className="min-h-screen flex items-center justify-center bg-[#0B0D14]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4"></div>
           <p className="text-gray-400">Checking login status...</p>
@@ -67,7 +67,7 @@ export default function LoginClient() {
   // from=app이고 이미 로그인된 유저는 앱으로 리다이렉트
   if (user && isFromApp) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0A0A0F]">
+      <div className="min-h-screen flex items-center justify-center bg-[#0B0D14]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4"></div>
           <p className="text-gray-400">Already signed in. Redirecting to app...</p>
@@ -77,7 +77,7 @@ export default function LoginClient() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0F] relative overflow-hidden flex items-center justify-center px-5 py-12">
+    <div className="min-h-screen bg-[#0B0D14] relative overflow-hidden flex items-center justify-center px-5 py-12">
       {/* Floating decorative blocks — matches logo aesthetic */}
       <div className="absolute top-[10%] left-[8%] w-48 h-28 rounded-3xl bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/10 rotate-[-8deg] blur-[1px] animate-float" />
       <div className="absolute top-[25%] right-[10%] w-36 h-36 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-600/5 border border-blue-500/10 rotate-[12deg] blur-[1px] animate-float" style={{ animationDelay: '1.5s' }} />

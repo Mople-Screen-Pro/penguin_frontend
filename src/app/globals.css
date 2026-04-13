@@ -45,7 +45,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   word-break: keep-all;
-  background: #0A0A0F;
+  background: #0B0D14;
   color: #e5e7eb;
 }
 
@@ -660,8 +660,74 @@ h1, h2, .heading-xl, .heading-lg {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
-  max-width: 600px;
+  width: 80%;
+  max-width: 800px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.35), rgba(236, 72, 153, 0.2), transparent);
+}
+
+/* ── Ambient background glows ── */
+.ambient-purple {
+  position: relative;
+}
+.ambient-purple::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  max-width: 800px;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(168, 85, 247, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-pink {
+  position: relative;
+}
+.ambient-pink::after {
+  content: '';
+  position: absolute;
+  top: 30%;
+  right: 10%;
+  width: 50%;
+  max-width: 600px;
+  height: 50%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(236, 72, 153, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-blue {
+  position: relative;
+}
+.ambient-blue::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 60%;
+  max-width: 700px;
+  height: 60%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(91, 141, 239, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle grain texture overlay */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
 }

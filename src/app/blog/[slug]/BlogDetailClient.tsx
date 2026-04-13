@@ -56,7 +56,7 @@ export default function BlogDetailClient() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
+      <div className="min-h-screen flex flex-col bg-[#0B0D14]">
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
           <div className="flex flex-col items-center justify-center py-20">
@@ -71,7 +71,7 @@ export default function BlogDetailClient() {
 
   if (notFound || !post) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
+      <div className="min-h-screen flex flex-col bg-[#0B0D14]">
         <Header />
         <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
           <h1 className="text-2xl font-bold text-white mb-4">404 - Post Not Found</h1>
@@ -89,9 +89,13 @@ export default function BlogDetailClient() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
+    <div className="min-h-screen flex flex-col bg-[#0B0D14]">
       <Header />
-      <main className="max-w-3xl mx-auto pt-28 pb-20 px-4 flex-grow w-full">
+      {/* Decorative background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[15%] right-[8%] w-56 h-56 rounded-2xl bg-gradient-to-br from-purple-500/[0.04] to-purple-600/[0.02] rotate-[15deg] blur-sm" />
+      </div>
+      <main className="relative z-10 max-w-3xl mx-auto pt-28 pb-20 px-4 flex-grow w-full">
         <Link
           href="/blog"
           className="inline-flex items-center gap-1 text-gray-400 hover:text-primary-400 font-medium mb-10 transition-colors"

@@ -304,7 +304,7 @@ export default function Features() {
   }))
 
   return (
-    <section id="features" ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] bg-[#0A0A0F]">
+    <section id="features" ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] bg-[#0B0D14]">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="animate-on-scroll font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[60px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center whitespace-nowrap text-[clamp(1.25rem,5vw,3.75rem)]">
           <span>How{' '}
