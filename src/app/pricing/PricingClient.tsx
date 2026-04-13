@@ -227,13 +227,19 @@ export default function PricingClient() {
       <Header />
 
       {/* Content */}
-      <main className="max-w-7xl mx-auto px-6 pt-24 sm:pt-28 pb-[80px] md:pb-[160px] flex-grow w-full">
+      <main className="section-glow max-w-7xl mx-auto px-6 pt-24 sm:pt-28 pb-[80px] md:pb-[160px] flex-grow w-full">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <h1 className="heading-lg font-bold text-white mb-4 animate-on-load">
+          <span className="badge-block badge-gold mb-6 animate-on-load">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+            Pricing
+          </span>
+          <h1 className="heading-lg font-bold text-white mb-4 animate-on-load delay-1">
             Simple, <span className="gradient-text">transparent</span> pricing
           </h1>
-          <p className="text-base sm:text-lg text-gray-400 max-w-lg mx-auto animate-on-load delay-1">
+          <p className="text-base sm:text-lg text-gray-400 max-w-lg mx-auto animate-on-load delay-2">
             Choose the plan that works best for you.
             <br className="hidden sm:block" />
             All plans include full access to Clipa features.
@@ -245,15 +251,15 @@ export default function PricingClient() {
           {plans.map((plan, i) => (
             <div
               key={plan.id}
-              className={`animate-on-load delay-${i + 2} relative rounded-2xl border p-6 lg:p-8 flex flex-col transition-all duration-300 hover:translate-y-[-2px] ${
+              className={`animate-on-load delay-${i + 2} relative glass-card p-6 lg:p-8 flex flex-col ${
                 plan.popular
-                  ? "border-sky-500/60 bg-sky-500/[0.04] shadow-lg shadow-sky-500/[0.08]"
-                  : "border-gray-800 bg-white/[0.02] hover:border-gray-700"
+                  ? "!border-primary-500/40 shadow-lg shadow-primary-500/[0.08]"
+                  : ""
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-sky-500 to-blue-600 text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow-lg shadow-sky-500/25 whitespace-nowrap tracking-wide uppercase">
+                  <span className="badge-block text-primary-300 bg-primary-500/15 border-primary-500/25 !border-b-primary-600/30 !text-[10px] !px-3 !py-1">
                     Most Popular
                   </span>
                 </div>
@@ -286,7 +292,7 @@ export default function PricingClient() {
                 )}
               </div>
 
-              <div className="h-px bg-gray-800 mb-6" />
+              <div className="h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mb-6" />
 
               <ul className="space-y-3 mb-8 flex-grow">
                 {plan.features.map((feature, index) => (
@@ -295,7 +301,7 @@ export default function PricingClient() {
                     className="flex items-center gap-3 text-sm text-gray-300"
                   >
                     <svg
-                      className="w-4 h-4 text-sky-500 flex-shrink-0"
+                      className="w-4 h-4 text-primary-400 flex-shrink-0"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -331,7 +337,7 @@ export default function PricingClient() {
                 <button
                   onClick={handleReactivate}
                   disabled={reactivateLoading}
-                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:from-sky-600 hover:to-blue-700 hover:shadow-lg hover:shadow-sky-500/25 disabled:opacity-50"
+                  className="btn-block w-full disabled:opacity-50"
                 >
                   {reactivateLoading ? "Resubscribing..." : "Resubscribe"}
                 </button>
@@ -352,14 +358,14 @@ export default function PricingClient() {
               ) : (isMonthly || isYearly) && plan.id === "lifetime" ? (
                 <button
                   onClick={() => setLifetimeModalOpen(true)}
-                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:from-sky-600 hover:to-blue-700 hover:shadow-lg hover:shadow-sky-500/25"
+                  className="btn-block w-full"
                 >
                   Upgrade
                 </button>
               ) : isMonthly && plan.id === "yearly" ? (
                 <button
                   onClick={() => setUpgradeModalOpen(true)}
-                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:from-sky-600 hover:to-blue-700 hover:shadow-lg hover:shadow-sky-500/25"
+                  className="btn-block w-full"
                 >
                   Upgrade
                 </button>
@@ -373,7 +379,7 @@ export default function PricingClient() {
               ) : isYearly && plan.id === "monthly" ? (
                 <button
                   onClick={() => setDowngradeModalOpen(true)}
-                  className="w-full py-3 px-4 rounded-xl font-medium transition-all bg-white/5 text-gray-300 hover:bg-white/10"
+                  className="btn-block-ghost w-full"
                 >
                   Switch to Monthly
                 </button>
@@ -381,10 +387,10 @@ export default function PricingClient() {
                 <button
                   onClick={() => handlePurchase(plan.priceId, plan.id)}
                   disabled={loading === plan.id}
-                  className={`w-full py-3 px-4 rounded-xl font-medium transition-all disabled:opacity-50 ${
+                  className={`w-full disabled:opacity-50 ${
                     plan.popular
-                      ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white hover:from-sky-600 hover:to-blue-700 hover:shadow-lg hover:shadow-sky-500/25"
-                      : "bg-white/5 text-white hover:bg-white/10"
+                      ? "btn-block"
+                      : "btn-block-ghost"
                   }`}
                 >
                   {loading === plan.id
@@ -484,7 +490,7 @@ export default function PricingClient() {
               <button
                 onClick={handleCancelDowngrade}
                 disabled={cancelingDowngrade}
-                className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl hover:from-sky-600 hover:to-blue-700 transition-all disabled:opacity-50"
+                className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl hover:from-primary-600 hover:to-primary-700 transition-all disabled:opacity-50"
               >
                 {cancelingDowngrade ? "Canceling..." : "Stay on Yearly"}
               </button>

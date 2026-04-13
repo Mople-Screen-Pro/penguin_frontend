@@ -20,14 +20,14 @@ function HeroCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block rounded-2xl border border-gray-800 bg-[#111] shadow-sm hover:shadow-xl hover:border-[#7EB4E8]/40 transition-all duration-300 overflow-hidden"
+      className="group block glass-card-static !rounded-2xl overflow-hidden hover:!border-primary-400/30"
     >
       {post.cover_image_url && (
         <div className="aspect-[2/1] overflow-hidden">
           <img
             src={post.cover_image_url}
             alt={post.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
           />
         </div>
       )}
@@ -44,7 +44,7 @@ function HeroCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-white group-hover:text-white transition-colors mb-3">
+        <h2 className="text-2xl md:text-3xl font-bold text-white group-hover:text-primary-300 transition-colors mb-3">
           {post.title}
         </h2>
         {post.excerpt && (
@@ -61,14 +61,14 @@ function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block rounded-2xl border border-gray-800 bg-[#111] shadow-sm hover:shadow-lg hover:border-[#7EB4E8]/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+      className="group block glass-card-static !rounded-2xl overflow-hidden hover:!border-primary-400/30 hover:-translate-y-1 transition-all duration-200"
     >
       {post.cover_image_url && (
         <div className="aspect-video overflow-hidden">
           <img
             src={post.cover_image_url}
             alt={post.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
           />
         </div>
       )}
@@ -85,7 +85,7 @@ function PostCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-lg font-semibold text-white group-hover:text-white transition-colors mb-2">
+        <h2 className="text-lg font-semibold text-white group-hover:text-primary-300 transition-colors mb-2">
           {post.title}
         </h2>
         {post.excerpt && (
@@ -122,18 +122,26 @@ export default function BlogListClient() {
   const restPosts = posts.slice(1)
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#000]">
+    <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
       <Header />
-      <main className="max-w-5xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
-        <div className="flex items-center justify-between mb-12">
-          <div>
-            <h1 className="text-3xl font-bold text-white">Blog</h1>
-            <p className="text-gray-400 mt-1">News, tips, and stories from the Clipa team.</p>
-          </div>
+      <main className="section-glow max-w-5xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
+        <div className="text-center mb-14">
+          <span className="badge-block badge-blue mb-6 animate-on-load">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+            </svg>
+            Blog
+          </span>
+          <h1 className="heading-lg font-bold text-white mb-4 animate-on-load delay-1">
+            News, tips, and <span className="gradient-text">stories</span>
+          </h1>
+          <p className="text-base sm:text-lg text-gray-400 max-w-lg mx-auto animate-on-load delay-2">
+            From the Clipa team.
+          </p>
           {isAdmin && (
             <Link
               href="/blog/new"
-              className="bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg px-4 py-2 text-sm font-medium shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all"
+              className="btn-block btn-block-sm mt-6 animate-on-load delay-3"
             >
               New Post
             </Link>
@@ -141,17 +149,31 @@ export default function BlogListClient() {
         </div>
 
         {loading ? (
-          <p className="text-gray-500 text-center py-12">Loading...</p>
+          <div className="flex flex-col items-center justify-center py-20 animate-on-load">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4" />
+            <p className="text-gray-500 text-sm">Loading posts...</p>
+          </div>
         ) : posts.length === 0 ? (
-          <p className="text-gray-500 text-center py-12">No posts yet.</p>
+          <div className="flex flex-col items-center justify-center py-20 animate-on-load">
+            <svg className="w-12 h-12 text-gray-700 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+            </svg>
+            <p className="text-gray-500 text-sm">No posts yet.</p>
+          </div>
         ) : (
           <div className="space-y-10">
-            {heroPost && <HeroCard post={heroPost} />}
+            {heroPost && (
+              <div className="animate-on-load">
+                <HeroCard post={heroPost} />
+              </div>
+            )}
 
             {restPosts.length > 0 && (
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {restPosts.map((post) => (
-                  <PostCard key={post.id} post={post} />
+                {restPosts.map((post, i) => (
+                  <div key={post.id} className="animate-on-load" style={{ animationDelay: `${0.1 + i * 0.06}s` }}>
+                    <PostCard post={post} />
+                  </div>
                 ))}
               </div>
             )}

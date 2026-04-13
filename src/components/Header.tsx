@@ -34,6 +34,15 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDropdownOpen(false);
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [dropdownOpen]);
+
   const navLinks = [
     { name: "Pricing", href: "/pricing" },
     { name: "Blog", href: "/blog" },
@@ -42,6 +51,13 @@ export default function Header() {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="absolute w-px h-px overflow-hidden whitespace-nowrap border-0 focus:static focus:w-auto focus:h-auto focus:overflow-visible focus:whitespace-normal focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-primary-500 focus:text-white focus:text-sm focus:font-medium"
+        style={{ clip: 'rect(0,0,0,0)' }}
+      >
+        Skip to content
+      </a>
       {/* Navbar */}
       <header
         className={`sticky top-2 z-50 w-full transition-all duration-300 ${
@@ -165,8 +181,11 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#0A0A0F] border-b border-gray-800 overflow-hidden">
+        <div className={`lg:hidden bg-[#0A0A0F] border-b overflow-hidden transition-all duration-200 ease-out ${
+          mobileMenuOpen
+            ? 'max-h-[400px] opacity-100 border-gray-800'
+            : 'max-h-0 opacity-0 border-transparent'
+        }`}>
             <div className="px-6 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
                   <Link
@@ -213,7 +232,6 @@ export default function Header() {
               )}
             </div>
           </div>
-        )}
       </header>
     </>
   );

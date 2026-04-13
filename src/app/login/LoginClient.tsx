@@ -53,7 +53,7 @@ export default function LoginClient() {
       <div className="min-h-screen flex items-center justify-center bg-[#0A0A0F]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4"></div>
-          <p className="text-gray-400">로그인 확인 중...</p>
+          <p className="text-gray-400">Checking login status...</p>
         </div>
       </div>
     )
@@ -70,7 +70,7 @@ export default function LoginClient() {
       <div className="min-h-screen flex items-center justify-center bg-[#0A0A0F]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-400 mx-auto mb-4"></div>
-          <p className="text-gray-400">이미 로그인되어 있습니다. 앱으로 돌아가는 중...</p>
+          <p className="text-gray-400">Already signed in. Redirecting to app...</p>
         </div>
       </div>
     )

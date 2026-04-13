@@ -96,18 +96,27 @@ export default function ReleaseListClient() {
   }, [isAdmin])
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#000]">
+    <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
       <Header />
-      <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
-        <div className="flex items-center justify-between mb-12">
-          <div>
-            <h1 className="text-3xl font-bold text-white">Changelog</h1>
-            <p className="text-gray-400 mt-1">All the latest updates and improvements to Clipa.</p>
-          </div>
+      <main className="section-glow max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
+        <div className="text-center mb-14">
+          <span className="badge-block badge-green mb-6 animate-on-load">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+            </svg>
+            Changelog
+          </span>
+          <h1 className="heading-lg font-bold text-white mb-4 animate-on-load delay-1">
+            What's <span className="gradient-text">new</span> in Clipa
+          </h1>
+          <p className="text-base sm:text-lg text-gray-400 max-w-lg mx-auto animate-on-load delay-2">
+            All the latest updates and improvements.
+          </p>
           {isAdmin && (
             <Link
               href="/releases/new"
-              className="bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg px-4 py-2 text-sm font-medium shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all"
+              className="btn-block btn-block-sm mt-6 animate-on-load delay-3"
             >
               New Release
             </Link>
@@ -115,18 +124,28 @@ export default function ReleaseListClient() {
         </div>
 
         {loading ? (
-          <p className="text-gray-400 text-center py-12">Loading...</p>
+          <div className="flex flex-col items-center justify-center py-20 animate-on-load">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4" />
+            <p className="text-gray-500 text-sm">Loading releases...</p>
+          </div>
         ) : releases.length === 0 ? (
-          <p className="text-gray-400 text-center py-12">No releases yet.</p>
+          <div className="flex flex-col items-center justify-center py-20 animate-on-load">
+            <svg className="w-12 h-12 text-gray-700 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+            </svg>
+            <p className="text-gray-500 text-sm">No releases yet.</p>
+          </div>
         ) : (
           <div>
             {releases.map((release, index) => (
-              <ReleaseEntry
-                key={release.id}
-                release={release}
-                isLatest={index === 0}
-                isAdmin={isAdmin}
-              />
+              <div key={release.id} className="animate-on-load" style={{ animationDelay: `${0.1 + Math.min(index * 0.06, 0.3)}s` }}>
+                <ReleaseEntry
+                  release={release}
+                  isLatest={index === 0}
+                  isAdmin={isAdmin}
+                />
+              </div>
             ))}
           </div>
         )}

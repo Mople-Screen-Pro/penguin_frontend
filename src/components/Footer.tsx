@@ -21,8 +21,8 @@ export default function Footer() {
 
           {/* Links — single row */}
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-            <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
-            <a href="#faq" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
+            <a href="/#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
+            <a href="/#faq" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
             <Link href="/pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</Link>
             <Link href="/releases" className="text-gray-300 hover:text-white transition-colors">Releases</Link>
             <Link href="/blog" className="text-gray-300 hover:text-white transition-colors">Blog</Link>

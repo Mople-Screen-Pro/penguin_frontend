@@ -1,33 +1,33 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-*:focus {
-  outline: none !important;
-  box-shadow: none !important;
+*:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
 }
 
 @theme {
   --font-sans: "Pretendard", "Inter", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
 
-  --color-primary-50: #f5f0ff;
-  --color-primary-100: #ede5ff;
-  --color-primary-200: #d4bfff;
-  --color-primary-300: #b794f6;
-  --color-primary-400: #a078f0;
-  --color-primary-500: #8A5CF6;
-  --color-primary-600: #7c3aed;
-  --color-primary-700: #6d28d9;
-  --color-primary-800: #5b21b6;
-  --color-primary-900: #4c1d95;
+  --color-primary-50: #faf5ff;
+  --color-primary-100: #f3e8ff;
+  --color-primary-200: #e9d5ff;
+  --color-primary-300: #d8b4fe;
+  --color-primary-400: #c084fc;
+  --color-primary-500: #a855f7;
+  --color-primary-600: #9333ea;
+  --color-primary-700: #7e22ce;
+  --color-primary-800: #6b21a8;
+  --color-primary-900: #581c87;
 
-  --color-accent: #8A5CF6;
-  --color-accent-light: #b794f6;
+  --color-accent: #A855F7;
+  --color-accent-light: #C084FC;
   --color-accent-pink: #EC4899;
-  --color-accent-blue: #4F7BF7;
+  --color-accent-blue: #5B8DEF;
 
   --color-surface: #1A1025;
-  --color-surface-glass: rgba(138, 92, 246, 0.08);
+  --color-surface-glass: rgba(168, 85, 247, 0.08);
   --color-border-glass: rgba(255, 255, 255, 0.12);
 
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
@@ -91,8 +91,8 @@ select,
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .animate-on-scroll.slide-left {
@@ -117,7 +117,7 @@ select,
 .animate-on-load {
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation: fadeInUp 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 .animate-on-load.delay-1 { animation-delay: 0.1s; }
@@ -167,7 +167,7 @@ select,
   border-radius: 40px;
   background: radial-gradient(
     ellipse at 50% 40%,
-    rgba(138, 92, 246, 0.1) 0%,
+    rgba(168, 85, 247, 0.1) 0%,
     rgba(168, 85, 247, 0.05) 40%,
     transparent 70%
   );
@@ -222,7 +222,7 @@ select,
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #A855F7 0%, #8A5CF6 40%, #EC4899 100%);
+  background: linear-gradient(135deg, #A855F7 0%, #C084FC 40%, #EC4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -238,13 +238,13 @@ select,
 
 /* Text selection */
 ::selection {
-  background: rgba(138, 92, 246, 0.2);
-  color: #f5f0ff;
+  background: rgba(168, 85, 247, 0.2);
+  color: #faf5ff;
 }
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid #8A5CF6;
+  outline: 2px solid #A855F7;
   outline-offset: 2px;
 }
 
@@ -329,14 +329,14 @@ h1, h2, .heading-xl, .heading-lg {
 }
 
 .blog-prose a {
-  color: #36a9ff;
+  color: #C084FC;
   text-decoration: none;
-  border-bottom: 1px solid rgba(54, 169, 255, 0.3);
+  border-bottom: 1px solid rgba(192, 132, 252, 0.3);
   transition: border-color 0.2s;
 }
 
 .blog-prose a:hover {
-  border-bottom-color: #36a9ff;
+  border-bottom-color: #C084FC;
 }
 
 .blog-prose ul {
@@ -386,8 +386,8 @@ h1, h2, .heading-xl, .heading-lg {
 }
 
 .blog-prose blockquote {
-  border-left: 3px solid #36a9ff;
-  background: rgba(54, 169, 255, 0.05);
+  border-left: 3px solid #A855F7;
+  background: rgba(168, 85, 247, 0.05);
   margin: 2rem 0;
   padding: 1.25rem 1.5rem;
   border-radius: 0 12px 12px 0;
@@ -462,12 +462,12 @@ h1, h2, .heading-xl, .heading-lg {
   font-weight: 650;
   font-size: 1rem;
   color: #fff;
-  background: #6366F1;
+  background: #A855F7;
   border: none;
   border-bottom: 4px solid rgba(0, 0, 0, 0.35);
   box-shadow:
-    0 4px 0 0 rgba(75, 75, 190, 0.5),
-    0 6px 20px -4px rgba(99, 102, 241, 0.35);
+    0 4px 0 0 rgba(168, 85, 247, 0.5),
+    0 6px 20px -4px rgba(168, 85, 247, 0.35);
   transform: translateY(0);
   transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
               box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -489,16 +489,16 @@ h1, h2, .heading-xl, .heading-lg {
 .btn-block:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 6px 0 0 rgba(75, 75, 190, 0.5),
-    0 10px 30px -4px rgba(99, 102, 241, 0.4);
+    0 6px 0 0 rgba(168, 85, 247, 0.5),
+    0 10px 30px -4px rgba(168, 85, 247, 0.4);
 }
 
 .btn-block:active {
   transform: translateY(3px);
   border-bottom-width: 1px;
   box-shadow:
-    0 1px 0 0 rgba(75, 75, 190, 0.5),
-    0 2px 8px -2px rgba(99, 102, 241, 0.3);
+    0 1px 0 0 rgba(168, 85, 247, 0.5),
+    0 2px 8px -2px rgba(168, 85, 247, 0.3);
 }
 
 /* Secondary/Ghost block button */
@@ -512,10 +512,10 @@ h1, h2, .heading-xl, .heading-lg {
   font-weight: 600;
   font-size: 1rem;
   color: #d4bfff;
-  background: rgba(138, 92, 246, 0.08);
-  border: 1.5px solid rgba(138, 92, 246, 0.25);
-  border-bottom: 4px solid rgba(138, 92, 246, 0.2);
-  box-shadow: 0 4px 0 0 rgba(138, 92, 246, 0.1);
+  background: rgba(168, 85, 247, 0.08);
+  border: 1.5px solid rgba(168, 85, 247, 0.25);
+  border-bottom: 4px solid rgba(168, 85, 247, 0.2);
+  box-shadow: 0 4px 0 0 rgba(168, 85, 247, 0.1);
   transform: translateY(0);
   transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
               box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -526,16 +526,16 @@ h1, h2, .heading-xl, .heading-lg {
 
 .btn-block-ghost:hover {
   transform: translateY(-2px);
-  background: rgba(138, 92, 246, 0.12);
-  border-color: rgba(138, 92, 246, 0.4);
+  background: rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.4);
   color: #fff;
-  box-shadow: 0 6px 0 0 rgba(138, 92, 246, 0.12);
+  box-shadow: 0 6px 0 0 rgba(168, 85, 247, 0.12);
 }
 
 .btn-block-ghost:active {
   transform: translateY(3px);
   border-bottom-width: 1.5px;
-  box-shadow: 0 1px 0 0 rgba(138, 92, 246, 0.1);
+  box-shadow: 0 1px 0 0 rgba(168, 85, 247, 0.1);
 }
 
 /* Small block button variant */
@@ -545,28 +545,26 @@ h1, h2, .heading-xl, .heading-lg {
   border-radius: 12px;
   border-bottom-width: 3px;
   box-shadow:
-    0 3px 0 0 rgba(75, 75, 190, 0.5),
-    0 4px 14px -4px rgba(99, 102, 241, 0.3);
+    0 3px 0 0 rgba(168, 85, 247, 0.5),
+    0 4px 14px -4px rgba(168, 85, 247, 0.3);
 }
 
 .btn-block-sm:hover {
   box-shadow:
-    0 5px 0 0 rgba(75, 75, 190, 0.5),
-    0 8px 24px -4px rgba(99, 102, 241, 0.35);
+    0 5px 0 0 rgba(168, 85, 247, 0.5),
+    0 8px 24px -4px rgba(168, 85, 247, 0.35);
 }
 
 .btn-block-sm:active {
   border-bottom-width: 1px;
   box-shadow:
-    0 1px 0 0 rgba(75, 75, 190, 0.5),
-    0 2px 6px -2px rgba(99, 102, 241, 0.25);
+    0 1px 0 0 rgba(168, 85, 247, 0.5),
+    0 2px 6px -2px rgba(168, 85, 247, 0.25);
 }
 
 /* ── Glass Card (Toy block style) ── */
 .glass-card {
-  background: rgba(26, 16, 37, 0.55);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  background: rgba(26, 16, 37, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 3px solid rgba(255, 255, 255, 0.06);
   border-radius: 20px;
@@ -583,14 +581,12 @@ h1, h2, .heading-xl, .heading-lg {
   border-color: rgba(255, 255, 255, 0.18);
   box-shadow:
     0 6px 0 0 rgba(0, 0, 0, 0.12),
-    0 16px 48px -8px rgba(99, 102, 241, 0.15);
+    0 16px 48px -8px rgba(168, 85, 247, 0.15);
 }
 
 /* Glass card — no hover lift (for static containers) */
 .glass-card-static {
-  background: rgba(26, 16, 37, 0.45);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  background: rgba(26, 16, 37, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 3px solid rgba(255, 255, 255, 0.06);
   border-radius: 20px;
@@ -667,5 +663,5 @@ h1, h2, .heading-xl, .heading-lg {
   width: 60%;
   max-width: 600px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.2), transparent);
 }

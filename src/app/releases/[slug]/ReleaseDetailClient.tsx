@@ -6,6 +6,7 @@ import { useParams, useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import Header from '../../../components/Header'
+import Footer from '../../../components/Footer'
 import { useAdmin } from '../../../hooks/useAdmin'
 import { getReleaseBySlug, deleteRelease } from '../../../lib/releases'
 import type { Release } from '../../../lib/releases'
@@ -55,20 +56,24 @@ export default function ReleaseDetailClient() {
 
   if (loading) {
     return (
-      <>
+      <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
         <Header />
-        <main className="max-w-3xl mx-auto pt-28 pb-16 px-4">
-          <p className="text-gray-500">Loading...</p>
+        <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
+          <div className="flex flex-col items-center justify-center py-20">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4" />
+            <p className="text-gray-500 text-sm">Loading...</p>
+          </div>
         </main>
-      </>
+        <Footer />
+      </div>
     )
   }
 
   if (notFound || !release) {
     return (
-      <>
+      <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
         <Header />
-        <main className="max-w-3xl mx-auto pt-28 pb-16 px-4">
+        <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
           <h1 className="text-2xl font-bold text-white mb-4">404 - Release Not Found</h1>
           <p className="text-gray-400 mb-6">The release you are looking for does not exist.</p>
           <Link
@@ -78,14 +83,15 @@ export default function ReleaseDetailClient() {
             &larr; Back to Releases
           </Link>
         </main>
-      </>
+        <Footer />
+      </div>
     )
   }
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-[#0A0A0F]">
       <Header />
-      <main className="max-w-3xl mx-auto pt-28 pb-20 px-4">
+      <main className="max-w-3xl mx-auto pt-28 pb-20 px-4 flex-grow w-full">
         <Link
           href="/releases"
           className="inline-flex items-center gap-1 text-gray-400 hover:text-primary-400 font-medium mb-10 transition-colors"
@@ -124,19 +130,20 @@ export default function ReleaseDetailClient() {
           <div className="flex items-center gap-4 mt-16 pt-8 border-t border-gray-800">
             <Link
               href={`/releases/${release.slug}/edit`}
-              className="inline-flex items-center px-5 py-2.5 bg-gray-800 text-white text-sm font-medium rounded-xl hover:bg-gray-700 transition-colors border border-gray-700"
+              className="btn-block-ghost btn-block-sm"
             >
               Edit
             </Link>
             <button
               onClick={handleDelete}
-              className="inline-flex items-center px-5 py-2.5 bg-red-500/10 text-red-400 text-sm font-medium rounded-xl hover:bg-red-500/20 transition-colors border border-red-500/20"
+              className="btn-block-ghost btn-block-sm !text-red-400 !border-red-500/20 hover:!bg-red-500/10"
             >
               Delete
             </button>
           </div>
         )}
       </main>
-    </>
+      <Footer />
+    </div>
   )
 }
