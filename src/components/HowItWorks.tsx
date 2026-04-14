@@ -1,7 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useState, useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Observer } from 'gsap/Observer'
+
+gsap.registerPlugin(ScrollTrigger, Observer)
 
 const steps = [
   {
@@ -37,20 +41,76 @@ const steps = [
   },
 ]
 
-
 export default function HowItWorks() {
-  const sectionRef = useScrollReveal()
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const dotsRef = useRef<HTMLDivElement>(null)
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const stRef = useRef<ScrollTrigger | null>(null)
   const [active, setActive] = useState(0)
+  const activeRef = useRef(0)
+  const animating = useRef(false)
+
+  const goToSlide = (i: number) => {
+    activeRef.current = i
+    setActive(i)
+    // Sync scroll position to match slide
+    const st = stRef.current
+    if (st) {
+      const targetProgress = (i + 0.5) / steps.length
+      const targetScroll = st.start + targetProgress * (st.end - st.start)
+      animating.current = true
+      window.scrollTo({ top: targetScroll, behavior: 'instant' as ScrollBehavior })
+      setTimeout(() => { animating.current = false }, 100)
+    }
+  }
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActive((prev) => (prev + 1) % steps.length)
-    }, 4000)
-    return () => clearInterval(timer)
+    const section = sectionRef.current
+    if (!section) return
+
+    // Force animate-on-scroll visible
+    section.querySelectorAll('.animate-on-scroll').forEach((el) => {
+      el.classList.add('visible')
+    })
+
+    // Pin the section
+    const st = stRef.current = ScrollTrigger.create({
+      trigger: section,
+      pin: true,
+      pinSpacing: true,
+      anticipatePin: 1,
+      start: () => {
+        const carousel = carouselRef.current
+        if (!carousel) return 'center center'
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY
+        const carouselRect = carousel.getBoundingClientRect()
+        const carouselCenter = carouselRect.top + window.scrollY + carouselRect.height / 2
+        const offset = carouselCenter - sectionTop
+        return `top+=${offset} 60%`
+      },
+      end: `+=${steps.length * 100}%`,
+      onUpdate: (self) => {
+        if (animating.current) return
+        const progress = self.progress
+        const newIndex = Math.min(steps.length - 1, Math.floor(progress * steps.length))
+        if (newIndex !== activeRef.current) {
+          activeRef.current = newIndex
+          setActive(newIndex)
+        }
+      },
+    })
+
+    // Small delay to let layout settle, then refresh
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 100)
+
+    return () => {
+      clearTimeout(timer)
+      st.kill()
+    }
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative pt-[100px] pb-[100px] md:pt-[160px] md:pb-[160px] px-5 bg-[#0a0a12] overflow-hidden">
+    <section ref={sectionRef} className="relative pt-[80px] pb-[80px] md:pt-[120px] md:pb-[120px] px-5 bg-[#0a0a12]">
       {/* Divider line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-[800px] h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent z-20" />
       {/* Ambient glow */}
@@ -61,15 +121,15 @@ export default function HowItWorks() {
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FAFBFF] to-transparent z-10" />
 
       <div className="relative max-w-5xl mx-auto">
-        <h2 className="animate-on-scroll text-center text-[28px] md:text-[48px] lg:text-[56px] font-[650] text-white leading-[1.1] tracking-tight mb-4">
-          Three steps. That's it.
+        <h2 className="text-center text-[28px] md:text-[48px] lg:text-[56px] font-[650] text-white leading-[1.1] tracking-tight mb-4">
+          Three steps. That&apos;s it.
         </h2>
-        <p className="animate-on-scroll text-center text-sm sm:text-base text-white/50 mb-10 md:mb-14 max-w-lg mx-auto">
+        <p className="text-center text-sm sm:text-base text-white/50 mb-10 md:mb-14 max-w-lg mx-auto">
           From screen to polished video in minutes — no tool-switching, no learning curve.
         </p>
 
         {/* 3D Carousel */}
-        <div className="animate-on-scroll relative w-full max-w-[900px] mx-auto mb-8" style={{ perspective: '1200px' }}>
+        <div ref={carouselRef} className="relative w-full max-w-[900px] mx-auto mb-8" style={{ perspective: '1200px' }}>
           <div className="relative w-full aspect-[4/3]">
             {steps.map((step, i) => {
               const offset = ((i - active + steps.length) % steps.length)
@@ -90,7 +150,7 @@ export default function HowItWorks() {
                     transition: 'all 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
                     transformStyle: 'preserve-3d',
                   }}
-                  onClick={() => setActive(i)}
+                  onClick={() => goToSlide(i)}
                 >
                   <div
                     className="rounded-3xl bg-[#16161e] border border-white/10 overflow-hidden shadow-2xl shadow-black/50 flex flex-col mx-auto"
@@ -128,11 +188,11 @@ export default function HowItWorks() {
         </div>
 
         {/* Step dots */}
-        <div className="flex items-center justify-center gap-2">
+        <div ref={dotsRef} className="flex items-center justify-center gap-2">
           {steps.map((_, i) => (
             <button
               key={i}
-              onClick={() => setActive(i)}
+              onClick={() => goToSlide(i)}
               className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
                 active === i ? 'w-8 bg-primary-500' : 'w-1.5 bg-white/20 hover:bg-white/40'
               }`}
