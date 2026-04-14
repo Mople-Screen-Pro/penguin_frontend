@@ -109,7 +109,7 @@ export default function FeatureEdit() {
   }
 
   return (
-    <section ref={sectionRef} className="section-glow ambient-blue pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] px-5 bg-[#FAFBFF]">
+    <section ref={sectionRef} className="section-glow ambient-blue pt-[40px] pb-[60px] md:pt-[80px] md:pb-[100px] px-5 bg-[#FAFBFF]">
       <div className="max-w-[1240px] mx-auto">
         <div className="animate-on-scroll text-center mb-14">
           <span className="badge-block badge-blue mb-6">
