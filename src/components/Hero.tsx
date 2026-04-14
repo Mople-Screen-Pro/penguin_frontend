@@ -37,7 +37,7 @@ export default function Hero() {
   return (
     <>
       {/* Hero — dark section with editor background */}
-      <section className="relative bg-[#0a0a12] overflow-hidden select-none min-h-svh">
+      <section className="relative bg-[#0a0a12] overflow-hidden select-none md:min-h-svh">
         {/* Background video */}
         <div className="absolute inset-0 flex items-center justify-center px-4" style={{ top: '3%', bottom: '18%' }}>
           <video
@@ -45,7 +45,7 @@ export default function Hero() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover xl:object-contain opacity-30 rounded-xl"
+            className="w-full h-full object-contain opacity-30 rounded-xl"
           >
             <source src="/videos/hero/hero-bg-v4.mp4" type="video/mp4" />
           </video>
@@ -53,7 +53,7 @@ export default function Hero() {
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-[#0a0a12]/50" />
 
-        <div className="relative max-w-7xl mx-auto px-4 pt-24 md:pt-32 pb-48 md:pb-64 min-h-svh flex flex-col justify-center -mt-8 md:-mt-12">
+        <div className="relative max-w-7xl mx-auto px-5 pt-24 md:pt-32 pb-12 md:pb-64 md:min-h-svh flex flex-col justify-center md:-mt-12">
           {/* Content */}
           <div className="relative z-10 text-center max-w-3xl mx-auto" style={{ animation: 'fadeIn 0.6s ease-out forwards' }}>
             {/* App icon + name */}
@@ -63,28 +63,28 @@ export default function Hero() {
                 autoPlay
                 muted
                 playsInline
-                className="w-20 h-20 md:w-24 md:h-24"
+                className="w-16 h-16 md:w-24 md:h-24"
               >
                 <source src="/images/logo-anim.webm" type="video/webm" />
                 <source src="/images/logo-anim.mp4" type="video/mp4" />
               </video>
-              <p className="text-2xl md:text-3xl font-semibold text-white/90">
+              <p className="text-xl md:text-3xl font-semibold text-white/90">
                 Clipa Studio
               </p>
             </div>
 
             {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-10 text-left mx-auto w-fit pt-3 pb-3">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-6 md:mb-10 text-left mx-auto w-fit pt-3 pb-3">
               Easy to Record.<br />Easy to Edit.<br />Easy to Share.
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-16 leading-snug">
+            <p className="text-sm sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-8 md:mb-16 leading-snug">
               Make your videos look professional.<br />
               Grow your audience effortlessly.<br />
               No editing skills required — that's Clipa Studio.
             </p>
 
             {/* CTA */}
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center mb-10 md:mb-0">
               <button
                 onClick={scrollToFeatures}
                 className="btn-block text-white font-semibold px-8 py-3 text-base"
@@ -96,6 +96,7 @@ export default function Hero() {
               </button>
             </div>
           </div>
+
         </div>
 
         {/* Bottom fade to page bg */}
