@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
@@ -24,9 +24,10 @@ export default function BlogEditorClient() {
   const [coverPreview, setCoverPreview] = useState('')
   const [published, setPublished] = useState(false)
   const [uploading, setUploading] = useState(false)
-  const [uploadingVideo, setUploadingVideo] = useState(false)
+  const [uploadingMedia, setUploadingMedia] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const editorRef = useRef<HTMLDivElement>(null)
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -45,20 +46,49 @@ export default function BlogEditorClient() {
     }
   }
 
-  const handleVideoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+  const getEditorCursorPosition = (): number | null => {
+    const textarea = editorRef.current?.querySelector('textarea')
+    if (textarea) return textarea.selectionStart
+    return null
+  }
 
-    setUploadingVideo(true)
+  const insertAtPosition = (text: string, position: number | null) => {
+    setContent((prev) => {
+      if (position === null || position > prev.length) return prev + text
+      return prev.slice(0, position) + text + prev.slice(position)
+    })
+  }
+
+  const handleEditorDrop = async (e: React.DragEvent) => {
+    const files = Array.from(e.dataTransfer.files)
+    if (files.length === 0) return
+
+    e.preventDefault()
+    const cursorPos = getEditorCursorPosition()
+    setUploadingMedia(true)
     setError(null)
+
     try {
-      const url = await uploadBlogVideo(file)
-      const videoTag = `\n<video src="${url}" controls playsinline></video>\n`
-      setContent((prev) => prev + videoTag)
+      let offset = 0
+      for (const file of files) {
+        let tag = ''
+        if (file.type.startsWith('image/')) {
+          const url = await uploadBlogImage(file)
+          tag = `\n![${file.name}](${url})\n`
+        } else if (file.type.startsWith('video/')) {
+          const url = await uploadBlogVideo(file)
+          tag = `\n<video src="${url}" controls playsinline></video>\n`
+        }
+        if (tag) {
+          const pos = cursorPos !== null ? cursorPos + offset : null
+          insertAtPosition(tag, pos)
+          offset += tag.length
+        }
+      }
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Failed to upload video')
+      setError(err instanceof Error ? err.message : 'Failed to upload media')
     } finally {
-      setUploadingVideo(false)
+      setUploadingMedia(false)
     }
   }
 
@@ -66,7 +96,7 @@ export default function BlogEditorClient() {
     return (
       <>
         <Header />
-        <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
+        <div className="max-w-5xl mx-auto pt-28 pb-16 px-4">
           <p className="text-gray-500">Loading...</p>
         </div>
       </>
@@ -77,7 +107,7 @@ export default function BlogEditorClient() {
     return (
       <>
         <Header />
-        <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
+        <div className="max-w-5xl mx-auto pt-28 pb-16 px-4">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Access denied</h1>
           <p className="text-gray-500 mb-6">You do not have permission to create blog posts.</p>
           <Link href="/blog" className="text-primary-400 hover:text-primary-300 font-medium">
@@ -121,7 +151,7 @@ export default function BlogEditorClient() {
   return (
     <>
       <Header />
-      <div className="max-w-3xl mx-auto pt-28 pb-16 px-4">
+      <div className="max-w-5xl mx-auto pt-28 pb-16 px-4">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">New Blog Post</h1>
 
         {error && (
@@ -164,26 +194,21 @@ export default function BlogEditorClient() {
             <label htmlFor="content" className="block text-sm font-medium text-gray-500 mb-1">
               Content
             </label>
-            <MDEditor
-              value={content}
-              onChange={(val) => setContent(val || '')}
-              height={400}
-              preview="live"
-            />
-            <label
-              className={`inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-lg border border-gray-300 text-sm text-gray-500 hover:border-primary-500 hover:text-primary-400 transition-colors cursor-pointer ${uploadingVideo ? 'opacity-50 pointer-events-none' : ''}`}
+            <div
+              ref={editorRef}
+              onDrop={handleEditorDrop}
+              onDragOver={(e) => e.preventDefault()}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-              {uploadingVideo ? 'Uploading video...' : 'Insert video'}
-              <input
-                type="file"
-                accept="video/mp4,video/quicktime,video/webm"
-                onChange={handleVideoUpload}
-                className="hidden"
+              <MDEditor
+                value={content}
+                onChange={(val) => setContent(val || '')}
+                height={800}
+                preview="live"
               />
-            </label>
+            </div>
+            {uploadingMedia && (
+              <p className="mt-2 text-sm text-gray-400">Uploading media...</p>
+            )}
           </div>
 
           <div>
