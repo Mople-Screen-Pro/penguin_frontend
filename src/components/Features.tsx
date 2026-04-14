@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
+const ctaBrands = ['Canva', 'Stitch', 'Miro', 'YouTube', 'TikTok', 'Instagram', 'Figma', 'GitHub', 'VS Code', 'Notion']
+
 const videos = [
   // Start-up
   {
@@ -100,6 +102,20 @@ export default function Features() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
   const [closing, setClosing] = useState(false)
+  const [ctaBrandIndex, setCtaBrandIndex] = useState(0)
+  const [ctaFading, setCtaFading] = useState(false)
+
+  // Rotate CTA brand name
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCtaFading(true)
+      setTimeout(() => {
+        setCtaBrandIndex(prev => (prev + 1) % ctaBrands.length)
+        setCtaFading(false)
+      }, 300)
+    }, 2500)
+    return () => clearInterval(interval)
+  }, [])
   const [activeCategory, setActiveCategory] = useState<string>('Start-up')
   const [displayCategory, setDisplayCategory] = useState('Start-up')
   const [textAnimating, setTextAnimating] = useState(false)
@@ -440,6 +456,31 @@ export default function Features() {
             ))}
           </div>
         ))}
+      </div>
+
+      {/* CTA Section */}
+      <div id="features-cta" className="animate-on-scroll mt-12 md:mt-16 max-w-2xl mx-auto px-6 text-center">
+        <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 tracking-tight">
+          Ready to create your first pro video like{' '}
+          <span
+            className="gradient-text inline-block min-w-[60px] transition-opacity duration-300"
+            style={{ opacity: ctaFading ? 0 : 1 }}
+          >
+            {ctaBrands[ctaBrandIndex]}
+          </span>
+          ?
+        </h3>
+        <p className="text-gray-500 mb-5 text-sm">
+          Free to download. No credit card required.
+        </p>
+        <a
+          href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
+          rel="noopener"
+          className="btn-block text-white font-semibold px-10 py-3.5 text-base"
+        >
+          <img src="/images/app_icon.png" alt="" className="w-5 h-5" />
+          Download Free for Mac
+        </a>
       </div>
 
       {/* Expanded video overlay */}

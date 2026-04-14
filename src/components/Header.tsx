@@ -61,7 +61,9 @@ export default function Header() {
       {/* Navbar */}
       <header
         className={`sticky top-2 z-50 w-full transition-all duration-300 ${
-          scrolled ? "bg-[#0a0a12]/90 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/20" : "bg-[#0a0a12] border-b border-transparent"
+          isHome
+            ? (scrolled ? "bg-[#0a0a12]/90 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/20" : "bg-[#0a0a12] border-b border-transparent")
+            : (scrolled ? "bg-white/80 backdrop-blur-xl border-b border-black/[0.06] shadow-lg shadow-purple-500/5" : "bg-white border-b border-transparent")
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -84,17 +86,17 @@ export default function Header() {
                 alt="Clipa"
                 className="w-8 h-8"
               />
-              <span className="text-[22px] font-semibold tracking-wide text-white">Clipa</span>
+              <span className={`text-[22px] font-semibold tracking-wide ${isHome ? "text-white" : "text-gray-900"}`}>Clipa</span>
             </a>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-gray-300">
+            <nav className={`hidden lg:flex items-center gap-8 text-[16px] font-medium ${isHome ? "text-gray-300" : "text-gray-600"}`}>
               {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     href={link.href}
                     onClick={() => analytics.navClick(link.name)}
-                    className="hover:text-white hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+                    className={`hover:-translate-y-0.5 transition-all duration-200 cursor-pointer ${isHome ? "hover:text-white" : "hover:text-gray-900"}`}
                   >
                     {link.name}
                   </Link>
@@ -110,10 +112,10 @@ export default function Header() {
                   <div className="relative">
                     <button
                       onClick={() => setDropdownOpen(!dropdownOpen)}
-                      className="flex items-center gap-2 text-[16px] font-medium text-gray-300 hover:text-white transition-colors"
+                      className={`flex items-center gap-2 text-[16px] font-medium transition-colors ${isHome ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
                     >
                       {displayName}
-                      <svg className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className={`w-4 h-4 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''} ${isHome ? "text-gray-400" : "text-gray-500"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
@@ -147,7 +149,7 @@ export default function Header() {
                 ) : (
                   <Link
                     href="/login"
-                    className="text-[16px] font-medium text-gray-300 hover:text-white transition-colors"
+                    className={`text-[16px] font-medium transition-colors ${isHome ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
                   >
                     Sign in
                   </Link>
@@ -167,7 +169,7 @@ export default function Header() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-gray-300"
+            className={`lg:hidden p-2 ${isHome ? "text-gray-300" : "text-gray-500"}`}
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -181,9 +183,11 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden bg-[#0a0a12] border-b overflow-hidden transition-all duration-200 ease-out ${
+        <div className={`lg:hidden border-b overflow-hidden transition-all duration-200 ease-out ${
+          isHome ? "bg-[#0a0a12]" : "bg-white"
+        } ${
           mobileMenuOpen
-            ? 'max-h-[400px] opacity-100 border-white/[0.08]'
+            ? `max-h-[400px] opacity-100 ${isHome ? 'border-white/[0.08]' : 'border-gray-200'}`
             : 'max-h-0 opacity-0 border-transparent'
         }`}>
             <div className="px-6 py-4 flex flex-col gap-4">
@@ -192,7 +196,7 @@ export default function Header() {
                     key={link.name}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-gray-200 py-2 border-b border-white/[0.08]"
+                    className={`text-lg font-medium py-2 border-b ${isHome ? "text-gray-200 border-white/[0.08]" : "text-gray-700 border-gray-200"}`}
                   >
                     {link.name}
                   </Link>
@@ -202,13 +206,13 @@ export default function Header() {
                   <Link
                     href="/mypage"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-medium text-gray-200 py-2 border-b border-white/[0.08]"
+                    className={`text-lg font-medium py-2 border-b ${isHome ? "text-gray-200 border-white/[0.08]" : "text-gray-700 border-gray-200"}`}
                   >
                     My Page
                   </Link>
                   <button
                     onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
-                    className="text-lg font-medium text-gray-200 py-2 border-b border-white/[0.08] text-left"
+                    className={`text-lg font-medium py-2 border-b text-left ${isHome ? "text-gray-200 border-white/[0.08]" : "text-gray-700 border-gray-200"}`}
                   >
                     Sign Out
                   </button>

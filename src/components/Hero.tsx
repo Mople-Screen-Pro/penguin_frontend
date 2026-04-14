@@ -25,9 +25,9 @@ export default function Hero() {
   }, []);
 
   const scrollToFeatures = () => {
-    const el = document.getElementById("features");
+    const el = document.getElementById("features-cta");
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      el.scrollIntoView({ behavior: "smooth", block: "end" });
       setTimeout(() => {
         window.dispatchEvent(new CustomEvent("clipa:open-demo", { detail: { label: "Canva" } }));
       }, 800);
