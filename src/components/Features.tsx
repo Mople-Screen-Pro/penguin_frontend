@@ -344,7 +344,7 @@ export default function Features() {
   }))
 
   return (
-    <section id="features" ref={sectionRef} className="section-glow pt-[60px] pb-[80px] md:pt-[120px] md:pb-[160px] bg-[#FAFBFF]">
+    <section id="features" ref={sectionRef} className="section-glow pt-[40px] pb-[60px] md:pt-[80px] md:pb-[100px] bg-[#FAFBFF]">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="animate-on-scroll font-bold text-center text-gray-900 mb-3 tracking-tight leading-tight min-h-[60px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center whitespace-nowrap text-[clamp(1.25rem,5vw,3.75rem)]">
           <span>How{' '}
@@ -460,7 +460,7 @@ export default function Features() {
 
       {/* CTA Section */}
       <div id="features-cta" className="animate-on-scroll mt-12 md:mt-16 max-w-2xl mx-auto px-6 text-center">
-        <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 tracking-tight">
+        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 tracking-tight whitespace-nowrap">
           Ready to create your first pro video like{' '}
           <span
             className="gradient-text inline-block min-w-[60px] transition-opacity duration-300"
@@ -470,7 +470,7 @@ export default function Features() {
           </span>
           ?
         </h3>
-        <p className="text-gray-500 mb-5 text-sm">
+        <p className="text-gray-500 mb-5 text-base">
           Free to download. No credit card required.
         </p>
         <a

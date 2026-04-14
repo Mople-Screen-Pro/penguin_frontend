@@ -1,9 +1,36 @@
 'use client'
 
+import { useRef, useState, useCallback } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 export default function FeatureAIUpscale() {
   const sectionRef = useScrollReveal()
+
+  const [sliderPos, setSliderPos] = useState(50)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isDragging = useRef(false)
+
+  const updatePosition = useCallback((clientX: number) => {
+    if (!containerRef.current) return
+    const rect = containerRef.current.getBoundingClientRect()
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width))
+    setSliderPos((x / rect.width) * 100)
+  }, [])
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    isDragging.current = true
+    ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
+    updatePosition(e.clientX)
+  }, [updatePosition])
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging.current) return
+    updatePosition(e.clientX)
+  }, [updatePosition])
+
+  const handlePointerUp = useCallback(() => {
+    isDragging.current = false
+  }, [])
 
   return (
     <section ref={sectionRef} className="section-glow ambient-pink pt-[40px] pb-[60px] md:pt-[80px] md:pb-[100px] px-5 bg-[#FAFBFF]">
@@ -21,37 +48,58 @@ export default function FeatureAIUpscale() {
           </h2>
         </div>
 
-        {/* Before / After — fixed split */}
+        {/* Before / After — interactive slider */}
         <div className="animate-on-scroll">
-          <div className="relative w-full max-w-[960px] mx-auto aspect-[16/9] rounded-2xl overflow-hidden select-none">
-            {/* After (sharp) — right half */}
+          <div
+            ref={containerRef}
+            className="relative w-full max-w-[960px] mx-auto aspect-[16/9] rounded-2xl overflow-hidden select-none cursor-col-resize touch-none"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+          >
+            {/* After (sharp) — full width underneath */}
             <div className="absolute inset-0">
               <img
                 src="/images/upscale.png"
                 alt="After — 4K upscaled"
                 className="w-full h-full object-cover"
+                draggable={false}
                 style={{
                   filter: 'contrast(1.06) saturate(1.1) brightness(1.02)',
                 }}
               />
             </div>
 
-            {/* Before (pixelated) — left half, clipped at 50% */}
-            <div className="absolute inset-0 w-1/2 overflow-hidden">
+            {/* Before (blurred) — clipped by slider position */}
+            <div
+              className="absolute inset-0 overflow-hidden"
+              style={{ width: `${sliderPos}%` }}
+            >
               <img
                 src="/images/upscale.png"
                 alt="Before — 720p"
                 className="h-full object-cover"
+                draggable={false}
                 style={{
-                  width: '200%',
+                  width: `${10000 / sliderPos}%`,
                   maxWidth: 'none',
                   filter: 'blur(1.4px) contrast(0.96) saturate(0.93)',
                 }}
               />
             </div>
 
-            {/* Center divider line */}
-            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] bg-white/90 z-10 shadow-[0_0_12px_rgba(255,255,255,0.3)]" />
+            {/* Slider line + handle */}
+            <div
+              className="absolute top-0 bottom-0 z-10 -translate-x-1/2 flex flex-col items-center"
+              style={{ left: `${sliderPos}%` }}
+            >
+              <div className="w-[3px] h-full bg-white/90 shadow-[0_0_12px_rgba(255,255,255,0.3)]" />
+              <div className="absolute top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                </svg>
+              </div>
+            </div>
 
             {/* Labels */}
             <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-black/10">

@@ -60,7 +60,7 @@ export default function Header() {
       </a>
       {/* Navbar */}
       <header
-        className={`sticky top-2 z-50 w-full transition-all duration-300 ${
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           isHome
             ? (scrolled ? "bg-[#0a0a12]/90 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/20" : "bg-[#0a0a12] border-b border-transparent")
             : (scrolled ? "bg-white/80 backdrop-blur-xl border-b border-black/[0.06] shadow-lg shadow-purple-500/5" : "bg-white border-b border-transparent")
