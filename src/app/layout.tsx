@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Providers from '../components/Providers'
 import GoogleAnalytics from '../components/GoogleAnalytics'
-import FontLoader from '../components/FontLoader'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -84,11 +83,20 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://grkyrqhgfgthpghircbu.supabase.co" />
         <link rel="dns-prefetch" href="https://cdn.paddle.com" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        />
       </head>
       <body className="grain">
-        <FontLoader />
         <Providers>{children}</Providers>
         <GoogleAnalytics />
       </body>

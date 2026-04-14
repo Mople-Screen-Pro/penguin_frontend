@@ -3,9 +3,6 @@
 import { useEffect, useRef } from "react";
 import { analytics } from "../lib/analytics";
 
-const DOWNLOAD_URL =
-  "https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download";
-
 export default function Hero() {
   const logoRef = useRef<HTMLVideoElement>(null);
 
@@ -42,7 +39,7 @@ export default function Hero() {
       {/* Hero — dark section with editor background */}
       <section className="relative bg-[#0a0a12] overflow-hidden select-none min-h-svh">
         {/* Background video */}
-        <div className="absolute inset-0 flex items-center justify-center px-4" style={{ top: '5%', bottom: '25%' }}>
+        <div className="absolute inset-0 flex items-center justify-center px-4" style={{ top: '3%', bottom: '18%' }}>
           <video
             autoPlay
             loop
@@ -56,11 +53,11 @@ export default function Hero() {
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-[#0a0a12]/50" />
 
-        <div className="relative max-w-7xl mx-auto px-4 pt-24 md:pt-32 pb-48 md:pb-64 min-h-svh flex flex-col justify-center">
+        <div className="relative max-w-7xl mx-auto px-4 pt-24 md:pt-32 pb-48 md:pb-64 min-h-svh flex flex-col justify-center -mt-8 md:-mt-12">
           {/* Content */}
-          <div className="relative z-10 text-center max-w-3xl mx-auto">
+          <div className="relative z-10 text-center max-w-3xl mx-auto" style={{ animation: 'fadeIn 0.6s ease-out forwards' }}>
             {/* App icon + name */}
-            <div className="animate-on-load flex flex-col items-center gap-2 mb-6">
+            <div className="flex flex-col items-center gap-2 mb-6">
               <video
                 ref={logoRef}
                 autoPlay
@@ -77,17 +74,17 @@ export default function Hero() {
             </div>
 
             {/* Heading */}
-            <h1 className="animate-on-load delay-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-10 text-left mx-auto w-fit pt-3 pb-3">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.08] tracking-tight mb-10 text-left mx-auto w-fit pt-3 pb-3">
               Easy to Record.<br />Easy to Edit.<br />Easy to Share.
             </h1>
-            <p className="animate-on-load delay-2 text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-16 leading-snug">
+            <p className="text-base sm:text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-16 leading-snug">
               Make your videos look professional.<br />
               Grow your audience effortlessly.<br />
               No editing skills required — that's Clipa Studio.
             </p>
 
             {/* CTA */}
-            <div className="animate-on-load delay-3 flex items-center justify-center">
+            <div className="flex items-center justify-center">
               <button
                 onClick={scrollToFeatures}
                 className="btn-block text-white font-semibold px-8 py-3 text-base"
