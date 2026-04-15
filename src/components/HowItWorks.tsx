@@ -13,6 +13,8 @@ const steps = [
     image: '/screenshots/record.png',
     cardWidth: '80%',
     cardHeight: '75%',
+    accent: '#a855f7',
+    gradient: 'linear-gradient(135deg, #9333EA, #a855f7)',
     features: [
       'Full screen, window, or custom area',
       'System audio + mic + camera overlay',
@@ -23,6 +25,8 @@ const steps = [
     title: 'Edit',
     image: '/screenshots/editor.png',
     cardWidth: '95%',
+    accent: '#c084fc',
+    gradient: 'linear-gradient(135deg, #a855f7, #c084fc)',
     features: [
       'Auto Cursor Zoom — tracks your mouse in real time',
       'Trim, cut, and adjust speed per clip',
@@ -33,6 +37,8 @@ const steps = [
     title: 'Export',
     image: '/screenshots/export.png',
     cardWidth: '65%',
+    accent: '#ec4899',
+    gradient: 'linear-gradient(135deg, #a855f7, #ec4899)',
     features: [
       'MP4, MOV, WebM — 720p to 4K',
       'AI Upscale with 3 models, powered by Apple Neural Engine',
@@ -61,7 +67,6 @@ export default function HowItWorks() {
   const goToSlide = (i: number) => {
     activeRef.current = i
     setActive(i)
-    // Sync scroll position to match slide
     const st = stRef.current
     if (st) {
       const targetProgress = (i + 0.5) / steps.length
@@ -76,12 +81,10 @@ export default function HowItWorks() {
     const section = sectionRef.current
     if (!section) return
 
-    // Force animate-on-scroll visible
     section.querySelectorAll('.animate-on-scroll').forEach((el) => {
       el.classList.add('visible')
     })
 
-    // Pin the section
     const st = stRef.current = ScrollTrigger.create({
       trigger: section,
       pin: true,
@@ -94,7 +97,7 @@ export default function HowItWorks() {
         const carouselRect = carousel.getBoundingClientRect()
         const carouselCenter = carouselRect.top + window.scrollY + carouselRect.height / 2
         const offset = carouselCenter - sectionTop
-        return `top+=${offset} 60%`
+        return `top+=${offset} 55%`
       },
       end: `+=${steps.length * 100}%`,
       onUpdate: (self) => {
@@ -108,7 +111,6 @@ export default function HowItWorks() {
       },
     })
 
-    // Small delay to let layout settle, then refresh
     const timer = setTimeout(() => ScrollTrigger.refresh(), 100)
 
     return () => {
@@ -124,71 +126,125 @@ export default function HowItWorks() {
         <h2 className="text-center text-[28px] md:text-[48px] lg:text-[56px] font-[650] text-white leading-[1.1] tracking-tight mb-4">
           Three steps. That&apos;s it.
         </h2>
-        <p className="text-center text-sm sm:text-base text-white/60 mb-10 md:mb-14 max-w-lg mx-auto">
+        <p className="text-center text-sm sm:text-base text-white/60 mb-4 md:mb-6 max-w-lg mx-auto">
           From screen to polished video in minutes — no tool-switching, no learning curve.
         </p>
 
         {/* 3D Carousel */}
-        <div ref={carouselRef} className="relative w-full max-w-[900px] mx-auto mb-8" style={{ perspective: isMobile ? '800px' : '1200px' }}>
-          <div className={`relative w-full ${isMobile ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
+        <div ref={carouselRef} className="relative w-full max-w-[900px] mx-auto mb-8" style={{ perspective: isMobile ? '900px' : '1400px' }}>
+          <div className={`relative w-full ${isMobile ? 'aspect-[3/4]' : 'aspect-[4/3]'}`} style={{ transformStyle: 'preserve-3d' }}>
             {steps.map((step, i) => {
               const offset = ((i - active + steps.length) % steps.length)
+              const isActive = offset === 0
               const config = isMobile
                 ? [
-                    { x: 0, z: 0, rotateY: 0, opacity: 1, scale: 1, zIndex: 3 },
-                    { x: 40, z: -100, rotateY: -25, opacity: 0.3, scale: 0.9, zIndex: 1 },
-                    { x: -40, z: -100, rotateY: 25, opacity: 0.3, scale: 0.9, zIndex: 1 },
+                    { x: 0, z: 0, rotateY: 0, rotateX: 0, opacity: 1, scale: 1, zIndex: 3 },
+                    { x: 50, z: -120, rotateY: -40, rotateX: 0, opacity: 0.35, scale: 0.88, zIndex: 1 },
+                    { x: -50, z: -120, rotateY: 40, rotateX: 0, opacity: 0.35, scale: 0.88, zIndex: 1 },
                   ]
                 : [
-                    { x: 0, z: 0, rotateY: 0, opacity: 1, scale: 1, zIndex: 3 },
-                    { x: 55, z: -180, rotateY: -35, opacity: 0.5, scale: 0.85, zIndex: 1 },
-                    { x: -55, z: -180, rotateY: 35, opacity: 0.5, scale: 0.85, zIndex: 1 },
+                    { x: 0, z: 0, rotateY: 0, rotateX: 0, opacity: 1, scale: 1, zIndex: 3 },
+                    { x: 60, z: -220, rotateY: -45, rotateX: 0, opacity: 0.45, scale: 0.82, zIndex: 1 },
+                    { x: -60, z: -220, rotateY: 45, rotateX: 0, opacity: 0.45, scale: 0.82, zIndex: 1 },
                   ]
               const c = config[offset]
+              const d = isMobile ? 10 : 16 // block depth in px
 
               return (
                 <div
                   key={step.title}
                   className="absolute inset-0 flex items-center justify-center cursor-pointer"
                   style={{
-                    transform: `translateX(${c.x}%) translateZ(${c.z}px) rotateY(${c.rotateY}deg) scale(${c.scale})`,
+                    transform: `translateX(${c.x}%) translateZ(${c.z}px) rotateY(${c.rotateY}deg) rotateX(${c.rotateX}deg) scale(${c.scale})`,
                     opacity: c.opacity,
                     zIndex: c.zIndex,
-                    transition: 'all 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transition: 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)',
                     transformStyle: 'preserve-3d',
                   }}
                   onClick={() => goToSlide(i)}
                 >
                   <div
-                    className="rounded-3xl bg-[#14141E] border border-white/10 overflow-hidden shadow-2xl shadow-black/50 flex flex-col mx-auto"
+                    className="relative mx-auto"
                     style={{
                       width: isMobile ? '92%' : (step.cardWidth || '100%'),
                       height: step.cardHeight || '100%',
                     }}
                   >
-                    <div className="flex-1 flex items-center justify-center p-3 md:p-6 min-h-0">
-                      <img
-                        src={step.image}
-                        alt={step.title}
-                        className="max-w-full max-h-full object-contain"
-                        draggable={false}
+                    {/* Main card face */}
+                    <div
+                      className="relative w-full h-full rounded-2xl md:rounded-3xl overflow-hidden flex flex-col"
+                      style={{
+                        background: 'linear-gradient(180deg, #18182E 0%, #111122 100%)',
+                        border: '1px solid transparent',
+                        backgroundClip: 'padding-box',
+                        boxShadow: isActive
+                          ? `0 ${d + 4}px 0 0 #0a0a18, 0 30px 60px -10px rgba(0,0,0,0.8), 0 0 80px -20px ${step.accent}15`
+                          : `0 ${d}px 0 0 #08080f, 0 20px 40px -10px rgba(0,0,0,0.6)`,
+                        transition: 'box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1)',
+                      }}
+                    >
+                      {/* Top glow line */}
+                      <div
+                        className="absolute top-0 left-0 right-0 h-[1px]"
+                        style={{
+                          background: isActive
+                            ? step.gradient.replace('135deg', '90deg')
+                            : 'linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.08) 50%, transparent 90%)',
+                          opacity: isActive ? 0.6 : 1,
+                          transition: 'all 0.8s ease',
+                        }}
                       />
+
+                      <div className="flex-1 flex items-center justify-center p-3 md:p-6 min-h-0">
+                        <img
+                          src={step.image}
+                          alt={step.title}
+                          className="max-w-full max-h-full object-contain rounded-lg md:rounded-xl"
+                          draggable={false}
+                        />
+                      </div>
+                      <div className="px-4 pb-4 pt-2 md:px-8 md:pb-8 md:pt-3">
+                        <span
+                          className="text-[11px] md:text-[13px] font-bold tracking-widest uppercase block mb-1 md:mb-2"
+                          style={{
+                            background: step.gradient,
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                          }}
+                        >
+                          0{i + 1}
+                        </span>
+                        <h3 className="text-base md:text-2xl font-bold text-white mb-1.5 md:mb-3">{step.title}</h3>
+                        <ul className="space-y-1 md:space-y-2">
+                          {step.features.map((feat) => (
+                            <li key={feat} className="flex items-start gap-1.5 md:gap-2.5 text-[11px] md:text-[14px] text-white/60 leading-relaxed">
+                              <svg className="w-3 h-3 md:w-4 md:h-4 mt-0.5 flex-shrink-0" style={{ color: step.accent }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                              </svg>
+                              {feat}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                    <div className="px-4 pb-4 pt-2 md:px-8 md:pb-8 md:pt-3">
-                      <span className="text-[11px] md:text-[13px] font-bold text-primary-400 tracking-widest uppercase block mb-1 md:mb-2">
-                        0{i + 1}
-                      </span>
-                      <h3 className="text-base md:text-2xl font-bold text-white mb-1.5 md:mb-3">{step.title}</h3>
-                      <ul className="space-y-1 md:space-y-2">
-                        {step.features.map((feat) => (
-                          <li key={feat} className="flex items-start gap-1.5 md:gap-2.5 text-[11px] md:text-[14px] text-white/60 leading-relaxed">
-                            <svg className="w-3 h-3 md:w-4 md:h-4 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                            </svg>
-                            {feat}
-                          </li>
-                        ))}
-                      </ul>
+
+                    {/* Bottom 3D block face */}
+                    <div
+                      className="absolute left-[1px] right-[1px] rounded-b-2xl md:rounded-b-3xl overflow-hidden"
+                      style={{
+                        bottom: `-${d}px`,
+                        height: `${d + 4}px`,
+                        background: isActive
+                          ? 'linear-gradient(180deg, #0d0d1a 0%, #060610 100%)'
+                          : 'linear-gradient(180deg, #0a0a14 0%, #050510 100%)',
+                        borderLeft: '1px solid rgba(255,255,255,0.03)',
+                        borderRight: '1px solid rgba(255,255,255,0.03)',
+                        borderBottom: `1px solid ${isActive ? step.accent + '15' : 'rgba(255,255,255,0.03)'}`,
+                        transition: 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)',
+                      }}
+                    >
+                      <div className="absolute top-0 left-[10%] right-[10%] h-[1px]" style={{ background: 'rgba(255,255,255,0.04)' }} />
                     </div>
                   </div>
                 </div>
@@ -198,14 +254,16 @@ export default function HowItWorks() {
         </div>
 
         {/* Step dots */}
-        <div ref={dotsRef} className="flex items-center justify-center gap-2">
-          {steps.map((_, i) => (
+        <div ref={dotsRef} className="flex items-center justify-center gap-2.5">
+          {steps.map((step, i) => (
             <button
               key={i}
               onClick={() => goToSlide(i)}
-              className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
-                active === i ? 'w-8 bg-primary-500' : 'w-1.5 bg-white/20 hover:bg-white/40'
-              }`}
+              className="h-1.5 rounded-full transition-all duration-500 cursor-pointer"
+              style={{
+                width: active === i ? '2rem' : '0.375rem',
+                background: active === i ? step.gradient : 'rgba(255,255,255,0.2)',
+              }}
             />
           ))}
         </div>
