@@ -53,7 +53,7 @@ export default function Hero() {
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-[#0C0C14]/50" />
 
-        <div className="relative max-w-7xl mx-auto px-5 pt-24 md:pt-32 pb-12 md:pb-64 md:min-h-svh flex flex-col justify-center md:-mt-12">
+        <div className="relative max-w-7xl mx-auto px-5 pt-16 md:pt-32 pb-12 md:pb-64 md:min-h-svh flex flex-col justify-center md:-mt-12">
           {/* Content */}
           <div className="relative z-10 text-center max-w-3xl mx-auto" style={{ animation: 'fadeIn 0.6s ease-out forwards' }}>
             {/* App icon + name */}

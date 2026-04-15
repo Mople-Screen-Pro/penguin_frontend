@@ -49,6 +49,14 @@ export default function HowItWorks() {
   const [active, setActive] = useState(0)
   const activeRef = useRef(0)
   const animating = useRef(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   const goToSlide = (i: number) => {
     activeRef.current = i
@@ -121,24 +129,31 @@ export default function HowItWorks() {
         </p>
 
         {/* 3D Carousel */}
-        <div ref={carouselRef} className="relative w-full max-w-[900px] mx-auto mb-8" style={{ perspective: '1200px' }}>
-          <div className="relative w-full aspect-[4/3]">
+        <div ref={carouselRef} className="relative w-full max-w-[900px] mx-auto mb-8" style={{ perspective: isMobile ? '800px' : '1200px' }}>
+          <div className={`relative w-full ${isMobile ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
             {steps.map((step, i) => {
               const offset = ((i - active + steps.length) % steps.length)
-              const config = [
-                { x: 0, z: 0, rotateY: 0, opacity: 1, scale: 1, zIndex: 3 },
-                { x: 55, z: -180, rotateY: -35, opacity: 0.5, scale: 0.85, zIndex: 1 },
-                { x: -55, z: -180, rotateY: 35, opacity: 0.5, scale: 0.85, zIndex: 1 },
-              ][offset]
+              const config = isMobile
+                ? [
+                    { x: 0, z: 0, rotateY: 0, opacity: 1, scale: 1, zIndex: 3 },
+                    { x: 40, z: -100, rotateY: -25, opacity: 0.3, scale: 0.9, zIndex: 1 },
+                    { x: -40, z: -100, rotateY: 25, opacity: 0.3, scale: 0.9, zIndex: 1 },
+                  ]
+                : [
+                    { x: 0, z: 0, rotateY: 0, opacity: 1, scale: 1, zIndex: 3 },
+                    { x: 55, z: -180, rotateY: -35, opacity: 0.5, scale: 0.85, zIndex: 1 },
+                    { x: -55, z: -180, rotateY: 35, opacity: 0.5, scale: 0.85, zIndex: 1 },
+                  ]
+              const c = config[offset]
 
               return (
                 <div
                   key={step.title}
                   className="absolute inset-0 flex items-center justify-center cursor-pointer"
                   style={{
-                    transform: `translateX(${config.x}%) translateZ(${config.z}px) rotateY(${config.rotateY}deg) scale(${config.scale})`,
-                    opacity: config.opacity,
-                    zIndex: config.zIndex,
+                    transform: `translateX(${c.x}%) translateZ(${c.z}px) rotateY(${c.rotateY}deg) scale(${c.scale})`,
+                    opacity: c.opacity,
+                    zIndex: c.zIndex,
                     transition: 'all 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
                     transformStyle: 'preserve-3d',
                   }}
@@ -146,9 +161,12 @@ export default function HowItWorks() {
                 >
                   <div
                     className="rounded-3xl bg-[#14141E] border border-white/10 overflow-hidden shadow-2xl shadow-black/50 flex flex-col mx-auto"
-                    style={{ width: step.cardWidth || '100%', height: step.cardHeight || '100%' }}
+                    style={{
+                      width: isMobile ? '92%' : (step.cardWidth || '100%'),
+                      height: step.cardHeight || '100%',
+                    }}
                   >
-                    <div className="flex-1 flex items-center justify-center p-6 min-h-0">
+                    <div className="flex-1 flex items-center justify-center p-3 md:p-6 min-h-0">
                       <img
                         src={step.image}
                         alt={step.title}
@@ -156,15 +174,15 @@ export default function HowItWorks() {
                         draggable={false}
                       />
                     </div>
-                    <div className="px-8 pb-8 pt-3">
-                      <span className="text-[13px] font-bold text-primary-400 tracking-widest uppercase block mb-2">
+                    <div className="px-4 pb-4 pt-2 md:px-8 md:pb-8 md:pt-3">
+                      <span className="text-[11px] md:text-[13px] font-bold text-primary-400 tracking-widest uppercase block mb-1 md:mb-2">
                         0{i + 1}
                       </span>
-                      <h3 className="text-2xl font-bold text-white mb-3">{step.title}</h3>
-                      <ul className="space-y-2">
+                      <h3 className="text-base md:text-2xl font-bold text-white mb-1.5 md:mb-3">{step.title}</h3>
+                      <ul className="space-y-1 md:space-y-2">
                         {step.features.map((feat) => (
-                          <li key={feat} className="flex items-start gap-2.5 text-[14px] text-white/50 leading-relaxed">
-                            <svg className="w-4 h-4 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <li key={feat} className="flex items-start gap-1.5 md:gap-2.5 text-[11px] md:text-[14px] text-white/50 leading-relaxed">
+                            <svg className="w-3 h-3 md:w-4 md:h-4 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                             </svg>
                             {feat}
