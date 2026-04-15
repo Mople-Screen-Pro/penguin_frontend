@@ -40,6 +40,54 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function BlogDetailPage() {
-  return <BlogDetailClient />
+export default async function BlogDetailPage({ params }: Props) {
+  const { slug } = await params
+
+  const { data: post } = await supabase
+    .from('blog_posts')
+    .select('title, excerpt, cover_image_url, published_at, updated_at')
+    .eq('slug', slug)
+    .eq('published', true)
+    .single()
+
+  const articleJsonLd = post
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: post.title,
+        description: post.excerpt || undefined,
+        image: post.cover_image_url || undefined,
+        datePublished: post.published_at,
+        dateModified: post.updated_at,
+        author: {
+          '@type': 'Organization',
+          name: 'Clipa',
+          url: 'https://www.clipa.studio',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Clipa',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://www.clipa.studio/logo.png',
+          },
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': `https://www.clipa.studio/blog/${slug}`,
+        },
+      }
+    : null
+
+  return (
+    <>
+      {articleJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
+      )}
+      <BlogDetailClient />
+    </>
+  )
 }

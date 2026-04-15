@@ -478,7 +478,7 @@ export default function Features() {
           rel="noopener"
           className="btn-block text-white font-semibold px-10 py-3.5 text-base"
         >
-          <img src="/images/app_icon.png" alt="" className="w-5 h-5" />
+          <img src="/images/app_icon.png" alt="Clipa app icon" className="w-5 h-5" />
           Download Free for Mac
         </a>
       </div>

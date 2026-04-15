@@ -10,27 +10,14 @@ export const metadata: Metadata = {
   },
   description:
     'Clipa auto-zooms to your cursor in real time — making every tutorial look professionally edited. Half the price, zero effort. Download free for macOS.',
-  keywords: [
-    'screen recording',
-    'screen capture',
-    'cursor zoom',
-    'auto zoom',
-    'tutorial maker',
-    'demo recording',
-    'macOS app',
-    '화면 녹화',
-    '스크린 레코딩',
-    '커서 줌',
-    '자동 줌',
-    '튜토리얼 제작',
-    '맥 화면 녹화',
-    '전문 화면 녹화 프로그램',
-  ],
   authors: [{ name: 'Clipa' }],
   applicationName: 'Clipa',
   metadataBase: new URL('https://www.clipa.studio'),
   alternates: {
     canonical: '/',
+    languages: {
+      'x-default': 'https://www.clipa.studio',
+    },
   },
   openGraph: {
     type: 'website',
@@ -74,6 +61,44 @@ export const metadata: Metadata = {
   },
 }
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Clipa',
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'macOS',
+  url: 'https://www.clipa.studio',
+  inLanguage: ['en', 'ko'],
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+  description:
+    'Create stunning screen recordings with automatic cursor zoom. Clipa highlights what matters, making professional tutorials effortless.',
+  featureList: [
+    'Auto Cursor Zoom',
+    'Professional Screen Recording',
+    'AI Upscale to 4K',
+    'Built-in Video Editor',
+    'One-click Export Presets',
+  ],
+}
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Clipa',
+  url: 'https://www.clipa.studio',
+  logo: 'https://www.clipa.studio/logo.png',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'jwjygpt0507@gmail.com',
+    contactType: 'customer support',
+  },
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -94,6 +119,14 @@ export default function RootLayout({
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
       </head>
       <body className="grain">
