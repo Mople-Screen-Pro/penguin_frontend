@@ -258,15 +258,15 @@ export default function PricingClient() {
           {plans.map((plan, i) => (
             <div
               key={plan.id}
-              className={`animate-on-load delay-${i + 2} relative glass-card p-6 lg:p-8 flex flex-col ${
+              className={`animate-on-load delay-${i + 2} relative p-6 lg:p-8 flex flex-col rounded-2xl bg-white/70 border border-gray-200/60 border-b-[4px] border-b-gray-200 shadow-[0_4px_0_0_rgba(0,0,0,0.04),0_8px_32px_-8px_rgba(0,0,0,0.08)] hover:translate-y-[-3px] hover:shadow-[0_6px_0_0_rgba(0,0,0,0.03),0_16px_48px_-8px_rgba(168,85,247,0.08)] hover:border-primary-300/40 transition-all duration-300 ${
                 plan.popular
-                  ? "!border-primary-400/50 shadow-xl shadow-primary-500/20 scale-[1.03] lg:scale-105"
+                  ? "!border-primary-400/50 !border-b-primary-500/40 shadow-xl shadow-primary-500/15 scale-[1.03] lg:scale-105"
                   : ""
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="badge-block text-primary-300 bg-primary-500/15 border-primary-500/25 !border-b-primary-600/30 !text-[10px] !px-3 !py-1">
+                  <span className="text-[12px] font-bold text-white px-5 py-2 rounded-full tracking-wide border-b-[3px] border-b-purple-800/40 shadow-[0_3px_0_0_rgba(0,0,0,0.1),0_4px_12px_-2px_rgba(168,85,247,0.4)]" style={{ background: 'linear-gradient(135deg, #9333EA 0%, #A855F7 40%, #EC4899 100%)' }}>
                     Most Popular
                   </span>
                 </div>
