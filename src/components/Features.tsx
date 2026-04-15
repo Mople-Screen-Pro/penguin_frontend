@@ -460,7 +460,7 @@ export default function Features() {
 
       {/* CTA Section */}
       <div id="features-cta" className="animate-on-scroll mt-12 md:mt-16 max-w-2xl mx-auto px-6 text-center">
-        <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight whitespace-nowrap">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
           Ready to create your first pro video like{' '}
           <span
             className="gradient-text inline-block min-w-[60px] transition-opacity duration-300"
