@@ -45,9 +45,9 @@ export default function TrustSignals() {
   const sectionRef = useScrollReveal()
 
   return (
-    <section ref={sectionRef} className="relative pt-[20px] pb-[100px] md:pt-[40px] md:pb-[160px] px-5 bg-[#0a0a12] overflow-hidden">
+    <section ref={sectionRef} className="relative pt-[20px] pb-[100px] md:pt-[40px] md:pb-[160px] px-5 bg-[#0C0C14] overflow-hidden">
       {/* Bottom transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FAFBFF] to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0C0C14] to-transparent" />
 
       <div className="relative max-w-4xl mx-auto">
         <div className="animate-on-scroll grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">

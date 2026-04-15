@@ -37,7 +37,7 @@ export default function Hero() {
   return (
     <>
       {/* Hero — dark section with editor background */}
-      <section className="relative bg-[#0a0a12] overflow-hidden select-none md:min-h-svh">
+      <section className="relative bg-[#0C0C14] overflow-hidden select-none md:min-h-svh">
         {/* Background video */}
         <div className="absolute inset-0 flex items-center justify-center px-4" style={{ top: '3%', bottom: '18%' }}>
           <video
@@ -51,7 +51,7 @@ export default function Hero() {
           </video>
         </div>
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-[#0a0a12]/50" />
+        <div className="absolute inset-0 bg-[#0C0C14]/50" />
 
         <div className="relative max-w-7xl mx-auto px-5 pt-24 md:pt-32 pb-12 md:pb-64 md:min-h-svh flex flex-col justify-center md:-mt-12">
           {/* Content */}
@@ -114,20 +114,20 @@ export default function Hero() {
         </div>
 
         {/* Bottom fade to page bg */}
-        <div className="absolute bottom-0 left-0 right-0 h-[10%] bg-gradient-to-t from-[#FAFBFF] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-[10%] bg-gradient-to-t from-[#0C0C14] to-transparent" />
       </section>
 
       {/* Whatever you build — marquee */}
-      <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#FAFBFF] text-center overflow-hidden">
-        <p className="text-gray-500 font-light mb-10 px-6 whitespace-nowrap text-[clamp(1rem,4vw,2.25rem)]">
+      <div className="pt-[60px] pb-[40px] md:pt-[120px] md:pb-[80px] bg-[#0C0C14] text-center overflow-hidden">
+        <p className="text-white/50 font-light mb-10 px-6 whitespace-nowrap text-[clamp(1rem,4vw,2.25rem)]">
           Whatever you build,{" "}
           <span className="inline-block"><span className="gradient-text font-medium">Clipa</span> fits right
           in.</span>
         </p>
         <div className="relative">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#FAFBFF] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#FAFBFF] to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#0C0C14] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#0C0C14] to-transparent z-10 pointer-events-none" />
           <div
             className="flex whitespace-nowrap"
             style={{ animation: "workflow-marquee 60s linear infinite" }}
@@ -148,7 +148,7 @@ export default function Hero() {
                   { name: "Slack", path: "M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" },
                   { name: "Canva", path: "M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.14 16.09c-.564.94-1.88 1.51-3.36 1.51-2.72 0-5.28-2.1-5.28-5.52 0-3.18 2.28-6.48 6.12-6.48 1.68 0 2.88.84 2.88 1.92 0 .84-.6 1.32-1.14 1.32-.42 0-.78-.24-.78-.72 0-.36.18-.6.18-.96 0-.42-.42-.72-1.08-.72-2.16 0-3.78 2.34-3.78 4.92 0 2.16 1.32 3.96 3.48 3.96 1.14 0 2.04-.54 2.64-1.26l.12.03z" },
                 ].map((brand) => (
-                  <span key={brand.name} className="inline-flex items-center gap-2 md:gap-3 text-gray-500">
+                  <span key={brand.name} className="inline-flex items-center gap-2 md:gap-3 text-white/40">
                     <svg className="w-6 h-6 md:w-9 md:h-9" viewBox="0 0 24 24" fill="currentColor">
                       <path d={brand.path} />
                     </svg>

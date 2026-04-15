@@ -344,9 +344,9 @@ export default function Features() {
   }))
 
   return (
-    <section id="features" ref={sectionRef} className="section-glow pt-[40px] pb-[60px] md:pt-[80px] md:pb-[100px] bg-[#FAFBFF]">
+    <section id="features" ref={sectionRef} className="section-glow pt-[40px] pb-[60px] md:pt-[80px] md:pb-[100px] bg-[#0C0C14]">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="animate-on-scroll font-bold text-center text-gray-900 mb-3 tracking-tight leading-tight min-h-[60px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center whitespace-nowrap text-[clamp(1.25rem,5vw,3.75rem)]">
+        <h2 className="animate-on-scroll font-bold text-center text-white mb-3 tracking-tight leading-tight min-h-[60px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center whitespace-nowrap text-[clamp(1.25rem,5vw,3.75rem)]">
           <span>How{' '}
             <span
               className="gradient-text inline-block transition-all duration-300 ease-out"
@@ -366,11 +366,11 @@ export default function Features() {
         <div className="flex justify-center mb-10 -mx-4 sm:-mx-6 px-4 sm:px-6 overflow-x-auto hide-scrollbar">
           <div
             ref={tabContainerRef}
-            className="relative inline-flex items-center gap-0.5 sm:gap-1 p-1 rounded-full bg-[rgba(138,92,246,0.08)] border border-black/[0.06] shrink-0"
+            className="relative inline-flex items-center gap-0.5 sm:gap-1 p-1 rounded-full bg-white/[0.05] border border-white/[0.08] shrink-0"
           >
             {/* Sliding pill */}
             <div
-              className="absolute top-1 bottom-1 rounded-full bg-black/[0.06] transition-all duration-300 ease-out"
+              className="absolute top-1 bottom-1 rounded-full bg-white/[0.08] transition-all duration-300 ease-out"
               style={{ left: pillStyle.left, width: pillStyle.width }}
             />
             {categories.map((cat) => (
@@ -380,8 +380,8 @@ export default function Features() {
                 onClick={() => scrollToCategory(cat)}
                 className={`relative z-10 px-2 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 whitespace-nowrap ${
                   activeCategory === cat
-                    ? 'text-gray-900'
-                    : 'text-gray-500 hover:text-gray-600'
+                    ? 'text-white'
+                    : 'text-white/50 hover:text-white/70'
                 }`}
               >
                 {cat}
@@ -412,10 +412,10 @@ export default function Features() {
                 {/* Category label on first card of group */}
                 {idx === 0 && (
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-widest text-gray-500">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-white/50">
                       {group.name}
                     </span>
-                    <div className="flex-1 h-px bg-gray-200" />
+                    <div className="flex-1 h-px bg-white/10" />
                   </div>
                 )}
                 {idx !== 0 && <div className="mb-3 h-[18px]" />}
@@ -423,11 +423,11 @@ export default function Features() {
                 {/* Card */}
                 <div className={`glass-card-static !rounded-2xl overflow-hidden transition-all duration-300 ${
                   hoveredCard === video.globalIndex
-                    ? '!border-gray-300 shadow-2xl shadow-indigo-500/10 scale-[1.02]'
+                    ? '!border-white/15 shadow-2xl shadow-indigo-500/10 scale-[1.02]'
                     : ''
                 }`}>
                   {/* Video */}
-                  <div className="relative aspect-video bg-gray-100">
+                  <div className="relative aspect-video bg-white/5">
                     <video
                       ref={(el) => { videoRefs.current[video.globalIndex] = el }}
                       className="w-full h-full object-cover"
@@ -440,14 +440,14 @@ export default function Features() {
                   </div>
 
                   {/* Card footer */}
-                  <div className="px-4 py-3 bg-gray-50">
+                  <div className="px-4 py-3 bg-white/[0.03]">
                     <div className="flex items-center gap-3">
                       <div className={`w-8 h-8 rounded-full ${video.color} text-white flex items-center justify-center shrink-0`}>
                         {video.icon}
                       </div>
                       <div className="min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">{video.label}</h4>
-                        <p className="text-xs text-gray-500 truncate">{video.description}</p>
+                        <h4 className="text-sm font-semibold text-white truncate">{video.label}</h4>
+                        <p className="text-xs text-white/50 truncate">{video.description}</p>
                       </div>
                     </div>
                   </div>
@@ -460,7 +460,7 @@ export default function Features() {
 
       {/* CTA Section */}
       <div id="features-cta" className="animate-on-scroll mt-12 md:mt-16 max-w-2xl mx-auto px-6 text-center">
-        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 tracking-tight whitespace-nowrap">
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight whitespace-nowrap">
           Ready to create your first pro video like{' '}
           <span
             className="gradient-text inline-block min-w-[60px] transition-opacity duration-300"
@@ -470,7 +470,7 @@ export default function Features() {
           </span>
           ?
         </h3>
-        <p className="text-gray-500 mb-5 text-base">
+        <p className="text-white/50 mb-5 text-base">
           Free to download. No credit card required.
         </p>
         <a
@@ -495,9 +495,9 @@ export default function Features() {
             style={{ animation: closing ? 'scaleOut 0.25s ease-in forwards' : 'scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-300/60">
+            <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
               <video
-                className="w-full aspect-video object-cover bg-gray-100"
+                className="w-full aspect-video object-cover bg-white/5"
                 src={videos[expandedCard].src}
                 autoPlay
                 muted

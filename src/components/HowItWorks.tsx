@@ -110,15 +110,7 @@ export default function HowItWorks() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative pt-[80px] pb-[80px] md:pt-[120px] md:pb-[120px] px-5 bg-[#0a0a12]">
-      {/* Divider line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-[800px] h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent z-20" />
-      {/* Ambient glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[70%] max-w-[800px] h-[60%] rounded-full bg-[radial-gradient(ellipse,rgba(168,85,247,0.08)_0%,transparent_70%)] pointer-events-none" />
-      {/* Top transition */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#FAFBFF] to-transparent" />
-      {/* Bottom transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#FAFBFF] to-transparent z-10" />
+    <section ref={sectionRef} className="section-glow ambient-purple relative pt-[80px] pb-[80px] md:pt-[120px] md:pb-[120px] px-5 bg-[#0C0C14]">
 
       <div className="relative max-w-5xl mx-auto">
         <h2 className="text-center text-[28px] md:text-[48px] lg:text-[56px] font-[650] text-white leading-[1.1] tracking-tight mb-4">
@@ -153,7 +145,7 @@ export default function HowItWorks() {
                   onClick={() => goToSlide(i)}
                 >
                   <div
-                    className="rounded-3xl bg-[#16161e] border border-white/10 overflow-hidden shadow-2xl shadow-black/50 flex flex-col mx-auto"
+                    className="rounded-3xl bg-[#14141E] border border-white/10 overflow-hidden shadow-2xl shadow-black/50 flex flex-col mx-auto"
                     style={{ width: step.cardWidth || '100%', height: step.cardHeight || '100%' }}
                   >
                     <div className="flex-1 flex items-center justify-center p-6 min-h-0">

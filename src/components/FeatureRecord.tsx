@@ -18,7 +18,7 @@ export default function FeatureRecord() {
   const sectionRef = useScrollReveal()
 
   return (
-    <section id="feature-record" ref={sectionRef} className="section-glow ambient-purple pt-[40px] pb-[60px] md:pt-[80px] md:pb-[100px] px-5 bg-[#FAFBFF]">
+    <section id="feature-record" ref={sectionRef} className="section-glow ambient-purple pt-[40px] pb-[60px] md:pt-[80px] md:pb-[100px] px-5 bg-[#0C0C14]">
       <div className="max-w-[1240px] mx-auto">
         {/* Header — center aligned */}
         <div className="animate-on-scroll text-center mb-14">
@@ -29,10 +29,10 @@ export default function FeatureRecord() {
             </span>
             Record
           </span>
-          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-gray-900 leading-[1.1] tracking-tight mb-5">
+          <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
             <span style={{ color: '#d46060' }}>Record it</span> your way.
           </h2>
-          <p className="text-sm sm:text-base text-gray-500 leading-[1.5] max-w-[50ch] mx-auto px-2">
+          <p className="text-sm sm:text-base text-white/50 leading-[1.5] max-w-[50ch] mx-auto px-2">
             One floating panel. Four capture modes. No setup, no learning curve — just click and go.
           </p>
         </div>
@@ -43,12 +43,12 @@ export default function FeatureRecord() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-0">
             {highlights.map((h) => (
               <div key={h.label} className="glass-card flex items-start gap-3.5 p-5">
-                <div className="w-10 h-10 rounded-xl bg-gray-100 border border-gray-200 border-b-2 border-b-gray-200 flex items-center justify-center text-gray-500 flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 border-b-2 border-b-white/10 flex items-center justify-center text-white/50 flex-shrink-0">
                   {h.icon}
                 </div>
                 <div>
-                  <span className="text-[14px] font-semibold text-gray-900 block mb-1">{h.label}</span>
-                  <p className="text-[13px] text-gray-500 leading-relaxed">{h.desc}</p>
+                  <span className="text-[14px] font-semibold text-white block mb-1">{h.label}</span>
+                  <p className="text-[13px] text-white/50 leading-relaxed">{h.desc}</p>
                 </div>
               </div>
             ))}
@@ -57,7 +57,7 @@ export default function FeatureRecord() {
           {/* Panel image */}
           <div className="mt-10">
             <div className="relative">
-              <div className="absolute -inset-8 rounded-3xl bg-gray-50 blur-2xl" />
+              <div className="absolute -inset-8 rounded-3xl bg-white/5 blur-2xl" />
               <img
                 src="/screenshots/panel.png"
                 alt="Clipa recording control panel"

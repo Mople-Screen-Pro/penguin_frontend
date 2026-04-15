@@ -34,7 +34,7 @@ function HeroCard({ post }: { post: BlogPost }) {
       <div className="p-6 md:p-8">
         <div className="flex items-center gap-3 mb-3">
           {post.published_at && (
-            <time className="text-sm text-gray-500">
+            <time className="text-sm text-white/50">
               {formatDate(post.published_at)}
             </time>
           )}
@@ -44,11 +44,11 @@ function HeroCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-primary-300 transition-colors mb-3">
+        <h2 className="text-2xl md:text-3xl font-bold text-white group-hover:text-primary-300 transition-colors mb-3">
           {post.title}
         </h2>
         {post.excerpt && (
-          <p className="text-base text-gray-500 line-clamp-2 leading-relaxed">
+          <p className="text-base text-white/50 line-clamp-2 leading-relaxed">
             {post.excerpt}
           </p>
         )}
@@ -75,7 +75,7 @@ function PostCard({ post }: { post: BlogPost }) {
       <div className="p-5">
         <div className="flex items-center gap-2 mb-2">
           {post.published_at && (
-            <time className="text-xs text-gray-500">
+            <time className="text-xs text-white/50">
               {formatDate(post.published_at)}
             </time>
           )}
@@ -85,11 +85,11 @@ function PostCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-lg font-semibold text-gray-900 group-hover:text-primary-300 transition-colors mb-2">
+        <h2 className="text-lg font-semibold text-white group-hover:text-primary-300 transition-colors mb-2">
           {post.title}
         </h2>
         {post.excerpt && (
-          <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-white/50 line-clamp-2 leading-relaxed">
             {post.excerpt}
           </p>
         )}
@@ -122,25 +122,19 @@ export default function BlogListClient() {
   const restPosts = posts.slice(1)
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
+    <div className="min-h-screen flex flex-col bg-[#0C0C14]">
       <Header />
       {/* Decorative background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[20%] right-[10%] w-64 h-40 rounded-3xl bg-gradient-to-br from-blue-500/[0.06] to-indigo-600/[0.03] rotate-[10deg] blur-sm" />
-        <div className="absolute bottom-[30%] left-[8%] w-48 h-48 rounded-2xl bg-gradient-to-br from-purple-500/[0.05] to-purple-600/[0.02] rotate-[-8deg] blur-sm" />
+        <div className="absolute top-[20%] right-[10%] w-64 h-40 rounded-3xl bg-gradient-to-br from-blue-500/[0.08] to-indigo-600/[0.04] rotate-[10deg] blur-sm" />
+        <div className="absolute bottom-[30%] left-[8%] w-48 h-48 rounded-2xl bg-gradient-to-br from-purple-500/[0.07] to-purple-600/[0.03] rotate-[-8deg] blur-sm" />
       </div>
       <main className="relative z-10 section-glow max-w-5xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
         <div className="text-center mb-14">
-          <span className="badge-block badge-blue mb-6 animate-on-load">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
-            </svg>
-            Blog
-          </span>
-          <h1 className="heading-lg font-bold text-gray-900 mb-4 animate-on-load delay-1">
+          <h1 className="heading-lg font-bold text-white mb-4 animate-on-load delay-1">
             News, tips, and <span className="gradient-text">stories</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-500 max-w-lg mx-auto animate-on-load delay-2">
+          <p className="text-base sm:text-lg text-white/50 max-w-lg mx-auto animate-on-load delay-2">
             From the Clipa team.
           </p>
           {isAdmin && (
@@ -156,14 +150,14 @@ export default function BlogListClient() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 animate-on-load">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4" />
-            <p className="text-gray-500 text-sm">Loading posts...</p>
+            <p className="text-white/50 text-sm">Loading posts...</p>
           </div>
         ) : posts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 animate-on-load">
             <svg className="w-12 h-12 text-gray-700 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
             </svg>
-            <p className="text-gray-500 text-sm">No posts yet.</p>
+            <p className="text-white/50 text-sm">No posts yet.</p>
           </div>
         ) : (
           <div className="space-y-10">

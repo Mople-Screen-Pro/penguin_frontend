@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="section-glow bg-[#FAFBFF] pt-16 pb-10 px-6">
+    <footer className="section-glow bg-[#0C0C14] pt-16 pb-10 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Top — Brand + Links */}
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 mb-10">
@@ -15,31 +15,31 @@ export default function Footer() {
               className="flex items-center gap-2.5"
             >
               <img src="/images/logo.png" alt="Clipa" className="w-7 h-7 rounded-lg" />
-              <span className="text-base font-bold text-gray-900 tracking-tight">Clipa</span>
+              <span className="text-base font-bold text-white tracking-tight">Clipa</span>
             </button>
           </div>
 
           {/* Links — single row */}
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-            <a href="/#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-            <a href="/#faq" className="text-gray-600 hover:text-gray-900 transition-colors">FAQ</a>
-            <Link href="/pricing" className="text-gray-600 hover:text-gray-900 transition-colors">Pricing</Link>
-            <Link href="/releases" className="text-gray-600 hover:text-gray-900 transition-colors">Releases</Link>
-            <Link href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors">Blog</Link>
+            <a href="/#features" className="text-white/50 hover:text-white transition-colors">Features</a>
+            <a href="/#faq" className="text-white/50 hover:text-white transition-colors">FAQ</a>
+            <Link href="/pricing" className="text-white/50 hover:text-white transition-colors">Pricing</Link>
+            <Link href="/releases" className="text-white/50 hover:text-white transition-colors">Releases</Link>
+            <Link href="/blog" className="text-white/50 hover:text-white transition-colors">Blog</Link>
           </nav>
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between pt-6 border-t border-gray-200 gap-3">
-          <p className="text-xs text-gray-500">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-6 border-t border-white/10 gap-3">
+          <p className="text-xs text-white/40">
             &copy; {new Date().getFullYear()} Clipa. All rights reserved.
           </p>
           <div className="flex items-center gap-x-3 text-xs">
-            <Link href="/terms" className="text-gray-500 hover:text-gray-900 transition-colors">Terms</Link>
-            <span className="text-gray-300">&middot;</span>
-            <Link href="/privacy" className="text-gray-500 hover:text-gray-900 transition-colors">Privacy</Link>
-            <span className="text-gray-300">&middot;</span>
-            <Link href="/refund" className="text-gray-500 hover:text-gray-900 transition-colors">Refund</Link>
+            <Link href="/terms" className="text-white/40 hover:text-white transition-colors">Terms</Link>
+            <span className="text-white/20">&middot;</span>
+            <Link href="/privacy" className="text-white/40 hover:text-white transition-colors">Privacy</Link>
+            <span className="text-white/20">&middot;</span>
+            <Link href="/refund" className="text-white/40 hover:text-white transition-colors">Refund</Link>
           </div>
         </div>
       </div>

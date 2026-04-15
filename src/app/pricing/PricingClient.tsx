@@ -223,201 +223,237 @@ export default function PricingClient() {
   )
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#0C0C14]">
       <Header />
 
-      {/* Decorative background */}
+      {/* Decorative background — warm, layered ambient glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[15%] left-[5%] w-72 h-44 rounded-3xl bg-gradient-to-br from-purple-500/[0.07] to-purple-600/[0.03] rotate-[-12deg] blur-sm" />
-        <div className="absolute top-[40%] right-[8%] w-56 h-56 rounded-2xl bg-gradient-to-br from-blue-500/[0.05] to-indigo-600/[0.02] rotate-[8deg] blur-sm" />
-        <div className="absolute bottom-[20%] left-[15%] w-48 h-48 rounded-2xl bg-gradient-to-br from-pink-500/[0.05] to-rose-600/[0.02] rotate-[5deg] blur-sm" />
+        {/* Top-center hero glow — warm purple/pink, large and diffused */}
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full bg-gradient-to-b from-purple-500/[0.12] via-fuchsia-500/[0.06] to-transparent blur-[120px]" />
+        {/* Right accent — subtle warm blue */}
+        <div className="absolute top-[30%] right-[-5%] w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-indigo-500/[0.08] via-violet-500/[0.04] to-transparent blur-[100px]" />
+        {/* Bottom-left accent — warm pink */}
+        <div className="absolute bottom-[-5%] left-[-5%] w-[500px] h-[400px] rounded-full bg-gradient-to-tr from-rose-500/[0.07] via-pink-500/[0.04] to-transparent blur-[100px]" />
+        {/* Subtle noise texture overlay for depth */}
+        <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
       </div>
 
       {/* Content */}
-      <main className="relative z-10 section-glow max-w-7xl mx-auto px-6 pt-24 sm:pt-28 pb-[80px] md:pb-[160px] flex-grow w-full">
-        {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <span className="badge-block badge-gold mb-6 animate-on-load">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-            </svg>
-            Pricing
-          </span>
-          <h1 className="heading-lg font-bold text-gray-900 mb-4 animate-on-load delay-1">
+      <main className="relative z-10 section-glow max-w-7xl mx-auto px-6 pt-24 sm:pt-32 pb-[80px] md:pb-[160px] flex-grow w-full">
+        {/* Header — more presence, warmer subtitle */}
+        <div className="text-center mb-10 sm:mb-14">
+          <h1 className="heading-lg font-bold text-white mb-5 animate-on-load delay-1">
             Simple, <span className="gradient-text">transparent</span> pricing
           </h1>
-          <p className="text-base sm:text-lg text-gray-500 max-w-lg mx-auto animate-on-load delay-2">
-            Choose the plan that works best for you.
+          <p className="text-base sm:text-lg text-white/40 max-w-md mx-auto animate-on-load delay-2 leading-relaxed">
+            Monthly, yearly, or forever —
             <br className="hidden sm:block" />
-            All plans include full access to Clipa features.
+            start the way that works for you.
           </p>
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-5 lg:gap-6 max-w-5xl mx-auto">
-          {plans.map((plan, i) => (
+        <div className="grid md:grid-cols-3 gap-5 lg:gap-6 max-w-5xl mx-auto items-stretch">
+          {plans.map((plan, i) => {
+            const isPopular = plan.popular
+
+            return (
             <div
               key={plan.id}
-              className={`animate-on-load delay-${i + 2} relative p-6 lg:p-8 flex flex-col rounded-2xl bg-white/70 border border-gray-200/60 border-b-[4px] border-b-gray-200 shadow-[0_4px_0_0_rgba(0,0,0,0.04),0_8px_32px_-8px_rgba(0,0,0,0.08)] hover:translate-y-[-3px] hover:shadow-[0_6px_0_0_rgba(0,0,0,0.03),0_16px_48px_-8px_rgba(168,85,247,0.08)] hover:border-primary-300/40 transition-all duration-300 ${
-                plan.popular
-                  ? "!border-primary-400/50 !border-b-primary-500/40 shadow-xl shadow-primary-500/15 scale-[1.03] lg:scale-105"
+              className={`animate-on-load delay-${i + 2} relative flex flex-col rounded-2xl transition-all duration-300 ${
+                isPopular
+                  ? ""
                   : ""
               }`}
             >
-              {plan.popular && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="text-[12px] font-bold text-white px-5 py-2 rounded-full tracking-wide border-b-[3px] border-b-purple-800/40 shadow-[0_3px_0_0_rgba(0,0,0,0.1),0_4px_12px_-2px_rgba(168,85,247,0.4)]" style={{ background: 'linear-gradient(135deg, #9333EA 0%, #A855F7 40%, #EC4899 100%)' }}>
-                    Most Popular
-                  </span>
-                </div>
+              {/* Gradient border wrapper for popular card */}
+              {isPopular && (
+                <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-purple-400/60 via-purple-500/20 to-fuchsia-500/30 blur-[0.5px]" />
               )}
 
-              {plan.savings && (
-                <div className="absolute top-5 right-5">
-                  <span className="bg-gradient-to-r from-green-50 to-emerald-50 text-green-600 text-xs font-semibold px-3 py-1.5 rounded-full border border-green-200 shadow-sm shadow-green-500/10">
-                    {plan.savings}
-                  </span>
-                </div>
-              )}
+              <div
+                className={`relative flex flex-col h-full p-6 lg:p-8 rounded-2xl border transition-all duration-300 ${
+                  isPopular
+                    ? "bg-gradient-to-b from-[#1C1C28] via-[#1C1C28] to-[#1C1C28] border-transparent shadow-[0_0_60px_-12px_rgba(168,85,247,0.25),0_0_20px_-5px_rgba(168,85,247,0.15)]"
+                    : "bg-gradient-to-b from-[#14141E]/90 to-[#14141E]/90 border-white/[0.07] hover:border-white/[0.14] hover:shadow-[0_8px_40px_-12px_rgba(168,85,247,0.1)]"
+                }`}
+                style={isPopular ? {} : { backdropFilter: 'blur(20px)' }}
+              >
+                {/* Inner top highlight for glass effect */}
+                <div className={`absolute inset-x-0 top-0 h-px rounded-t-2xl ${isPopular ? 'bg-gradient-to-r from-transparent via-purple-400/40 to-transparent' : 'bg-gradient-to-r from-transparent via-white/[0.08] to-transparent'}`} />
 
-              <div className="mb-6">
-                <h2 className="text-lg font-bold text-gray-900 mb-1">
-                  {plan.name}
-                </h2>
-                <p className="text-gray-500 text-sm">{plan.description}</p>
-              </div>
+                {isPopular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                    <span className="text-[11px] font-bold text-white px-5 py-1.5 rounded-full tracking-widest uppercase shadow-[0_4px_16px_-2px_rgba(168,85,247,0.5)]" style={{ background: 'linear-gradient(135deg, #9333EA 0%, #A855F7 40%, #EC4899 100%)' }}>
+                      Most Popular
+                    </span>
+                  </div>
+                )}
 
-              <div className="mb-6">
-                <div className="flex items-baseline gap-1">
-                  <span className={`text-4xl lg:text-5xl font-bold tracking-tight ${plan.popular ? 'gradient-text' : 'text-gray-900'}`}>
-                    ${plan.price}
-                  </span>
-                  <span className="text-gray-500 text-sm">{plan.period}</span>
+                {plan.savings && (
+                  <div className="absolute top-5 right-5">
+                    <span className="bg-emerald-500/[0.08] text-emerald-400 text-[11px] font-semibold px-3 py-1 rounded-full border border-emerald-500/20">
+                      {plan.savings}
+                    </span>
+                  </div>
+                )}
+
+                <div className="mb-6">
+                  <h2 className="text-base font-semibold text-white/90 mb-1 tracking-wide">
+                    {plan.name}
+                  </h2>
+                  <p className="text-white/35 text-sm">{plan.description}</p>
                 </div>
-                {plan.billedAs && (
-                  <p className="text-sm text-gray-500 mt-1.5">{plan.billedAs}</p>
+
+                <div className="mb-6">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className={`text-[44px] lg:text-[52px] font-extrabold tracking-tighter leading-none ${isPopular ? 'gradient-text' : 'text-white'}`}>
+                      ${plan.price}
+                    </span>
+                    <span className="text-white/30 text-sm font-medium">{plan.period}</span>
+                  </div>
+                  {plan.billedAs && (
+                    <p className="text-[13px] text-white/30 mt-2">{plan.billedAs}</p>
+                  )}
+                </div>
+
+                <div className={`h-px mb-6 ${isPopular ? 'bg-gradient-to-r from-transparent via-purple-500/20 to-transparent' : 'bg-gradient-to-r from-transparent via-white/[0.06] to-transparent'}`} />
+
+                <ul className="space-y-3.5 mb-8 flex-grow">
+                  {plan.features.map((feature, index) => (
+                    <li
+                      key={index}
+                      className={`flex items-center gap-3 text-sm ${isPopular ? 'text-white/70' : 'text-white/50'}`}
+                    >
+                      <div className={`w-4.5 h-4.5 flex-shrink-0 flex items-center justify-center rounded-full ${isPopular ? 'bg-purple-500/15' : 'bg-white/[0.04]'}`}>
+                        <svg
+                          className={`w-3 h-3 ${isPopular ? 'text-purple-300' : 'text-white/40'}`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={3}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                {user && subLoading ? (
+                  <button
+                    disabled
+                    className="w-full py-3.5 px-4 rounded-xl font-medium bg-white/[0.03] text-white/30 cursor-default"
+                  >
+                    &nbsp;
+                  </button>
+                ) : pastDue ? (
+                  <button
+                    disabled
+                    className="w-full py-3.5 px-4 rounded-xl font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20 cursor-not-allowed"
+                  >
+                    Update Payment Method
+                  </button>
+                ) : (canceledNotExpired || hasScheduledCancel) &&
+                  subscription?.price_id === plan.priceId ? (
+                  <button
+                    onClick={handleReactivate}
+                    disabled={reactivateLoading}
+                    className="btn-block w-full disabled:opacity-50"
+                  >
+                    {reactivateLoading ? "Resubscribing..." : "Resubscribe"}
+                  </button>
+                ) : currentPriceId === plan.priceId ? (
+                  <button
+                    disabled
+                    className="w-full py-3.5 px-4 rounded-xl font-medium bg-white/[0.03] text-white/30 cursor-default border border-white/[0.06]"
+                  >
+                    Current Plan
+                  </button>
+                ) : isLifetimePlan && plan.id !== "lifetime" ? (
+                  <button
+                    disabled
+                    className="w-full py-3.5 px-4 rounded-xl font-medium bg-white/[0.03] text-white/25 cursor-not-allowed"
+                  >
+                    Lifetime Active
+                  </button>
+                ) : (isMonthly || isYearly) && plan.id === "lifetime" ? (
+                  <button
+                    onClick={() => setLifetimeModalOpen(true)}
+                    className="btn-block w-full"
+                  >
+                    Upgrade
+                  </button>
+                ) : isMonthly && plan.id === "yearly" ? (
+                  <button
+                    onClick={() => setUpgradeModalOpen(true)}
+                    className="btn-block w-full"
+                  >
+                    Upgrade
+                  </button>
+                ) : isYearly && plan.id === "monthly" && hasScheduledDowngrade ? (
+                  <button
+                    onClick={() => setCancelDowngradeModalOpen(true)}
+                    className="w-full py-3.5 px-4 rounded-xl font-medium bg-white/[0.03] text-white/40 hover:bg-red-500/10 hover:text-red-400 transition-colors border border-white/[0.06]"
+                  >
+                    Switching Soon
+                  </button>
+                ) : isYearly && plan.id === "monthly" ? (
+                  <button
+                    onClick={() => setDowngradeModalOpen(true)}
+                    className="btn-block-ghost w-full"
+                  >
+                    Switch to Monthly
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handlePurchase(plan.priceId, plan.id)}
+                    disabled={loading === plan.id}
+                    className={`w-full disabled:opacity-50 ${
+                      isPopular
+                        ? "btn-block"
+                        : "btn-block-ghost"
+                    }`}
+                  >
+                    {loading === plan.id
+                      ? "Loading..."
+                      : alreadySubscribed
+                      ? "Upgrade"
+                      : "Get Started"}
+                  </button>
                 )}
               </div>
-
-              <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-6" />
-
-              <ul className="space-y-3 mb-8 flex-grow">
-                {plan.features.map((feature, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center gap-3 text-sm text-gray-600"
-                  >
-                    <svg
-                      className={`w-4 h-4 flex-shrink-0 ${plan.popular ? 'text-accent-pink' : 'text-primary-400'}`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2.5}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              {user && subLoading ? (
-                <button
-                  disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-100 text-gray-500 cursor-default"
-                >
-                  &nbsp;
-                </button>
-              ) : pastDue ? (
-                <button
-                  disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-amber-500/10 text-amber-500 border border-amber-500/20 cursor-not-allowed"
-                >
-                  Update Payment Method
-                </button>
-              ) : (canceledNotExpired || hasScheduledCancel) &&
-                subscription?.price_id === plan.priceId ? (
-                <button
-                  onClick={handleReactivate}
-                  disabled={reactivateLoading}
-                  className="btn-block w-full disabled:opacity-50"
-                >
-                  {reactivateLoading ? "Resubscribing..." : "Resubscribe"}
-                </button>
-              ) : currentPriceId === plan.priceId ? (
-                <button
-                  disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-100 text-gray-500 cursor-default"
-                >
-                  Current Plan
-                </button>
-              ) : isLifetimePlan && plan.id !== "lifetime" ? (
-                <button
-                  disabled
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-100 text-gray-500 cursor-not-allowed"
-                >
-                  Lifetime Active
-                </button>
-              ) : (isMonthly || isYearly) && plan.id === "lifetime" ? (
-                <button
-                  onClick={() => setLifetimeModalOpen(true)}
-                  className="btn-block w-full"
-                >
-                  Upgrade
-                </button>
-              ) : isMonthly && plan.id === "yearly" ? (
-                <button
-                  onClick={() => setUpgradeModalOpen(true)}
-                  className="btn-block w-full"
-                >
-                  Upgrade
-                </button>
-              ) : isYearly && plan.id === "monthly" && hasScheduledDowngrade ? (
-                <button
-                  onClick={() => setCancelDowngradeModalOpen(true)}
-                  className="w-full py-3 px-4 rounded-xl font-medium bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-400 transition-colors"
-                >
-                  Switching Soon
-                </button>
-              ) : isYearly && plan.id === "monthly" ? (
-                <button
-                  onClick={() => setDowngradeModalOpen(true)}
-                  className="btn-block-ghost w-full"
-                >
-                  Switch to Monthly
-                </button>
-              ) : (
-                <button
-                  onClick={() => handlePurchase(plan.priceId, plan.id)}
-                  disabled={loading === plan.id}
-                  className={`w-full disabled:opacity-50 ${
-                    plan.popular
-                      ? "btn-block"
-                      : "btn-block-ghost"
-                  }`}
-                >
-                  {loading === plan.id
-                    ? "Loading..."
-                    : alreadySubscribed
-                    ? "Upgrade"
-                    : "Get Started"}
-                </button>
-              )}
             </div>
-          ))}
+            )
+          })}
         </div>
 
-        {/* Trust badge */}
-        <div className="mt-16 sm:mt-20 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-200 text-gray-500 text-sm">
-            <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-            </svg>
-            Secure payment via Paddle &middot; Cancel anytime
+        {/* Trust badges — multiple signals */}
+        <div className="mt-16 sm:mt-24 flex flex-col items-center gap-4">
+          <div className="flex flex-wrap justify-center gap-6 text-white/30 text-[13px]">
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-green-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+              </svg>
+              Secure payment via Paddle
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-white/25" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Cancel anytime
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4 text-white/25" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+              256-bit SSL encrypted
+            </div>
           </div>
         </div>
       </main>
@@ -475,7 +511,7 @@ export default function PricingClient() {
             <h3 className="text-lg font-bold text-gray-900 text-center mb-2">
               Cancel Scheduled Switch?
             </h3>
-            <p className="text-sm text-gray-500 text-center mb-5">
+            <p className="text-sm text-gray-600 text-center mb-5">
               Your plan is scheduled to switch to monthly. Would you like to
               cancel this and keep your yearly subscription?
             </p>

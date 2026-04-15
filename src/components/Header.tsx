@@ -13,7 +13,6 @@ export default function Header() {
   const { user, loading, signOut } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -46,7 +45,7 @@ export default function Header() {
   const navLinks = [
     { name: "Pricing", href: "/pricing" },
     { name: "Blog", href: "/blog" },
-    { name: "Releases", href: "/releases" },
+    { name: "Challenge Log", href: "/releases" },
   ];
 
   return (
@@ -61,9 +60,7 @@ export default function Header() {
       {/* Navbar */}
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-          isHome
-            ? (scrolled ? "bg-[#0a0a12]/90 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/20" : "bg-[#0a0a12] border-b border-transparent")
-            : (scrolled ? "bg-white/80 backdrop-blur-xl border-b border-black/[0.06] shadow-lg shadow-purple-500/5" : "bg-white border-b border-transparent")
+          scrolled ? "bg-[#0C0C14]/90 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/20" : "bg-transparent border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -73,7 +70,7 @@ export default function Header() {
               href="/"
               onClick={(e) => {
                 e.preventDefault();
-                if (isHome) {
+                if (pathname === "/") {
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 } else {
                   router.push("/");
@@ -86,17 +83,17 @@ export default function Header() {
                 alt="Clipa"
                 className="w-8 h-8"
               />
-              <span className={`text-[22px] font-semibold tracking-wide ${isHome ? "text-white" : "text-gray-900"}`}>Clipa</span>
+              <span className="text-[22px] font-semibold tracking-wide text-white">Clipa</span>
             </a>
 
             {/* Desktop Nav */}
-            <nav className={`hidden lg:flex items-center gap-8 text-[16px] font-medium ${isHome ? "text-gray-300" : "text-gray-600"}`}>
+            <nav className="hidden lg:flex items-center gap-8 text-[16px] font-medium text-gray-300">
               {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     href={link.href}
                     onClick={() => analytics.navClick(link.name)}
-                    className={`hover:-translate-y-0.5 transition-all duration-200 cursor-pointer ${isHome ? "hover:text-white" : "hover:text-gray-900"}`}
+                    className="hover:-translate-y-0.5 transition-all duration-200 cursor-pointer hover:text-white"
                   >
                     {link.name}
                   </Link>
@@ -112,32 +109,32 @@ export default function Header() {
                   <div className="relative">
                     <button
                       onClick={() => setDropdownOpen(!dropdownOpen)}
-                      className={`flex items-center gap-2 text-[16px] font-medium transition-colors ${isHome ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
+                      className="flex items-center gap-2 text-[16px] font-medium transition-colors text-gray-300 hover:text-white"
                     >
                       {displayName}
-                      <svg className={`w-4 h-4 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''} ${isHome ? "text-gray-400" : "text-gray-500"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg className={`w-4 h-4 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''} text-gray-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
                     {dropdownOpen && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setDropdownOpen(false)} />
-                        <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl border border-gray-200 shadow-xl z-50 overflow-hidden p-1">
+                        <div className="absolute right-0 mt-3 w-48 bg-[#1C1C28] rounded-xl border border-white/10 shadow-xl z-50 overflow-hidden p-1">
                           <Link
                             href="/mypage"
                             onClick={() => setDropdownOpen(false)}
-                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-500 hover:bg-gray-100 rounded-lg transition-colors"
+                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-white/60 hover:bg-white/5 hover:text-white rounded-lg transition-colors"
                           >
-                            <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                             My Page
                           </Link>
                           <button
                             onClick={handleLogout}
-                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-500 hover:bg-gray-100 rounded-lg transition-colors w-full"
+                            className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-white/60 hover:bg-white/5 hover:text-white rounded-lg transition-colors w-full"
                           >
-                            <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                             </svg>
                             Sign Out
@@ -149,7 +146,7 @@ export default function Header() {
                 ) : (
                   <Link
                     href="/login"
-                    className={`text-[16px] font-medium transition-colors ${isHome ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}
+                    className="text-[16px] font-medium transition-colors text-gray-300 hover:text-white"
                   >
                     Sign in
                   </Link>
@@ -169,7 +166,7 @@ export default function Header() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`lg:hidden p-2 ${isHome ? "text-gray-300" : "text-gray-500"}`}
+            className="lg:hidden p-2 text-gray-300"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -183,11 +180,9 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden border-b overflow-hidden transition-all duration-200 ease-out ${
-          isHome ? "bg-[#0a0a12]" : "bg-white"
-        } ${
+        <div className={`lg:hidden border-b overflow-hidden transition-all duration-200 ease-out bg-[#0C0C14] ${
           mobileMenuOpen
-            ? `max-h-[400px] opacity-100 ${isHome ? 'border-white/[0.08]' : 'border-gray-200'}`
+            ? 'max-h-[400px] opacity-100 border-white/[0.08]'
             : 'max-h-0 opacity-0 border-transparent'
         }`}>
             <div className="px-6 py-4 flex flex-col gap-4">
@@ -196,7 +191,7 @@ export default function Header() {
                     key={link.name}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`text-lg font-medium py-2 border-b ${isHome ? "text-gray-200 border-white/[0.08]" : "text-gray-700 border-gray-200"}`}
+                    className="text-lg font-medium py-2 border-b text-gray-200 border-white/[0.08]"
                   >
                     {link.name}
                   </Link>
@@ -206,13 +201,13 @@ export default function Header() {
                   <Link
                     href="/mypage"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`text-lg font-medium py-2 border-b ${isHome ? "text-gray-200 border-white/[0.08]" : "text-gray-700 border-gray-200"}`}
+                    className="text-lg font-medium py-2 border-b text-gray-200 border-white/[0.08]"
                   >
                     My Page
                   </Link>
                   <button
                     onClick={() => { setMobileMenuOpen(false); handleLogout(); }}
-                    className={`text-lg font-medium py-2 border-b text-left ${isHome ? "text-gray-200 border-white/[0.08]" : "text-gray-700 border-gray-200"}`}
+                    className="text-lg font-medium py-2 border-b text-left text-gray-200 border-white/[0.08]"
                   >
                     Sign Out
                   </button>

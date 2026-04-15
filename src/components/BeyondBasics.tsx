@@ -51,13 +51,13 @@ export default function BeyondBasics() {
   return (
     <section
       ref={sectionRef}
-      className="section-glow ambient-blue py-[40px] md:py-[80px] px-6 bg-[#FAFBFF]"
+      className="section-glow ambient-blue py-[40px] md:py-[80px] px-6 bg-[#0C0C14]"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="animate-on-scroll text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-4">
+        <h2 className="animate-on-scroll text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
           Beyond the basics.
         </h2>
-        <p className="animate-on-scroll text-lg text-gray-600 mb-16 max-w-xl">
+        <p className="animate-on-scroll text-lg text-white/50 mb-16 max-w-xl">
           Simple tools that quietly make your recordings better.
         </p>
 
@@ -73,7 +73,7 @@ export default function BeyondBasics() {
               onClick={() => toggleVideo(i)}
             >
               <div
-                className={`aspect-video ${i === 0 ? "sm:aspect-[5/4]" : "sm:aspect-[3/4]"} bg-gray-100 relative rounded-[17px] overflow-hidden`}
+                className={`aspect-video ${i === 0 ? "sm:aspect-[5/4]" : "sm:aspect-[3/4]"} bg-white/5 relative rounded-[17px] overflow-hidden`}
               >
                 <video
                   ref={(el) => {

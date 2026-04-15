@@ -22,23 +22,23 @@ function ReleaseEntry({ release, isLatest, isAdmin }: { release: Release; isLate
   return (
     <div className="relative pl-8 md:pl-12 pb-12 last:pb-0 group">
       {/* Timeline line */}
-      <div className="absolute left-[7px] md:left-[11px] top-3 bottom-0 w-px bg-gray-200 group-last:hidden" />
+      <div className="absolute left-[7px] md:left-[11px] top-3 bottom-0 w-px bg-white/10 group-last:hidden" />
 
       {/* Timeline dot */}
       <div
         className={`absolute left-0 md:left-1 top-[6px] w-[15px] h-[15px] rounded-full border-2 ${
           isLatest
             ? 'border-primary-500 bg-primary-500 shadow-md shadow-primary-500/30'
-            : 'border-gray-300 bg-gray-100'
+            : 'border-white/20 bg-white/10'
         }`}
       />
 
       {/* Header */}
       <div className="flex items-center gap-3 mb-3 flex-wrap">
-        <h2 className="text-xl md:text-2xl font-bold text-gray-900">
+        <h2 className="text-xl md:text-2xl font-bold text-white">
           v{release.version}
         </h2>
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-white/50">
           {release.title}
         </span>
         {isLatest && (
@@ -54,7 +54,7 @@ function ReleaseEntry({ release, isLatest, isAdmin }: { release: Release; isLate
         {isAdmin && (
           <Link
             href={`/releases/${release.slug}/edit`}
-            className="text-xs text-gray-600 hover:text-primary-400 transition-colors"
+            className="text-xs text-white/40 hover:text-primary-400 transition-colors"
           >
             Edit
           </Link>
@@ -62,7 +62,7 @@ function ReleaseEntry({ release, isLatest, isAdmin }: { release: Release; isLate
       </div>
 
       {release.published_at && (
-        <time className="block text-sm text-gray-500 mb-4">
+        <time className="block text-sm text-white/50 mb-4">
           {formatDate(release.published_at)}
         </time>
       )}
@@ -96,7 +96,7 @@ export default function ReleaseListClient() {
   }, [isAdmin])
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFBFF]">
+    <div className="min-h-screen flex flex-col bg-[#0C0C14]">
       <Header />
       {/* Decorative background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -105,17 +105,10 @@ export default function ReleaseListClient() {
       </div>
       <main className="relative z-10 section-glow max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
         <div className="text-center mb-14">
-          <span className="badge-block badge-green mb-6 animate-on-load">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
-            </svg>
-            Changelog
-          </span>
-          <h1 className="heading-lg font-bold text-gray-900 mb-4 animate-on-load delay-1">
+          <h1 className="heading-lg font-bold text-white mb-4 animate-on-load delay-1">
             What's <span className="gradient-text">new</span> in Clipa
           </h1>
-          <p className="text-base sm:text-lg text-gray-500 max-w-lg mx-auto animate-on-load delay-2">
+          <p className="text-base sm:text-lg text-white/50 max-w-lg mx-auto animate-on-load delay-2">
             All the latest updates and improvements.
           </p>
           {isAdmin && (
@@ -131,7 +124,7 @@ export default function ReleaseListClient() {
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 animate-on-load">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4" />
-            <p className="text-gray-500 text-sm">Loading releases...</p>
+            <p className="text-white/50 text-sm">Loading releases...</p>
           </div>
         ) : releases.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 animate-on-load">
@@ -139,7 +132,7 @@ export default function ReleaseListClient() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
             </svg>
-            <p className="text-gray-500 text-sm">No releases yet.</p>
+            <p className="text-white/50 text-sm">No releases yet.</p>
           </div>
         ) : (
           <div>

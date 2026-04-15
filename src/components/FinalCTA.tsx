@@ -9,7 +9,7 @@ export default function FinalCTA() {
   const sectionRef = useScrollReveal()
 
   return (
-    <section ref={sectionRef} className="relative py-[60px] md:py-[100px] px-5 bg-[#0a0a12] overflow-hidden">
+    <section ref={sectionRef} className="relative py-[60px] md:py-[100px] px-5 bg-[#0C0C14] overflow-hidden">
       {/* Gradient mesh background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[radial-gradient(ellipse,rgba(168,85,247,0.15)_0%,transparent_70%)]" />
@@ -17,7 +17,7 @@ export default function FinalCTA() {
       </div>
 
       {/* Top transition */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#FAFBFF] to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#0C0C14] to-transparent" />
 
       <div className="relative max-w-2xl mx-auto text-center">
         <h2 className="animate-on-scroll text-[28px] md:text-[48px] lg:text-[56px] font-[650] text-white leading-[1.1] tracking-tight mb-5">

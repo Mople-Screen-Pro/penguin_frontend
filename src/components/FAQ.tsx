@@ -60,14 +60,14 @@ export default function FAQ() {
   }
 
   return (
-    <section id="faq" ref={sectionRef} className="section-glow ambient-purple py-[40px] md:py-[80px] px-6 bg-[#FAFBFF]">
+    <section id="faq" ref={sectionRef} className="section-glow ambient-purple py-[40px] md:py-[80px] px-6 bg-[#0C0C14]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       <div className="max-w-3xl mx-auto">
-        <h3 className="animate-on-scroll text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center tracking-tight">
+        <h3 className="animate-on-scroll text-3xl md:text-4xl font-bold text-white mb-12 text-center tracking-tight">
           Got questions? We've got answers.
         </h3>
 
@@ -78,7 +78,7 @@ export default function FAQ() {
               className={`rounded-2xl overflow-hidden transition-all duration-500 ${
                 openIndex === index
                   ? 'glass-card-static !border-primary-400/20 shadow-lg shadow-primary-500/10'
-                  : 'glass-card-static !border-gray-200 hover:!border-gray-300'
+                  : 'glass-card-static !border-white/10 hover:!border-white/15'
               }`}
             >
               <button
@@ -86,14 +86,14 @@ export default function FAQ() {
                 className="w-full px-5 sm:px-7 py-5 sm:py-6 text-left flex justify-between items-center gap-4"
               >
                 <span className={`font-semibold text-[0.9375rem] transition-colors ${
-                  openIndex === index ? 'text-primary-300' : 'text-gray-700'
+                  openIndex === index ? 'text-primary-300' : 'text-white/80'
                 }`}>
                   {faq.question}
                 </span>
                 <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-500 ${
                   openIndex === index
                     ? 'bg-primary-500 text-white rotate-180'
-                    : 'bg-gray-100 text-gray-500'
+                    : 'bg-white/10 text-white/50'
                 }`}>
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -105,7 +105,7 @@ export default function FAQ() {
                   openIndex === index ? 'max-h-96' : 'max-h-0'
                 }`}
               >
-                <p className="px-5 sm:px-7 pb-5 sm:pb-7 text-gray-600 leading-relaxed text-[0.9375rem]">
+                <p className="px-5 sm:px-7 pb-5 sm:pb-7 text-white/60 leading-relaxed text-[0.9375rem]">
                   {faq.answer}
                 </p>
               </div>
@@ -115,7 +115,7 @@ export default function FAQ() {
 
         {/* Still have questions? */}
         <div className="animate-on-scroll mt-12 text-center">
-          <p className="text-gray-600 text-sm">
+          <p className="text-white/50 text-sm">
             Still have questions?{' '}
             <a
               href="mailto:jwjygpt0507@gmail.com"
