@@ -47,6 +47,16 @@ body {
   word-break: keep-all;
   background: #FAFBFF;
   color: #1f2937;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection in blog/content areas */
+.blog-prose,
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 /* Clickable elements */
