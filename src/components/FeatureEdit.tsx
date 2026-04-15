@@ -137,11 +137,11 @@ export default function FeatureEdit() {
                   }`}
                 >
                   <div className={`w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
-                    active === i ? 'bg-[#6090d4]/20 text-[#82aee0]' : 'bg-white/10 text-white/40'
+                    active === i ? 'bg-[#6090d4]/20 text-[#82aee0]' : 'bg-white/10 text-white/55'
                   }`}>
                     {f.icon}
                   </div>
-                  <span className={`text-[13px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/50'}`}>
+                  <span className={`text-[13px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/60'}`}>
                     {f.label}
                   </span>
                 </button>
@@ -160,15 +160,15 @@ export default function FeatureEdit() {
                   }`}
                 >
                   <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
-                    active === i ? 'bg-[#6090d4]/20 text-[#82aee0]' : 'bg-white/10 text-white/40'
+                    active === i ? 'bg-[#6090d4]/20 text-[#82aee0]' : 'bg-white/10 text-white/55'
                   }`}>
                     {f.icon}
                   </div>
                   <div className="min-w-0">
-                    <h4 className={`text-[14px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/50'}`}>
+                    <h4 className={`text-[14px] font-semibold transition-colors duration-300 ${active === i ? 'text-white' : 'text-white/60'}`}>
                       {f.label}
                     </h4>
-                    <p className={`text-[12px] leading-relaxed transition-colors duration-300 ${active === i ? 'text-white/50' : 'text-white/50'}`}>
+                    <p className={`text-[12px] leading-relaxed transition-colors duration-300 ${active === i ? 'text-white/60' : 'text-white/50'}`}>
                       {f.desc}
                     </p>
                   </div>

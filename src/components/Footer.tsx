@@ -21,25 +21,25 @@ export default function Footer() {
 
           {/* Links — single row */}
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-            <a href="/#features" className="text-white/50 hover:text-white transition-colors">Features</a>
-            <a href="/#faq" className="text-white/50 hover:text-white transition-colors">FAQ</a>
-            <Link href="/pricing" className="text-white/50 hover:text-white transition-colors">Pricing</Link>
-            <Link href="/releases" className="text-white/50 hover:text-white transition-colors">Releases</Link>
-            <Link href="/blog" className="text-white/50 hover:text-white transition-colors">Blog</Link>
+            <a href="/#features" className="text-white/60 hover:text-white transition-colors">Features</a>
+            <a href="/#faq" className="text-white/60 hover:text-white transition-colors">FAQ</a>
+            <Link href="/pricing" className="text-white/60 hover:text-white transition-colors">Pricing</Link>
+            <Link href="/releases" className="text-white/60 hover:text-white transition-colors">Releases</Link>
+            <Link href="/blog" className="text-white/60 hover:text-white transition-colors">Blog</Link>
           </nav>
         </div>
 
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-6 border-t border-white/10 gap-3">
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-white/55">
             &copy; {new Date().getFullYear()} Clipa. All rights reserved.
           </p>
           <div className="flex items-center gap-x-3 text-xs">
-            <Link href="/terms" className="text-white/40 hover:text-white transition-colors">Terms</Link>
+            <Link href="/terms" className="text-white/55 hover:text-white transition-colors">Terms</Link>
             <span className="text-white/20">&middot;</span>
-            <Link href="/privacy" className="text-white/40 hover:text-white transition-colors">Privacy</Link>
+            <Link href="/privacy" className="text-white/55 hover:text-white transition-colors">Privacy</Link>
             <span className="text-white/20">&middot;</span>
-            <Link href="/refund" className="text-white/40 hover:text-white transition-colors">Refund</Link>
+            <Link href="/refund" className="text-white/55 hover:text-white transition-colors">Refund</Link>
           </div>
         </div>
       </div>

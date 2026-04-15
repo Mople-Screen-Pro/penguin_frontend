@@ -120,7 +120,7 @@ export default function FeatureAIUpscale() {
               </svg>
             </div>
             <span className="text-[15px] font-semibold text-white block mb-1">3 AI Models</span>
-            <p className="text-[13px] text-white/50 leading-relaxed">
+            <p className="text-[13px] text-white/60 leading-relaxed">
               FSRCNN, ESPCN, Real-ESRGAN — choose between speed and quality for your export.
             </p>
           </div>
@@ -132,7 +132,7 @@ export default function FeatureAIUpscale() {
               </svg>
             </div>
             <span className="text-[15px] font-semibold text-white block mb-1">Apple Neural Engine</span>
-            <p className="text-[13px] text-white/50 leading-relaxed">
+            <p className="text-[13px] text-white/60 leading-relaxed">
               Powered by Core ML and ANE. Everything runs on your Mac — fast, efficient, and completely offline.
             </p>
           </div>
@@ -144,7 +144,7 @@ export default function FeatureAIUpscale() {
               </svg>
             </div>
             <span className="text-[15px] font-semibold text-white block mb-1">4x Resolution</span>
-            <p className="text-[13px] text-white/50 leading-relaxed">
+            <p className="text-[13px] text-white/60 leading-relaxed">
               Upscale from 720p up to 4K. Intelligent tiling ensures seamless, artifact-free results.
             </p>
           </div>

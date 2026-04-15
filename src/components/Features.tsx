@@ -381,7 +381,7 @@ export default function Features() {
                 className={`relative z-10 px-2 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-medium transition-colors duration-300 cursor-pointer outline-none focus:outline-none focus:ring-0 whitespace-nowrap ${
                   activeCategory === cat
                     ? 'text-white'
-                    : 'text-white/50 hover:text-white/70'
+                    : 'text-white/60 hover:text-white/80'
                 }`}
               >
                 {cat}
@@ -412,7 +412,7 @@ export default function Features() {
                 {/* Category label on first card of group */}
                 {idx === 0 && (
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-widest text-white/50">
+                    <span className="text-xs font-semibold uppercase tracking-widest text-white/60">
                       {group.name}
                     </span>
                     <div className="flex-1 h-px bg-white/10" />
@@ -447,7 +447,7 @@ export default function Features() {
                       </div>
                       <div className="min-w-0">
                         <h4 className="text-sm font-semibold text-white truncate">{video.label}</h4>
-                        <p className="text-xs text-white/50 truncate">{video.description}</p>
+                        <p className="text-xs text-white/60 truncate">{video.description}</p>
                       </div>
                     </div>
                   </div>
@@ -470,7 +470,7 @@ export default function Features() {
           </span>
           ?
         </h3>
-        <p className="text-white/50 mb-5 text-base">
+        <p className="text-white/60 mb-5 text-base">
           Free to download. No credit card required.
         </p>
         <a

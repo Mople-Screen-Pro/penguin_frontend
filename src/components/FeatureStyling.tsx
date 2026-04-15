@@ -106,7 +106,7 @@ export default function FeatureStyling() {
             Styling
           </span>
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">Add your <span className="text-[#60d490]">style</span> and <span className="text-[#60d490]">branding.</span></h2>
-          <p className="text-sm sm:text-base text-white/50 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
+          <p className="text-sm sm:text-base text-white/60 leading-[1.5] max-w-[50ch] mx-auto px-2">Pick a preset that matches your vibe — background, cursor, and effects applied instantly.</p>
         </div>
 
         {/* Main Preview — all 6 videos stacked, only active one visible */}
@@ -167,8 +167,8 @@ export default function FeatureStyling() {
                   </div>
                   {/* Card label */}
                   <div className="px-3 py-2.5 bg-white/5">
-                    <span className={`block text-[13px] font-semibold leading-none mb-1 transition-colors ${activeIdx === i ? 'text-white' : 'text-white/50'}`}>{preset.name}</span>
-                    <span className="block text-[11px] text-white/50 leading-none">{preset.description}</span>
+                    <span className={`block text-[13px] font-semibold leading-none mb-1 transition-colors ${activeIdx === i ? 'text-white' : 'text-white/60'}`}>{preset.name}</span>
+                    <span className="block text-[11px] text-white/60 leading-none">{preset.description}</span>
                   </div>
                 </button>
               ))}
@@ -190,8 +190,8 @@ export default function FeatureStyling() {
                     </div>
                   </div>
                   <div className="px-3 py-2.5 bg-white/5">
-                    <span className="block text-[13px] font-semibold leading-none mb-1 text-white/50">{ghost.name}</span>
-                    <span className="block text-[11px] text-white/50 leading-none">{ghost.desc}</span>
+                    <span className="block text-[13px] font-semibold leading-none mb-1 text-white/60">{ghost.name}</span>
+                    <span className="block text-[11px] text-white/60 leading-none">{ghost.desc}</span>
                   </div>
                 </div>
               ))}

@@ -23,7 +23,7 @@ export default function FinalCTA() {
         <h2 className="animate-on-scroll text-[28px] md:text-[48px] lg:text-[56px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
           Ready to make screen recording effortless?
         </h2>
-        <p className="animate-on-scroll text-base md:text-lg text-white/50 mb-10 max-w-lg mx-auto leading-relaxed">
+        <p className="animate-on-scroll text-base md:text-lg text-white/60 mb-10 max-w-lg mx-auto leading-relaxed">
           Download Clipa Studio for free. No account needed. No watermark. Just record, edit, and share.
         </p>
 
@@ -41,7 +41,7 @@ export default function FinalCTA() {
           </a>
         </div>
 
-        <p className="animate-on-scroll text-[13px] text-white/30">
+        <p className="animate-on-scroll text-[13px] text-white/50">
           macOS 15.0+ &middot; Apple Silicon optimized &middot; 100% offline
         </p>
       </div>

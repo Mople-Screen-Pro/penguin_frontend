@@ -93,7 +93,7 @@ export default function FAQ() {
                 <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-500 ${
                   openIndex === index
                     ? 'bg-primary-500 text-white rotate-180'
-                    : 'bg-white/10 text-white/50'
+                    : 'bg-white/10 text-white/60'
                 }`}>
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -115,7 +115,7 @@ export default function FAQ() {
 
         {/* Still have questions? */}
         <div className="animate-on-scroll mt-12 text-center">
-          <p className="text-white/50 text-sm">
+          <p className="text-white/60 text-sm">
             Still have questions?{' '}
             <a
               href="mailto:jwjygpt0507@gmail.com"

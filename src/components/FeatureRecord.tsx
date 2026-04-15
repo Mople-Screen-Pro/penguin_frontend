@@ -32,7 +32,7 @@ export default function FeatureRecord() {
           <h2 className="text-[28px] md:text-[48px] lg:text-[62px] font-[650] text-white leading-[1.1] tracking-tight mb-5">
             <span style={{ color: '#d46060' }}>Record it</span> your way.
           </h2>
-          <p className="text-sm sm:text-base text-white/50 leading-[1.5] max-w-[50ch] mx-auto px-2">
+          <p className="text-sm sm:text-base text-white/60 leading-[1.5] max-w-[50ch] mx-auto px-2">
             One floating panel. Four capture modes. No setup, no learning curve — just click and go.
           </p>
         </div>
@@ -43,12 +43,12 @@ export default function FeatureRecord() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-0">
             {highlights.map((h) => (
               <div key={h.label} className="glass-card flex items-start gap-3.5 p-5">
-                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 border-b-2 border-b-white/10 flex items-center justify-center text-white/50 flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 border-b-2 border-b-white/10 flex items-center justify-center text-white/60 flex-shrink-0">
                   {h.icon}
                 </div>
                 <div>
                   <span className="text-[14px] font-semibold text-white block mb-1">{h.label}</span>
-                  <p className="text-[13px] text-white/50 leading-relaxed">{h.desc}</p>
+                  <p className="text-[13px] text-white/60 leading-relaxed">{h.desc}</p>
                 </div>
               </div>
             ))}

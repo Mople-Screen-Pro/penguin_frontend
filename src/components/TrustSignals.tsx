@@ -57,11 +57,11 @@ export default function TrustSignals() {
               className="animate-on-scroll text-center p-5"
               data-delay={String(i * 0.06)}
             >
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 mx-auto mb-3">
+              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/55 mx-auto mb-3">
                 {signal.icon}
               </div>
               <h4 className="text-[14px] font-semibold text-white mb-1">{signal.title}</h4>
-              <p className="text-[12px] text-white/50 leading-relaxed">{signal.description}</p>
+              <p className="text-[12px] text-white/60 leading-relaxed">{signal.description}</p>
             </div>
           ))}
         </div>

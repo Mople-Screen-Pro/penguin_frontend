@@ -124,7 +124,7 @@ export default function HowItWorks() {
         <h2 className="text-center text-[28px] md:text-[48px] lg:text-[56px] font-[650] text-white leading-[1.1] tracking-tight mb-4">
           Three steps. That&apos;s it.
         </h2>
-        <p className="text-center text-sm sm:text-base text-white/50 mb-10 md:mb-14 max-w-lg mx-auto">
+        <p className="text-center text-sm sm:text-base text-white/60 mb-10 md:mb-14 max-w-lg mx-auto">
           From screen to polished video in minutes — no tool-switching, no learning curve.
         </p>
 
@@ -181,7 +181,7 @@ export default function HowItWorks() {
                       <h3 className="text-base md:text-2xl font-bold text-white mb-1.5 md:mb-3">{step.title}</h3>
                       <ul className="space-y-1 md:space-y-2">
                         {step.features.map((feat) => (
-                          <li key={feat} className="flex items-start gap-1.5 md:gap-2.5 text-[11px] md:text-[14px] text-white/50 leading-relaxed">
+                          <li key={feat} className="flex items-start gap-1.5 md:gap-2.5 text-[11px] md:text-[14px] text-white/60 leading-relaxed">
                             <svg className="w-3 h-3 md:w-4 md:h-4 text-primary-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                             </svg>
