@@ -23,8 +23,8 @@ export default function ActiveDeviceSection() {
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-gray-200 bg-gray-50 backdrop-blur-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Active Device</h2>
+      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+        <h2 className="text-lg font-semibold text-white mb-4">Active Device</h2>
         <div className="flex items-center justify-center py-4">
           <div className="w-5 h-5 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />
         </div>
@@ -34,34 +34,34 @@ export default function ActiveDeviceSection() {
 
   return (
     <>
-      <div className="rounded-2xl border border-gray-200 bg-gray-50 backdrop-blur-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Active Device</h2>
+      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+        <h2 className="text-lg font-semibold text-white mb-4">Active Device</h2>
 
         {device ? (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
-                <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center">
+                <svg className="w-5 h-5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" />
                 </svg>
               </div>
               <div>
-                <p className="font-medium text-gray-900">{device.device_name}</p>
-                <p className="text-xs text-gray-500">
+                <p className="font-medium text-white">{device.device_name}</p>
+                <p className="text-xs text-white/50">
                   Activated {formatDate(device.activated_at)}
                 </p>
               </div>
             </div>
             <button
               onClick={() => setModalOpen(true)}
-              className="px-3 py-1.5 text-sm text-red-400 hover:bg-red-500/5 rounded-lg transition-colors"
+              className="px-3 py-1.5 text-sm text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
             >
               Deactivate
             </button>
           </div>
         ) : (
-          <div className="rounded-xl bg-gray-50 p-4">
-            <p className="text-sm text-gray-500">
+          <div className="rounded-xl bg-white/[0.03] border border-white/10 p-4">
+            <p className="text-sm text-white/50">
               No active device. Export from the Clipa Mac app to activate a device.
             </p>
           </div>
