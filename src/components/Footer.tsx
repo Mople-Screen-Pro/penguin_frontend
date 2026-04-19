@@ -24,7 +24,7 @@ export default function Footer() {
             <a href="/#features" className="text-white/60 hover:text-white transition-colors">Features</a>
             <a href="/#faq" className="text-white/60 hover:text-white transition-colors">FAQ</a>
             <Link href="/pricing" className="text-white/60 hover:text-white transition-colors">Pricing</Link>
-            <Link href="/releases" className="text-white/60 hover:text-white transition-colors">Releases</Link>
+            <Link href="/releases" className="text-white/60 hover:text-white transition-colors">Changelog</Link>
             <Link href="/blog" className="text-white/60 hover:text-white transition-colors">Blog</Link>
           </nav>
         </div>

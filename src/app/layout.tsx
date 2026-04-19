@@ -5,11 +5,11 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Clipa - Screen Recording, Reimagined. Auto Cursor Zoom for Mac.',
+    default: 'Clipa — Easy to Record. Easy to Edit. Easy to Share.',
     template: '%s | Clipa',
   },
   description:
-    'Clipa auto-zooms to your cursor in real time — making every tutorial look professionally edited. Half the price, zero effort. Download free for macOS.',
+    'Make your videos look professional — no editing skills required. Record, edit, and share polished screen videos in minutes. Grow your audience effortlessly. Free for Mac.',
   authors: [{ name: 'Clipa' }],
   applicationName: 'Clipa',
   metadataBase: new URL('https://www.clipa.studio'),
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://www.clipa.studio',
-    title: 'Clipa - Screen Recording, Reimagined.',
+    title: 'Easy to Record. Easy to Edit. Easy to Share. — Clipa',
     description:
-      'Auto-zooms to your cursor in real time. Pro-quality tutorials with zero editing. Free for macOS.',
+      'Make your videos look professional — no editing skills required. Record, edit, and share polished screen videos in minutes. Grow your audience effortlessly. Free for Mac.',
     images: [
       {
         url: '/images/og-image.png',
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Clipa - Screen Recording, Reimagined.',
+    title: 'Easy to Record. Easy to Edit. Easy to Share. — Clipa',
     description:
-      'Auto-zooms to your cursor in real time. Pro-quality tutorials with zero editing. Free for macOS.',
+      'Make your videos look professional — no editing skills required. Record, edit, and share polished screen videos in minutes. Grow your audience effortlessly. Free for Mac.',
     images: ['/images/og-image.png'],
   },
   robots: {
