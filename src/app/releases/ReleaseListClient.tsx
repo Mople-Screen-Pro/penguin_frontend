@@ -18,39 +18,93 @@ function formatDate(dateString: string): string {
   })
 }
 
-function ReleaseEntry({ release, isLatest, isAdmin }: { release: Release; isLatest: boolean; isAdmin: boolean }) {
+function ReleaseMeta({ release, isLatest }: { release: Release; isLatest?: boolean }) {
   return (
-    <div className="relative pl-8 md:pl-12 pb-12 last:pb-0 group">
-      {/* Timeline line */}
-      <div className="absolute left-[7px] md:left-[11px] top-3 bottom-0 w-px bg-white/10 group-last:hidden" />
+    <div className="flex items-center gap-3 flex-wrap">
+      {release.published_at && (
+        <time className="text-sm text-white/50">
+          {formatDate(release.published_at)}
+        </time>
+      )}
+      {isLatest && (
+        <span className="inline-flex items-center rounded-full bg-primary-500/10 px-2.5 py-0.5 text-xs font-medium text-primary-400 ring-1 ring-inset ring-primary-500/20">
+          Latest
+        </span>
+      )}
+      {!release.published && (
+        <span className="inline-flex items-center rounded-full bg-yellow-500/10 px-2.5 py-0.5 text-xs font-medium text-yellow-400 ring-1 ring-inset ring-yellow-500/20">
+          Draft
+        </span>
+      )}
+    </div>
+  )
+}
 
-      {/* Timeline dot */}
-      <div
-        className={`absolute left-0 md:left-1 top-[6px] w-[15px] h-[15px] rounded-full border-2 ${
-          isLatest
-            ? 'border-primary-500 bg-primary-500 shadow-md shadow-primary-500/30'
-            : 'border-white/20 bg-white/10'
-        }`}
-      />
+function LatestRelease({ release, isAdmin }: { release: Release; isAdmin: boolean }) {
+  return (
+    <section className="glass-card-static !rounded-2xl p-6 md:p-8">
+      <div className="mb-5">
+        <ReleaseMeta release={release} isLatest />
+      </div>
 
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-3 flex-wrap">
-        <h2 className="text-xl md:text-2xl font-bold text-white">
+      <Link href={`/releases/${release.slug}`} className="group block">
+        <h2 className="text-3xl md:text-4xl font-bold text-white group-hover:text-primary-300 transition-colors mb-3 leading-tight tracking-tight">
           v{release.version}
         </h2>
-        <span className="text-sm text-white/50">
+        <p className="text-base md:text-lg text-white/50 leading-relaxed">
           {release.title}
-        </span>
-        {isLatest && (
-          <span className="inline-flex items-center rounded-full bg-primary-500/10 px-2.5 py-0.5 text-xs font-medium text-primary-400 ring-1 ring-inset ring-primary-500/20">
-            Latest
-          </span>
+        </p>
+      </Link>
+
+      <article className="blog-prose mt-8">
+        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{release.content}</ReactMarkdown>
+      </article>
+
+      <div className="flex flex-wrap items-center gap-4 mt-8 pt-6 border-t border-white/10">
+        <Link
+          href={`/releases/${release.slug}`}
+          className="btn-block-ghost btn-block-sm"
+        >
+          View details
+        </Link>
+        {isAdmin && (
+          <Link
+            href={`/releases/${release.slug}/edit`}
+            className="text-sm text-white/40 hover:text-primary-400 transition-colors"
+          >
+            Edit
+          </Link>
         )}
-        {!release.published && (
-          <span className="inline-flex items-center rounded-full bg-yellow-500/10 px-2.5 py-0.5 text-xs font-medium text-yellow-400 ring-1 ring-inset ring-yellow-500/20">
-            Draft
+      </div>
+    </section>
+  )
+}
+
+function ReleaseListItem({ release, isAdmin }: { release: Release; isAdmin: boolean }) {
+  return (
+    <div className="group flex items-center gap-4 px-5 py-4 hover:bg-white/[0.03] transition-colors">
+      <Link href={`/releases/${release.slug}`} className="group min-w-0 flex-1">
+        <div className="flex items-center gap-3 mb-2 flex-wrap">
+          <span className="text-base font-semibold text-white group-hover:text-primary-300 transition-colors">
+            v{release.version}
           </span>
+          <span className="min-w-0 text-sm text-white/60 truncate">
+            {release.title}
+          </span>
+          {!release.published && (
+            <span className="inline-flex items-center rounded-full bg-yellow-500/10 px-2 py-0.5 text-xs font-medium text-yellow-400 ring-1 ring-inset ring-yellow-500/20">
+              Draft
+            </span>
+          )}
+        </div>
+        {release.published_at && (
+          <time className="block text-xs text-white/40">
+            {formatDate(release.published_at)}
+          </time>
         )}
+      </Link>
+
+      <div className="flex shrink-0 items-center gap-4">
         {isAdmin && (
           <Link
             href={`/releases/${release.slug}/edit`}
@@ -59,18 +113,14 @@ function ReleaseEntry({ release, isLatest, isAdmin }: { release: Release; isLate
             Edit
           </Link>
         )}
+        <Link
+          href={`/releases/${release.slug}`}
+          aria-label={`View release v${release.version}`}
+          className="text-white/30 group-hover:text-primary-300 transition-colors"
+        >
+          &rarr;
+        </Link>
       </div>
-
-      {release.published_at && (
-        <time className="block text-sm text-white/50 mb-4">
-          {formatDate(release.published_at)}
-        </time>
-      )}
-
-      {/* Content */}
-      <article className="blog-prose">
-        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{release.content}</ReactMarkdown>
-      </article>
     </div>
   )
 }
@@ -94,6 +144,9 @@ export default function ReleaseListClient() {
     }
     fetchReleases()
   }, [isAdmin])
+
+  const latestRelease = releases[0]
+  const previousReleases = releases.slice(1)
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0C0C14]">
@@ -134,19 +187,33 @@ export default function ReleaseListClient() {
             </svg>
             <p className="text-white/50 text-sm">No releases yet.</p>
           </div>
-        ) : (
-          <div>
-            {releases.map((release, index) => (
-              <div key={release.id} className="animate-on-load" style={{ animationDelay: `${0.1 + Math.min(index * 0.06, 0.3)}s` }}>
-                <ReleaseEntry
-                  release={release}
-                  isLatest={index === 0}
-                  isAdmin={isAdmin}
-                />
-              </div>
-            ))}
+        ) : latestRelease ? (
+          <div className="space-y-12">
+            <div className="animate-on-load">
+              <LatestRelease release={latestRelease} isAdmin={isAdmin} />
+            </div>
+
+            {previousReleases.length > 0 && (
+              <section className="animate-on-load" style={{ animationDelay: '0.16s' }}>
+                <div className="flex items-end justify-between gap-4 mb-5">
+                  <div>
+                    <h2 className="text-xl font-bold text-white">Previous releases</h2>
+                    <p className="text-sm text-white/45 mt-1">Browse earlier updates and fixes.</p>
+                  </div>
+                </div>
+                <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] divide-y divide-white/10">
+                  {previousReleases.map((release) => (
+                    <ReleaseListItem
+                      key={release.id}
+                      release={release}
+                      isAdmin={isAdmin}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
-        )}
+        ) : null}
       </main>
       <Footer />
     </div>
