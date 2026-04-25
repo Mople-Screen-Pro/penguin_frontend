@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { supabase } from '../../../lib/supabase'
 import ReleaseDetailClient from './ReleaseDetailClient'
 
@@ -39,6 +40,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function ReleaseDetailPage() {
-  return <ReleaseDetailClient />
+export default async function ReleaseDetailPage({ params }: Props) {
+  const { slug } = await params
+
+  const { data: release } = await supabase
+    .from('releases')
+    .select('*')
+    .eq('slug', slug)
+    .eq('published', true)
+    .single()
+
+  if (!release) {
+    notFound()
+  }
+
+  return <ReleaseDetailClient release={release} />
 }

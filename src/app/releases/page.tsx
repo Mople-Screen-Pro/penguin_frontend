@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
+import { getPublishedReleases } from '../../lib/releases'
 import ReleaseListClient from './ReleaseListClient'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Releases',
@@ -7,6 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/releases' },
 }
 
-export default function ReleasesPage() {
-  return <ReleaseListClient />
+export default async function ReleasesPage() {
+  const releases = await getPublishedReleases()
+
+  return <ReleaseListClient initialReleases={releases} />
 }

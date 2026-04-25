@@ -7,7 +7,7 @@ import rehypeRaw from 'rehype-raw'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import { useAdmin } from '../../hooks/useAdmin'
-import { getPublishedReleases, getAllReleases } from '../../lib/releases'
+import { getAllReleases } from '../../lib/releases'
 import type { Release } from '../../lib/releases'
 
 function formatDate(dateString: string): string {
@@ -125,16 +125,26 @@ function ReleaseListItem({ release, isAdmin }: { release: Release; isAdmin: bool
   )
 }
 
-export default function ReleaseListClient() {
+interface ReleaseListClientProps {
+  initialReleases: Release[]
+}
+
+export default function ReleaseListClient({ initialReleases }: ReleaseListClientProps) {
   const { isAdmin } = useAdmin()
-  const [releases, setReleases] = useState<Release[]>([])
-  const [loading, setLoading] = useState(true)
+  const [releases, setReleases] = useState<Release[]>(initialReleases)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    if (!isAdmin) {
+      setReleases(initialReleases)
+      setLoading(false)
+      return
+    }
+
     async function fetchReleases() {
       setLoading(true)
       try {
-        const data = isAdmin ? await getAllReleases() : await getPublishedReleases()
+        const data = await getAllReleases()
         setReleases(data)
       } catch (err) {
         console.error('Failed to fetch releases:', err)
@@ -143,7 +153,7 @@ export default function ReleaseListClient() {
       }
     }
     fetchReleases()
-  }, [isAdmin])
+  }, [initialReleases, isAdmin])
 
   const latestRelease = releases[0]
   const previousReleases = releases.slice(1)

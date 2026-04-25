@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 import { useAdmin } from '../../hooks/useAdmin'
-import { getPublishedPosts, getAllPosts } from '../../lib/blog'
+import { getAllPosts } from '../../lib/blog'
 import type { BlogPost } from '../../lib/blog'
 
 function formatDate(dateString: string): string {
@@ -98,16 +98,26 @@ function PostCard({ post }: { post: BlogPost }) {
   )
 }
 
-export default function BlogListClient() {
+interface BlogListClientProps {
+  initialPosts: BlogPost[]
+}
+
+export default function BlogListClient({ initialPosts }: BlogListClientProps) {
   const { isAdmin } = useAdmin()
-  const [posts, setPosts] = useState<BlogPost[]>([])
-  const [loading, setLoading] = useState(true)
+  const [posts, setPosts] = useState<BlogPost[]>(initialPosts)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    if (!isAdmin) {
+      setPosts(initialPosts)
+      setLoading(false)
+      return
+    }
+
     async function fetchPosts() {
       setLoading(true)
       try {
-        const data = isAdmin ? await getAllPosts() : await getPublishedPosts()
+        const data = await getAllPosts()
         setPosts(data)
       } catch (err) {
         console.error('Failed to fetch posts:', err)
@@ -116,7 +126,7 @@ export default function BlogListClient() {
       }
     }
     fetchPosts()
-  }, [isAdmin])
+  }, [initialPosts, isAdmin])
 
   const heroPost = posts[0]
   const restPosts = posts.slice(1)

@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
+import { getPublishedPosts } from '../../lib/blog'
 import BlogListClient from './BlogListClient'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -7,6 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/blog' },
 }
 
-export default function BlogPage() {
-  return <BlogListClient />
+export default async function BlogPage() {
+  const posts = await getPublishedPosts()
+
+  return <BlogListClient initialPosts={posts} />
 }

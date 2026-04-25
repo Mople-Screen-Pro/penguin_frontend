@@ -1,47 +1,24 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import { useAdmin } from '../../../hooks/useAdmin'
-import { getReleaseBySlug, deleteRelease } from '../../../lib/releases'
+import { deleteRelease } from '../../../lib/releases'
 import type { Release } from '../../../lib/releases'
 
-export default function ReleaseDetailClient() {
-  const { slug } = useParams<{ slug: string }>()
+interface ReleaseDetailClientProps {
+  release: Release
+}
+
+export default function ReleaseDetailClient({ release }: ReleaseDetailClientProps) {
   const router = useRouter()
   const { isAdmin } = useAdmin()
-  const [release, setRelease] = useState<Release | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [notFound, setNotFound] = useState(false)
-
-  useEffect(() => {
-    if (!slug) return
-
-    async function fetchRelease() {
-      try {
-        const data = await getReleaseBySlug(slug as string)
-        if (!data) {
-          setNotFound(true)
-        } else {
-          setRelease(data)
-        }
-      } catch {
-        setNotFound(true)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchRelease()
-  }, [slug])
 
   const handleDelete = async () => {
-    if (!release) return
     const confirmed = window.confirm('Are you sure you want to delete this release?')
     if (!confirmed) return
 
@@ -52,40 +29,6 @@ export default function ReleaseDetailClient() {
       console.error('Failed to delete release:', error)
       alert('Failed to delete the release.')
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col bg-[#0C0C14]">
-        <Header />
-        <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
-          <div className="flex flex-col items-center justify-center py-20">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4" />
-            <p className="text-white/50 text-sm">Loading...</p>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    )
-  }
-
-  if (notFound || !release) {
-    return (
-      <div className="min-h-screen flex flex-col bg-[#0C0C14]">
-        <Header />
-        <main className="max-w-3xl mx-auto pt-28 pb-16 px-4 flex-grow w-full">
-          <h1 className="text-2xl font-bold text-white mb-4">404 - Release Not Found</h1>
-          <p className="text-white/50 mb-6">The release you are looking for does not exist.</p>
-          <Link
-            href="/releases"
-            className="text-primary-400 hover:text-primary-300 font-medium"
-          >
-            &larr; Back to Releases
-          </Link>
-        </main>
-        <Footer />
-      </div>
-    )
   }
 
   return (
