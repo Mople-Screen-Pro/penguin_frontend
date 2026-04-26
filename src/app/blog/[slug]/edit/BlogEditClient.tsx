@@ -188,7 +188,7 @@ export default function BlogEditClient() {
         published,
         published_at: publishedAt,
       })
-      router.push(`/blog/${slug}`)
+      router.push(published ? `/blog/${slug}` : `/blog/${slug}/edit`)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to update post')
     } finally {
@@ -324,7 +324,7 @@ export default function BlogEditClient() {
             >
               {submitting ? 'Saving...' : 'Save Changes'}
             </button>
-            <Link href={`/blog/${slug}`} className="text-gray-500 hover:text-gray-900 font-medium transition-colors">
+            <Link href={post.published ? `/blog/${slug}` : '/blog'} className="text-gray-500 hover:text-gray-900 font-medium transition-colors">
               Cancel
             </Link>
           </div>

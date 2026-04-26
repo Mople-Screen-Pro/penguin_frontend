@@ -16,10 +16,15 @@ function formatDate(dateString: string): string {
   })
 }
 
-function HeroCard({ post }: { post: BlogPost }) {
+function getPostHref(post: BlogPost, isAdmin: boolean): string {
+  if (isAdmin && !post.published) return `/blog/${post.slug}/edit`
+  return `/blog/${post.slug}`
+}
+
+function HeroCard({ post, isAdmin }: { post: BlogPost; isAdmin: boolean }) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={getPostHref(post, isAdmin)}
       className="group block glass-card-static !rounded-2xl overflow-hidden hover:!border-primary-400/30"
     >
       {post.cover_image_url && (
@@ -57,10 +62,10 @@ function HeroCard({ post }: { post: BlogPost }) {
   )
 }
 
-function PostCard({ post }: { post: BlogPost }) {
+function PostCard({ post, isAdmin }: { post: BlogPost; isAdmin: boolean }) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={getPostHref(post, isAdmin)}
       className="group block glass-card-static !rounded-2xl overflow-hidden hover:!border-primary-400/30 hover:-translate-y-1 transition-all duration-200"
     >
       {post.cover_image_url && (
@@ -173,7 +178,7 @@ export default function BlogListClient({ initialPosts }: BlogListClientProps) {
           <div className="space-y-10">
             {heroPost && (
               <div className="animate-on-load">
-                <HeroCard post={heroPost} />
+                <HeroCard post={heroPost} isAdmin={isAdmin} />
               </div>
             )}
 
@@ -181,7 +186,7 @@ export default function BlogListClient({ initialPosts }: BlogListClientProps) {
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {restPosts.map((post, i) => (
                   <div key={post.id} className="animate-on-load" style={{ animationDelay: `${0.1 + i * 0.06}s` }}>
-                    <PostCard post={post} />
+                    <PostCard post={post} isAdmin={isAdmin} />
                   </div>
                 ))}
               </div>

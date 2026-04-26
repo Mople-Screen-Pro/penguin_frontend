@@ -137,7 +137,7 @@ export default function BlogEditorClient() {
         published_at: published ? new Date().toISOString() : null,
         author_id: user.id,
       })
-      router.push(`/blog/${post.slug}`)
+      router.push(post.published ? `/blog/${post.slug}` : `/blog/${post.slug}/edit`)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to create post')
     } finally {
