@@ -465,57 +465,27 @@ h1, h2, .heading-xl, .heading-lg {
   width: 100%;
   margin: 2rem 0;
   overflow-x: auto;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  font-size: 0.9rem;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
   line-height: 1.6;
-  background: rgba(255, 255, 255, 0.025);
 }
 
 .blog-prose th,
 .blog-prose td {
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.75rem 1rem;
   text-align: left;
   vertical-align: top;
 }
 
-.blog-prose th:last-child,
-.blog-prose td:last-child {
-  border-right: 0;
-}
-
 .blog-prose th {
-  background: rgba(168, 85, 247, 0.14);
+  background: rgba(255, 255, 255, 0.06);
   color: #ffffff;
   font-weight: 600;
 }
 
-.blog-prose th:first-child {
-  border-top-left-radius: 11px;
-}
-
-.blog-prose th:last-child {
-  border-top-right-radius: 11px;
-}
-
 .blog-prose tr:nth-child(even) td {
-  background: rgba(255, 255, 255, 0.035);
-}
-
-.blog-prose tr:last-child td {
-  border-bottom: 0;
-}
-
-.blog-prose tr:last-child td:first-child {
-  border-bottom-left-radius: 11px;
-}
-
-.blog-prose tr:last-child td:last-child {
-  border-bottom-right-radius: 11px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .blog-prose img {
