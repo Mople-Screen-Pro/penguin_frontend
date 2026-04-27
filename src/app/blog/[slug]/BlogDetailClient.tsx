@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
@@ -7,18 +8,52 @@ import rehypeRaw from 'rehype-raw'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import { useAdmin } from '../../../hooks/useAdmin'
-import { deletePost } from '../../../lib/blog'
+import { deletePost, getPostBySlug } from '../../../lib/blog'
 import type { BlogPost } from '../../../lib/blog'
 
 interface BlogDetailClientProps {
-  post: BlogPost
+  initialPost: BlogPost | null
+  slug: string
 }
 
-export default function BlogDetailClient({ post }: BlogDetailClientProps) {
+export default function BlogDetailClient({ initialPost, slug }: BlogDetailClientProps) {
   const router = useRouter()
-  const { isAdmin } = useAdmin()
+  const { isAdmin, loading: adminLoading } = useAdmin()
+  const [post, setPost] = useState<BlogPost | null>(initialPost)
+  const [loadingPost, setLoadingPost] = useState(!initialPost)
+
+  useEffect(() => {
+    if (initialPost) {
+      setPost(initialPost)
+      setLoadingPost(false)
+      return
+    }
+
+    if (adminLoading) return
+    if (!isAdmin) {
+      setLoadingPost(false)
+      return
+    }
+
+    async function fetchDraftPost() {
+      setLoadingPost(true)
+      try {
+        const data = await getPostBySlug(slug)
+        setPost(data)
+      } catch (error) {
+        console.error('Failed to load draft post:', error)
+        setPost(null)
+      } finally {
+        setLoadingPost(false)
+      }
+    }
+
+    fetchDraftPost()
+  }, [adminLoading, initialPost, isAdmin, slug])
 
   const handleDelete = async () => {
+    if (!post) return
+
     const confirmed = window.confirm('Are you sure you want to delete this post?')
     if (!confirmed) return
 
@@ -29,6 +64,37 @@ export default function BlogDetailClient({ post }: BlogDetailClientProps) {
       console.error('Failed to delete post:', error)
       alert('Failed to delete the post.')
     }
+  }
+
+  if (loadingPost || (!initialPost && adminLoading)) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#0C0C14]">
+        <Header />
+        <main className="relative z-10 max-w-3xl mx-auto pt-28 pb-20 px-4 flex-grow w-full">
+          <p className="text-white/50">Loading post...</p>
+        </main>
+        <Footer />
+      </div>
+    )
+  }
+
+  if (!post) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#0C0C14]">
+        <Header />
+        <main className="relative z-10 max-w-3xl mx-auto pt-28 pb-20 px-4 flex-grow w-full">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1 text-white/50 hover:text-primary-400 font-medium mb-10 transition-colors"
+          >
+            &larr; Back to Blog
+          </Link>
+          <h1 className="text-3xl font-bold text-white mb-4">Post not found</h1>
+          <p className="text-white/50">This post is not available.</p>
+        </main>
+        <Footer />
+      </div>
+    )
   }
 
   return (

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
 import { supabase } from '../../../lib/supabase'
 import BlogDetailClient from './BlogDetailClient'
 
@@ -49,13 +48,9 @@ export default async function BlogDetailPage({ params }: Props) {
     .select('*')
     .eq('slug', slug)
     .eq('published', true)
-    .single()
+    .maybeSingle()
 
-  if (!post) {
-    notFound()
-  }
-
-  const articleJsonLd = {
+  const articleJsonLd = post ? {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
@@ -80,15 +75,17 @@ export default async function BlogDetailPage({ params }: Props) {
       '@type': 'WebPage',
       '@id': `https://www.clipa.studio/blog/${slug}`,
     },
-  }
+  } : null
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
-      />
-      <BlogDetailClient post={post} />
+      {articleJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        />
+      )}
+      <BlogDetailClient initialPost={post} slug={slug} />
     </>
   )
 }
