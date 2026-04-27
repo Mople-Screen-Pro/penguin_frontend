@@ -460,6 +460,34 @@ h1, h2, .heading-xl, .heading-lg {
   margin: 3rem 0;
 }
 
+.blog-prose table {
+  display: block;
+  width: 100%;
+  margin: 2rem 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.blog-prose th,
+.blog-prose td {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.blog-prose th {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.blog-prose tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
 .blog-prose img {
   border-radius: 12px;
   margin: 2rem 0;

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
+import remarkGfm from 'remark-gfm'
 import Header from '../../../components/Header'
 import Footer from '../../../components/Footer'
 import { useAdmin } from '../../../hooks/useAdmin'
@@ -146,7 +147,9 @@ export default function BlogDetailClient({ initialPost, slug }: BlogDetailClient
         )}
 
         <article className="blog-prose">
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{post.content}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+            {post.content}
+          </ReactMarkdown>
         </article>
 
         {isAdmin && (
