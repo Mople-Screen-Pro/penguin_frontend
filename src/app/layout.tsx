@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Providers from '../components/Providers'
 import GoogleAnalytics from '../components/GoogleAnalytics'
+import MicrosoftClarity from '../components/MicrosoftClarity'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -132,6 +133,7 @@ export default function RootLayout({
       <body className="grain">
         <Providers>{children}</Providers>
         <GoogleAnalytics />
+        <MicrosoftClarity />
       </body>
     </html>
   )
