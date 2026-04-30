@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
 import { supabase } from '../../../lib/supabase'
+import type { Release } from '../../../lib/releases'
 import ReleaseDetailClient from './ReleaseDetailClient'
 
 interface Props {
@@ -15,11 +15,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .select('version, title')
     .eq('slug', slug)
     .eq('published', true)
-    .single()
+    .maybeSingle()
 
   if (!release) {
     return {
       title: 'Release Not Found',
+      robots: {
+        index: false,
+        follow: false,
+      },
     }
   }
 
@@ -48,11 +52,7 @@ export default async function ReleaseDetailPage({ params }: Props) {
     .select('*')
     .eq('slug', slug)
     .eq('published', true)
-    .single()
+    .maybeSingle()
 
-  if (!release) {
-    notFound()
-  }
-
-  return <ReleaseDetailClient release={release} />
+  return <ReleaseDetailClient initialRelease={release as Release | null} slug={slug} />
 }
