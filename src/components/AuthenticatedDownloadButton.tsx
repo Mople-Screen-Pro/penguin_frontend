@@ -1,10 +1,15 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../contexts/AuthContext'
 import { analytics } from '../lib/analytics'
-import { buildDownloadUrl } from '../lib/download'
+import {
+  DOWNLOAD_FEEDBACK_EVENT,
+  DOWNLOAD_FEEDBACK_STORAGE_KEY,
+  startDownload,
+  type DownloadFeedbackDetail,
+} from '../lib/startDownload'
 
 type AnalyticsLocation = 'header' | 'hero' | 'cta' | 'mobile_menu'
 
@@ -16,6 +21,39 @@ interface AuthenticatedDownloadButtonProps {
   onBeforeNavigate?: () => void
 }
 
+const clearDownloadFeedback = () => {
+  try {
+    sessionStorage.removeItem(DOWNLOAD_FEEDBACK_STORAGE_KEY)
+  } catch {
+    // Storage may be unavailable in restricted browser modes.
+  }
+}
+
+const parseDownloadFeedback = (location: string): DownloadFeedbackDetail | null => {
+  try {
+    const raw = sessionStorage.getItem(DOWNLOAD_FEEDBACK_STORAGE_KEY)
+    if (!raw) return null
+
+    const detail = JSON.parse(raw) as Partial<DownloadFeedbackDetail>
+    if (typeof detail.expiresAt !== 'number') return null
+
+    if (detail.expiresAt <= Date.now()) {
+      clearDownloadFeedback()
+      return null
+    }
+
+    if (detail.location && detail.location !== location) return null
+
+    return {
+      location: detail.location,
+      expiresAt: detail.expiresAt,
+    }
+  } catch {
+    clearDownloadFeedback()
+    return null
+  }
+}
+
 export default function AuthenticatedDownloadButton({
   children,
   className,
@@ -25,20 +63,51 @@ export default function AuthenticatedDownloadButton({
 }: AuthenticatedDownloadButtonProps) {
   const { user, loading } = useAuth()
   const router = useRouter()
+  const [downloadFeedbackExpiresAt, setDownloadFeedbackExpiresAt] = useState<number | null>(null)
+  const isPreparingDownload = downloadFeedbackExpiresAt !== null
+
+  useEffect(() => {
+    const applyFeedback = (detail: DownloadFeedbackDetail | null) => {
+      if (!detail || detail.expiresAt <= Date.now()) return
+      if (detail.location && detail.location !== location) return
+      setDownloadFeedbackExpiresAt(detail.expiresAt)
+    }
+
+    applyFeedback(parseDownloadFeedback(location))
+
+    const handleFeedback = (event: Event) => {
+      applyFeedback((event as CustomEvent<DownloadFeedbackDetail>).detail)
+    }
+
+    window.addEventListener(DOWNLOAD_FEEDBACK_EVENT, handleFeedback)
+    return () => window.removeEventListener(DOWNLOAD_FEEDBACK_EVENT, handleFeedback)
+  }, [location])
+
+  useEffect(() => {
+    if (!downloadFeedbackExpiresAt) return
+
+    const remainingMs = Math.max(downloadFeedbackExpiresAt - Date.now(), 0)
+    const timeout = window.setTimeout(() => {
+      setDownloadFeedbackExpiresAt(null)
+      parseDownloadFeedback(location)
+    }, remainingMs)
+
+    return () => window.clearTimeout(timeout)
+  }, [downloadFeedbackExpiresAt, location])
 
   const handleClick = () => {
-    const referrer = document.referrer || '직접 접속'
+    if (loading || isPreparingDownload) return
+
+    const referrer = document.referrer || 'Direct visit'
 
     if (analyticsLocation) {
       analytics.downloadClick(analyticsLocation)
     }
 
-    if (loading) return
-
     onBeforeNavigate?.()
 
     if (user) {
-      window.location.assign(buildDownloadUrl(location, referrer))
+      startDownload(location, referrer)
       return
     }
 
@@ -53,11 +122,17 @@ export default function AuthenticatedDownloadButton({
     <button
       type="button"
       onClick={handleClick}
-      disabled={loading}
-      className={className}
-      aria-label="Download Clipa Studio for Mac"
+      disabled={loading || isPreparingDownload}
+      className={`${className} ${isPreparingDownload ? 'btn-download-pending' : ''}`}
+      aria-label={isPreparingDownload ? 'Preparing Clipa Studio download' : 'Download Clipa Studio for Mac'}
+      aria-busy={isPreparingDownload}
     >
-      {children}
+      {isPreparingDownload ? (
+        <>
+          <span className="h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" />
+          <span>Preparing download...</span>
+        </>
+      ) : children}
     </button>
   )
 }

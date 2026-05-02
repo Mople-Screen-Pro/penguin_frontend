@@ -10,6 +10,7 @@ import { startDownload } from '../../../lib/startDownload'
 export default function AuthCallbackClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const from = searchParams.get('from')
 
   useEffect(() => {
     const handleCallback = async () => {
@@ -40,7 +41,6 @@ export default function AuthCallbackClient() {
 
       const data = { session }
 
-      const from = searchParams.get('from')
       const state = searchParams.get('state') || ''
       const user = data.session.user
 
@@ -65,7 +65,7 @@ export default function AuthCallbackClient() {
         router.replace('/pricing')
       } else if (from === 'download') {
         const downloadLocation = sessionStorage.getItem('clipa:pendingDownloadLocation') || searchParams.get('location') || 'login'
-        const downloadReferrer = sessionStorage.getItem('clipa:pendingDownloadReferrer') || searchParams.get('referrer') || '직접 접속'
+        const downloadReferrer = sessionStorage.getItem('clipa:pendingDownloadReferrer') || searchParams.get('referrer') || 'Direct visit'
         startDownload(downloadLocation, downloadReferrer)
         sessionStorage.removeItem('clipa:pendingDownloadLocation')
         sessionStorage.removeItem('clipa:pendingDownloadReferrer')
@@ -77,13 +77,17 @@ export default function AuthCallbackClient() {
     }
 
     handleCallback()
-  }, [router, searchParams])
+  }, [from, router, searchParams])
+
+  const isFromDownload = from === 'download'
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-[#0C0C14]">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
-        <p className="text-gray-600">로그인 처리 중...</p>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4"></div>
+        <p className="text-white/50">
+          {isFromDownload ? 'Signed in. Preparing your download...' : 'Signing you in...'}
+        </p>
       </div>
     </div>
   )

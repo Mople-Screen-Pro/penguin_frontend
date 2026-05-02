@@ -15,11 +15,15 @@ export default function LoginClient() {
   const from = searchParams.get('from') || undefined
   const state = searchParams.get('state') || undefined
   const downloadLocation = searchParams.get('location') || 'login'
-  const downloadReferrer = searchParams.get('referrer') || '직접 접속'
+  const downloadReferrer = searchParams.get('referrer') || 'Direct visit'
   const appRedirectHandledRef = useRef(false)
 
   const isFromApp = from === 'app' || from === 'app-dev'
   const isFromDownload = from === 'download'
+  const title = isFromDownload ? 'Welcome to Clipa' : 'Welcome back'
+  const description = isFromDownload
+    ? 'Sign in to download Clipa Studio for free.'
+    : 'Sign in to access your Clipa account'
 
   useEffect(() => {
     if (!isFromDownload) return
@@ -82,6 +86,17 @@ export default function LoginClient() {
     )
   }
 
+  if (user && isFromDownload) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0C0C14]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400 mx-auto mb-4"></div>
+          <p className="text-white/50">Preparing your download...</p>
+        </div>
+      </div>
+    )
+  }
+
   if (user && !isFromApp) {
     return null
   }
@@ -99,15 +114,16 @@ export default function LoginClient() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0C0C14] relative overflow-hidden flex items-center justify-center px-5 py-12">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_50%_18%,#242033_0%,#141421_42%,#0C0C14_100%)] relative overflow-hidden flex items-center justify-center px-5 py-12">
       {/* Floating decorative blocks */}
-      <div className="absolute top-[10%] left-[8%] w-48 h-28 rounded-3xl bg-gradient-to-br from-purple-500/10 to-purple-600/5 border border-purple-500/10 rotate-[-8deg] blur-[1px] animate-float" />
-      <div className="absolute top-[25%] right-[10%] w-36 h-36 rounded-2xl bg-gradient-to-br from-purple-400/10 to-violet-600/5 border border-purple-400/10 rotate-[12deg] blur-[1px] animate-float" style={{ animationDelay: '1.5s' }} />
-      <div className="absolute bottom-[15%] left-[12%] w-28 h-28 rounded-2xl bg-gradient-to-br from-pink-500/10 to-rose-600/5 border border-pink-500/10 rotate-[6deg] blur-[1px] animate-float" style={{ animationDelay: '3s' }} />
-      <div className="absolute bottom-[30%] right-[6%] w-44 h-24 rounded-3xl bg-gradient-to-br from-violet-500/8 to-purple-600/4 border border-violet-500/8 rotate-[-5deg] blur-[1px] animate-float" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-[10%] left-[8%] w-48 h-28 rounded-3xl bg-gradient-to-br from-purple-400/18 to-blue-500/8 border border-purple-300/15 rotate-[-8deg] blur-[1px] animate-float" />
+      <div className="absolute top-[25%] right-[10%] w-36 h-36 rounded-2xl bg-gradient-to-br from-violet-300/16 to-sky-500/8 border border-violet-300/15 rotate-[12deg] blur-[1px] animate-float" style={{ animationDelay: '1.5s' }} />
+      <div className="absolute bottom-[15%] left-[12%] w-28 h-28 rounded-2xl bg-gradient-to-br from-pink-400/16 to-rose-500/8 border border-pink-300/15 rotate-[6deg] blur-[1px] animate-float" style={{ animationDelay: '3s' }} />
+      <div className="absolute bottom-[30%] right-[6%] w-44 h-24 rounded-3xl bg-gradient-to-br from-blue-400/12 to-violet-500/8 border border-blue-300/10 rotate-[-5deg] blur-[1px] animate-float" style={{ animationDelay: '2s' }} />
 
       {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/[0.06] blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[680px] h-[680px] rounded-full bg-purple-400/[0.11] blur-[120px] pointer-events-none" />
+      <div className="absolute top-[18%] left-1/2 -translate-x-1/2 w-[520px] h-[260px] rounded-full bg-white/[0.035] blur-[80px] pointer-events-none" />
 
       {/* Back to home */}
       <Link
@@ -121,24 +137,24 @@ export default function LoginClient() {
       </Link>
 
       {/* Login card */}
-      <div className="glass-card-static !rounded-3xl w-full max-w-[420px] p-8 sm:p-10 relative z-10">
+      <div className="glass-card-static login-card !rounded-3xl w-full max-w-[460px] p-8 sm:p-10 relative z-10">
         {/* Logo + Heading */}
-        <div className="text-center mb-9">
+        <div className="text-center mb-8">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="w-16 h-16 mx-auto mb-4"
+            className="w-16 h-16 mx-auto mb-5"
           >
             <source src="/images/logo-anim.webm" type="video/webm" />
             <source src="/images/logo-anim.mp4" type="video/mp4" />
           </video>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            Welcome back
+          <h1 className="text-[2rem] sm:text-[2.65rem] font-bold text-white mb-3 leading-tight">
+            {title}
           </h1>
-          <p className="text-white/50 text-sm">
-            {isFromDownload ? 'Sign in first to download Clipa Studio' : 'Sign in to access your Clipa account'}
+          <p className="text-white/65 text-[15px] sm:text-base leading-normal text-balance max-w-[360px] mx-auto">
+            {description}
           </p>
         </div>
 
@@ -182,11 +198,13 @@ export default function LoginClient() {
         </div>
 
         {/* Terms */}
-        <p className="text-center text-xs text-white/40 mt-8 leading-relaxed">
-          By continuing, you agree to our{' '}
-          <Link href="/terms" className="text-primary-400 hover:text-primary-300 transition-colors">Terms of Service</Link>
-          {' '}and{' '}
-          <Link href="/privacy" className="text-primary-400 hover:text-primary-300 transition-colors">Privacy Policy</Link>
+        <p className="text-center text-xs text-white/50 mt-8 leading-relaxed max-w-[320px] mx-auto">
+          By continuing, you agree to Clipa's{' '}
+          <span className="whitespace-nowrap">
+            <Link href="/terms" className="text-primary-300 hover:text-primary-200 transition-colors">Terms</Link>
+            {' '}and{' '}
+            <Link href="/privacy" className="text-primary-300 hover:text-primary-200 transition-colors">Privacy Policy</Link>
+          </span>
         </p>
       </div>
     </div>

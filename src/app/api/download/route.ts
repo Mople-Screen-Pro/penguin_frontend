@@ -62,7 +62,7 @@ const getLocationInfo = async (request: NextRequest, ip: string) => {
 const notifyDownloadSuccess = async (request: NextRequest, location: string) => {
   if (!SLACK_WEBHOOK_URL) return
 
-  const referrer = request.nextUrl.searchParams.get('referrer') || request.headers.get('referer') || '직접 접속'
+  const referrer = request.nextUrl.searchParams.get('referrer') || request.headers.get('referer') || 'Direct visit'
   const ip = getClientIp(request)
   const locationInfo = await getLocationInfo(request, ip)
 

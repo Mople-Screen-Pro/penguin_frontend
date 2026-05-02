@@ -4,7 +4,7 @@ const SLACK_WEBHOOK_URL = process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL || "";
 
 // 사용자 접속 정보 가져오기
 const getUserInfo = async (): Promise<string> => {
-  const referrer = document.referrer || "직접 접속";
+  const referrer = document.referrer || "Direct visit";
   try {
     const res = await fetch("https://ipapi.co/json/");
     const data = await res.json();
