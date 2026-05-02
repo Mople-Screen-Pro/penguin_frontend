@@ -64,7 +64,11 @@ export default function AuthCallbackClient() {
       } else if (from === 'pricing') {
         router.replace('/pricing')
       } else if (from === 'download') {
-        startDownload(searchParams.get('location') || 'login')
+        const downloadLocation = sessionStorage.getItem('clipa:pendingDownloadLocation') || searchParams.get('location') || 'login'
+        const downloadReferrer = sessionStorage.getItem('clipa:pendingDownloadReferrer') || searchParams.get('referrer') || '직접 접속'
+        startDownload(downloadLocation, downloadReferrer)
+        sessionStorage.removeItem('clipa:pendingDownloadLocation')
+        sessionStorage.removeItem('clipa:pendingDownloadReferrer')
         router.replace('/')
       } else {
         // 웹에서 진입한 경우

@@ -10,19 +10,40 @@ const getClientIp = (request: NextRequest) => {
   return forwardedFor || request.headers.get('x-real-ip') || '알 수 없음'
 }
 
+const getLocationInfo = async (ip: string) => {
+  if (ip === '알 수 없음') return '알 수 없음'
+
+  try {
+    const response = await fetch(`https://ipapi.co/${ip}/json/`, {
+      cache: 'no-store',
+    })
+
+    if (!response.ok) return `${ip}`
+
+    const data = await response.json()
+    const city = data.city || ''
+    const country = data.country_code || ''
+    const location = [city, country].filter(Boolean).join(', ') || '알 수 없음'
+
+    return `${location} (${ip})`
+  } catch {
+    return `${ip}`
+  }
+}
+
 const notifyDownloadSuccess = async (request: NextRequest, location: string) => {
   if (!SLACK_WEBHOOK_URL) return
 
-  const referrer = request.headers.get('referer') || '직접 접속'
-  const userAgent = request.headers.get('user-agent') || '알 수 없음'
+  const referrer = request.nextUrl.searchParams.get('referrer') || request.headers.get('referer') || '직접 접속'
   const ip = getClientIp(request)
+  const locationInfo = await getLocationInfo(ip)
 
   try {
     await fetch(SLACK_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        text: `<!channel>\n🔔 딩동! 다운로드 성공 알림이에요~ 🔔\n\n(${location}에서 왔어요)\n📍 IP: ${ip}\n🔗 유입: ${referrer}\n🖥️ User-Agent: ${userAgent}`,
+        text: `<!channel>\n🔔 딩동! 다운로드 성공 알림이에요~ 🔔\n\n(${location}에서 왔어요)\n📍 ${locationInfo}\n🔗 유입: ${referrer}`,
       }),
     })
   } catch (error) {

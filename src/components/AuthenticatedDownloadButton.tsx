@@ -27,6 +27,8 @@ export default function AuthenticatedDownloadButton({
   const router = useRouter()
 
   const handleClick = () => {
+    const referrer = document.referrer || '직접 접속'
+
     if (analyticsLocation) {
       analytics.downloadClick(analyticsLocation)
     }
@@ -36,11 +38,14 @@ export default function AuthenticatedDownloadButton({
     onBeforeNavigate?.()
 
     if (user) {
-      window.location.assign(buildDownloadUrl(location))
+      window.location.assign(buildDownloadUrl(location, referrer))
       return
     }
 
-    const params = new URLSearchParams({ from: 'download', location })
+    sessionStorage.setItem('clipa:pendingDownloadLocation', location)
+    sessionStorage.setItem('clipa:pendingDownloadReferrer', referrer)
+
+    const params = new URLSearchParams({ from: 'download', location, referrer })
     router.push(`/login?${params.toString()}`)
   }
 

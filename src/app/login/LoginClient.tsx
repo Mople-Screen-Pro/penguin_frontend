@@ -15,10 +15,17 @@ export default function LoginClient() {
   const from = searchParams.get('from') || undefined
   const state = searchParams.get('state') || undefined
   const downloadLocation = searchParams.get('location') || 'login'
+  const downloadReferrer = searchParams.get('referrer') || '직접 접속'
   const appRedirectHandledRef = useRef(false)
 
   const isFromApp = from === 'app' || from === 'app-dev'
   const isFromDownload = from === 'download'
+
+  useEffect(() => {
+    if (!isFromDownload) return
+    sessionStorage.setItem('clipa:pendingDownloadLocation', downloadLocation)
+    sessionStorage.setItem('clipa:pendingDownloadReferrer', downloadReferrer)
+  }, [isFromDownload, downloadLocation, downloadReferrer])
 
   // 이미 로그인된 유저가 from=app으로 접근한 경우 처리
   useEffect(() => {
@@ -52,9 +59,11 @@ export default function LoginClient() {
 
   useEffect(() => {
     if (loading || !user || isFromApp || !isFromDownload) return
-    startDownload(downloadLocation)
+    startDownload(downloadLocation, downloadReferrer)
+    sessionStorage.removeItem('clipa:pendingDownloadLocation')
+    sessionStorage.removeItem('clipa:pendingDownloadReferrer')
     router.replace('/')
-  }, [loading, user, isFromApp, isFromDownload, downloadLocation, router])
+  }, [loading, user, isFromApp, isFromDownload, downloadLocation, downloadReferrer, router])
 
   useEffect(() => {
     if (loading || !user || isFromApp || isFromDownload) return
