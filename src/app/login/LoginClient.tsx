@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { useAuth } from '../../contexts/AuthContext'
 import { supabase } from '../../lib/supabase'
 import { redirectToApp } from '../../lib/deeplink'
-import { buildDownloadUrl } from '../../lib/download'
+import { startDownload } from '../../lib/startDownload'
 
 export default function LoginClient() {
   const { user, session, loading, signInWithGoogle, signInWithApple, signInWithGithub } = useAuth()
@@ -52,8 +52,9 @@ export default function LoginClient() {
 
   useEffect(() => {
     if (loading || !user || isFromApp || !isFromDownload) return
-    window.location.assign(buildDownloadUrl(downloadLocation))
-  }, [loading, user, isFromApp, isFromDownload, downloadLocation])
+    startDownload(downloadLocation)
+    router.replace('/')
+  }, [loading, user, isFromApp, isFromDownload, downloadLocation, router])
 
   useEffect(() => {
     if (loading || !user || isFromApp || isFromDownload) return
