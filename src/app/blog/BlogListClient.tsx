@@ -24,10 +24,10 @@ function HeroCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={getPostHref(post)}
-      className="group block glass-card-static !rounded-2xl overflow-hidden hover:!border-primary-400/30"
+      className="group flex h-full flex-col glass-card-static !rounded-2xl overflow-hidden hover:!border-primary-400/30"
     >
       {post.cover_image_url && (
-        <div className="aspect-[2/1] overflow-hidden">
+        <div className="aspect-[2/1] overflow-hidden shrink-0">
           <img
             src={post.cover_image_url}
             alt={post.title}
@@ -35,8 +35,8 @@ function HeroCard({ post }: { post: BlogPost }) {
           />
         </div>
       )}
-      <div className="p-6 md:p-8">
-        <div className="flex items-center gap-3 mb-3">
+      <div className="p-6 md:p-8 flex flex-1 flex-col">
+        <div className="flex min-h-7 items-center gap-3 mb-3">
           {post.published_at && (
             <time className="text-sm text-white/50">
               {formatDate(post.published_at)}
@@ -48,11 +48,11 @@ function HeroCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-white group-hover:text-primary-300 transition-colors mb-3">
+        <h2 className="text-2xl md:text-3xl font-bold text-white group-hover:text-primary-300 transition-colors mb-3 line-clamp-2">
           {post.title}
         </h2>
         {post.excerpt && (
-          <p className="text-base text-white/50 line-clamp-2 leading-relaxed">
+          <p className="text-base text-white/50 line-clamp-3 leading-relaxed">
             {post.excerpt}
           </p>
         )}
@@ -65,10 +65,10 @@ function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={getPostHref(post)}
-      className="group block glass-card-static !rounded-2xl overflow-hidden hover:!border-primary-400/30 hover:-translate-y-1 transition-all duration-200"
+      className="group flex h-full min-h-[455px] flex-col glass-card-static !rounded-2xl overflow-hidden hover:!border-primary-400/30 hover:-translate-y-1 transition-all duration-200"
     >
       {post.cover_image_url && (
-        <div className="aspect-video overflow-hidden">
+        <div className="aspect-video overflow-hidden shrink-0">
           <img
             src={post.cover_image_url}
             alt={post.title}
@@ -76,8 +76,8 @@ function PostCard({ post }: { post: BlogPost }) {
           />
         </div>
       )}
-      <div className="p-5">
-        <div className="flex items-center gap-2 mb-2">
+      <div className="p-5 flex flex-1 flex-col">
+        <div className="flex min-h-7 items-center gap-2 mb-3">
           {post.published_at && (
             <time className="text-xs text-white/50">
               {formatDate(post.published_at)}
@@ -89,11 +89,11 @@ function PostCard({ post }: { post: BlogPost }) {
             </span>
           )}
         </div>
-        <h2 className="text-lg font-semibold text-white group-hover:text-primary-300 transition-colors mb-2">
+        <h2 className="text-lg font-semibold text-white group-hover:text-primary-300 transition-colors mb-3 leading-snug line-clamp-3">
           {post.title}
         </h2>
         {post.excerpt && (
-          <p className="text-sm text-white/50 line-clamp-2 leading-relaxed">
+          <p className="text-sm text-white/50 line-clamp-3 leading-relaxed mt-auto">
             {post.excerpt}
           </p>
         )}
@@ -182,9 +182,9 @@ export default function BlogListClient({ initialPosts }: BlogListClientProps) {
             )}
 
             {restPosts.length > 0 && (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {restPosts.map((post, i) => (
-                  <div key={post.id} className="animate-on-load" style={{ animationDelay: `${0.1 + i * 0.06}s` }}>
+                  <div key={post.id} className="animate-on-load h-full" style={{ animationDelay: `${0.1 + i * 0.06}s` }}>
                     <PostCard post={post} />
                   </div>
                 ))}
