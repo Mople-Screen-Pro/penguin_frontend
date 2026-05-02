@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import AuthenticatedDownloadButton from './AuthenticatedDownloadButton'
 
 const ctaBrands = ['Canva', 'Stitch', 'Miro', 'YouTube', 'TikTok', 'Instagram', 'Figma', 'GitHub', 'VS Code', 'Notion']
 
@@ -473,14 +474,13 @@ export default function Features() {
         <p className="text-white/60 mb-5 text-base">
           Free to download. No credit card required.
         </p>
-        <a
-          href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
-          rel="noopener"
+        <AuthenticatedDownloadButton
+          location="features"
           className="btn-block text-white font-semibold px-10 py-3.5 text-base"
         >
           <img src="/images/app_icon.png" alt="Clipa app icon" className="w-5 h-5" />
           Download Free for Mac
-        </a>
+        </AuthenticatedDownloadButton>
       </div>
 
       {/* Expanded video overlay */}

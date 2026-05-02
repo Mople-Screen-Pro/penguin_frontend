@@ -5,9 +5,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { analytics } from "../lib/analytics";
 import { useAuth } from "../contexts/AuthContext";
-
-const DOWNLOAD_URL =
-  "https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download";
+import AuthenticatedDownloadButton from "./AuthenticatedDownloadButton";
 
 export default function Header() {
   const { user, loading, signOut } = useAuth();
@@ -153,14 +151,13 @@ export default function Header() {
                 )}
               </>
             )}
-            <a
-              href={DOWNLOAD_URL}
-              onClick={() => analytics.downloadClick("header")}
-              rel="noopener"
+            <AuthenticatedDownloadButton
+              location="header"
+              analyticsLocation="header"
               className="btn-block btn-block-sm"
             >
               Download Free for Mac
-            </a>
+            </AuthenticatedDownloadButton>
           </div>
 
           {/* Mobile Toggle */}
@@ -221,12 +218,14 @@ export default function Header() {
                   >
                     Sign in
                   </Link>
-                  <a
-                    href={DOWNLOAD_URL}
+                  <AuthenticatedDownloadButton
+                    location="mobile_menu"
+                    analyticsLocation="mobile_menu"
+                    onBeforeNavigate={() => setMobileMenuOpen(false)}
                     className="btn-block w-full py-3 text-center"
                   >
                     Download Free for Mac
-                  </a>
+                  </AuthenticatedDownloadButton>
                 </div>
               )}
             </div>
