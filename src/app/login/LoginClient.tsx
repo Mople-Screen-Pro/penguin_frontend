@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { useAuth } from '../../contexts/AuthContext'
 import { supabase } from '../../lib/supabase'
 import { redirectToApp } from '../../lib/deeplink'
+import { buildDownloadUrl } from '../../lib/download'
 
 export default function LoginClient() {
   const { user, session, loading, signInWithGoogle, signInWithApple, signInWithGithub } = useAuth()
@@ -13,9 +14,11 @@ export default function LoginClient() {
   const router = useRouter()
   const from = searchParams.get('from') || undefined
   const state = searchParams.get('state') || undefined
+  const downloadLocation = searchParams.get('location') || 'login'
   const appRedirectHandledRef = useRef(false)
 
   const isFromApp = from === 'app' || from === 'app-dev'
+  const isFromDownload = from === 'download'
 
   // 이미 로그인된 유저가 from=app으로 접근한 경우 처리
   useEffect(() => {
@@ -47,6 +50,16 @@ export default function LoginClient() {
     handleAppRedirect()
   }, [loading, user, session, from, state, isFromApp, router])
 
+  useEffect(() => {
+    if (loading || !user || isFromApp || !isFromDownload) return
+    window.location.assign(buildDownloadUrl(downloadLocation))
+  }, [loading, user, isFromApp, isFromDownload, downloadLocation])
+
+  useEffect(() => {
+    if (loading || !user || isFromApp || isFromDownload) return
+    router.replace('/')
+  }, [loading, user, isFromApp, isFromDownload, router])
+
   // 세션 확인 중 로딩 표시
   if (loading) {
     return (
@@ -60,7 +73,6 @@ export default function LoginClient() {
   }
 
   if (user && !isFromApp) {
-    router.replace('/')
     return null
   }
 
@@ -116,7 +128,7 @@ export default function LoginClient() {
             Welcome back
           </h1>
           <p className="text-white/50 text-sm">
-            Sign in to access your Clipa account
+            {isFromDownload ? 'Sign in first to download Clipa Studio' : 'Sign in to access your Clipa account'}
           </p>
         </div>
 
@@ -158,28 +170,6 @@ export default function LoginClient() {
             Continue with GitHub
           </button>
         </div>
-
-        {/* Divider */}
-        <div className="relative my-8">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-          </div>
-          <div className="relative flex justify-center">
-            <span className="px-4 text-xs text-white/40 uppercase tracking-wider font-medium">or download</span>
-          </div>
-        </div>
-
-        {/* Download CTA — primary block button */}
-        <a
-          href="https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download"
-          rel="noopener"
-          className="btn-block w-full !justify-center"
-        >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-          </svg>
-          Download Free for Mac
-        </a>
 
         {/* Terms */}
         <p className="text-center text-xs text-white/40 mt-8 leading-relaxed">

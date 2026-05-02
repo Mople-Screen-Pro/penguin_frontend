@@ -64,10 +64,6 @@ export const analytics = {
   // 다운로드 버튼 클릭
   downloadClick: (location: "header" | "hero" | "cta" | "mobile_menu") => {
     trackEvent("download_click", "CTA", location);
-    sendSlackNotification(
-      `<!channel>\n🔔 딩동! 다운로드 알림이에요~ 🔔\n\n(${location}에서 왔어요)`,
-      true
-    );
   },
 
   // 문의 이메일 클릭

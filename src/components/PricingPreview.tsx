@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-
-const DOWNLOAD_URL = 'https://grkyrqhgfgthpghircbu.supabase.co/functions/v1/download'
+import AuthenticatedDownloadButton from './AuthenticatedDownloadButton'
 
 export default function PricingPreview() {
   const sectionRef = useScrollReveal()
@@ -61,9 +60,9 @@ export default function PricingPreview() {
         </div>
 
         <div className="animate-on-scroll flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href={DOWNLOAD_URL} className="btn-block text-white font-semibold px-8 py-3 text-base">
+          <AuthenticatedDownloadButton location="pricing_preview" className="btn-block text-white font-semibold px-8 py-3 text-base">
             Download Free for Mac
-          </a>
+          </AuthenticatedDownloadButton>
           <Link href="/pricing" className="text-sm text-primary-400 hover:text-primary-300 font-medium transition-colors">
             See all plans &rarr;
           </Link>

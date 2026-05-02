@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase } from '../../../lib/supabase'
 import { getSubscription } from '../../../lib/subscription'
 import { redirectToApp } from '../../../lib/deeplink'
+import { buildDownloadUrl } from '../../../lib/download'
 
 export default function AuthCallbackClient() {
   const router = useRouter()
@@ -62,6 +63,8 @@ export default function AuthCallbackClient() {
         }
       } else if (from === 'pricing') {
         router.replace('/pricing')
+      } else if (from === 'download') {
+        window.location.assign(buildDownloadUrl(searchParams.get('location') || 'login'))
       } else {
         // 웹에서 진입한 경우
         router.push('/')
