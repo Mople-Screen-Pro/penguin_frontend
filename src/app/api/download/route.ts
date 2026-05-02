@@ -10,24 +10,52 @@ const getClientIp = (request: NextRequest) => {
   return forwardedFor || request.headers.get('x-real-ip') || '알 수 없음'
 }
 
-const getLocationInfo = async (ip: string) => {
-  if (ip === '알 수 없음') return '알 수 없음'
+const decodeHeaderValue = (value: string | null) => {
+  if (!value) return ''
+
+  try {
+    return decodeURIComponent(value)
+  } catch {
+    return value
+  }
+}
+
+const getHeaderLocation = (request: NextRequest) => {
+  const city = decodeHeaderValue(request.headers.get('x-vercel-ip-city'))
+  const region = decodeHeaderValue(request.headers.get('x-vercel-ip-country-region'))
+  const country = request.headers.get('x-vercel-ip-country') || ''
+
+  return [city || region, country].filter(Boolean).join(', ')
+}
+
+const formatLocationInfo = (location: string, ip: string) => {
+  if (location) return `${location} (${ip})`
+  return ip
+}
+
+const getLocationInfo = async (request: NextRequest, ip: string) => {
+  const headerLocation = getHeaderLocation(request)
+
+  if (ip === '알 수 없음') {
+    return headerLocation || '알 수 없음'
+  }
 
   try {
     const response = await fetch(`https://ipapi.co/${ip}/json/`, {
       cache: 'no-store',
     })
 
-    if (!response.ok) return `${ip}`
+    if (!response.ok) return formatLocationInfo(headerLocation, ip)
 
     const data = await response.json()
     const city = data.city || ''
+    const region = data.region_code || data.region || ''
     const country = data.country_code || ''
-    const location = [city, country].filter(Boolean).join(', ') || '알 수 없음'
+    const location = [city || region, country].filter(Boolean).join(', ') || headerLocation
 
-    return `${location} (${ip})`
+    return formatLocationInfo(location, ip)
   } catch {
-    return `${ip}`
+    return formatLocationInfo(headerLocation, ip)
   }
 }
 
@@ -36,7 +64,7 @@ const notifyDownloadSuccess = async (request: NextRequest, location: string) => 
 
   const referrer = request.nextUrl.searchParams.get('referrer') || request.headers.get('referer') || '직접 접속'
   const ip = getClientIp(request)
-  const locationInfo = await getLocationInfo(ip)
+  const locationInfo = await getLocationInfo(request, ip)
 
   try {
     await fetch(SLACK_WEBHOOK_URL, {
