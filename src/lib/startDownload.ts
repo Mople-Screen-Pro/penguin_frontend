@@ -1,4 +1,5 @@
 import { buildDownloadUrl } from './download'
+import { recordFirstAppDownload } from './downloadTracking'
 
 export const DOWNLOAD_FEEDBACK_MS = 3_500
 export const DOWNLOAD_FEEDBACK_EVENT = 'clipa:download-feedback'
@@ -28,6 +29,7 @@ const setDownloadFeedback = (location?: string) => {
 
 export const startDownload = (location?: string, referrer?: string) => {
   setDownloadFeedback(location)
+  void recordFirstAppDownload(location, referrer)
 
   const iframe = document.createElement('iframe')
   iframe.src = buildDownloadUrl(location, referrer)
